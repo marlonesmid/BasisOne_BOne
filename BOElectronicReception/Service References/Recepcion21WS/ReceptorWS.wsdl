@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ReceptorWS" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IReceptorWS_EstadoDocumento_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstadoDocumento" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EstadoDocumento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstadoDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_Reporte_InputMessage">
+    <wsdl:part name="parameters" element="tns:Reporte" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_Reporte_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_ReporteStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteStatus" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_ReporteStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_CambioEstatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:CambioEstatus" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_CambioEstatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CambioEstatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_AcuseRecibo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcuseRecibo" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_AcuseRecibo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcuseReciboResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarXML" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarRepGrafica_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarRepGrafica" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarRepGrafica_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarRepGraficaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAcuseRecibidoXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAcuseRecibidoXML" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAcuseRecibidoXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAcuseRecibidoXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAcuseAceptacionXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAcuseAceptacionXML" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAcuseAceptacionXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAcuseAceptacionXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAcuseReclamoXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAcuseReclamoXML" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAcuseReclamoXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAcuseReclamoXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarRecepcionBienServicioXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarRecepcionBienServicioXML" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarRecepcionBienServicioXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarRecepcionBienServicioXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAnexo_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAnexo" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_DescargarAnexo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarAnexoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_ListaAnexo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListaAnexo" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_ListaAnexo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListaAnexoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EliminarAnexo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarAnexo" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EliminarAnexo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarAnexoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EliminarRepGrafica_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarRepGrafica" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EliminarRepGrafica_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarRepGraficaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarXML" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarRepGrafica_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarRepGrafica" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarRepGrafica_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarRepGraficaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarAnexo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarAnexo" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarAnexo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarAnexoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarMetadata_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarMetadata" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_EnviarMetadata_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarMetadataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_CosultaDocumentoMetadata_InputMessage">
+    <wsdl:part name="parameters" element="tns:CosultaDocumentoMetadata" />
+  </wsdl:message>
+  <wsdl:message name="IReceptorWS_CosultaDocumentoMetadata_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CosultaDocumentoMetadataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IReceptorWS">
+    <wsdl:operation name="EstadoDocumento">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/EstadoDocumento" message="tns:IReceptorWS_EstadoDocumento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/EstadoDocumentoResponse" message="tns:IReceptorWS_EstadoDocumento_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Reporte">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/Reporte" message="tns:IReceptorWS_Reporte_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/ReporteResponse" message="tns:IReceptorWS_Reporte_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/ReporteStatus" message="tns:IReceptorWS_ReporteStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/ReporteStatusResponse" message="tns:IReceptorWS_ReporteStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CambioEstatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/CambioEstatus" message="tns:IReceptorWS_CambioEstatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/CambioEstatusResponse" message="tns:IReceptorWS_CambioEstatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcuseRecibo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/AcuseRecibo" message="tns:IReceptorWS_AcuseRecibo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/AcuseReciboResponse" message="tns:IReceptorWS_AcuseRecibo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/DescargarXML" message="tns:IReceptorWS_DescargarXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/DescargarXMLResponse" message="tns:IReceptorWS_DescargarXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarRepGrafica">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/DescargarRepGrafica" message="tns:IReceptorWS_DescargarRepGrafica_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/DescargarRepGraficaResponse" message="tns:IReceptorWS_DescargarRepGrafica_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAcuseRecibidoXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAcuseRecibidoXML" message="tns:IReceptorWS_DescargarAcuseRecibidoXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAcuseRecibidoXMLResponse" message="tns:IReceptorWS_DescargarAcuseRecibidoXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAcuseAceptacionXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAcuseAceptacionXML" message="tns:IReceptorWS_DescargarAcuseAceptacionXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAcuseAceptacionXMLResponse" message="tns:IReceptorWS_DescargarAcuseAceptacionXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAcuseReclamoXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAcuseReclamoXML" message="tns:IReceptorWS_DescargarAcuseReclamoXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAcuseReclamoXMLResponse" message="tns:IReceptorWS_DescargarAcuseReclamoXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarRecepcionBienServicioXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/DescargarRecepcionBienServicioXML" message="tns:IReceptorWS_DescargarRecepcionBienServicioXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/DescargarRecepcionBienServicioXMLResponse" message="tns:IReceptorWS_DescargarRecepcionBienServicioXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAnexo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAnexo" message="tns:IReceptorWS_DescargarAnexo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/DescargarAnexoResponse" message="tns:IReceptorWS_DescargarAnexo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaAnexo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/ListaAnexo" message="tns:IReceptorWS_ListaAnexo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/ListaAnexoResponse" message="tns:IReceptorWS_ListaAnexo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarAnexo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/EliminarAnexo" message="tns:IReceptorWS_EliminarAnexo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/EliminarAnexoResponse" message="tns:IReceptorWS_EliminarAnexo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarRepGrafica">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/EliminarRepGrafica" message="tns:IReceptorWS_EliminarRepGrafica_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/EliminarRepGraficaResponse" message="tns:IReceptorWS_EliminarRepGrafica_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/EnviarXML" message="tns:IReceptorWS_EnviarXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/EnviarXMLResponse" message="tns:IReceptorWS_EnviarXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarRepGrafica">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/EnviarRepGrafica" message="tns:IReceptorWS_EnviarRepGrafica_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/EnviarRepGraficaResponse" message="tns:IReceptorWS_EnviarRepGrafica_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarAnexo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/EnviarAnexo" message="tns:IReceptorWS_EnviarAnexo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/EnviarAnexoResponse" message="tns:IReceptorWS_EnviarAnexo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarMetadata">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/EnviarMetadata" message="tns:IReceptorWS_EnviarMetadata_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/EnviarMetadataResponse" message="tns:IReceptorWS_EnviarMetadata_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CosultaDocumentoMetadata">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReceptorWS/CosultaDocumentoMetadata" message="tns:IReceptorWS_CosultaDocumentoMetadata_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReceptorWS/CosultaDocumentoMetadataResponse" message="tns:IReceptorWS_CosultaDocumentoMetadata_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IReceptorWS" type="tns:IReceptorWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EstadoDocumento">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/EstadoDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Reporte">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/Reporte" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteStatus">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/ReporteStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambioEstatus">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/CambioEstatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcuseRecibo">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/AcuseRecibo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarXML">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/DescargarXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarRepGrafica">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/DescargarRepGrafica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAcuseRecibidoXML">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/DescargarAcuseRecibidoXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAcuseAceptacionXML">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/DescargarAcuseAceptacionXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAcuseReclamoXML">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/DescargarAcuseReclamoXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarRecepcionBienServicioXML">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/DescargarRecepcionBienServicioXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarAnexo">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/DescargarAnexo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaAnexo">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/ListaAnexo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarAnexo">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/EliminarAnexo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarRepGrafica">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/EliminarRepGrafica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarXML">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/EnviarXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarRepGrafica">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/EnviarRepGrafica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarAnexo">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/EnviarAnexo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarMetadata">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/EnviarMetadata" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CosultaDocumentoMetadata">
+      <soap:operation soapAction="http://tempuri.org/IReceptorWS/CosultaDocumentoMetadata" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReceptorWS">
+    <wsdl:port name="BasicHttpBinding_IReceptorWS" binding="tns:BasicHttpBinding_IReceptorWS">
+      <soap:address location="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

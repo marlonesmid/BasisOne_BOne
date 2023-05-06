@@ -1,0 +1,168 @@
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\Presupuesto.dll
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\Presupuesto.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\Funciones.dll
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\Funciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\bin\x86\Presupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\bin\x86\Presupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\bin\x86\Funciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\bin\x86\Funciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\obj\Debug\Interop.SAPbobsCOM.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\obj\Debug\Interop.SAPbouiCOM.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\obj\Debug\Presupuesto.csproj.ResolveComReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\obj\Debug\Presupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne\Presupuesto\obj\Debug\Presupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\Presupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\Presupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\Funciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\Funciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\obj\Debug\Presupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\obj\Debug\Presupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\Presupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\Presupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\Funciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\Funciones.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\Presupuesto.dll
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\Presupuesto.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\Funciones.dll
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\SAPBusinessOneSDK.dll
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x86\Funciones.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\obj\Debug\Presupuesto.dll
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\obj\Debug\Presupuesto.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOPresupuesto.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOPresupuesto.pdb
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOFunciones.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOFunciones.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOPresupuesto.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOPresupuesto.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOFunciones.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOFunciones.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\obj\Debug\BOPresupuesto.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\obj\Debug\BOPresupuesto.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOPresupuesto.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOPresupuesto.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOFunciones.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Presupuesto\bin\x86\BOFunciones.pdb
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOPresupuesto.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOPresupuesto.pdb
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOFunciones.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\bin\x64\BOFunciones.pdb
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\obj\Debug\BOPresupuesto.dll
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\obj\Debug\BOPresupuesto.pdb
+D:\Github\AddOn_BasisOne_SAP10\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.pdb
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.pdb
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\obj\Debug\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Presupuesto\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\obj\Debug\Presupuesto.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\obj\Debug\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\obj\Debug\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Presupuesto\bin\x86\BOFunciones.dll

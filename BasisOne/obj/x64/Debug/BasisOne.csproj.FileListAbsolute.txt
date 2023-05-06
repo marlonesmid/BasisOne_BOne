@@ -1,0 +1,298 @@
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BasisOne.exe.config
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Formularios\ConfPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Formularios\PerfilPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Formularios\PresupCuenta.srf
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\recursos\img\LogoBO20x20.bmp
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BasisOne.exe
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BasisOne.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\eBilling.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Funciones.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Intercompany.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Presupuesto.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.Shared.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.DataDefModel.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.ClientDoc.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.Enterprise.Framework.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CommLayer.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.Controllers.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.Enterprise.InfoStore.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.Prompting.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\log4net.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CommonControls.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\stdole.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\CrystalDecisions.Enterprise.PluginManager.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BusinessObjects.Foundation.Logging.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Presupuesto.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\eBilling.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Funciones.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\Intercompany.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.ebus.netmodule
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.fssl.netmodule
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.Ssl.netmodule
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.netmodule
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.ZipLib.netmodule
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\obj\x64\Debug\BasisOne.exe
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BasisOne.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\obj\x64\Debug\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\recursos\img\LogoBO20x20.bmp
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\eBilling.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Funciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Intercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Presupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.Enterprise.Framework.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.Enterprise.InfoStore.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\log4net.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\CrystalDecisions.Enterprise.PluginManager.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BusinessObjects.Foundation.Logging.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Presupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\eBilling.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Funciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Intercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.ebus.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.fssl.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.Ssl.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\BusinessObjects.Enterprise.Sdk.ZipLib.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Interop.SAPbobsCOM.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x86\Interop.SAPbouiCOM.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BasisOne.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\recursos\img\LogoBO20x20.bmp
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Funciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Intercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Presupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.Enterprise.Framework.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.Enterprise.InfoStore.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\log4net.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.Enterprise.PluginManager.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BusinessObjects.Enterprise.Sdk.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BusinessObjects.Foundation.Logging.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Presupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\eBilling.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Funciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\Intercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BusinessObjects.Enterprise.Sdk.ebus.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BusinessObjects.Enterprise.Sdk.fssl.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BusinessObjects.Enterprise.Sdk.Ssl.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BusinessObjects.Enterprise.Sdk.netmodule
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\BusinessObjects.Enterprise.Sdk.ZipLib.netmodule
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\BasisOne.exe.config
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Formularios\ConfPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Formularios\PerfilPresup.srf
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Formularios\PresupCuenta.srf
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\recursos\img\LogoBO20x20.bmp
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\BasisOne.exe
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\BasisOne.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\eBilling.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Funciones.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Intercompany.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Presupuesto.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\log4net.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\stdole.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Presupuesto.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\eBilling.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Funciones.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\Intercompany.pdb
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\BasisOne\bin\x64\eBilling.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+E:\BasisOne\BasisOneCO\BasisOne\BasisOne\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BasisOne.exe.config
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\obj\x64\Debug\BasisOne.exe
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\recursos\img\LogoBO20x20.bmp
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BasisOne.exe
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BasisOne.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOeBilling.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOFunciones.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOIntercompany.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOPresupuesto.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOProduccion.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\log4net.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\stdole.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOeBilling.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOFunciones.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOIntercompany.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOPresupuesto.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOProduccion.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\recursos\img\LogoBO20x20.bmp
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BasisOne.exe.config
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BasisOne.exe
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BasisOne.pdb
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOeBilling.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOFunciones.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOPresupuesto.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOProduccion.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\stdole.dll
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOeBilling.pdb
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOFunciones.pdb
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOIntercompany.pdb
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOPresupuesto.pdb
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOProduccion.pdb
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\obj\x64\Debug\BasisOne.exe
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\obj\x64\Debug\BasisOne.pdb
+D:\Github\AddOn_BasisOne_SAP10\BasisOne\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BasisOne.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOeBilling.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\log4net.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOeBilling.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.Properties.Resources.resources
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csproj.GenerateResource.Cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOElectronicReception.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOElectronicReception.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BasisOne.exe.config
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.exe
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BasisOne.exe
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BasisOne.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOeBilling.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOElectronicReception.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOFunciones.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOIntercompany.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOPresupuesto.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOProduccion.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\log4net.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\stdole.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOeBilling.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOElectronicReception.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOFunciones.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOIntercompany.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOPresupuesto.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\bin\x64\BOProduccion.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.Properties.Resources.resources
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csproj.GenerateResource.Cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BasisOne.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOeBilling.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOElectronicReception.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\log4net.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOeBilling.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOElectronicReception.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.Properties.Resources.resources
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csproj.GenerateResource.Cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOCore.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOeBilling.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOElectronicReception.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\log4net.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOCore.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOeBilling.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOElectronicReception.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.Properties.Resources.resources
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.csproj.GenerateResource.Cache

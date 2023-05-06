@@ -1,0 +1,81 @@
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOProduccion.dll
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOProduccion.pdb
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOFunciones.dll
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOFunciones.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOProduccion.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOProduccion.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOFunciones.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x86\BOFunciones.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\obj\Debug\BOProduccion.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\obj\Debug\BOProduccion.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOProduccion.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOProduccion.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOFunciones.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOFunciones.pdb
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOProduccion.dll
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOProduccion.pdb
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOFunciones.dll
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\bin\x64\BOFunciones.pdb
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\obj\Debug\BOProduccion.dll
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\obj\Debug\BOProduccion.pdb
+D:\Github\AddOn_BasisOne_SAP10\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.pdb
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.pdb
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x86\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x86\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x86\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\obj\Debug\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x86\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x86\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x86\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BOProduccion\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x86\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x86\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\obj\Debug\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\obj\Debug\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOProduccion\bin\x86\BOFunciones.dll

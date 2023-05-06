@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Queries>
+  
+  <GetModoandURL>
+    
+      SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRU' THEN "U_BO_URLWSRPRU" ELSE "U_BO_URLWSRPRD" END AS "URLTFHKA",
+             "U_BO_Mdo" AS "Modo",
+             "U_BO_MI" AS "ModoIntegracion",
+             "U_BO_PCR" AS "ProtocoloComunicacion",
+             (SELECT TOP 1 "U_BO_LlE" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y') AS "TokenEmpresa",
+             (SELECT TOP 1 "U_BO_PwdE" FROM "%sNameDB%"."@BOEBILLINGP"  WHERE "U_BO_Status" = 'Y') AS "TokenPassword",
+             (SELECT COUNT(*) + 500 AS "Contador" FROM "@BOTREDRPT") AS "Consecutivo",
+             "U_BO_RutaXML" AS "RutaXML", 
+             "U_BO_RutaPDF" AS "RutaPDF"
+             
+      FROM "%sNameDB%"."@BOEBILLINGP"      
+  
+  </GetModoandURL>
+
+  <SyncDocsRecep>
+
+    CALL "BOT_InsertDocuments" ('%ProveedorTechnologico%','%ConsecutivoTFHKA%','%CUFE%', '%StatusDIANCodigo%', '%StatusDIANDescripcion%', '%StatusDIANFecha%', '%FechaEmision%', '%FechaRecepcion%', '%HoraEmision%', '%MontoTotal%', '%NumeroFactura%', '%NumeroIdentificacion%', '%RazonSocial%', '%TipoDocumento%', '%TipoEmisor%', '%TipoIdentidad%', '%prmCodEstatusDIAN%');
+
+  </SyncDocsRecep>
+
+  <sGetDocumentsDownload>
+    
+    SELECT TOP 10 * FROM "@BOTREDRPT" WHERE "U_BOTCWSXML" IS NULL OR "U_BOTCWSPDF" IS NULL ;
+
+  </sGetDocumentsDownload>
+
+  <SyncAttachment>
+
+    CALL "BOT_SyncAttachment" ('%prmTipoAdjunto%','%pmrFile%','%prmNIT%','%prmNF%', '%CRWS%');
+
+  </SyncAttachment>
+
+  <GetInvoices>
+    
+    SELECT ROW_NUMBER() OVER(ORDER BY A."Code" ASC) AS "#", 
+
+          CASE WHEN "U_BOTEED" = '00' THEN 'Cargado'
+          		WHEN "U_BOTEED" = '01' THEN 'Entregado'
+          		WHEN "U_BOTEED" = '02' THEN 'Aceptación expresa (DIAN)'
+          		WHEN "U_BOTEED" = '04' THEN 'Reclamo (DIAN)'
+          		WHEN "U_BOTEED" = '10' THEN 'Acuse de recibo (DIAN'
+          		WHEN "U_BOTEED" = '11' THEN 'Rechazado (DIAN)'
+          		WHEN "U_BOTEED" = '12' THEN 'Recibo del bien y/o prestación del servicio'
+          		WHEN "U_BOTEED" = '13' THEN 'Precargado'
+          		ELSE '' END AS "Estado",
+          
+          '' AS "DocEntry",
+          "U_BOTNF" AS "Num_Fac_Pro",
+          '' AS "Num_Fac_Preeli",
+          '' AS "Num_Fac_SAP",
+          '' AS "Serie_Numeracion",
+          B."LicTradNum" AS "Codigo_cliente",
+          "U_BOTNI" AS "NumeroIdentificacion", 
+          "U_BOTNRS" AS "Nombre_del_Cliente",
+          '' AS "Fecha_Documento",
+          '' AS "Fecha_vencimiento",
+          '' AS "Condicion_de_Pago",
+          "U_BOTMT" AS "Total_Documento",          
+          "U_BOTCUFE" AS "CUFE",
+          "U_BOTFE" AS "Fecha_emision",
+          "U_BOTFR" AS "Fecha_recepcion",
+          "U_BOTHE" AS "Hora_emision",
+          '' AS "Fecha_Hora_Apro_DIAN",
+          
+		  CASE WHEN "U_BOTNDP" IS NULL AND "U_BOTNDD" IS NULL THEN 'Sincronizado'
+			   WHEN "U_BOTNDP" != NULL AND "U_BOTNDD" IS NULL THEN 'Preeliminar'
+			   WHEN "U_BOTNDP" != NULL AND "U_BOTNDD" != NULL THEN 'Contabilizado'
+			   ELSE '' END AS "Estado_SAP",
+       CASE WHEN "U_BOTPAXML" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaXML",
+       CASE WHEN "U_BOTPAPDF" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaPDF",
+       ('%PathImages%'||'Aceptar.bmp') as "ImageAceptar",
+       ('%PathImages%'||'Cancelar.bmp') as "ImageCancelar",
+       "U_BOTPAXML" AS "RutaXML",
+       "U_BOTPAPDF" AS "RutaPDF"
+          
+          
+    FROM "@BOTREDRPT" A LEFT JOIN ( SELECT CASE WHEN LOCATE(T0."LicTradNum",'-') = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,LOCATE(T0."LicTradNum",'-')-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum" 
+    WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%'
+
+    
+    
+  </GetInvoices>
+
+  <GetCreditMemo>
+    
+    SELECT ROW_NUMBER() OVER(ORDER BY A."Code" ASC) AS "#", 
+          '' AS "Estado",
+          '' AS "DocEntry",
+          "U_BOTNDPT" AS "Num_Fac_Pro",
+          '' AS "Num_Fac_Preeli",
+          '' AS "Num_Fac_SAP",
+          '' AS "Serie_Numeracion",
+          '' AS "Codigo_cliente",
+          "U_BOTNI" AS "NumeroIdentificacion", 
+          "U_BOTNRS" AS "Nombre_del_Cliente",
+          "U_BOTFE" AS "Fecha_Documento",
+          '' AS "Fecha_vencimiento",
+          '' AS "Condicion_de_Pago",
+          "U_BOTMT" AS "Total_Documento",          
+          "U_BOTCUFE" AS "CUFE",
+          '' AS "Fecha_emision",
+          '' AS "Fecha_recepcion",
+          '' AS "Hora_emision",
+          '' AS "Fecha_Hora_Apro_DIAN"
+          
+    FROM "@BOTREDRPT" A
+    WHERE 1=2
+    
+  </GetCreditMemo>
+
+  <GetDebitMemo>
+    
+    SELECT ROW_NUMBER() OVER(ORDER BY A."Code" ASC) AS "#", 
+          '' AS "Estado",
+          '' AS "DocEntry",
+          "U_BOTNDPT" AS "Num_Fac_Pro",
+          '' AS "Num_Fac_Preeli",
+          '' AS "Num_Fac_SAP",
+          '' AS "Serie_Numeracion",
+          '' AS "Codigo_cliente",
+          "U_BOTNI" AS "NumeroIdentificacion", 
+          "U_BOTNRS" AS "Nombre_del_Cliente",
+          '' AS "Fecha_Documento",
+          '' AS "Fecha_vencimiento",
+          '' AS "Condicion_de_Pago",
+          '' AS "Total_Documento",          
+          "U_BOTCUFE" AS "CUFE",
+          '' AS "Fecha_emision",
+          '' AS "Fecha_recepcion",
+          '' AS "Hora_emision",
+          '' AS "Fecha_Hora_Apro_DIAN"
+          
+    FROM "@BOTREDRPT" A
+    WHERE 1=2
+    
+  </GetDebitMemo>
+
+  <BOT_InsertDocuments>
+    
+    CREATE PROCEDURE "BOT_InsertDocuments"
+      (
+		prmProveedorTechnologico NVARCHAR(50),
+		prmConsecutivoTFHKA NVARCHAR(50),
+		prmCUFE NVARCHAR(250),
+		prmStatusDIANCodigo NVARCHAR(50),
+		prmStatusDIANDescripcion NVARCHAR(50),
+		prmStatusDIANFecha NVARCHAR(50),
+		prmFechaEmision NVARCHAR(50),
+		prmFechaRecepcion NVARCHAR(50),
+		prmHoraEmision NVARCHAR(50),
+		prmMontoTotal NVARCHAR(50),
+		prmNumeroFactura NVARCHAR(50),
+		prmNumeroIdentificacion NVARCHAR(50),
+		prmRazonSocial NVARCHAR(250),
+		prmTipoDocumento NVARCHAR(50),
+		prmTipoEmisor NVARCHAR(50),
+		prmTipoIdentidad NVARCHAR(50),
+		prmCodEstatusDIAN NVARCHAR(50)
+		
+		)    
+
+    LANGUAGE SQLSCRIPT AS
+    
+	    Validation  INT;
+	    Consecutivo NVARCHAR(20); 
+
+    BEGIN
+    
+	    SELECT COUNT(*) INTO  Validation
+	    FROM "@BOTREDRPT" WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;	    
+	    
+	    IF :Validation = 0
+	    
+	    THEN 
+	    	
+	    	SELECT (CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100))) INTO Consecutivo 
+	    	FROM "@BOTREDRPT";
+	    	
+	    	INSERT INTO "@BOTREDRPT" VALUES (
+	    										:Consecutivo,
+	    										:Consecutivo,--CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100)),
+	    										:prmProveedorTechnologico,
+	    										:prmConsecutivoTFHKA,
+	    										:prmCUFE,
+	    										:prmStatusDIANCodigo,
+	    										:prmStatusDIANDescripcion,
+	    										:prmStatusDIANFecha,
+	    										:prmFechaEmision,
+	    										:prmFechaRecepcion,
+	    										:prmHoraEmision,
+	    										:prmMontoTotal,
+	    										:prmNumeroFactura,
+	    										:prmNumeroIdentificacion,
+	    										:prmRazonSocial,
+	    										:prmTipoDocumento,
+	    										:prmTipoEmisor,
+	    										:prmTipoIdentidad,
+	    										:prmCodEstatusDIAN,
+	    										NULL,
+	    										NULL,
+	    										NULL,
+	    										NULL,
+	    										NULL,
+	    										NULL,
+	    										NULL
+	    									
+	    									);
+	    										  
+	    END IF;
+    
+
+  END;
+    
+  </BOT_InsertDocuments>
+
+  <BOT_SyncAttachment>
+    CREATE PROCEDURE "BOT_SyncAttachment"
+      (
+		prmTipoAdjunto NVARCHAR(50),
+		pmrFile NVARCHAR(500),
+		prmNIT NVARCHAR(250),
+		prmNF NVARCHAR(50),
+		CRWS NVARCHAR(50)		
+		)    
+
+    LANGUAGE SQLSCRIPT AS
+    
+	    ExisFile INT;
+	    
+    BEGIN
+    
+    	SELECT COUNT(*) INTO  ExisFile FROM "@BOTREDRPT" WHERE "U_BOTNF" = :prmNF AND "U_BOTNI" = :prmNIT AND "U_BOTCWSPDF" IS NULL ;
+
+		 IF(:ExisFile > 0)
+		 	THEN	 		
+		 		IF (:prmTipoAdjunto = 'PDF')
+			 		THEN
+			 			UPDATE "@BOTREDRPT"
+			    		SET "U_BOTPAXML" = :pmrFile
+			    		WHERE "U_BOTNF" = :prmNF AND "U_BOTNI" = :prmNIT;
+			 		END IF;
+			 	ELSE IF (:prmTipoAdjunto = 'XML')
+			 		THEN
+			 			UPDATE "@BOTREDRPT"
+			    		SET "U_BOTPAPDF" = :pmrFile
+			    		WHERE "U_BOTNF" = :prmNF AND "U_BOTNI" = :prmNIT; 
+			 		END IF ; 	 		
+		 	END IF;    
+
+  	END;
+  </BOT_SyncAttachment>
+
+
+</Queries>

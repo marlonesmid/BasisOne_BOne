@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ReceptorRequestGeneral">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorRequestGeneral" nillable="true" type="tns:ReceptorRequestGeneral" />
+  <xs:complexType name="EstatusDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ListEstatusHistory" nillable="true" type="tns:ArrayOfHistorialEstatus" />
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="estatusDIANDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANcodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANfecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EstatusDocumentoResponse" nillable="true" type="tns:EstatusDocumentoResponse" />
+  <xs:complexType name="ArrayOfHistorialEstatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HistorialEstatus" nillable="true" type="tns:HistorialEstatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHistorialEstatus" nillable="true" type="tns:ArrayOfHistorialEstatus" />
+  <xs:complexType name="HistorialEstatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Comentarios" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoEstatus" type="xs:int" />
+      <xs:element minOccurs="0" name="fecha" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HistorialEstatus" nillable="true" type="tns:HistorialEstatus" />
+  <xs:complexType name="ReceptorReporteRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="consecutivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorReporteRequest" nillable="true" type="tns:ReceptorReporteRequest" />
+  <xs:complexType name="ReporteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="documentoselectronicos" nillable="true" type="tns:ArrayOfInfoDocumento" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pendiente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ultimoEnviado" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReporteResponse" nillable="true" type="tns:ReporteResponse" />
+  <xs:complexType name="ArrayOfInfoDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InfoDocumento" nillable="true" type="tns:InfoDocumento" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInfoDocumento" nillable="true" type="tns:ArrayOfInfoDocumento" />
+  <xs:complexType name="InfoDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correlativoempresa" type="xs:int" />
+      <xs:element minOccurs="0" name="cufe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANcodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANdescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANfecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaemision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fecharecepcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="horaemision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montototal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numerodocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroidentificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="razonsocial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipodocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoidentidad" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InfoDocumento" nillable="true" type="tns:InfoDocumento" />
+  <xs:complexType name="ReceptorReporteStatusRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="consecutivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="status_code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorReporteStatusRequest" nillable="true" type="tns:ReceptorReporteStatusRequest" />
+  <xs:complexType name="ReporteStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="documentoselectronicos" nillable="true" type="tns:ArrayOfInfoDocumentoStatus" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pendiente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ultimoEnviado" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReporteStatusResponse" nillable="true" type="tns:ReporteStatusResponse" />
+  <xs:complexType name="ArrayOfInfoDocumentoStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InfoDocumentoStatus" nillable="true" type="tns:InfoDocumentoStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInfoDocumentoStatus" nillable="true" type="tns:ArrayOfInfoDocumentoStatus" />
+  <xs:complexType name="InfoDocumentoStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correlativoempresa" type="xs:int" />
+      <xs:element minOccurs="0" name="cufe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANcodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANdescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANfecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusnombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaemision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fecharecepcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="horaemision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montototal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numerodocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroidentificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="razonsocial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipodocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoidentidad" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InfoDocumentoStatus" nillable="true" type="tns:InfoDocumentoStatus" />
+  <xs:complexType name="ReceptorCambioEstatusRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EjecutadoPor" nillable="true" type="tns:ReceptorCambioEstatusRequest.EjecutadoPorRequest" />
+      <xs:element minOccurs="0" name="codigoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorCambioEstatusRequest" nillable="true" type="tns:ReceptorCambioEstatusRequest" />
+  <xs:complexType name="ReceptorCambioEstatusRequest.EjecutadoPorRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cargo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Identificacion" nillable="true" type="tns:ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorCambioEstatusRequest.EjecutadoPorRequest" nillable="true" type="tns:ReceptorCambioEstatusRequest.EjecutadoPorRequest" />
+  <xs:complexType name="ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Dv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroIdentificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoIdentificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest" nillable="true" type="tns:ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest" />
+  <xs:complexType name="ResponseGeneral">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseGeneral" nillable="true" type="tns:ResponseGeneral" />
+  <xs:complexType name="FileDownloadResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="archivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="crc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cufe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="size" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FileDownloadResponse" nillable="true" type="tns:FileDownloadResponse" />
+  <xs:complexType name="ReceptorRequestApplicationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nombreFileApplicationResponse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoDescarga" type="xs:int" />
+      <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorRequestApplicationResponse" nillable="true" type="tns:ReceptorRequestApplicationResponse" />
+  <xs:complexType name="ReceptorRequestAnexo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="identificadorInternoAnexo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReceptorRequestAnexo" nillable="true" type="tns:ReceptorRequestAnexo" />
+  <xs:complexType name="FileDownloadResponse1">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="archivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="crc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cufe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="displayname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="extension" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idfile" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sizefile" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="type" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FileDownloadResponse1" nillable="true" type="tns:FileDownloadResponse1" />
+  <xs:complexType name="ArchivoDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ListArchivoDocumento" nillable="true" type="tns:ArrayOfArchivoDocumento" />
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArchivoDocumentoResponse" nillable="true" type="tns:ArchivoDocumentoResponse" />
+  <xs:complexType name="ArrayOfArchivoDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArchivoDocumento" nillable="true" type="tns:ArchivoDocumento" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArchivoDocumento" nillable="true" type="tns:ArrayOfArchivoDocumento" />
+  <xs:complexType name="ArchivoDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Format" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InvoiceFileId" type="xs:int" />
+      <xs:element minOccurs="0" name="InvoiceId" type="xs:int" />
+      <xs:element minOccurs="0" name="NameDisplay" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NameFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PathFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProviderVisible" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeCode" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UpdatedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="size" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArchivoDocumento" nillable="true" type="tns:ArchivoDocumento" />
+  <xs:complexType name="EnviarXMLRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="archivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="metadata" nillable="true" type="tns:ListMetadata" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EnviarXMLRequest" nillable="true" type="tns:EnviarXMLRequest" />
+  <xs:complexType name="ListMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" nillable="true" type="tns:ArrayOfMetadata" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListMetadata" nillable="true" type="tns:ListMetadata" />
+  <xs:complexType name="ArrayOfMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Metadata" nillable="true" type="tns:Metadata" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMetadata" nillable="true" type="tns:ArrayOfMetadata" />
+  <xs:complexType name="Metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="internal1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="internal2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Metadata" nillable="true" type="tns:Metadata" />
+  <xs:complexType name="ResponseGeneralInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="documentoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroIdentificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoIdentificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseGeneralInfo" nillable="true" type="tns:ResponseGeneralInfo" />
+  <xs:complexType name="EnviarArchivoReceptorRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="archivo" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="extension" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="visible" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EnviarArchivoReceptorRequest" nillable="true" type="tns:EnviarArchivoReceptorRequest" />
+  <xs:complexType name="EnviarMetadataReceptorRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="metadata" nillable="true" type="tns:ListMetadata" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EnviarMetadataReceptorRequest" nillable="true" type="tns:EnviarMetadataReceptorRequest" />
+  <xs:complexType name="MetadataDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ListMetadata" nillable="true" type="tns:ArrayOfSPPostMetadata" />
+      <xs:element minOccurs="0" name="codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="estatusDIANDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANcodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDIANfecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estatusDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MetadataDocumentoResponse" nillable="true" type="tns:MetadataDocumentoResponse" />
+  <xs:complexType name="ArrayOfSPPostMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SPPostMetadata" nillable="true" type="tns:SPPostMetadata" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSPPostMetadata" nillable="true" type="tns:ArrayOfSPPostMetadata" />
+  <xs:complexType name="SPPostMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="createdat" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="createdby" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="label" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="updatedat" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="updatedby" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SPPostMetadata" nillable="true" type="tns:SPPostMetadata" />
+</xs:schema>

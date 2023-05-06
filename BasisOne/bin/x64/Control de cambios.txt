@@ -1,0 +1,14 @@
+10.2.0.35 - Se adiciona boton para el envio de correos a clientes.
+          - Se adiciona opcion para que se cierre el formulario de correos despues de enviado.
+          - Se adiciona status bar para indicar que se esta enviando correo electronico.
+          - Se adiciona correción al momento de comprimir los archivos ya que creaba doble comprimido, ahora, solo crea uno
+          - Se adiciona correccion el momento de crear y verificar tablas.
+10.2.0.36 - Se adiciona soporte soporte para URL - HTTPS
+10.2.0.37 - Se adiciona opcion para transferencia de lotes en el modulo de produccion 
+          - Se adiciona opcion de filtro por por referencia en el modulo de produccion en el cuadro control de produccion
+          - Se adiciona opcion de ruta de produccion
+10.2.1.1  - Se adiciona opcion en facturacion electronica para consultar la factura, 
+          - Se adiciona opcion que muestra el estado del documento 
+	  - Se Elmina actualizacion de los correos desde el AddOn, ahora el servicio consultara si se envio el correo o no
+10.2.1.5  - Se adiciona opcion de envio Online y OffLine
+          - Se adiciona opcion de protocolo de comunicacion HTTPS Y HTTPS

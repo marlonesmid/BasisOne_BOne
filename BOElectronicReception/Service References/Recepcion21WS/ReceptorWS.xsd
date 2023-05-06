@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" />
+  <xs:element name="EstadoDocumento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q1:ReceptorRequestGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EstadoDocumentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="EstadoDocumentoResult" nillable="true" type="q2:EstatusDocumentoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Reporte">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q3:ReceptorReporteRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReporteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="ReporteResult" nillable="true" type="q4:ReporteResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReporteStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q5:ReceptorReporteStatusRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReporteStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="ReporteStatusResult" nillable="true" type="q6:ReporteStatusResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CambioEstatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q7:ReceptorCambioEstatusRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CambioEstatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="CambioEstatusResult" nillable="true" type="q8:ResponseGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcuseRecibo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q9:ReceptorCambioEstatusRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcuseReciboResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="AcuseReciboResult" nillable="true" type="q10:ResponseGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarXML">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q11:ReceptorRequestGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarXMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="DescargarXMLResult" nillable="true" type="q12:FileDownloadResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarRepGrafica">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q13:ReceptorRequestGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarRepGraficaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="DescargarRepGraficaResult" nillable="true" type="q14:FileDownloadResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAcuseRecibidoXML">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q15:ReceptorRequestApplicationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAcuseRecibidoXMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="DescargarAcuseRecibidoXMLResult" nillable="true" type="q16:FileDownloadResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAcuseAceptacionXML">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q17:ReceptorRequestApplicationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAcuseAceptacionXMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="DescargarAcuseAceptacionXMLResult" nillable="true" type="q18:FileDownloadResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAcuseReclamoXML">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q19:ReceptorRequestApplicationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAcuseReclamoXMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="DescargarAcuseReclamoXMLResult" nillable="true" type="q20:FileDownloadResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarRecepcionBienServicioXML">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q21:ReceptorRequestApplicationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarRecepcionBienServicioXMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="DescargarRecepcionBienServicioXMLResult" nillable="true" type="q22:FileDownloadResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAnexo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q23:ReceptorRequestAnexo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarAnexoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="DescargarAnexoResult" nillable="true" type="q24:FileDownloadResponse1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListaAnexo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q25:ReceptorRequestGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListaAnexoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="ListaAnexoResult" nillable="true" type="q26:ArchivoDocumentoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarAnexo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q27:ReceptorRequestAnexo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarAnexoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="EliminarAnexoResult" nillable="true" type="q28:ResponseGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarRepGrafica">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q29:ReceptorRequestGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarRepGraficaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="EliminarRepGraficaResult" nillable="true" type="q30:ResponseGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarXML">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q31:EnviarXMLRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarXMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="EnviarXMLResult" nillable="true" type="q32:ResponseGeneralInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarRepGrafica">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q33:EnviarArchivoReceptorRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarRepGraficaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="EnviarRepGraficaResult" nillable="true" type="q34:ResponseGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarAnexo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q35:EnviarArchivoReceptorRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarAnexoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="EnviarAnexoResult" nillable="true" type="q36:ResponseGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarMetadata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q37:EnviarMetadataReceptorRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarMetadataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="EnviarMetadataResult" nillable="true" type="q38:ResponseGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CosultaDocumentoMetadata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="request" nillable="true" type="q39:ReceptorRequestGeneral" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CosultaDocumentoMetadataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" minOccurs="0" name="CosultaDocumentoMetadataResult" nillable="true" type="q40:MetadataDocumentoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

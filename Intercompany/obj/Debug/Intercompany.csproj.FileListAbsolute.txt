@@ -1,0 +1,107 @@
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x64\Intercompany.dll
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x64\Intercompany.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x64\Funciones.dll
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x64\Funciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x64\Intercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x64\Intercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x64\Funciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x64\Funciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\obj\Debug\Intercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\obj\Debug\Intercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x86\Intercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x86\Intercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x86\Funciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x86\Funciones.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x86\Intercompany.dll
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x86\Intercompany.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x86\Funciones.dll
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x86\SAPBusinessOneSDK.dll
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x86\Funciones.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\obj\Debug\Intercompany.dll
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\obj\Debug\Intercompany.pdb
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+E:\BasisOne\BasisOneCO\BasisOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne 2.0\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOIntercompany.dll
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOIntercompany.pdb
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOFunciones.dll
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x86\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOFunciones.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOIntercompany.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOIntercompany.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOFunciones.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOFunciones.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\obj\Debug\BOIntercompany.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\obj\Debug\BOIntercompany.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOIntercompany.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOIntercompany.pdb
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOFunciones.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\administrador\Desktop\AddOn_BasisOne_SAP10\AddOn_BasisOne_SAP10\Intercompany\bin\x86\BOFunciones.pdb
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOIntercompany.dll
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOIntercompany.pdb
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOFunciones.dll
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\bin\x64\BOFunciones.pdb
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\obj\Debug\BOIntercompany.dll
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\obj\Debug\BOIntercompany.pdb
+D:\Github\AddOn_BasisOne_SAP10\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.pdb
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.pdb
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.dll
+D:\Github\BasisOne\SAP\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x86\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x86\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x86\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.pdb
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.dll
+C:\Users\UOLPEcommerceSap\Desktop\Projects -27-02-2023\Projects\AddOnBasisOne\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\obj\Debug\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x86\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x86\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x86\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\Intercompany\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x86\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x86\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x86\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\obj\Debug\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\obj\Debug\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x86\BOFunciones.dll
