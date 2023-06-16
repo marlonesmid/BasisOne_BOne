@@ -3095,7 +3095,7 @@ namespace eBilling
 
                 #region Asignacion Logo BO
 
-                oLogoBO.Picture = (Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Core\\Imagenes\\BO.jpg");
+                oLogoBO.Picture = (Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Core\\Images\\LogoBO20x20.bmp");
 
                 #endregion
 
@@ -3198,7 +3198,7 @@ namespace eBilling
 
                 #region Asignacion Logo BO
 
-                oLogoBO.Picture = (Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Core\\Imagenes\\BO.jpg");
+                oLogoBO.Picture = (Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Core\\Images\\LogoBO20x20.bmp");
 
                 #endregion
 
@@ -3920,6 +3920,7 @@ namespace eBilling
                 //60
                 DllFunciones.ProgressBar(oCompany,sboapp, 83, 1, "Creando Procedimientos almacenados , por favor espere...");
                 SAPbobsCOM.Recordset oProcedures = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                SAPbobsCOM.Recordset oConsultaDecimales = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                 if (_sMotor == "dst_HANADB")
                 {
@@ -3935,9 +3936,9 @@ namespace eBilling
                     #region Consulta Decimales
 
                     sQueryDecimales = DllFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "DecimalQuantity");
-                    oProcedures.DoQuery(sQueryDecimales);
+                    oConsultaDecimales.DoQuery(sQueryDecimales);
 
-                    sCantidadDecimales = Convert.ToString(oProcedures.Fields.Item("CantidadDecimales").Value.ToString());
+                    sCantidadDecimales = Convert.ToString(oConsultaDecimales.Fields.Item("CantidadDecimales").Value.ToString());
 
                     #endregion
 
@@ -4107,8 +4108,10 @@ namespace eBilling
                 }
 
                 DllFunciones.liberarObjetos(oProcedures);
-                sProcedure_Crear = null;
-                sProcedure_Eliminar = null;
+                DllFunciones.liberarObjetos(oConsultaDecimales);
+                sProcedure_Crear = string.Empty;
+                sProcedure_Eliminar = string.Empty;
+                sCantidadDecimales = string.Empty;
 
                 #endregion
 
@@ -6207,7 +6210,7 @@ namespace eBilling
 
                                             #region Envia el PDF al proveedor tecnologico TFHKA
 
-                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
 
                                             EnviarAdjuntosTFHKA(_sboapp, _oCompany, oCabeceraDocumento, sRutaPDF, sPrefijoConDoc, sLlave, sPassword);
 
@@ -6540,7 +6543,7 @@ namespace eBilling
 
                                             #endregion
                                         }
-                                        else if (RespuestaDoc.codigo == 114)
+                                        else if (RespuestaDoc.codigo == 114) 
                                         {
                                             #region Procesa la respuesta
 
@@ -6548,7 +6551,7 @@ namespace eBilling
 
                                             #region Consulta el estado del documento en el proveedor tecnologico
 
-                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                             DocumentStatusResponse resp = new eBilling.ServicioEmisionFE.DocumentStatusResponse();
                                             resp = serviceClient.EstadoDocumento(sLlave, sPassword, sPrefijoConDoc);
 
@@ -6698,7 +6701,7 @@ namespace eBilling
 
                                             #region Consulta el estado del documento en el proveedor tecnologico
 
-                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                             DocumentStatusResponse resp = serviceClient.EstadoDocumento(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), sPrefijoConDoc);
 
                                             #endregion
@@ -7054,7 +7057,7 @@ namespace eBilling
 
                                         #region Envia el PDF al proveedor tecnologico TFHKA
 
-                                        sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                        sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
 
                                         EnviarAdjuntosTFHKA(_sboapp, _oCompany, oCabeceraDocumento, sRutaPDF, sPrefijoConDoc, sLlave, sPassword);
 
@@ -7401,7 +7404,7 @@ namespace eBilling
 
                                         #region Consulta el estado del documento en el proveedor tecnologico
 
-                                        sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                        sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                         DocumentStatusResponse resp = new eBilling.ServicioEmisionFE.DocumentStatusResponse();
                                         resp = serviceClient.EstadoDocumento(sLlave, sPassword, sPrefijoConDoc);
 
@@ -7551,7 +7554,7 @@ namespace eBilling
 
                                         #region Consulta el estado del documento en el proveedor tecnologico
 
-                                        sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                        sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                         DocumentStatusResponse resp = serviceClient.EstadoDocumento(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), sPrefijoConDoc);
 
                                         #endregion
@@ -8139,7 +8142,7 @@ namespace eBilling
 
                                                 #region Envia el PDF al proveedor tecnologico TFHKA
 
-                                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
 
                                                 EnviarAdjuntosTFHKA(_sboapp, _oCompany, oCabeceraDocumento, sRutaPDF, sPrefijoConDoc, sLlave, sPassword);
 
@@ -8454,7 +8457,7 @@ namespace eBilling
 
                                                 #region Consulta el estado del documento en el proveedor tecnologico
 
-                                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                                 DocumentStatusResponse resp = new eBilling.ServicioEmisionFE.DocumentStatusResponse();
                                                 resp = serviceClient.EstadoDocumento(sLlave, sPassword, sPrefijoConDoc);
 
@@ -8624,7 +8627,7 @@ namespace eBilling
 
                                                 #region Consulta el estado del documento en el proveedor tecnologico
 
-                                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                                 DocumentStatusResponse resp = serviceClient.EstadoDocumento(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), sPrefijoConDoc);
 
                                                 #endregion
@@ -9026,7 +9029,7 @@ namespace eBilling
 
                                             #region Envia el PDF al proveedor tecnologico TFHKA
 
-                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
 
                                             EnviarAdjuntosTFHKA(_sboapp, _oCompany, oCabeceraDocumento, sRutaPDF, sPrefijoConDoc, Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()));
 
@@ -9368,7 +9371,7 @@ namespace eBilling
 
                                             #region Consulta el estado del documento en el proveedor tecnologico
 
-                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                             DocumentStatusResponse resp = serviceClient.EstadoDocumento(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), sPrefijoConDoc);
 
                                             #endregion
@@ -9539,7 +9542,7 @@ namespace eBilling
 
                                             #region Consulta el estado del documento en el proveedor tecnologico
 
-                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                            sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                             DocumentStatusResponse resp = serviceClient.EstadoDocumento(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), sPrefijoConDoc);
 
                                             #endregion
@@ -10101,7 +10104,7 @@ namespace eBilling
 
                                 #region Envia el PDF al proveedor tecnologico TFHKA
 
-                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
 
                                 EnviarAdjuntosTFHKA(_sboapp, _oCompany, oCabeceraDocumento, sRutaPDF, sPrefijoConDoc, Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()));
 
@@ -10334,7 +10337,7 @@ namespace eBilling
 
                                 #region Consulta el estado del documento en el proveedor tecnologico
 
-                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
+                                sPrefijoConDoc = Convert.ToString(oCabeceraDocumento.Fields.Item("consecutivoDocumento").Value.ToString());
                                 DocumentStatusResponse resp = serviceClient.EstadoDocumento(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), sPrefijoConDoc);
 
                                 #endregion

@@ -96,20 +96,20 @@
     <None Include="Service References\ServicioAdjuntosFE\eBilling.ServicioAdjuntosFE.UploadAttachmentResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ServicioAdjuntosFE\Service1.wsdl" />
-    <None Include="Service References\ServicioAdjuntosFE\Service5.xsd">
+    <None Include="Service References\ServicioAdjuntosFE\Service.wsdl" />
+    <None Include="Service References\ServicioAdjuntosFE\Service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicioAdjuntosFE\Service51.xsd">
+    <None Include="Service References\ServicioAdjuntosFE\Service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicioAdjuntosFE\Service52.xsd">
+    <None Include="Service References\ServicioAdjuntosFE\Service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicioAdjuntosFE\Service53.xsd">
+    <None Include="Service References\ServicioAdjuntosFE\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicioAdjuntosFE\Service54.xsd">
+    <None Include="Service References\ServicioAdjuntosFE\Service4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicioEmisionFE\eBilling.ServicioEmisionFE.ContenedorResponse.datasource">

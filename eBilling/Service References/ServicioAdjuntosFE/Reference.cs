@@ -256,6 +256,12 @@ namespace eBilling.ServicioAdjuntosFE {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/CargarAdjuntos", ReplyAction="http://tempuri.org/IService/CargarAdjuntosResponse")]
         System.Threading.Tasks.Task<eBilling.ServicioAdjuntosFE.UploadAttachmentResponse> CargarAdjuntosAsync(string tokenEmpresa, string tokenPassword, eBilling.ServicioAdjuntosFE.CargarAdjuntos adjunto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EliminarAdjuntos", ReplyAction="http://tempuri.org/IService/EliminarAdjuntosResponse")]
+        eBilling.ServicioAdjuntosFE.UploadAttachmentResponse EliminarAdjuntos(string tokenEmpresa, string tokenPassword, string numeroDocumento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EliminarAdjuntos", ReplyAction="http://tempuri.org/IService/EliminarAdjuntosResponse")]
+        System.Threading.Tasks.Task<eBilling.ServicioAdjuntosFE.UploadAttachmentResponse> EliminarAdjuntosAsync(string tokenEmpresa, string tokenPassword, string numeroDocumento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -291,6 +297,14 @@ namespace eBilling.ServicioAdjuntosFE {
         
         public System.Threading.Tasks.Task<eBilling.ServicioAdjuntosFE.UploadAttachmentResponse> CargarAdjuntosAsync(string tokenEmpresa, string tokenPassword, eBilling.ServicioAdjuntosFE.CargarAdjuntos adjunto) {
             return base.Channel.CargarAdjuntosAsync(tokenEmpresa, tokenPassword, adjunto);
+        }
+        
+        public eBilling.ServicioAdjuntosFE.UploadAttachmentResponse EliminarAdjuntos(string tokenEmpresa, string tokenPassword, string numeroDocumento) {
+            return base.Channel.EliminarAdjuntos(tokenEmpresa, tokenPassword, numeroDocumento);
+        }
+        
+        public System.Threading.Tasks.Task<eBilling.ServicioAdjuntosFE.UploadAttachmentResponse> EliminarAdjuntosAsync(string tokenEmpresa, string tokenPassword, string numeroDocumento) {
+            return base.Channel.EliminarAdjuntosAsync(tokenEmpresa, tokenPassword, numeroDocumento);
         }
     }
 }

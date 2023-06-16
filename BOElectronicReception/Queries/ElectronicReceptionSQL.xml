@@ -40,14 +40,14 @@
 	    
     SELECT ROW_NUMBER() OVER(ORDER BY A."Code" ASC) AS "#", 
 
-          CASE WHEN "U_BOTEED" = '00' THEN 'Cargado'
-          		WHEN "U_BOTEED" = '01' THEN 'Entregado'
-          		WHEN "U_BOTEED" = '02' THEN 'Aceptación expresa (DIAN)'
-          		WHEN "U_BOTEED" = '04' THEN 'Reclamo (DIAN)'
-          		WHEN "U_BOTEED" = '10' THEN 'Acuse de recibo (DIAN'
-          		WHEN "U_BOTEED" = '11' THEN 'Rechazado (DIAN)'
-          		WHEN "U_BOTEED" = '12' THEN 'Recibo del bien y/o prestación del servicio'
-          		WHEN "U_BOTEED" = '13' THEN 'Precargado'
+          CASE WHEN "U_BOTSDC" = '00' THEN 'Cargado'
+          		WHEN "U_BOTSDC" = '01' THEN 'Entregado'
+          		WHEN "U_BOTSDC" = '02' THEN 'Aceptación expresa (DIAN)'
+          		WHEN "U_BOTSDC" = '04' THEN 'Reclamo (DIAN)'
+          		WHEN "U_BOTSDC" = '10' THEN 'Acuse de recibo (DIAN'
+          		WHEN "U_BOTSDC" = '11' THEN 'Rechazado (DIAN)'
+          		WHEN "U_BOTSDC" = '12' THEN 'Recibo del bien y/o prestación del servicio'
+          		WHEN "U_BOTSDC" = '13' THEN 'Precargado'
           		ELSE '' END AS "Estado",
           
           '' AS "DocEntry",
@@ -81,7 +81,7 @@
           
           
     FROM "@BOTREDRPT" A LEFT JOIN ( SELECT CASE WHEN CHARINDEX('-',T0."LicTradNum") = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,CHARINDEX('-',T0."LicTradNum")-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum" 
-    --WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%'
+    --WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' %Estado%
     
 
     
@@ -226,26 +226,58 @@
 
               DECLARE @ExisFile INT;
 
-              SET @ExisFile = (SELECT COUNT(*) FROM "@BOTREDRPT" WHERE "U_BOTNF" = @prmNF AND "U_BOTNI" = @prmNIT AND "U_BOTCWSPDF" IS NULL )
+              SET @ExisFile = (SELECT COUNT(*) FROM "@BOTREDRPT" WHERE "U_BOTNF" = @prmNF AND "U_BOTNI" = @prmNIT AND ("U_BOTCWSPDF" IS NULL OR "U_BOTCWSXML" IS NULL) )
 
               IF(@ExisFile > 0)
                   BEGIN
         
-                  IF (@prmTipoAdjunto = 'PDF')
+                  IF (@prmTipoAdjunto = 'XML')
                       BEGIN
                           UPDATE "@BOTREDRPT"
                           SET "U_BOTPAXML" = @pmrFile
                           WHERE "U_BOTNF" = @prmNF AND "U_BOTNI" = @prmNIT;
                       END 
-                  ELSE IF (@prmTipoAdjunto = 'XML')
+                  
+                  IF (@prmTipoAdjunto = 'PDF')
                       BEGIN
                           UPDATE "@BOTREDRPT"
                           SET "U_BOTPAPDF" = :pmrFile
                           WHERE "U_BOTNF" = :prmNF AND "U_BOTNI" = :prmNIT; 
                       END
+                  
                   END
           END
     
   </BOT_SyncAttachment>
+
+  <Eliminar_BO_FacturaXML>
+    
+    IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '%sNameProcedure%')
+      BEGIN
+        DROP PROCEDURE %sNameProcedure%
+      END
+  
+  </Eliminar_BO_FacturaXML>
+      
+  <Getauthorizer>
+    
+    SELECT "firstName" AS "Nombre",
+	         "lastName" AS "Apellido",
+	         "jobTitle" AS "Cargo",
+	         "dept" AS "Departamento",
+	         "ExtEmpNo" AS "NIT",
+	         '31' AS "TipoDocumento",
+	         "userId" AS "IdUser"
+	  
+    FROM OHEM
+    WHERE "userId" = '1'
+
+  </Getauthorizer>
+  
+  <PostUpdateStatusDocument>
+    UPDATE "@BOTREDRPT"
+    SET "U_BOTSDC" = '02'
+    WHERE "U_BOTNF" = '%NumeroFactura%' AND "U_BOTNI" = '%NumeroIdentificacion%'
+  </PostUpdateStatusDocument>
 
 </Queries>
