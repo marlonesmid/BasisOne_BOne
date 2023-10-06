@@ -261,3 +261,18 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\stdole.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\BOFunciones.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x86\BOFunciones.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\BOeBilling.dll.config
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\BOeBilling.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\BOeBilling.pdb
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\BOFunciones.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\CrystalDecisions.ReportSource.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\CrystalDecisions.Shared.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\SAPBusinessOneSDK.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\log4net.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\stdole.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\bin\x64\BOFunciones.pdb
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\obj\Debug\eBilling.csproj.AssemblyReference.cache
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\obj\Debug\eBilling.csproj.CoreCompileInputs.cache
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\obj\Debug\eBilling.csproj.CopyComplete
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\obj\Debug\BOeBilling.dll
+C:\GitHub\BasisOne\BasisOne_BOne\eBilling\obj\Debug\BOeBilling.pdb

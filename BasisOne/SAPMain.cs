@@ -216,14 +216,6 @@ namespace BasisOne
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="FormUID"></param>
-        /// <param name="pVal"></param>
-        /// <param name="BubbleEvent"></param>
-        /// 
-
         private void Sboapp_ItemEvent(string FormUID, ref ItemEvent pVal, out bool BubbleEvent)
         {
             BubbleEvent = true;
@@ -888,8 +880,8 @@ namespace BasisOne
                             string sConsultaAddins;
 
                             bool bAddIneBillingBO = false;
-                            bool bAddInIntercompany = false;
-                            bool bAddInPresupuesto = false;
+                            
+                            
                             bool bAddInProduccion = false;
                             bool bAddInElectronicReception = false;
 
@@ -918,11 +910,11 @@ namespace BasisOne
                                     }
                                     else if (sConsultaAddins == "AddInIntercompany")
                                     {
-                                        bAddInIntercompany = true;
+                                        
                                     }
                                     else if (sConsultaAddins == "AddInPresupuesto")
                                     {
-                                        bAddInPresupuesto = true;
+                                        
                                     }
                                     else if (sConsultaAddins == "AddInProduccion")
                                     {
@@ -1879,6 +1871,12 @@ namespace BasisOne
 
                                 DllElectronicReception.ChagueStatusDocument(sboapp, _company, oFormVDR, pVal, "Aceptar", "Col_22");
                             }
+                            else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_7" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
+                            {
+                                SAPbouiCOM.Form oFormVDR = sboapp.Forms.Item("BOTVDR");
+
+                                DllElectronicReception.ChagueStatusDocument(sboapp, _company, oFormVDR, pVal, "Cancelar", "Col_7");
+                            } 
                             else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnCan" && pVal.BeforeAction == true)
                             {
                                 DllFunciones.CloseFormXML(sboapp, "BOTVDR");
@@ -2277,7 +2275,7 @@ namespace BasisOne
                         {
                             frm = sboapp.Forms.ActiveForm;
 
-                            DlleBilling.ItemsLabelStatusDIAN(frm, "MenuEvent");
+                            DlleBilling.ItemsLabelStatusDIAN(frm, "133", "MenuEvent");
                         }
                     }
 
@@ -2304,7 +2302,7 @@ namespace BasisOne
                         {
                             frm = sboapp.Forms.ActiveForm;
 
-                            DlleBilling.ItemsLabelStatusDIAN(frm, "MenuEvent");
+                            DlleBilling.ItemsLabelStatusDIAN(frm, "133", "MenuEvent");
                         }
                     }
 
@@ -2736,11 +2734,16 @@ namespace BasisOne
 
                     #region Factura de venta
 
-                    if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "133")
+                    if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD && ByRef.ActionSuccess == true && (ByRef.FormTypeEx == "133" || ByRef.FormTypeEx == "179" || ByRef.FormTypeEx == "141" || ByRef.FormTypeEx == "60090" || ByRef.FormTypeEx == "60091") )
                     {
+                        #region Actualiza Label Status DIAN
+
                         SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
 
-                        DlleBilling.ItemsLabelStatusDIAN(frm, "DataEvent");
+                        DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+
+                        #endregion
+
                     }
                     else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "133")
                     {
@@ -2758,7 +2761,7 @@ namespace BasisOne
                     {
                         SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
 
-                        DlleBilling.ItemsLabelStatusDIAN(frm, "DataEvent");
+                        DlleBilling.ItemsLabelStatusDIAN(frm, "60090", "DataEvent");
                     }
 
                     else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60090")
@@ -2777,7 +2780,7 @@ namespace BasisOne
                     {
                         SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
 
-                        DlleBilling.ItemsLabelStatusDIAN(frm, "DataEvent");
+                        DlleBilling.ItemsLabelStatusDIAN(frm, "60091", "DataEvent");
                     }
 
                     else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60091")

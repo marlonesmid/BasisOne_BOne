@@ -124,7 +124,9 @@
     <Content Include="Queries\ElectronicReceptionHANA.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Queries\ElectronicReceptionSQL.xml" />
+    <Content Include="Queries\ElectronicReceptionSQL.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

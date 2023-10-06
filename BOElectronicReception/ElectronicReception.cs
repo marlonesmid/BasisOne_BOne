@@ -165,7 +165,6 @@ namespace BOElectronicReception
 
                     #endregion
 
-
                     #region Consulta si Existente el Procedure BOT_SyncAttachment
 
                     sProcedure_Eliminar = DllFunciones.GetStringXMLDocument(oCompany, "BOElectronicReception", "ElectronicReception", "SearchProcedure");
@@ -195,7 +194,6 @@ namespace BOElectronicReception
                     oProcedures.DoQuery(sProcedure_Crear);
 
                     #endregion
-
 
                     #region Consulta si Existente el Procedure BOT_DIGVER
 
@@ -247,7 +245,6 @@ namespace BOElectronicReception
 
                     #endregion
 
-
                     #region Consulta si el procedure Existe BOT_SyncAttachment
 
                     sProcedure_Eliminar = DllFunciones.GetStringXMLDocument(oCompany, "BOElectronicReception", "ElectronicReception", "Eliminar_BO_FacturaXML");
@@ -264,7 +261,6 @@ namespace BOElectronicReception
                     oProcedures.DoQuery(sProcedure_Crear);
 
                     #endregion
-
 
                     #region Consulta si el procedure Existe BOT_DIGVER
 
@@ -1310,6 +1306,9 @@ namespace BOElectronicReception
         {
             if (_ColUID == "Col_22")
             {
+                #region Aceptacion documento
+
+              
                 SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
 
                 if (pVal.Row == 0)
@@ -1544,9 +1543,459 @@ namespace BOElectronicReception
 
 
                                 #endregion
+                                
+                                #region Carga Infortmacion en la Matrix
+
+                                #region Variabl1es y Objetos
+
+                                string sPath;
+                                string sInvoices = null;
+                                string sCreditMemo = null;
+                                string sDebitMemo = null;
+                                int CantidadRegistos = 0;
+
+                                string sPathImages = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\BOElectronicReception\\Images\\";
+
+                                #endregion
+
+                                sPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                                SAPbouiCOM.EditText oFI = (SAPbouiCOM.EditText)_oFormVisorRepcecion.Items.Item("txtFI").Specific;
+                                SAPbouiCOM.EditText oFF = (SAPbouiCOM.EditText)_oFormVisorRepcecion.Items.Item("txtFF").Specific;
+                                SAPbouiCOM.ComboBox oEstado = (SAPbouiCOM.ComboBox)_oFormVisorRepcecion.Items.Item("cboStado").Specific;
+
+                                #region Consulta de documentos facturas, notas debito y notas credito a mostrar en matrix
+
+                                SAPbouiCOM.Matrix oMatrixInvoice = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+                                SAPbouiCOM.Matrix oMatrixCreditMemo = (Matrix)_oFormVisorRepcecion.Items.Item("MtxORPC").Specific;
+                                SAPbouiCOM.Matrix oMatrixDebitMemo = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCHD").Specific;
+
+                                SAPbobsCOM.Recordset oRecorsetInvoices = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                SAPbobsCOM.Recordset oRecorsetCreditMemo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                SAPbobsCOM.Recordset oRecorsetDebitMemo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                SAPbouiCOM.DataTable oTableInvoices = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_Invoices");
+                                SAPbouiCOM.DataTable oTableCreditMemo = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_CreditMemo");
+                                SAPbouiCOM.DataTable oTableDebitMemo = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_DebitMemo");
+
+                                sInvoices = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetInvoices");
+                                sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
+
+                                sCreditMemo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetCreditMemo");
+                                sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
+
+                                sDebitMemo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDebitMemo");
+                                sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
+
+
+                                if (string.IsNullOrEmpty(oFI.Value))
+                                {
+                                    sInvoices = sInvoices.Replace("%FI%", "20190101");
+                                }
+                                else
+                                {
+                                    sInvoices = sInvoices.Replace("%FI%", oFI.Value);
+                                }
+
+
+                                if (string.IsNullOrEmpty(oFF.Value))
+                                {
+                                    sInvoices = sInvoices.Replace("%FF%", "20301231");
+                                }
+                                else
+                                {
+                                    sInvoices = sInvoices.Replace("%FF%", oFF.Value);
+                                }
+
+                                if (oEstado.Value == "-")
+                                {
+                                    sInvoices = sInvoices.Replace("%Estado%", "");
+                                }
+                                else
+                                {
+                                    sInvoices = sInvoices.Replace("%Estado%", "AND \"U_BOTSDC\" = '" + oEstado.Value + "' ");
+                                }
+
+
+                                oRecorsetInvoices.DoQuery(sInvoices);
+                                oRecorsetCreditMemo.DoQuery(sCreditMemo);
+                                oRecorsetDebitMemo.DoQuery(sDebitMemo);
+
+                                oTableInvoices.ExecuteQuery(sInvoices);
+                                oTableCreditMemo.ExecuteQuery(sCreditMemo);
+                                oTableDebitMemo.ExecuteQuery(sDebitMemo);
+
+                                #endregion
+
+                                CantidadRegistos = oRecorsetInvoices.RecordCount + oRecorsetCreditMemo.RecordCount + oRecorsetDebitMemo.RecordCount;
+
+                                if (CantidadRegistos != 0)
+                                {
+                                    #region Carga datos Matrix Facturas
+
+                                    if (oRecorsetInvoices.RecordCount > 0)
+                                    {
+                                        oMatrixInvoice.Clear();
+
+                                        oMatrixInvoice.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
+                                        oMatrixInvoice.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
+                                        oMatrixInvoice.Columns.Item("Col_11").DataBind.Bind("DT_Invoices", "Estado_SAP");
+                                        oMatrixInvoice.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
+                                        oMatrixInvoice.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
+                                        oMatrixInvoice.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
+                                        oMatrixInvoice.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
+                                        oMatrixInvoice.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
+                                        oMatrixInvoice.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
+                                        oMatrixInvoice.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
+                                        oMatrixInvoice.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_de_Pago");
+                                        oMatrixInvoice.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
+                                        oMatrixInvoice.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
+                                        oMatrixInvoice.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
+                                        oMatrixInvoice.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
+                                        oMatrixInvoice.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
+                                        oMatrixInvoice.Columns.Item("Col_19").Visible = false;
+                                        oMatrixInvoice.Columns.Item("Col_23").Visible = false;
+                                        oMatrixInvoice.Columns.Item("Col_20").DataBind.Bind("DT_Invoices", "DescargaXML");
+                                        oMatrixInvoice.Columns.Item("Col_12").DataBind.Bind("DT_Invoices", "RutaXML");
+                                        oMatrixInvoice.Columns.Item("Col_12").Visible = false;
+                                        oMatrixInvoice.Columns.Item("Col_21").DataBind.Bind("DT_Invoices", "DescargaPDF");
+                                        oMatrixInvoice.Columns.Item("Col_13").DataBind.Bind("DT_Invoices", "RutaPDF");
+                                        oMatrixInvoice.Columns.Item("Col_13").Visible = false;
+                                        oMatrixInvoice.Columns.Item("Col_22").DataBind.Bind("DT_Invoices", "ImageAceptar");
+                                        oMatrixInvoice.Columns.Item("Col_7").DataBind.Bind("DT_Invoices", "ImageCancelar");
+
+                                        oMatrixInvoice.LoadFromDataSource();
+
+                                        oMatrixInvoice.AutoResizeColumns();
+
+                                    }
+
+                                    #endregion
+
+                                    #region Carga datos Matrix Notas credito
+
+                                    if (oRecorsetCreditMemo.RecordCount > 0)
+                                    {
+                                        oMatrixCreditMemo.Clear();
+
+                                        oMatrixCreditMemo.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
+                                        oMatrixCreditMemo.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
+                                        oMatrixCreditMemo.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
+                                        oMatrixCreditMemo.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
+                                        //oMatrixCreditMemo.Columns.Item("Col_25").DataBind.Bind("DT_Invoices", "Num_Fac_Preeli");
+                                        //oMatrixCreditMemo.Columns.Item("Col_26").DataBind.Bind("DT_Invoices", "Num_Fac_SAP");
+                                        oMatrixCreditMemo.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
+                                        oMatrixCreditMemo.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
+                                        oMatrixCreditMemo.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
+                                        oMatrixCreditMemo.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
+                                        oMatrixCreditMemo.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
+                                        oMatrixCreditMemo.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_Pago");
+                                        oMatrixCreditMemo.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
+                                        oMatrixCreditMemo.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
+                                        oMatrixCreditMemo.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
+                                        oMatrixCreditMemo.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
+                                        oMatrixCreditMemo.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
+
+                                        oMatrixCreditMemo.LoadFromDataSource();
+
+                                        oMatrixCreditMemo.AutoResizeColumns();
+
+                                    }
+                                    #endregion
+
+                                    #region Carga datos Matrix Notas Debito
+
+                                    if (oRecorsetDebitMemo.RecordCount > 0)
+                                    {
+                                        oMatrixDebitMemo.Clear();
+
+                                        oMatrixDebitMemo.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
+                                        oMatrixDebitMemo.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
+                                        oMatrixDebitMemo.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
+                                        oMatrixDebitMemo.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
+                                        //oMatrixDebitMemo.Columns.Item("Col_25").DataBind.Bind("DT_Invoices", "Num_Fac_Preeli");
+                                        //oMatrixDebitMemo.Columns.Item("Col_26").DataBind.Bind("DT_Invoices", "Num_Fac_SAP");
+                                        oMatrixDebitMemo.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
+                                        oMatrixDebitMemo.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
+                                        oMatrixDebitMemo.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
+                                        oMatrixDebitMemo.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
+                                        oMatrixDebitMemo.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
+                                        oMatrixDebitMemo.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_Pago");
+                                        oMatrixDebitMemo.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
+                                        oMatrixDebitMemo.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
+                                        oMatrixDebitMemo.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
+                                        oMatrixDebitMemo.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
+                                        oMatrixDebitMemo.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
+
+                                        oMatrixDebitMemo.LoadFromDataSource();
+
+                                        oMatrixDebitMemo.AutoResizeColumns();
+
+                                    }
+                                    #endregion
+
+                                }
+                                else
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, "No se encontraron documentos");
+                                }
+
+                                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Documentos sicronizados correctamente.");
+
+                                #endregion
+
+                            }
+
+                            #endregion
+
+                        }
+                        else
+                        {
+
+
+                        }
+                    }
 
 
 
+                }
+
+                #endregion
+            }
+            else if (_ColUID == "Col_7")
+            {
+                #region Aceptacion documento
+
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+
+                if (pVal.Row == 0)
+                {
+
+                }
+                else
+                {
+                    #region Variables y Objetos
+
+                    string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(pVal.Row).Specific)).Value;
+                    string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(pVal.Row).Specific)).Value;
+
+                    #endregion
+
+                    int iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se rechazara el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+
+                    if (iProcesar == 1)
+                    {
+                        #region Variables y Objetos 
+
+                        string sNombreAceptador = string.Empty;
+                        string sApellidoAceptador = string.Empty;
+                        string sCargoAceptador = string.Empty;
+                        string sDepartamentoAceptador = string.Empty;
+                        string sNITAceptador = string.Empty;
+                        string sTipoDocumentoAceptador = string.Empty;
+                        string sDigitoVerificacionAceptador = string.Empty;
+                        string UsuarioSAPActual = string.Empty;
+                        string sGetauthorizer = string.Empty;
+
+                        UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
+
+                        #endregion
+
+                        #region Valida si esta configurado el usuario                   
+
+                        SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                        sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
+
+                        sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
+
+                        oGetauthorizer.DoQuery(sGetauthorizer);
+
+                        #endregion
+
+                        if (oGetauthorizer.RecordCount > 0)
+                        {
+                            sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
+                            sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
+                            sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
+                            sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
+                            sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
+                            sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
+
+                            #region Valida campos obligatorios 
+
+                            if (string.IsNullOrEmpty(sNombreAceptador))
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "RE001 - Por favor parametrizar el nombre del usuario en el modulo recursos humanos.");
+                            }
+                            else if (string.IsNullOrEmpty(sApellidoAceptador))
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "RE002 - Por favor parametrizar el Apellido del usuario en el modulo recursos humanos.");
+                            }
+                            else if (string.IsNullOrEmpty(sCargoAceptador))
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "RE003 - Por favor parametrizar el Cargo del usuario en el modulo recursos humanos.");
+                            }
+                            else if (string.IsNullOrEmpty(sDepartamentoAceptador))
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "RE004 - Por favor parametrizar el Departamento del usuario en el modulo recursos humanos.");
+                            }
+                            else if (string.IsNullOrEmpty(sNITAceptador))
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "RE005 - Por favor parametrizar el Numero de cedula del usuario en el modulo recursos humanos.");
+                            }
+                            else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "RE006 - Por favor parametrizar el Tipo de documento del usuario en el modulo recursos humanos.");
+                            }
+                            else
+                            {
+
+                                #region Consulta URL
+
+                                string sGetModo = null;
+                                string sURLRecepcion = null;
+                                string sModo = null;
+                                string sRutaXML = null;
+                                string sRutaPDF = null;
+                                string sProtocoloComunicacion = null;
+                                string sTokenEmpresa = null;
+                                string sTokenPassword = null;
+                                string sGetDV = string.Empty;
+
+                                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
+
+                                sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
+
+                                oConsultarGetModo.DoQuery(sGetModo);
+
+                                sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
+                                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+
+                                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+                                sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
+                                sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
+                                sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
+                                sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
+
+                                DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                                #endregion
+
+                                #region Instanciacion parametros TFHKA
+
+                                if (sProtocoloComunicacion == "HTTP")
+                                {
+                                    BasicHttpBinding port = new BasicHttpBinding();
+                                }
+                                else if (sProtocoloComunicacion == "HTTPS")
+                                {
+                                    BasicHttpsBinding port = new BasicHttpsBinding();
+                                }
+
+                                port.MaxBufferPoolSize = Int32.MaxValue;
+                                port.MaxBufferSize = Int32.MaxValue;
+                                port.MaxReceivedMessageSize = Int32.MaxValue;
+                                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                                port.SendTimeout = TimeSpan.FromMinutes(2);
+                                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                                if (sProtocoloComunicacion == "HTTPS")
+                                {
+                                    port.Security.Mode = BasicHttpSecurityMode.Transport;
+                                }
+
+                                EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion); //URL
+
+                                Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
+                                serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
+
+                                #endregion
+
+                                #region Parametros generales Reporte
+
+                                ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
+
+                                ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
+                                ParametrosCambioEstatus.tokenPassword = sTokenPassword;
+
+                                ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
+                                ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoDocumentoAceptador;
+                                ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
+
+                                ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
+
+                                UsuarioAceptador.Nombre = sNombreAceptador;
+                                UsuarioAceptador.Apellido = sApellidoAceptador;
+                                UsuarioAceptador.Cargo = sCargoAceptador;
+                                UsuarioAceptador.Departamento = sDepartamentoAceptador;
+                                UsuarioAceptador.Departamento = sDepartamentoAceptador;
+
+                                ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
+
+                                ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
+
+                                NITAceptador.NumeroIdentificacion = sNITAceptador;
+                                NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
+
+                                #region Consulta Digito Verificacion                   
+
+                                SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
+
+                                sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
+
+                                oGetDV.DoQuery(sGetDV);
+
+                                if (oGetDV.RecordCount > 0)
+                                {
+                                    sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
+                                }
+
+                                #endregion
+
+                                NITAceptador.Dv = sDigitoVerificacionAceptador;
+
+                                ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
+
+                                ParametrosCambioEstatus.status = "01";
+                                ParametrosCambioEstatus.codigoRechazo = "02";
+
+                                #endregion
+
+                                #region Cambia estado en DIAN                            
+
+                                Recepcion21WS.ResponseGeneral wsCambiarEstado;
+
+                                wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
+
+                                if (wsCambiarEstado.codigo == 200)
+                                {
+                                    #region Actualiza estado documento en SAP
+
+                                    SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
+
+                                    sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor);
+
+                                    oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
+
+                                    #endregion
+                                }
+                                else
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, "RE007 - No se pudo cambiar el estado - " + wsCambiarEstado.mensaje.ToString());
+                                }
+
+
+
+
+                                #endregion
 
                                 #region Carga Infortmacion en la Matrix
 
@@ -1748,7 +2197,6 @@ namespace BOElectronicReception
 
                                 #endregion
 
-
                             }
 
                             #endregion
@@ -1764,6 +2212,8 @@ namespace BOElectronicReception
 
 
                 }
+
+                #endregion
             }
             else
             {

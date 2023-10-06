@@ -280,4 +280,8 @@
     WHERE "U_BOTNF" = '%NumeroFactura%' AND "U_BOTNI" = '%NumeroIdentificacion%'
   </PostUpdateStatusDocument>
 
+  <GetDV>
+    SELECT [dbo].[CalculoDV]('%NIT%')
+  </GetDV>
+
 </Queries>

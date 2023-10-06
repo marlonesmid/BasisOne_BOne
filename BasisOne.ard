@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="Hexagrama" SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="Hexagrama 10.23.18.1" ExtVersion="10.23.11.1" Contdata="" Partner="Hexagrama" DBType="Both" ClientType="A">
+<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="BOne " SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="Hexagrama10.23.40.2" ExtVersion="10.23.40.2" Contdata="" Partner="BOne " DBType="Both" ClientType="A">
   <Validity>
     <SBOCompatibility>
       <Version From="100.000.00" To="100.999.99" />
@@ -97,6 +97,9 @@
               <Actions />
             </File>
             <File FileName="CrystalDecisions.ReportAppServer.Prompting.dll">
+              <Actions />
+            </File>
+            <File FileName="CrystalDecisions.ReportAppServer.ReportDefModel.dll">
               <Actions />
             </File>
             <File FileName="CrystalDecisions.ReportAppServer.XmlSerialize.dll">
@@ -287,6 +290,9 @@
               <Actions />
             </File>
             <File FileName="CrystalDecisions.ReportAppServer.Prompting.dll">
+              <Actions />
+            </File>
+            <File FileName="CrystalDecisions.ReportAppServer.ReportDefModel.dll">
               <Actions />
             </File>
             <File FileName="CrystalDecisions.ReportAppServer.XmlSerialize.dll">
@@ -502,6 +508,9 @@
             <File FileName="eBilling\Formularios\Parametros_iniciales_eBilling.srf">
               <Actions />
             </File>
+            <File FileName="eBilling\Formularios\Parametros_iniciales_eBilling_OLD.srf">
+              <Actions />
+            </File>
             <File FileName="eBilling\Formularios\Send_Mail.srf">
               <Actions />
             </File>
@@ -630,6 +639,9 @@
               <Actions />
             </File>
             <File FileName="eBilling\Formularios\Parametros_iniciales_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\Parametros_iniciales_eBilling_OLD.srf">
               <Actions />
             </File>
             <File FileName="eBilling\Formularios\Send_Mail.srf">

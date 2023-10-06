@@ -86,7 +86,7 @@
 
 					          CASE WHEN isnull(T0."DiscPrcnt",0) = '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST((SELECT SUM(SQ.LineTotal) FROM INV1 SQ WHERE SQ.DocEntry = @DocEntryLayout)+T0."VatSum"+T0."RoundDif"+(SELECT COALESCE(SUM(A.WTAmnt),0) FROM INV5 A INNER JOIN OWHT B ON A.WTCode=B.WTCode WHERE A."AbsEntry" = @DocEntryLayout AND B."U_HBT_TipRet" = '10') AS DECIMAL(19,2))), 0), '.', ',')
 						           WHEN isnull(T0."DiscPrcnt",0) != '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST((SELECT SUM(SQ.BaseSum) FROM INV4 SQ WHERE SQ.DocEntry = @DocEntryLayout AND SQ."RelateType" = 1)+T0."VatSum"+T0."RoundDif"+(SELECT COALESCE(SUM(A.WTAmnt),0) FROM INV5 A INNER JOIN OWHT B ON A.WTCode=B.WTCode WHERE A."AbsEntry" = @DocEntryLayout AND B."U_HBT_TipRet" = '10') AS DECIMAL(19,2))), 0), '.', ',')
-						           WHEN isnull(T0."DiscPrcnt",0) = '0' AND T0."DocCur"='USD' THEN REPLACE(CONVERT(varchar(50),(CAST(T0."BaseAmntFC"+T0."VatSumFC"+T0."RoundDifFC" AS DECIMAL(19,2))), 0), '.', ',')
+						           WHEN isnull(T0."DiscPrcnt",0) = '0' AND T0."DocCur"='USD' THEN REPLACE(CONVERT(varchar(50),(CAST((SELECT SUM(SQ.BaseSumFrg) FROM INV4 SQ WHERE SQ.DocEntry = @DocEntryLayout AND SQ."RelateType" = 1)+T0."VatSumFC"+T0."RoundDifFC" AS DECIMAL(19,2))), 0), '.', ',')
 						           WHEN isnull(T0."DiscPrcnt",0) != '0' AND T0."DocCur"='USD' THEN REPLACE(CONVERT(varchar(50),(CAST(T0."BaseAmntFC"+T0."VatSumFC"+T0."RoundDifFC" AS DECIMAL(19,2))), 0), '.', ',')
 					               ELSE REPLACE(CONVERT(varchar(50),(CAST(T0."BaseAmntFC"+T0."VatSumFC"+T0."RoundDif" AS DECIMAL(19,2))), 0), '.', ',')
 					          END AS 'totalMonto',
@@ -194,8 +194,8 @@
 
 					          T5."CardName" AS 'nombreRazonSocial',
 
-                    CASE WHEN T0."U_BO_EE" = 'N' THEN 'NO'
-                        ELSE 'SI' END AS "notificar",
+							  CASE WHEN T0."U_BO_EE" = 'N' THEN 'NO'
+									ELSE 'SI' END AS "notificar",
 
 					          CASE T5."U_HBT_TipDoc" WHEN '31' THEN SUBSTRING(T5."LicTradNum",1,CHARINDEX('-',T5."LicTradNum")-1)
 					          ELSE T5."LicTradNum" END
@@ -682,9 +682,9 @@
 					          CASE T5."U_HBT_TipDoc" WHEN '31' THEN SUBSTRING(T5."LicTradNum",1,CHARINDEX('-',T5."LicTradNum")-1)
 					          ELSE T5."LicTradNum" END AS 'numeroDocumento',
 
-					          T5."U_BO_RF" AS 'obligaciones',
+					          CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					          T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					          T5."U_HBT_TipDoc" AS 'tipoIdentificacion',
 
@@ -1076,9 +1076,9 @@
 					          ELSE T5."LicTradNum" 
 					          END AS 'numeroDocumento',
 
-					          T5."U_BO_RF" AS 'obligaciones',
+					          CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					          T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					          T5."U_HBT_TipDoc" AS 'tipoIdentificacion',
 
@@ -1462,7 +1462,7 @@
 					          ELSE '25799'END AS 'municipio',
 					  
 
-					          T14.Country AS 'pais',
+					          'CO' AS 'pais',
 
 					         '000000' AS 'zonaPostal',
 
@@ -1485,9 +1485,9 @@
 
 					           CASE WHEN CHARINDEX('-',T5."LicTradNum") &gt; 0 THEN SUBSTRING(T5."LicTradNum",1,CHARINDEX('-',T5."LicTradNum")-1) ELSE T5."LicTradNum" END  AS 'numeroDocumento',
 
-					          T5."U_BO_RF" AS 'obligaciones',
+					          CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					          T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					          '31' AS 'tipoIdentificacion',
 
@@ -1553,30 +1553,16 @@
 					          '01' AS 'codigoTOTALImp',
 					          '' AS 'controlInterno',
 
-					          REPLACE(CONVERT(varchar(50),(CAST(T0."VatPrcnt" AS DECIMAL(19,2))), 0), '.', ',') AS 'porcentajeTOTALImp',
+					          REPLACE(CONVERT(varchar(50),(CAST(0 AS DECIMAL(19,2))), 0), '.', ',') AS 'porcentajeTOTALImp',
 
 					          '' AS 'unidadMedida',
 					          '' AS 'unidadMedidaTributo',
 
-					          CASE WHEN isnull(T0."DiscPrcnt",0) = '0' AND T3."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.LineTotal*T0.VatPrcnt)/100) AS DECIMAL(19,2))), 0), '.', ',') 
-						           WHEN isnull(T0."DiscPrcnt",0) != '0' AND T3."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.LineTotal*T0.VatPrcnt)/100) AS DECIMAL(19,2))), 0), '.', ',') 
-						           WHEN isnull(T0."DiscPrcnt",0) = '0' AND T3."DocCur" IN ('USD') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.TotalFrgn*T0.VatPrcnt)/100) AS DECIMAL(19,2))), 0), '.', ',') 
-						           WHEN isnull(T0."DiscPrcnt",0) != '0' AND T3."DocCur" IN ('USD') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.TotalFrgn*T0.VatPrcnt)/100) AS DECIMAL(19,2))), 0), '.', ',') 
-						   
-						   
-						           ELSE '0' END AS 'valorTOTALImp',
+					          REPLACE(CONVERT(varchar(50),(CAST(((T0.LineTotal*T0.VatPrcnt)/100) AS DECIMAL(19,2))), 0), '.', ',') AS 'valorTOTALImp',
 
 					          '' AS 'valorTributoUnidad',
 
-					           CASE WHEN isnull(T0."DiscPrcnt",0) = '0' AND T3.DocCur IN ('COP','$') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.LineTotal*T0.VatPrcnt)/100) AS DECIMAL(19,0))), 0), '.', ',') 
-						            WHEN isnull(T0."DiscPrcnt",0) != '0' AND T3.DocCur IN ('COP','$') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.LineTotal*T0.VatPrcnt)/100) AS DECIMAL(19,0))), 0), '.', ',')
-						            WHEN isnull(T0."DiscPrcnt",0) = '0' AND T3.DocCur IN ('USD') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.TotalFrgn*T0.VatPrcnt)/100) AS DECIMAL(19,0))), 0), '.', ',') 
-						            WHEN isnull(T0."DiscPrcnt",0) != '0' AND T3.DocCur IN ('USD') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.TotalFrgn*T0.VatPrcnt)/100) AS DECIMAL(19,0))), 0), '.', ',')
-							        WHEN isnull(T0."DiscPrcnt",0) = '0' AND T3.DocCur IN ('EUR') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.TotalFrgn*T0.VatPrcnt)/100) AS DECIMAL(19,0))), 0), '.', ',') 
-						            WHEN isnull(T0."DiscPrcnt",0) != '0' AND T3.DocCur IN ('EUR') THEN REPLACE(CONVERT(varchar(50),(CAST(((T0.TotalFrgn*T0.VatPrcnt)/100) AS DECIMAL(19,0))), 0), '.', ',')
-
-						           ELSE '0' END 
-						           AS 'montoTotal',
+					           REPLACE(CONVERT(varchar(50),(CAST(((T0.LineTotal*T0.VatPrcnt)/100) AS DECIMAL(19,0))), 0), '.', ',') AS 'montoTotal',
 
 					          '' AS 'marca',
 					          '0' AS 'muestraGratis',
@@ -1596,9 +1582,10 @@
 					               END AS 'precioTotalSinImpuestos',
 					  
 					  
-					          CASE WHEN isnull(T0."DiscPrcnt",0) = '0' THEN REPLACE(CONVERT(varchar(50),(CAST(T0."Price" AS DECIMAL(19,2))), 0), '.', ',') 
-						           ELSE REPLACE(CONVERT(varchar(50),(CAST(T0."PriceBefDi" AS DECIMAL(19,2))), 0), '.', ',') END
-						           AS 'precioVentaUnitario',
+								 CASE WHEN T0.Currency IN ('COP','$') THEN REPLACE(CONVERT(varchar(50),(CAST(T0."Price" AS DECIMAL(19,2))), 0), '.', ',')
+						              WHEN T0.Currency IN ('USD') THEN REPLACE(CONVERT(varchar(50),(CAST(T0."Price"*T0.Rate AS DECIMAL(19,2))), 0), '.', ',')
+						           ELSE  REPLACE(CONVERT(varchar(50),(CAST((((1*T1.LstEvlPric)*T0.VatPrcnt)/100) AS DECIMAL(19,2))), 0), '.', ',') 
+						           END 'precioVentaUnitario',
 
 					          T0."VisOrder"+1 AS 'secuencia',
 
@@ -1639,11 +1626,12 @@
 					           T0."Price", 
 					           T0."VisOrder",
 					           T0."DiscPrcnt",
-					           T0."PriceBefDi"					   ,
-					           T3.DocCur,
-					           T0.TotalFrgn,
+					           T0."PriceBefDi",
+					           T3."DocCur",
+                     		   T0."Currency",
+					           T0."TotalFrgn",
 					           T0."VatSumFrgn",
-					           T1.LstEvlPric,
+					           T1."LstEvlPric",
 					           T0."DocDate"
 
 			          ORDER BY T0."VisOrder"
@@ -1655,8 +1643,9 @@
 
 		          BEGIN
                   --------------------------- Consulta Impuestos IVA ---------------------------------------
-			          SELECT CASE WHEN T1.DocCur IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST(SUM(T0."BaseSum") AS DECIMAL(19,2))), 0), '.', ',') 
-			                 ELSE REPLACE(CONVERT(varchar(50),(CAST(SUM(T0."BaseSumFrg") AS DECIMAL(19,2))), 0), '.', ',') END AS 'baseImponibleTOTALImp',
+			          SELECT CASE WHEN T1."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST(SUM(T0."BaseSum") AS DECIMAL(19,2))), 0), '.', ',') 
+			                 ELSE REPLACE(CONVERT(varchar(50),(CAST(SUM(T0."BaseSumFrg") AS DECIMAL(19,2))), 0), '.', ',') END 
+							 AS 'baseImponibleTOTALImp',
 
 				             '01' AS 'codigoTOTALImp',
 
@@ -1672,7 +1661,7 @@
 
 			          WHERE T0."DocEntry" = @DocEntryLayout AND T1."DocSubType" != 'DN' AND T0.TaxStatus = 'Y'
 
-			          GROUP BY T0."TaxRate", T1.DocCur
+			          GROUP BY T0."TaxRate", T1."DocCur"
 
 			                --------------------------- Consulta Impuestos ICA ---------------------------------------------------
 		          UNION ALL
@@ -1997,9 +1986,9 @@
 					          ELSE T5."LicTradNum" END
 					          AS 'numeroDocumento',
 
-					          T5."U_BO_RF" AS 'obligaciones',
+					          CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					          T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					          T5."U_HBT_TipDoc" AS 'tipoIdentificacion',
 
@@ -2506,9 +2495,9 @@
 									         ELSE T5."LicTradNum" END
 				      AS 'numeroDocumento',
 
-				      T5."U_BO_RF" AS 'obligaciones',
+				      CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-				      T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 				      T5."U_BPCO_TDC" AS 'tipoIdentificacion',
 
@@ -2797,9 +2786,9 @@
 					      CASE T5."U_HBT_TipDoc" WHEN '31' THEN SUBSTRING(T5."LicTradNum",1,CHARINDEX('-',T5."LicTradNum")-1)
 					      ELSE T5."LicTradNum" END AS 'numeroDocumento',
 
-					      T5."U_BO_RF" AS 'obligaciones',
+					      CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					      T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					      T5."U_BPCO_TDC" AS 'tipoIdentificacion',
 
@@ -3077,9 +3066,9 @@
 					      ELSE T5."LicTradNum" 
 					      END AS 'numeroDocumento',
 
-					      T5."U_BO_RF" AS 'obligaciones',
+					      CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					      T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					      T5."U_BPCO_TDC" AS 'tipoIdentificacion',
 
@@ -3434,9 +3423,9 @@
 					  ELSE T5."LicTradNum" END
 					  AS 'numeroDocumento',
 
-					  T5."U_BO_RF" AS 'obligaciones',
+					  CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					  T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					  T5."U_BO_TipDoc" AS 'tipoIdentificacion',
 					  					  
@@ -3889,9 +3878,9 @@
 					  CASE T5."U_BO_TipDoc" WHEN '31' THEN SUBSTRING(T5."LicTradNum",1,CHARINDEX('-',T5."LicTradNum")-1)
 					  ELSE T5."LicTradNum" END AS 'numeroDocumento',
 
-					  T5."U_BO_RF" AS 'obligaciones',
+					  CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					  T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					  T5."U_BO_TipDoc" AS 'tipoIdentificacion',
 
@@ -4266,9 +4255,9 @@
 					  ELSE T5."LicTradNum" 
 					  END AS 'numeroDocumento',
 
-					  T5."U_BO_RF" AS 'obligaciones',
+					  CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					  T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					  T5."U_BO_TipDoc" AS 'tipoIdentificacion',
 
@@ -5189,9 +5178,9 @@
 					      CASE T16.U_DocTypeID WHEN '31' THEN SUBSTRING(T5."LicTradNum",1,CHARINDEX('-',T5."LicTradNum")-1)
 					      ELSE T5."LicTradNum" END AS 'numeroDocumento',
 
-					      T5."U_BO_RF" AS 'obligaciones',
+					      CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					      T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					      T16.U_DocTypeID AS 'tipoIdentificacion',
 
@@ -5585,9 +5574,9 @@
 					      ELSE T5."LicTradNum" 
 					      END AS 'numeroDocumento',
 
-					      T5."U_BO_RF" AS 'obligaciones',
+					      CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					      T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					      T16.U_DocTypeID AS 'tipoIdentificacion',
 
@@ -5996,9 +5985,9 @@
 
 					       CASE WHEN CHARINDEX('-',T5."LicTradNum") &gt; 0 THEN SUBSTRING(T5."LicTradNum",1,CHARINDEX('-',T5."LicTradNum")-1) ELSE T5."LicTradNum" END  AS 'numeroDocumento',
 
-					      T5."U_BO_RF" AS 'obligaciones',
+					      CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					      T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					      '31' AS 'tipoIdentificacion',
 
@@ -6510,9 +6499,9 @@
 					      ELSE T5."LicTradNum" END
 					      AS 'numeroDocumento',
 
-					      T5."U_BO_RF" AS 'obligaciones',
+					      CASE WHEN T5."U_BO_RF" IS NULL THEN 'R-99-PN' ELSE T5."U_BO_RF" END  AS 'obligaciones',
 
-					      T5."U_BO_TR" AS 'regimen',
+					          CASE WHEN T5."U_BO_TR" IS NULL THEN '49' ELSE T5."U_BO_TR" END  AS 'regimen',
 
 					      T16.U_DocType AS 'tipoIdentificacion',
 

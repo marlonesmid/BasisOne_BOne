@@ -209,14 +209,10 @@
 
   <GetSeriesNumberActive>
     select
-    Stuff(
-    (SELECT CAST(',' AS varchar(MAX)) + convert(varchar, Code)
-    from  [@BOSERNUM] WHERE U_BO_TD = 'FVC'
-    FOR XML PATH('')
-    ), 1, 1, '') as 'SNFV',
-    (SELECT Code FROM [@BOSERNUM] WHERE U_BO_TD = 'NCC') AS 'SNNC',
-    (SELECT Code FROM [@BOSERNUM] WHERE U_BO_TD = 'NDC')  AS 'SNND',
-    (SELECT Code FROM [@BOSERNUM] WHERE U_BO_TD = 'DSA')  AS 'DSA'
+    Stuff((SELECT CAST(',' AS varchar(MAX)) + convert(varchar, Code) from [@BOSERNUM] WHERE U_BO_TD = 'FVC' FOR XML PATH('')), 1, 1, '') AS 'SNFV',
+    Stuff((SELECT CAST(',' AS varchar(MAX)) + convert(varchar, Code) from [@BOSERNUM] WHERE U_BO_TD = 'NCC' FOR XML PATH('')), 1, 1, '') AS 'SNNC',
+    Stuff((SELECT CAST(',' AS varchar(MAX)) + convert(varchar, Code) from [@BOSERNUM] WHERE U_BO_TD = 'NDC' FOR XML PATH('')), 1, 1, '') AS 'SNND',
+    Stuff((SELECT CAST(',' AS varchar(MAX)) + convert(varchar, Code) from [@BOSERNUM] WHERE U_BO_TD = 'DSA' FOR XML PATH('')), 1, 1, '') AS 'DSA'    
   </GetSeriesNumberActive>
 
   <GetTiposOperacion>
@@ -325,7 +321,7 @@
     (SELECT TOP 1 "U_BO_L" FROM "@BOEBILLINGP") AS "Localizacion",
     T0."U_BO_CRWS" AS "CRWS",
     COALESCE((SELECT TOP 1 "U_BO_FormE" FROM [@BOEBILLINGP]),0) AS "FormaEnvio",
-    COALESCE((SELECT TOP 1 "U_BO_FormE" FROM [@BOEBILLINGP]),0) AS "FormaEnvioDS",
+    COALESCE((SELECT TOP 1 "U_BO_FEDS" FROM [@BOEBILLINGP]),0) AS "FormaEnvioDS",
     (SELECT TOP 1 "U_BO_LlE" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Llave",
     (SELECT TOP 1 "U_BO_PwdE" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Password",
     (SELECT TOP 1 "U_BO_UserDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "UserDB",
@@ -335,6 +331,7 @@
     (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaCR",
     (SELECT TOP 1 A."U_BO_GXP" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "GeneraXMLP",
     T1."U_BO_PREF" AS "PrefijoDes"
+    
 
     FROM "%Tabla%" T0 LEFT JOIN "@BOSERNUM" T1 ON T0."Series"=T1."Code"
     WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
@@ -496,11 +493,106 @@
     (SELECT TOP 1 "U_BO_PwdE" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Password"
 
   </GetLlaveAndPassword>
+  
   <PathFilesAttchment>
     SELECT CONCAT(trgtPath,'\', FileName" , '.' , "FileExt") AS "PathFile"
     FROM ATC1
     WHERE "AbsEntry" = '%DocEntryAdjuntos%'
   </PathFilesAttchment>
+
+  <CheckDigitCalculation>
+          
+        CREATE FUNCTION BO_CheckDigitCalculation
+        (   
+            @NIT nvarchar(50)
+        )
+
+        RETURNS  int
+        AS
+        BEGIN
+
+	        DECLARE @CantidadDigitos INT
+	        DECLARE @Contador INT
+	        DECLARE @NITFinal NVARCHAR(50)
+	        DECLARE @DigitoVerificacionHallado INT
+	
+
+	        SET @NITFinal = (SELECT RIGHT('000000000000000' + Ltrim(Rtrim(@NIT)),15))
+	        SET @CantidadDigitos = LEN(@NITFinal)
+	        SET @Contador = 0
+	   		
+            if (@CantidadDigitos >= 16 ) -- starts with
+            begin       
+                return 00
+            end
+            else  -- contains, but doesn't start with 
+            begin
+		
+		        DECLARE @Suma INT
+		        DECLARE @SumaDivision DECIMAL(19,8)
+		        DECLARE @SumaDivisionRedondeado INT
+		        DECLARE @DecimalesHallados FLOAT
+		        DECLARE @Residuo INT
+
+		        DECLARE @Specification TABLE(
+									        ID INT,
+									        Valor INT,
+									        ValorDIAN INT 
+									        )
+
+		
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(1, (SUBSTRING(@NITFinal, 1, 1)),71)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(2, (SUBSTRING(@NITFinal, 2, 1)),67)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(3, (SUBSTRING(@NITFinal, 3, 1)),59)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(4, (SUBSTRING(@NITFinal, 4, 1)),53)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(5, (SUBSTRING(@NITFinal, 5, 1)),47)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(6, (SUBSTRING(@NITFinal, 6, 1)),43)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(7, (SUBSTRING(@NITFinal, 7, 1)),41)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(8, (SUBSTRING(@NITFinal, 8, 1)),37)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(9, (SUBSTRING(@NITFinal, 9, 1)),29)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(10, (SUBSTRING(@NITFinal, 10, 1)),23)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(11, (SUBSTRING(@NITFinal, 11, 1)),19)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(12, (SUBSTRING(@NITFinal, 12, 1)),17)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(13, (SUBSTRING(@NITFinal, 13, 1)),13)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(14, (SUBSTRING(@NITFinal, 14, 1)),7)
+		        INSERT INTO @Specification(ID,Valor, ValorDIAN )VALUES(15, (SUBSTRING(@NITFinal, 15, 1)),3)		
+					   		 
+		        SET @Suma = (SELECT SUM(Valor*ValorDIAN) FROM @Specification)
+
+		
+		        SET @Residuo = @Suma%11
+
+		        IF (@Residuo &lt;= 1)
+			        BEGIN
+				        SET @DigitoVerificacionHallado = 1
+			        END 
+		        ELSE 
+			        BEGIN 
+				        SET @DigitoVerificacionHallado =  11 - @Residuo
+			        END
+
+                return @DigitoVerificacionHallado
+            end
+
+            return 99
+        END
+
+  </CheckDigitCalculation>
+
+  <DropFunction>
+    DROP FUNCTION "%sNameFuction%"
+  </DropFunction>
+
+  <Eliminar_BO_FacturaXML>
+    IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '%sNameProcedure%')
+    BEGIN
+    DROP PROCEDURE %sNameProcedure%
+    END
+  </Eliminar_BO_FacturaXML>
+
+  <GetDV>
+    SELECT [dbo].[CalculoDV]('%NIT%')
+  </GetDV>
 
 
 </Queries>

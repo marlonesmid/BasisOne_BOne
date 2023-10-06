@@ -209,7 +209,11 @@
   </GetSeriesNumberDebitMemo>
 
   <GetSeriesNumberActive>
-    SELECT (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'FVC') AS "FVC", (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NCC') AS "NCC" , (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NDC') AS "NDC", (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NDC') AS "DSA" FROM DUMMY ;
+    SELECT (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'FVC') AS "FVC", 
+           (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NCC') AS "NCC" , 
+           (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NDC') AS "NDC", 
+           (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NDC') AS "DSA" 
+    FROM DUMMY;
   </GetSeriesNumberActive>
 
   <GetTiposOperacion>
@@ -482,5 +486,123 @@ SELECT "trgtPath" || '\' || "FileName" || '.' || "FileExt" AS "PathFile"
 	FROM "%sNameDB%"."ATC1" 
 	WHERE "AbsEntry" = '%DocEntryAdjuntos%'
   </PathFilesAttchment>
+
+  <BO_CheckDigitCalculation>
+    
+    CREATE PROCEDURE "BO_CheckDigitCalculation"
+      (
+	      NIT NVARCHAR(15)
+       )
+       LANGUAGE SQLSCRIPT AS  
+       BEGIN
+ 	
+ 	      DECLARE CantidadDigitos INT;
+	      DECLARE Contador INT;
+	      DECLARE NITFinal NVARCHAR(50);
+	      DECLARE DigitoVerificacionHallado INT; 
+  
+ 	      SELECT CAST(RIGHT('0000000000' || Ltrim(Rtrim(NIT)),15) AS NVARCHAR(100)) INTO NITFinal
+ 	      FROM DUMMY;
+ 	
+ 	      SELECT LENGTH(CantidadDigitos) INTO CantidadDigitos
+ 	      FROM DUMMY;
+ 	
+ 	      Contador := 0;
+ 	
+ 	      IF ( CantidadDigitos > 16 )
+ 		      THEN 
+ 		
+ 			      SELECT 00 AS "DV" FROM DUMMY;
+ 	      ELSE
+ 	
+ 		      DECLARE Suma INT;
+		      DECLARE SumaDivision DECIMAL(19,8);
+		      DECLARE SumaDivisionRedondeado INT;
+		      DECLARE DecimalesHallados FLOAT;
+		      DECLARE Residuo INT;
+		
+		      CREATE LOCAL TEMPORARY TABLE #Specification 
+		      (
+			      ID INT,
+			      Valor INT,
+			      ValorDIAN INT 		
+		      );
+				 
+		 
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(1, (SUBSTRING(NITFinal, 1, 1)),71);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(2, (SUBSTRING(NITFinal, 2, 1)),67);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(3, (SUBSTRING(NITFinal, 3, 1)),59);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(4, (SUBSTRING(NITFinal, 4, 1)),53);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(5, (SUBSTRING(NITFinal, 5, 1)),47);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(6, (SUBSTRING(NITFinal, 6, 1)),43);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(7, (SUBSTRING(NITFinal, 7, 1)),41);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(8, (SUBSTRING(NITFinal, 8, 1)),37);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(9, (SUBSTRING(NITFinal, 9, 1)),29);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(10,(SUBSTRING(NITFinal, 10, 1)),23);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(11,(SUBSTRING(NITFinal, 11, 1)),19);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(12,(SUBSTRING(NITFinal, 12, 1)),17);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(13,(SUBSTRING(NITFinal, 13, 1)),13);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(14,(SUBSTRING(NITFinal, 14, 1)),7);
+		      INSERT INTO #Specification(ID,Valor, ValorDIAN )VALUES(15,(SUBSTRING(NITFinal, 15, 1)),3);	
+			
+						   		 
+		      SELECT SUM(Valor*ValorDIAN) INTO Suma
+		      FROM #Specification;
+		
+		      SELECT MOD (Suma, 11) INTO Residuo 
+		      FROM DUMMY;
+		
+		
+		      IF (:Residuo &gt; 1)
+			      THEN
+
+			        	SELECT (11 - Residuo) INTO DigitoVerificacionHallado 
+			      		FROM DUMMY;		
+		
+			      		SELECT DigitoVerificacionHallado AS "DV" FROM DUMMY;
+			
+			      		DROP TABLE #Specification;  	
+		
+		      ELSEIF (:Residuo = 1)
+		      	THEN
+		      	
+		      		DigitoVerificacionHallado := 1;
+				
+			        SELECT DigitoVerificacionHallado AS "DV" FROM DUMMY;
+
+				    DROP TABLE #Specification;
+				    
+			 ELSE 
+			 	
+			 	DigitoVerificacionHallado := 0;
+				
+			    SELECT DigitoVerificacionHallado AS "DV" FROM DUMMY;
+
+				DROP TABLE #Specification;  	 	
+		      
+		
+			  
+		      END IF; 	
+ 	 	
+ 	       END IF;
+     
+       END;
+          
+
+  </BO_CheckDigitCalculation>
+
+  <SearchProcedure>
+    SELECT * FROM "SYS"."PROCEDURES"
+    WHERE "SCHEMA_NAME" = '%sNameDB%'
+    AND "PROCEDURE_NAME"= '%sNameProcedure%'
+  </SearchProcedure>
+
+  <Eliminar_BO_FacturaXML>
+    DROP PROCEDURE "%sNameDB%"."%sNameProcedure%"
+  </Eliminar_BO_FacturaXML>
+
+  <GetDV>
+    CALL "BO_CheckDigitCalculation" ('%NIT%')
+  </GetDV>
 
 </Queries>
