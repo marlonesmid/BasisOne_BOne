@@ -1632,7 +1632,8 @@
 					           T0."TotalFrgn",
 					           T0."VatSumFrgn",
 					           T1."LstEvlPric",
-					           T0."DocDate"
+					           T0."DocDate",
+							   T0."Rate"
 
 			          ORDER BY T0."VisOrder"
 

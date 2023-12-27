@@ -29,15 +29,12 @@ namespace eBilling
         private SAPbouiCOM.Application sboapp;
         private SAPbobsCOM.Company oCompany;
 
-        string sGetLastRecord = null;
-        
-        
+        string sGetLastRecord = null;        
         
         string sGetTiposOperacion = null;
         string sGetFormattedSearch = null;
         string _IDCategory;
         int Rsd = 0;
-
 
         #endregion
 

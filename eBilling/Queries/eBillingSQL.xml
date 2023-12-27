@@ -595,7 +595,7 @@
   </Eliminar_BO_FacturaXML>
 
   <GetDV>
-    SELECT [dbo].[CalculoDV]('%NIT%')
+	  SELECT [dbo].[CalculoDV]('%NIT%') AS 'DV'
   </GetDV>
 
 
