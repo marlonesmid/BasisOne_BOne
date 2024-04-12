@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BOElectronicReception">
+      <HintPath>..\BOElectronicReception\bin\x64\BOElectronicReception.dll</HintPath>
+    </Reference>
+    <Reference Include="BOFacturacionElectronica">
+      <HintPath>..\eBilling\bin\x64\BOFacturacionElectronica.dll</HintPath>
+    </Reference>
     <Reference Include="BOFunciones">
       <HintPath>..\Funciones\bin\x64\BOFunciones.dll</HintPath>
     </Reference>
@@ -56,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Core\Images\LogoBO20x20.bmp" />
-    <Content Include="Core\Queries\ValidacionAddOnBOHANA.xml" />
+    <Content Include="Core\Queries\ValidacionAddOnBOHANA.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Core\Queries\ValidacionAddOnBOSQL.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

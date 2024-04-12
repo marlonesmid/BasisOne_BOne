@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("B1Studio.VSIntegration.UICSharpTemplate")]
+[assembly: AssemblyTitle("BOne")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Basis One SAS")]
-[assembly: AssemblyProduct("B1Studio.VSIntegration.UICSharpTemplate")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2020")]
+[assembly: AssemblyCompany("Hexagrama Consulting SAS")]
+[assembly: AssemblyProduct("BOne")]
+[assembly: AssemblyCopyright("Copyright © Hexagrama 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("10.23.18.0")]
-[assembly: AssemblyFileVersion("10.23.18.0")]
+[assembly: AssemblyVersion("10.24.11.0")]
+[assembly: AssemblyFileVersion("10.24.11.0")]

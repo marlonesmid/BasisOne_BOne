@@ -257,6 +257,10 @@
     SELECT "Code", "U_BO_Des" FROM [@BORESFISCAL] ORDER BY 1
   </FormattedSearchResponFiscal>
 
+  <FormattedSearchResponFiscalHBT>
+    SELECT "Code", "Name", "U_HBT_VigenciaDesde" , "U_HBT_VigenciaHasta" FROM "@HBT_RESPFISCAL"
+  </FormattedSearchResponFiscalHBT>
+
   <FormattedSearchUnidadesMedidaEstandar>
     SELECT DISTINCT "SalUnitMsr" AS "Unidad de Medida Estandar" FROM "OITM" ORDER BY 1
   </FormattedSearchUnidadesMedidaEstandar>
@@ -316,25 +320,26 @@
   </GetTableUMDIAN>
 
   <GetDocEntryAndParameters>
-    SELECT TOP 1 T0."DocEntry",
-    T0."Series",
-    (SELECT TOP 1 "U_BO_L" FROM "@BOEBILLINGP") AS "Localizacion",
-    T0."U_BO_CRWS" AS "CRWS",
-    COALESCE((SELECT TOP 1 "U_BO_FormE" FROM [@BOEBILLINGP]),0) AS "FormaEnvio",
-    COALESCE((SELECT TOP 1 "U_BO_FEDS" FROM [@BOEBILLINGP]),0) AS "FormaEnvioDS",
-    (SELECT TOP 1 "U_BO_LlE" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Llave",
-    (SELECT TOP 1 "U_BO_PwdE" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Password",
-    (SELECT TOP 1 "U_BO_UserDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "UserDB",
-    (SELECT TOP 1 "U_BO_PassDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "PassDB",
-    (SELECT TOP 1 A."U_BO_RutaPDF" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaPDF",
-    (SELECT TOP 1 "U_BO_RutaXML" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "RutaXML",
-    (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaCR",
-    (SELECT TOP 1 A."U_BO_GXP" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "GeneraXMLP",
-    T1."U_BO_PREF" AS "PrefijoDes"
     
+    SELECT TOP 1 T0."DocEntry",
+                 T0."Series",
+                (SELECT TOP 1 "U_BO_L" FROM "@BOEBILLINGP") AS "Localizacion",
+                T0."U_BO_CRWS" AS "CRWS",
+                COALESCE((SELECT TOP 1 "U_BO_FormE" FROM [@BOEBILLINGP]),0) AS "FormaEnvio",
+                COALESCE((SELECT TOP 1 "U_BO_FEDS" FROM [@BOEBILLINGP]),0) AS "FormaEnvioDS",
+                (SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRO' THEN "U_BO_LlE" ELSE "U_BO_LlED" END FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Llave",
+                (SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRO' THEN "U_BO_PwdE" ELSE "U_BO_PwdED" END FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Password",
+                (SELECT TOP 1 "U_BO_UserDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "UserDB",
+                (SELECT TOP 1 "U_BO_PassDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "PassDB",
+                (SELECT TOP 1 A."U_BO_RutaPDF" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaPDF",
+                (SELECT TOP 1 "U_BO_RutaXML" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "RutaXML",
+                (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaCR",
+                (SELECT TOP 1 A."U_BO_GXP" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "GeneraXMLP",
+                T1."U_BO_PREF" AS "PrefijoDes"    
 
-    FROM "%Tabla%" T0 LEFT JOIN "@BOSERNUM" T1 ON T0."Series"=T1."Code"
-    WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
+      FROM "%Tabla%" T0 LEFT JOIN "@BOSERNUM" T1 ON T0."Series"=T1."Code"
+      WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
+    
   </GetDocEntryAndParameters>
 
   <GetDocNumAndSeries>
@@ -440,10 +445,11 @@
 
   <GetModoandURL>
     SELECT TOP 1 CASE WHEN U_BO_Mdo = 'PRU' THEN U_BO_URLWSPRU
-    ELSE U_BO_URLWSPRD END AS 'URLTFHKA',
-    U_BO_Mdo AS 'Modo',
-    U_BO_MI AS 'ModoIntegracion',
-    U_BO_PC AS 'ProtocoloComunicacion'
+            ELSE U_BO_URLWSPRD 
+            END AS 'URLTFHKA',
+            U_BO_Mdo AS 'Modo',
+            U_BO_MI AS 'ModoIntegracion',
+            U_BO_PC AS 'ProtocoloComunicacion'
     FROM "@BOEBILLINGP"
     WHERE %Estado% %DocEntry%
   </GetModoandURL>
@@ -595,8 +601,35 @@
   </Eliminar_BO_FacturaXML>
 
   <GetDV>
-	  SELECT [dbo].[CalculoDV]('%NIT%') AS 'DV'
+    SELECT [dbo].[BO_CheckDigitCalculation]('%NIT%') AS "DV"
   </GetDV>
 
+  <GetProveedorTecnologico>
+    SELECT "U_BO_PT" AS "ProveedorTecnologico" FROM "@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+  </GetProveedorTecnologico>
 
+  <GetSearchInvoiceNotSentDIAN>
+
+    SELECT 'Facturas de Venta' AS "Tipo de documento", T0."DocEntry", T0."DocNum", T0."DocDate", T0."CardCode", T0."CardName", T0."DocTotal" FROM "OINV" T0 WHERE T0."DocDate" &gt; DATEADD(day, -10, GETDATE()) and  T0."U_BO_CRWS" != '200'
+
+  </GetSearchInvoiceNotSentDIAN>
+
+  <GetSearchCreditNoteNotSentDIAN>    
+
+    SELECT 'Notas Credito de Venta' AS "Tipo de documento", T0."DocEntry", T0."DocNum", T0."DocDate", T0."CardCode", T0."CardName", T0."DocTotal" FROM "ORIN" T0 WHERE T0."DocDate" &gt; DATEADD(day, -10, GETDATE()) and  T0."U_BO_CRWS" != '200'
+
+  </GetSearchCreditNoteNotSentDIAN>
+
+  <GetSearchDocumentSupportNotSentDIAN>
+
+    SELECT 'Documento Soporte' AS "Tipo de documento", T0."DocEntry", T0."DocNum", T0."DocDate", T0."CardCode", T0."CardName", T0."DocTotal" FROM "OPCH" T0 WHERE T0."DocDate" &gt; DATEADD(day, -10, GETDATE()) and  T0."U_BO_CRWS" != '200'
+
+  </GetSearchDocumentSupportNotSentDIAN>
+
+  <GetSearchDueBillingResolutions>
+
+    SELECT T0."U_BO_NR", T0."U_BO_FR", T0."U_BO_FF", T0."U_BO_NI", T0."U_BO_NF" FROM "@BOSERNUM"  T0 WHERE ISNULL(T0."U_BO_FF",GETDATE()) &gt; DATEADD(day, -30, GETDATE())
+
+  </GetSearchDueBillingResolutions>
+  
 </Queries>

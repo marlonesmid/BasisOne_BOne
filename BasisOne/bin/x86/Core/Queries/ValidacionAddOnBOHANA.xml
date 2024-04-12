@@ -32,9 +32,29 @@
     FROM "%sNameDB%"."@BOADMINADDON"
     WHERE "U_Status" IN ('A','S')
   </GridAddInActive>
+
+  <LisencedActiveAddOns>
+    SELECT "Code" AS "AddIn",
+            "Name" AS "Nombre AddIn",
+            "U_Version" AS "Version AddIn",
+            CASE WHEN "U_Status" = 'A' THEN 'Activo'
+                 WHEN "U_Status" = 'I' THEN 'Inactivo'
+                 WHEN "U_Status" = 'S' THEN 'Sin licencia"'
+    ELSE '' END AS "Estado"
+    FROM "%sNameDB%"."@BOADMINADDON"
+    WHERE "U_Status" IN ('A')
+  </LisencedActiveAddOns>
   
   <AddInsActive>
     SELECT "Code" FROM "%sNameDB%"."@BOADMINADDON" WHERE  "U_Status" ='A'
   </AddInsActive>
+
+  <LocalizacionActive>
+    SELECT "U_BO_L" AS "Localizacion" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+  </LocalizacionActive>
+
+  <SearchTables>
+    select * from sys.objects where schema_name = '%sNameDB%' and object_name='%sTable%';
+  </SearchTables>
 
 </Queries>

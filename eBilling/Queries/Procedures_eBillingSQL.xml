@@ -225,7 +225,11 @@
 
 					          0 AS 'DocEntryAdjuntos',
 
-					          0 AS 'Comentarios'
+					          0 AS 'Comentarios',
+                    
+                    T0.NumAtCard AS 'numeroOrden',
+
+                    T0.NumAtCard AS 'numeroPedido'
 
 		          FROM "OINV" T0 LEFT JOIN "INV12" T4 ON T0."DocEntry"=T4."DocEntry"
 					             LEFT JOIN "OCRD" T5 ON T0."CardCode" = T5."CardCode"
@@ -1632,8 +1636,7 @@
 					           T0."TotalFrgn",
 					           T0."VatSumFrgn",
 					           T1."LstEvlPric",
-					           T0."DocDate",
-							   T0."Rate"
+					           T0."DocDate"
 
 			          ORDER BY T0."VisOrder"
 
@@ -2512,7 +2515,11 @@
 				      CASE WHEN T11."ExtraDays" > '0' THEN '2'
 					       ELSE '1' END AS 'FormaPago',
 
-				      '01' AS 'numeroDeReferencia'
+				      '01' AS 'numeroDeReferencia',
+              
+              T0.NumAtCard AS 'numeroOrden',
+
+              T0.NumAtCard AS 'numeroPedido'
 
 		      FROM "OINV" T0 LEFT JOIN "INV12" T4 ON T0."DocEntry"=T4."DocEntry"
 					         LEFT JOIN "OCRD" T5 ON T0."CardCode" = T5."CardCode"
@@ -3249,6 +3256,8 @@
 
   </BO_FacturaXML_OK1>
 
+  <BO_FacturaXML_EXX></BO_FacturaXML_EXX>
+
   <BO_FacturaXML_BO>
     
     CREATE PROCEDURE [dbo].[BO_FacturaXML]
@@ -3442,7 +3451,11 @@
 
 					  '01' AS 'numeroDeReferencia', 
 
-					  'NO' AS 'FacturaTieneMuestras'
+					  'NO' AS 'FacturaTieneMuestras',
+            
+            T0.NumAtCard AS 'numeroOrden',
+
+            T0.NumAtCard AS 'numeroPedido'
 
 		  FROM "OINV" T0 LEFT JOIN "INV12" T4 ON T0."DocEntry"=T4."DocEntry"
 					     LEFT JOIN "OCRD" T5 ON T0."CardCode" = T5."CardCode"
@@ -4720,7 +4733,11 @@
 
 					      0 AS 'DocEntryAdjuntos',
 
-					      0 AS 'Comentarios'
+					      0 AS 'Comentarios',
+                
+                T0.NumAtCard AS 'numeroOrden',
+
+                T0.NumAtCard AS 'numeroPedido'
 
 		      FROM "OINV" T0 LEFT JOIN "INV12" T4 ON T0."DocEntry"=T4."DocEntry"
 					         LEFT JOIN "OCRD" T5 ON T0."CardCode" = T5."CardCode"

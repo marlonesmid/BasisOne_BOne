@@ -31,7 +31,19 @@
                  ELSE '' END AS "Estado"
     FROM "@BOADMINADDON"
     WHERE "U_Status" IN ('A','S')
-  </GridAddInActive>
+  </GridAddInActive>  
+  
+    <LisencedActiveAddOns>
+    SELECT "Code" AS "AddIn",
+            "Name" AS "Nombre AddIn",
+            "U_Version" AS "Version AddIn",
+            CASE WHEN "U_Status" = 'A' THEN 'Activo'
+                 WHEN "U_Status" = 'I' THEN 'Inactivo'
+                 WHEN "U_Status" = 'S' THEN 'Sin licencia"'
+    ELSE '' END AS "Estado"
+    FROM "%sNameDB%"."@BOADMINADDON"
+    WHERE "U_Status" IN ('A')
+  </LisencedActiveAddOns>
   
   <AddInsActive>
     SELECT Code FROM [@BOADMINADDON] WHERE  "U_Status" ='A'
@@ -42,5 +54,19 @@
     SELECT "DecSep","ThousSep" FROM OADM 
   
   </GetSepartorDecimal>
+
+  <LocalizacionActive>
+    SELECT U_BO_L AS 'Localizacion' FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y'
+  </LocalizacionActive>
+
+  <SearchTables>
+
+    IF EXISTS (SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND name like '@BOEBILLINGP')
+        SELECT "U_BO_L" AS "Localizacion" FROM "@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+      ELSE
+      SELECT 2 WHERE 1=2
+      
+  </SearchTables>
+
 
 </Queries>

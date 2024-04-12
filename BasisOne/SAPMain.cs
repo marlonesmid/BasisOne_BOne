@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using BOProduccion;
 using BOElectronicReception;
+using BOCore;
 
 namespace BasisOne
 {
@@ -49,33 +50,12 @@ namespace BasisOne
         Intercompany.Intercompany DllIntercompany = new Intercompany.Intercompany(sboapp, _company);
         BOProduccion.Production DllProduction = new BOProduccion.Production();
         BOElectronicReception.ElectronicReception DllElectronicReception = new ElectronicReception();
-
-
-        #endregion
-
-        #region Version Dll´s
-
-        string sVersionAddInPresupuesto;
-        string sVersionAddInIntercompany;
-        string sVersionAddIneBillingBO;
-        string sVersionAddInElectronicReception;
-        string sVersionAddInProductionBO;
-        string sVersionInstalador;
+        BOCore.Core DllCore = new BOCore.Core();
 
         #endregion
 
         internal void Init()
-        {
-            #region Version Dll's
-
-            sVersionAddInPresupuesto = "2.0.0.0";
-            sVersionAddInIntercompany = DllIntercompany.VersionDll();
-            sVersionAddIneBillingBO = DlleBilling.VersionDll();
-            sVersionAddInProductionBO = DllProduction.VersionDll();
-            sVersionInstalador = Assembly.GetEntryAssembly().GetName().Version.ToString();
-            sVersionAddInElectronicReception = DllElectronicReception.VersionDll();
-
-            #endregion
+        {            
 
             SAPbouiCOM.SboGuiApi guiApi = new SAPbouiCOM.SboGuiApi();
             String connectionString = Environment.GetCommandLineArgs().Length != 1 ? Environment.GetCommandLineArgs().GetValue(1).ToString() : "0030002C0030002C00530041005000420044005F00440061007400650076002C0050004C006F006D0056004900490056";
@@ -89,10 +69,10 @@ namespace BasisOne
             sMotor = Convert.ToString(_company.DbServerType);
 
             //Mensaje inicio de AddOn
-            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Warning, "Cargando AddOn B-One ,  espere por favor....");
+            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Warning, "Cargando AddOn BOne ,  espere por favor....");
 
             //Creacion Tablas y Campos Base del AddOn Basis One
-            TablasyCamposBaseBO(sNameDB);
+            DllCore.TablasyCamposBaseBO(sboapp, _company, sNameDB);
 
             //Crear menus        
             setMenus();
@@ -104,7 +84,7 @@ namespace BasisOne
             setFilter();
 
             //Mensaje finalizacion AddOn Basis One 
-            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Success, "AddOn B-One cargado correctamente");
+            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Success, "AddOn BOne cargado correctamente");
 
         }
 
@@ -222,9 +202,9 @@ namespace BasisOne
 
             try
             {
-                Presupuesto.Core oCore = new Core(sboapp, _company);
+                Presupuesto.Core oCore = new Presupuesto.Core(sboapp, _company);
                 Funciones.Comunes oFunc = new Funciones.Comunes();
-                Presupuesto.Core oPresup = new Core(sboapp, _company);
+                Presupuesto.Core oPresup = new Presupuesto.Core(sboapp, _company);
                 Intercompany.Intercompany DllIntercompany = new Intercompany.Intercompany(sboapp, _company);
 
                 switch (pVal.EventType)
@@ -262,7 +242,7 @@ namespace BasisOne
 
                                     SAPbouiCOM.Form oFormBO_eBillingP = sboapp.Forms.Item("BO_eBillingP");
 
-                                    BubbleEvent = DlleBilling.Insert_InfoUDO_eBillingP(sboapp, _company, oFormBO_eBillingP, sMotor);
+                                    BubbleEvent = DlleBilling.UpdateDataFormParametrizacionEbilling(sboapp, _company, oFormBO_eBillingP, sMotor);
 
                                 }
 
@@ -870,114 +850,7 @@ namespace BasisOne
                         }
                         else if (pVal.FormUID == "BO_Gestion_AddOn" && pVal.ItemUID == "btnVE" && pVal.BeforeAction == true)
                         {
-
-                            #region Variables y objetos 
-
-                            SAPbouiCOM.Form oBO_Gestion_AddOn = sboapp.Forms.Item("BO_Gestion_AddOn");
-                            SAPbobsCOM.Recordset oConsultaAddIns = (SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                            string sLocalizacion;
-                            string sConsultaAddins;
-
-                            bool bAddIneBillingBO = false;
-                            
-                            
-                            bool bAddInProduccion = false;
-                            bool bAddInElectronicReception = false;
-
-                            #endregion
-
-                            #region ConsultaAddIns
-
-                            sConsultaAddins = DllFunciones.GetStringXMLDocument(_company, "Core", "ValidacionAddOnBO", "AddInsActive");
-
-                            oConsultaAddIns.DoQuery(sConsultaAddins);
-
-                            if (oConsultaAddIns.RecordCount > 0)
-                            {
-
-                                oConsultaAddIns.MoveFirst();
-
-                                do
-                                {
-                                    sConsultaAddins = null;
-
-                                    sConsultaAddins = Convert.ToString(oConsultaAddIns.Fields.Item("Code").Value.ToString());
-
-                                    if (sConsultaAddins == "AddIneBillingBO")
-                                    {
-                                        bAddIneBillingBO = true;
-                                    }
-                                    else if (sConsultaAddins == "AddInIntercompany")
-                                    {
-                                        
-                                    }
-                                    else if (sConsultaAddins == "AddInPresupuesto")
-                                    {
-                                        
-                                    }
-                                    else if (sConsultaAddins == "AddInProduccion")
-                                    {
-                                        bAddInProduccion = true;
-                                    }
-                                    else if (sConsultaAddins == "AddInElectronicReception")
-                                    {
-                                        bAddInElectronicReception = true;
-                                    }
-
-                                    oConsultaAddIns.MoveNext();
-
-                                } while (oConsultaAddIns.EoF == false);
-                            }
-                            else
-                            {
-
-                            }
-
-                            DllFunciones.liberarObjetos(oConsultaAddIns);
-
-                            #endregion
-
-                            #region Consulta Localizacion 
-
-                            sLocalizacion = ((SAPbouiCOM.ComboBox)(oBO_Gestion_AddOn.Items.Item("txtLoca").Specific)).Value.ToString();
-
-                            #endregion
-
-                            #region Validacion de tablas y campos 
-
-                            if (string.IsNullOrEmpty(sLocalizacion))
-                            {
-                                DllFunciones.sendMessageBox(sboapp, "No ha seleccionado el tipo de localización, por favor revise");
-                            }
-                            else
-                            {
-                                int sProcesar = DllFunciones.sendMessageBoxY_N(sboapp, "Se validaran las tablas y campos de todos los Add-Ins Activos , ¿ Desea continuar ?");
-
-                                if (sProcesar == 1)
-                                {
-                                    if (bAddIneBillingBO == true)
-                                    {
-                                        DlleBilling.CreacionTablasyCamposeBillingBO(sboapp, _company, sMotor, sLocalizacion);
-                                    }                                   
-
-                                    if (bAddInProduccion == true)
-                                    {
-                                        DllProduction.CreateUDTandUDFProduction(sboapp, _company);
-                                    }
-                                    
-                                    if (bAddInElectronicReception == true)
-                                    {
-                                        DllElectronicReception.CreacionTablasyCamposeBillingBO(sboapp, _company);
-                                        
-                                    }
-                                    
-
-                                    DllFunciones.sendMessageBox(sboapp, "Se crearon las tablas y campos correctamente, por favor salir y volver a ingresar");
-                                }
-                            }
-
-                            #endregion
+                            DllCore.ValidacionEstructuraAddInsActivos(sboapp, _company, sNameDB);
                         }
 
                         #endregion                        
@@ -997,7 +870,7 @@ namespace BasisOne
 
                         if (TieneLicenciaeBilling == true)
                         {
-                            #region Eventos EbillingBO
+                            #region Eventos Facturacion Electronica Emision
 
                             #region Visor de documentos
 
@@ -1008,9 +881,7 @@ namespace BasisOne
                             }
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "btnFind" && pVal.BeforeAction == true)
                             {
-                                SAPbouiCOM.Form oFormVisorDocs = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.InsertDataInMatrix(sboapp, _company, oFormVisorDocs);
-
+                                DlleBilling.InsertDataInMatrix(sboapp, _company);
                             }
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "btnVD" && pVal.BeforeAction == true)
                             {
@@ -2169,7 +2040,7 @@ namespace BasisOne
 
         private void Sboapp_MenuEvent(ref MenuEvent pVal, out bool BubbleEvent)
         {
-            Presupuesto.Core oCore = new Core(sboapp, _company);
+            Presupuesto.Core oCore = new Presupuesto.Core(sboapp, _company);
             BubbleEvent = true;
 
             if (!pVal.BeforeAction)
@@ -2197,7 +2068,7 @@ namespace BasisOne
                     catch
                     {
                         //Si el formulario no existe lo crea
-                        Presupuesto.Core oFormPresu = new Core(sboapp, _company);
+                        Presupuesto.Core oFormPresu = new Presupuesto.Core(sboapp, _company);
                         oFormPresu.showForm("BO_ConfPresup");
                     }
 
@@ -2221,7 +2092,7 @@ namespace BasisOne
                     catch
                     {
                         //Si el formulario no existe lo crea
-                        Presupuesto.Core oFormPerfilPresup = new Core(sboapp, _company);
+                        Presupuesto.Core oFormPerfilPresup = new Presupuesto.Core(sboapp, _company);
                         oFormPerfilPresup.showForm("BO_PerfilPresup");
                     }
 
@@ -2245,7 +2116,7 @@ namespace BasisOne
                     catch
                     {
                         //Si el formulario no existe lo crea
-                        Presupuesto.Core oFormPresupCuenta = new Core(sboapp, _company);
+                        Presupuesto.Core oFormPresupCuenta = new Presupuesto.Core(sboapp, _company);
                         oFormPresupCuenta.showForm("BO_PresupCuenta");
                     }
 
@@ -2321,20 +2192,11 @@ namespace BasisOne
                     break;
                 case "mnuBO_GestorAddOn":
 
-                    #region Eventos en el Menu Gestor AddOn
-
-                    #region Abre Formulario gestor de AddOn
+                    #region Eventos en el Menu Gestor AddOn                   
 
                     try
                     {
-                        string ArchivoSRF = "Gestion_AddOn.srf";
-                        DllFunciones.LoadFromXML(sboapp, "Core", ref ArchivoSRF);
-
-                        SAPbouiCOM.Form oFormGA;
-                        oFormGA = sboapp.Forms.Item("BO_Gestion_AddOn");
-
-                        ChangueFormGestionAddOn(sboapp, _company, oFormGA, sMotor);
-
+                        DllCore.OpenFormGestorAddOn(sboapp, _company);
 
                     }
                     catch (Exception e)
@@ -2342,9 +2204,7 @@ namespace BasisOne
 
                         DllFunciones.sendErrorMessage(sboapp, e);
 
-                    }
-
-                    #endregion
+                    }                    
 
                     #endregion
 
@@ -2382,23 +2242,18 @@ namespace BasisOne
 
                     if (TieneLicenciaeBilling == true)
                     {
-                        #region Abre fomrulario parametros eBilling 
+                        #region Abre fomrulario parametros Facturacion Electronica 
 
                         try
                         {
-                            string ArchivoSRF = "Parametros_iniciales_eBilling.srf";
-                            DllFunciones.LoadFromXML(sboapp, "eBilling", ref ArchivoSRF);
-
-                            SAPbouiCOM.Form oFormBOVDEB;
-                            oFormBOVDEB = sboapp.Forms.Item("BO_eBillingP");
-
-                            DlleBilling.ChangueFormPeBilling(_company, oFormBOVDEB, sMotor);
+                            DlleBilling.OpenFormParametrosIniciales(sboapp, _company, sMotor);
 
                         }
                         catch (Exception e)
                         {
 
                             DllFunciones.sendErrorMessage(sboapp, e);
+
                         }
 
                         #endregion
@@ -2416,19 +2271,14 @@ namespace BasisOne
                     {
                         try
                         {
-                            string ArchivoSRF = "Unidades_Medida.srf";
-                            DllFunciones.LoadFromXML(sboapp, "eBilling", ref ArchivoSRF);
-
-                            SAPbouiCOM.Form oFormUNDM;
-                            oFormUNDM = sboapp.Forms.Item("BO_UNDM");
-
-                            DlleBilling.ChangueFormUNDM(sboapp, _company, oFormUNDM);
+                            DlleBilling.OpenFormUnidadesMedida(sboapp, _company, sMotor);
 
                         }
                         catch (Exception e)
                         {
 
                             DllFunciones.sendErrorMessage(sboapp, e);
+
                         }
 
                     }
@@ -2445,20 +2295,10 @@ namespace BasisOne
                     {
                         try
                         {
-                            string ArchivoSRF = "Visor_Documentos_eBilling.srf";
-
-
-                            DllFunciones.LoadFromXML(sboapp, "eBilling", ref ArchivoSRF);
-
-                            SAPbouiCOM.Form oFormVDBO;
-                            oFormVDBO = sboapp.Forms.Item("BOVDEB");
-
-                            DlleBilling.ChangueFormVisoreBilling(sboapp, _company, oFormVDBO, sMotor);
-
+                            DlleBilling.OpenFormVisorDocumentosEnviados(sboapp, _company, sMotor);
                         }
                         catch (Exception e)
                         {
-
                             DllFunciones.sendErrorMessage(sboapp, e);
                         }
 
@@ -2498,6 +2338,7 @@ namespace BasisOne
 
                     if (TieneLicenciaProduction == true)
                     {
+
                         string ArchivoSRF = "External_Service.srf";
                         DllFunciones.LoadFromXML(sboapp, "BOElectronicReception", ref ArchivoSRF);
 
@@ -2643,22 +2484,17 @@ namespace BasisOne
 
                     if (TieneLicenciaElectronicRepception == true)
                     {
+
                         try
                         {
-
-                            string ArchivoSRF = "VisorDocumentsReceptionElectronic.srf";
-                            DllFunciones.LoadFromXML(sboapp, "BOElectronicReception", ref ArchivoSRF);
-
-                            SAPbouiCOM.Form oFormVisorReception;
-                            oFormVisorReception = sboapp.Forms.Item("BOTVDR");
-
-                            DllElectronicReception.LoadFormDocumentsReception(sboapp, _company, oFormVisorReception);
+                            DllElectronicReception.OpenFormVisorDocumentosRecibidos(sboapp, _company, sMotor);
 
                         }
                         catch (Exception e)
                         {
 
                             DllFunciones.sendErrorMessage(sboapp, e);
+
                         }
 
                     }
@@ -2803,180 +2639,6 @@ namespace BasisOne
 
         #region Metodos
 
-        private void TablasyCamposBaseBO(string _sNameDB)
-        {
-            try
-            {
-                #region Creacion de tablas
-
-                DllFunciones.crearTabla(_company, sboapp, "BOAdminAddOn", "Admin AddOn B-One Tech", BoUTBTableType.bott_NoObject);
-                //DllFunciones.crearTabla(_company, sboapp, "BOAdminAddInUser", "Admin AddIn User Basis One", BoUTBTableType.bott_NoObject);
-
-                #endregion
-
-                #region Creacion de campos
-
-                DllFunciones.CreaCamposUsr(_company, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 20, "", BoYesNoEnum.tNO, null, "BOAdminAddOn", "Version", "Version");
-                DllFunciones.CreaCamposUsr(_company, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "BOAdminAddOn", "Licencia", "Licencia");
-
-                string[] ValidValuesFields = { "A", "Activo", "I", "Inactivo", "S", "Sin Licencia" };
-                DllFunciones.CreaCamposUsr(_company, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesFields, "BOAdminAddOn", "Status", "Status");
-
-                #endregion
-
-                #region Insercion o actualizacion AddIns
-
-                sQuerieValidacion = DllFunciones.GetStringXMLDocument(_company, "Core", "ValidacionAddOnBO", "ValidationExistingAddins");
-
-                #region AddIn AddInPresupuesto
-
-                SAPbobsCOM.Recordset oValidacionAddInPresupuesto = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInPresupuesto");
-
-                oValidacionAddInPresupuesto.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddInPresupuesto.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddInPresupuesto.Fields.Item("Version").Value.ToString()), sVersionAddInPresupuesto);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInPresupuesto", sVersionAddInPresupuesto);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInPresupuesto", "AddInPresupuesto", sVersionAddInIntercompany, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddInPresupuesto);
-
-                #endregion
-
-                #region AddIn AddInIntercompany
-
-                SAPbobsCOM.Recordset oValidacionAddInIntercompany = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInIntercompany");
-
-                oValidacionAddInIntercompany.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddInIntercompany.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddInIntercompany.Fields.Item("Version").Value.ToString()), sVersionAddInIntercompany);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInIntercompany", sVersionAddInIntercompany);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInIntercompany", "AddInIntercompany", sVersionAddInIntercompany, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddInIntercompany);
-
-                #endregion
-
-                #region AddIn AddIneBillingBO
-
-                SAPbobsCOM.Recordset oValidacionAddIneBillingBO = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddIneBillingBO");
-
-                oValidacionAddIneBillingBO.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddIneBillingBO.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddIneBillingBO.Fields.Item("Version").Value.ToString()), sVersionAddIneBillingBO);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddIneBillingBO", sVersionAddIneBillingBO);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddIneBillingBO", "AddIneBillingBO", sVersionAddInIntercompany, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddIneBillingBO);
-
-                #endregion
-
-                #region AddIn AddIneProductionBO
-
-                SAPbobsCOM.Recordset oValidacionAddIneProductionBO = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInProduccion");
-
-                oValidacionAddIneProductionBO.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddIneProductionBO.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddIneProductionBO.Fields.Item("Version").Value.ToString()), sVersionAddInProductionBO);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInProduccion", sVersionAddInProductionBO);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInProduccion", "Produccion Avanzada", sVersionAddInProductionBO, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddIneProductionBO);
-
-                #endregion
-
-                #region AddIn AddInElectronicReception
-
-                SAPbobsCOM.Recordset oValidacionAddInElectronicReception = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInElectronicReception");
-
-                oValidacionAddInElectronicReception.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddInElectronicReception.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddInElectronicReception.Fields.Item("Version").Value.ToString()), sVersionAddInElectronicReception);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInElectronicReception", sVersionAddIneBillingBO);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInElectronicReception", "Recepcion Electronica", sVersionAddInElectronicReception, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddInElectronicReception);
-
-                #endregion
-
-                #endregion
-
-            }
-            catch (Exception e)
-            {
-
-                DllFunciones.sendErrorMessage(sboapp, e);
-            }
-        }
 
         public void AdicionSubmenu(SAPbouiCOM.MenuCreationParams _oCreationPackage, SAPbouiCOM.Menus _oMenus, SAPbouiCOM.MenuItem _oMenuItem, Application _sboapp, string AddIn, string _sNameDB)
         {
@@ -3722,101 +3384,7 @@ namespace BasisOne
             }
             return textoEncriptado;
         }
-
-        private void ChangueFormGestionAddOn(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormGA, string _sMotor)
-        {
-            try
-            {
-
-                #region Creacion Variables y Objetos
-
-                string sGridAddInAvailable = null;
-                string sGridAddInActive = null;
-
-                SAPbouiCOM.DataTable oDtAddInAvailable;
-                SAPbouiCOM.DataTable oDtAddInActive;
-
-                SAPbouiCOM.Grid oGridAddInAvailable;
-                SAPbouiCOM.Grid oGridAddInActive;
-
-                SAPbouiCOM.PictureBox oLogoBO;
-
-                SAPbouiCOM.Folder oFolder1;
-
-                SAPbouiCOM.StaticText olblVersion;
-
-                #endregion
-
-                #region Instanciacion de variables y objetos
-
-                oLogoBO = (SAPbouiCOM.PictureBox)(_oFormGA.Items.Item("oLogo").Specific);
-                oDtAddInAvailable = _oFormGA.DataSources.DataTables.Add("oDtGridAD");
-                oDtAddInActive = _oFormGA.DataSources.DataTables.Add("oDtGridAA");
-
-                oGridAddInAvailable = (SAPbouiCOM.Grid)(_oFormGA.Items.Item("GridDispo").Specific);
-                oGridAddInActive = (SAPbouiCOM.Grid)(_oFormGA.Items.Item("GridActi").Specific);
-
-                oFolder1 = (SAPbouiCOM.Folder)_oFormGA.Items.Item("Folder1").Specific;
-
-                olblVersion = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblVersion").Specific);
-
-                #endregion
-
-                #region Consulta de AddIns Disponibles y cargue al formulario 
-
-                sGridAddInAvailable = DllFunciones.GetStringXMLDocument(_oCompany, "Core", "ValidacionAddOnBO", "GridAddInAvailable");
-
-                oDtAddInAvailable.ExecuteQuery(sGridAddInAvailable);
-
-                oGridAddInAvailable.DataTable = oDtAddInAvailable;
-
-                oGridAddInAvailable.AutoResizeColumns();
-
-                #endregion
-
-                #region Consulta de AddIns Activos y cargue al formulario 
-
-                sGridAddInActive = DllFunciones.GetStringXMLDocument(_oCompany, "Core", "ValidacionAddOnBO", "GridAddInActive");
-
-                oDtAddInActive.ExecuteQuery(sGridAddInActive);
-
-                oGridAddInActive.DataTable = oDtAddInActive;
-
-                oGridAddInActive.AutoResizeColumns();
-
-                #endregion
-
-                #region Asignacion Logo
-
-                oLogoBO.Picture = (Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Core\\Imagenes\\BO.jpg");
-
-                #endregion
-
-                #region Asignacion Label
-
-                olblVersion.Caption = "AddOn BasisOne " + sVersionInstalador;
-                olblVersion.Item.TextStyle = 1;
-
-                #endregion
-
-                _oFormGA.Visible = true;
-
-                oFolder1.Select();
-
-                _oFormGA.Refresh();
-
-            }
-            catch (Exception e)
-            {
-
-                DllFunciones.sendErrorMessage(sboapp, e);
-            }
-
-
-
-
-
-        }
+        
 
         #endregion
     }

@@ -30,6 +30,47 @@ namespace BOElectronicReception
 
         #endregion
 
+
+        public void OpenFormVisorDocumentosRecibidos(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string sMotor)
+        {
+            try
+            {
+                SAPbouiCOM.Form frm = null;
+                bool ExistForm = false;
+
+                for (int i = 0; i < _sboapp.Forms.Count; i++)
+                {
+                    if (_sboapp.Forms.Item(i).UniqueID == "BOTVDR")
+                    {
+                        frm = _sboapp.Forms.Item("BOTVDR");
+                        ExistForm = true;
+                    }
+                }
+
+
+                if (ExistForm)
+                {
+                    frm.Select();
+                }
+                else
+                {
+                    string ArchivoSRF = "VisorDocumentsReceptionElectronic.srf";
+                    DllFunciones.LoadFromXML(_sboapp, "BOElectronicReception", ref ArchivoSRF);
+
+                    frm = _sboapp.Forms.Item("BOTVDR");
+
+                    LoadFormDocumentsReception(_sboapp, _oCompany, frm);
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         public void CreacionTablasyCamposeBillingBO(SAPbouiCOM.Application sboapp, SAPbobsCOM.Company oCompany)
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
