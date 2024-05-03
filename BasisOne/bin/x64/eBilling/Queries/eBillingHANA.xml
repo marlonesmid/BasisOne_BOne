@@ -317,6 +317,14 @@
     SELECT "Code" FROM "%sNameDB%"."@BOUNIDMDIAN"
   </GetTableUMDIAN>
 
+  <ClearTableBORESFISCAL>
+    DELETE FROM "%sNameDB%"."@BORESFISCAL"
+  </ClearTableBORESFISCAL>
+
+  <ClearTableUMDIAN>
+    DELETE FROM "%sNameDB%"."@BOUNIDMDIAN"
+  </ClearTableUMDIAN>
+
   <GetDocEntryAndParameters>
 
     SELECT TOP 1 T0."DocEntry",
@@ -333,7 +341,10 @@
                 (SELECT TOP 1 A."U_BO_RutaXML" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaXML",
                 (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaCR",
                 (SELECT TOP 1 COALESCE(A."U_BO_GXP",'N') FROM "%sNameDB%"."@BOEBILLINGP" A) AS "GeneraXMLP",
-                T1."U_BO_PREF" AS "PrefijoDes"
+                T1."U_BO_PREF" AS "PrefijoDes",
+                (SELECT TOP 1 A."U_BO_PT" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "ProveedorTecnologico",
+                (SELECT TOP 1 A."U_BO_AT" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "VersionAnexoTecnico"
+                
     FROM "%sNameDB%"."%Tabla%" T0 LEFT JOIN "%sNameDB%"."@BOSERNUM" T1 ON T0."Series"=T1."Code"
     WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
 

@@ -39,7 +39,8 @@
           A."U_BO_FHAD" AS "FHAD",
           'Ver XML' AS "XML",
           'Ver PDF' AS "PDF",
-          D."PymntGroup" AS "Condicion_Pago"
+          D."PymntGroup" AS "Condicion_Pago",
+          CASE WHEN A."DocSubType" = 'RI' THEN 'Factura Reserva' ELSE 'Factura deudores' END AS "DocSubType"
 
     FROM "OINV" A LEFT JOIN "@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '13'
                   LEFT JOIN "NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '13'
@@ -319,6 +320,14 @@
     SELECT Code FROM [@BOUNIDMDIAN]
   </GetTableUMDIAN>
 
+  <ClearTableBORESFISCAL>
+    DELETE FROM "@BORESFISCAL"
+  </ClearTableBORESFISCAL>
+
+  <ClearTableUMDIAN>
+    DELETE FROM "@BOUNIDMDIAN"
+  </ClearTableUMDIAN>
+
   <GetDocEntryAndParameters>
     
     SELECT TOP 1 T0."DocEntry",
@@ -335,7 +344,9 @@
                 (SELECT TOP 1 "U_BO_RutaXML" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "RutaXML",
                 (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaCR",
                 (SELECT TOP 1 A."U_BO_GXP" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "GeneraXMLP",
-                T1."U_BO_PREF" AS "PrefijoDes"    
+                T1."U_BO_PREF" AS "PrefijoDes",
+                (SELECT TOP 1 A."U_BO_PT" FROM "@BOEBILLINGP" A) AS "ProveedorTecnologico",
+                (SELECT TOP 1 A."U_BO_AT" FROM "@BOEBILLINGP" A) AS "VersionAnexoTecnico"
 
       FROM "%Tabla%" T0 LEFT JOIN "@BOSERNUM" T1 ON T0."Series"=T1."Code"
       WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
@@ -506,7 +517,7 @@
     WHERE "AbsEntry" = '%DocEntryAdjuntos%'
   </PathFilesAttchment>
 
-  <CheckDigitCalculation>
+  <BO_CheckDigitCalculation>
           
         CREATE FUNCTION BO_CheckDigitCalculation
         (   
@@ -587,10 +598,13 @@
             return 99
         END
 
-  </CheckDigitCalculation>
+  </BO_CheckDigitCalculation>
 
   <DropFunction>
-    DROP FUNCTION "%sNameFuction%"
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'%sNameFuction%') AND type in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+      BEGIN
+        DROP FUNCTION "%sNameFuction%"
+      END
   </DropFunction>
 
   <Eliminar_BO_FacturaXML>

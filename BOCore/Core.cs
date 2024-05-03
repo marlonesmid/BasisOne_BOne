@@ -124,7 +124,6 @@ namespace BOCore
 
                 #endregion
 
-
                 #region Habilita Checkbox Addins
 
                 ChkFEE.Item.Enabled = false;
@@ -179,12 +178,6 @@ namespace BOCore
                 _oFormGA.Visible = true;
 
                 oFolder1.Select();
-
-                
-
-                
-
-
 
             }
             catch (Exception e)
@@ -449,54 +442,16 @@ namespace BOCore
 
             SAPbouiCOM.Form oBO_Gestion_AddOn = sboapp.Forms.Item("BO_Gestion_AddOn");
             SAPbouiCOM.CheckBox oChkFEE = (SAPbouiCOM.CheckBox)oBO_Gestion_AddOn.Items.Item("ChkFEE").Specific;
-            SAPbouiCOM.CheckBox oChkFER = (SAPbouiCOM.CheckBox)oBO_Gestion_AddOn.Items.Item("ChkFER").Specific;
+            SAPbouiCOM.CheckBox oChkFER = (SAPbouiCOM.CheckBox)oBO_Gestion_AddOn.Items.Item("ChkFER").Specific;            
 
-            SAPbobsCOM.Recordset oConsultaAddIns = (SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            string sLocalizacion;
-            string sConsultaAddins;
+            string sLocalizacion;            
             int ContadorAddInsActive = 0;
             
             #endregion
 
             #region Instanciacion Dll's
 
-            eBilling.eBillingBO DllFacturaionElectronica= new eBilling.eBillingBO(sboapp, _company);
-
-            #endregion
-
-            #region ConsultaAddIns
-
-            sConsultaAddins = DllFunciones.GetStringXMLDocument(_company, "Core", "ValidacionAddOnBO", "AddInsActive");
-
-            oConsultaAddIns.DoQuery(sConsultaAddins);
-
-            if (oConsultaAddIns.RecordCount > 0)
-            {
-                oConsultaAddIns.MoveFirst();
-
-                do
-                {
-                    sConsultaAddins = null;
-
-                    sConsultaAddins = Convert.ToString(oConsultaAddIns.Fields.Item("Code").Value.ToString());
-
-                    if (sConsultaAddins == "AddIneBillingBO")
-                    {
-                        oChkFEE.Item.Visible = true;
-                    }
-                    else if (sConsultaAddins == "AddInElectronicReception")
-                    {
-                        oChkFER.Item.Visible = true;
-                    }                    
-
-                    oConsultaAddIns.MoveNext();
-
-                } while (oConsultaAddIns.EoF == false);
-            }
-
-
-            DllFunciones.liberarObjetos(oConsultaAddIns);
+            eBilling.eBillingBO DllFacturacionElectronica= new eBilling.eBillingBO(sboapp, _company);
 
             #endregion
 
@@ -514,10 +469,6 @@ namespace BOCore
             }
             else
             {
-                
-
-                
-
                 if (oChkFEE.Checked)
                 {
                     ContadorAddInsActive++;
@@ -530,7 +481,7 @@ namespace BOCore
 
                 if (ContadorAddInsActive == 0)
                 {
-                    DllFunciones.sendMessageBox(sboapp, "Por favor seleccionar como minimo 1 modulo para validar estructura ");
+                    DllFunciones.sendMessageBox(sboapp, "Por favor seleccionar como minimo 1 AddIn para validar estructura ");
                 }
                 else
                 {
@@ -540,7 +491,7 @@ namespace BOCore
                     {
                         if (oChkFEE.Checked)
                         {
-                            DllFacturaionElectronica.CreacionTablasyCamposeBillingBO(sboapp, _company, Convert.ToString(_company.DbServerType), sLocalizacion);
+                            DllFacturacionElectronica.CreacionTablasyCamposeBillingBO(sboapp, _company, Convert.ToString(_company.DbServerType), sLocalizacion);
                         }
 
                         if (oChkFER.Checked)

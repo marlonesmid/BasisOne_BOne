@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="BOne " SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="Hexagrama10.24.11.0" ExtVersion="10.24.11.0" Contdata="" Partner="BOne " DBType="Both" ClientType="A">
+  <Validity>
+    <SBOCompatibility>
+      <Version From="100.000.00" To="100.999.99" />
+    </SBOCompatibility>
+  </Validity>
+  <Configuration>
+    <Repository>
+      <Properties />
+    </Repository>
+    <Deployment>
+      <Properties />
+    </Deployment>
+    <Assignment>
+      <Properties />
+    </Assignment>
+  </Configuration>
+  <Addons>
+    <Addon Name="Hexagrama10.24.11.0" Group="" ForceFlag="" Visible="" AutoAssign="" SelfUpgrd="">
+      <x86 AddonExe="BasisOne.exe" AddonSig="1103B33D813A206602DD649BC2850E58" ExeDir="X86Client">
+        <Installation>
+          <Files>
+            <File FileName="X86Client\BasisOne.b1s">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BasisOne.exe">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BasisOne.exe.config">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BasisOne.vshost.exe">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOCore.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOeBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOFunciones.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOIntercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOPresupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOProduccion.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BusinessObjects.Enterprise.Sdk.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BusinessObjects.Foundation.Logging.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.CrystalReports.Engine.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Enterprise.Framework.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Enterprise.InfoStore.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Enterprise.PluginManager.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.ClientDoc.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CommLayer.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CommonControls.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CommonObjectModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.Controllers.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CubeDefModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.DataDefModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.DataSetConversion.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.ObjectFactory.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.Prompting.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.ReportDefModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.XmlSerialize.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportSource.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Shared.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Windows.Forms.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\FlashControlV71.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Funciones.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Intercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\log4net.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Presupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\ShockwaveFlashObjects.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\stdole.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Formularios\VisorDocumentsReceptionElectronic.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Images\Aceptar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Images\Cancelar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Queries\ElectronicReceptionHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Queries\ElectronicReceptionSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Formularios\Gestion_AddOn.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Images\LogoBO20x20.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Queries\ValidacionAddOnBOHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Queries\ValidacionAddOnBOSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\App.config">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\CSV\Tiposresponsabilidades.csv">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\CSV\UnidadesdeMedidaDIAN.csv">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf.bak">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Send_Mail.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Unidades_Medida.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Visor_Documentos_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\Procedures_eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\Procedures_eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Reports\Layouts\Factura Venta - Articulos Esfera Color.rpt">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Reports\Layouts\Formato FV H.rpt">
+              <Actions />
+            </File>
+          </Files>
+        </Installation>
+        <Uninstallation>
+          <Files>
+            <File FileName="X86Client\BasisOne.b1s">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BasisOne.exe">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BasisOne.exe.config">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BasisOne.vshost.exe">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOCore.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOeBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOFunciones.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOIntercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOPresupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOProduccion.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BusinessObjects.Enterprise.Sdk.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BusinessObjects.Foundation.Logging.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.CrystalReports.Engine.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Enterprise.Framework.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Enterprise.InfoStore.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Enterprise.PluginManager.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.ClientDoc.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CommLayer.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CommonControls.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CommonObjectModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.Controllers.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.CubeDefModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.DataDefModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.DataSetConversion.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.ObjectFactory.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.Prompting.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.ReportDefModel.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportAppServer.XmlSerialize.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.ReportSource.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Shared.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\CrystalDecisions.Windows.Forms.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\FlashControlV71.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Funciones.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Intercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\log4net.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Presupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\ShockwaveFlashObjects.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\stdole.dll">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Formularios\VisorDocumentsReceptionElectronic.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Images\Aceptar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Images\Cancelar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Queries\ElectronicReceptionHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\BOElectronicReception\Queries\ElectronicReceptionSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Formularios\Gestion_AddOn.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Images\LogoBO20x20.bmp">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Queries\ValidacionAddOnBOHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\Core\Queries\ValidacionAddOnBOSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\App.config">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\CSV\Tiposresponsabilidades.csv">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\CSV\UnidadesdeMedidaDIAN.csv">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf.bak">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Send_Mail.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Unidades_Medida.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Formularios\Visor_Documentos_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\Procedures_eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Queries\Procedures_eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Reports\Layouts\Factura Venta - Articulos Esfera Color.rpt">
+              <Actions />
+            </File>
+            <File FileName="X86Client\eBilling\Reports\Layouts\Formato FV H.rpt">
+              <Actions />
+            </File>
+          </Files>
+        </Uninstallation>
+      </x86>
+      <x64 AddonExe="BasisOne.exe" AddonSig="2F64A9E2832B12CA3F6243489813BE80" ExeDir="X64Client">
+        <Installation>
+          <Files>
+            <File FileName="X64Client\BasisOne.b1s">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BasisOne.exe">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BasisOne.vshost.exe">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOCore.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOeBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOFunciones.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOIntercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOPresupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOProduccion.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.CrystalReports.Engine.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.ReportSource.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.Shared.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.Windows.Forms.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\FlashControlV71.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\log4net.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\stdole.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Formularios\VisorDocumentsReceptionElectronic.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Images\Aceptar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Images\Cancelar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Queries\ElectronicReceptionHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Queries\ElectronicReceptionSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Formularios\Gestion_AddOn.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Images\LogoBO20x20.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Queries\ValidacionAddOnBOHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Queries\ValidacionAddOnBOSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\App.config">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\CSV\Tiposresponsabilidades.csv">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\CSV\UnidadesdeMedidaDIAN.csv">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf.bak">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Send_Mail.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Unidades_Medida.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Visor_Documentos_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\Procedures_eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\Procedures_eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Reports\Layouts\Factura Venta - Articulos Esfera Color.rpt">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Reports\Layouts\Formato FV H.rpt">
+              <Actions />
+            </File>
+          </Files>
+        </Installation>
+        <Uninstallation>
+          <Files>
+            <File FileName="X64Client\BasisOne.b1s">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BasisOne.exe">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BasisOne.vshost.exe">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOCore.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOeBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOFunciones.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOIntercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOPresupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOProduccion.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.CrystalReports.Engine.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.ReportSource.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.Shared.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\CrystalDecisions.Windows.Forms.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\FlashControlV71.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\log4net.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\stdole.dll">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Formularios\VisorDocumentsReceptionElectronic.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Images\Aceptar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Images\Cancelar.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Queries\ElectronicReceptionHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\BOElectronicReception\Queries\ElectronicReceptionSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Formularios\Gestion_AddOn.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Images\LogoBO20x20.bmp">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Queries\ValidacionAddOnBOHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\Core\Queries\ValidacionAddOnBOSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\App.config">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\CSV\Tiposresponsabilidades.csv">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\CSV\UnidadesdeMedidaDIAN.csv">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Parametros_iniciales_eBilling.srf.bak">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Send_Mail.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Unidades_Medida.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Formularios\Visor_Documentos_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\Procedures_eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Queries\Procedures_eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Reports\Layouts\Factura Venta - Articulos Esfera Color.rpt">
+              <Actions />
+            </File>
+            <File FileName="X64Client\eBilling\Reports\Layouts\Formato FV H.rpt">
+              <Actions />
+            </File>
+          </Files>
+        </Uninstallation>
+      </x64>
+    </Addon>
+  </Addons>
+  <XApps>
+    <XApp Name="" Path="" FileName="" />
+  </XApps>
+  <UDQs>
+    <UDQ udqname="">
+      <Hana FileName="" />
+    </UDQ>
+  </UDQs>
+</AddOnRegData>
