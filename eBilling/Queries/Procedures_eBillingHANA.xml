@@ -12,6 +12,7 @@
 
   <BO_FacturaXML_HBT_v18_TFHKA>
         
+      
       CREATE PROCEDURE "%sNameDB%"."BO_GeneraXML_v18_TFHKA"
       (
 	      DocEntry INT,
@@ -82,16 +83,6 @@
 					           WHEN T0."DocCur"='USD' THEN REPLACE(TO_DECIMAL(((SELECT TOP 1 SUM(A."BaseSumSys") FROM "%sNameDB%"."INV4" A WHERE A."DocEntry" = :DocEntry AND A."RelateType" = 1 )),19,2),',','.')						 
 						       ELSE REPLACE(TO_DECIMAL((T0."BaseAmntFC"),19,2),',','.') 
 					           END AS "totalSinImpuestos",
-				
-					      /*
-					      T0."U_BO_DESC" AS "Desc_Codigo",
-					      'Descuento Comercial' AS "Desc_descripcion",
-					      '0' AS "Desc_indicador",								    
-					      REPLACE(TO_DECIMAL(( 0 ),19,2),',','.') AS "Desc_monto",				
-				          ((SELECT TOP 1 SUM(A."BaseSum") FROM "%sNameDB%"."INV4" A WHERE A."DocEntry" = :DocEntry)+0) AS "Desc_montoBase",				
-				          REPLACE(TO_DECIMAL((T0."DiscPrcnt"),19,2),',','.') AS "Desc_porcentaje",				
-				          '0' AS "Desc_secuencia",
-					      */
 
                           CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y') = 'Y' THEN (T8."U_BO_PREF" || RIGHT(T0."DocNum",IFNULL(T8."U_BO_CD",0)) ) 
                 		       ELSE CAST(T0."DocNum" AS NVARCHAR(20)) 
@@ -620,16 +611,6 @@
 						       ELSE REPLACE(TO_DECIMAL((T0."BaseAmntFC"),19,2),',','.') 
 						       END AS "totalSinImpuestos",
 
-					      /*
-               		      T0."U_BO_DESC" AS "Desc_Codigo",
-					      'Descuento Comercial' AS "Desc_descripcion",
-					      '0' AS "Desc_indicador",
-					      REPLACE(TO_DECIMAL((T0."DiscSum"),19,2),',','.') AS "Desc_monto",					
-					      REPLACE(TO_DECIMAL((((SELECT TOP 1 SUM(A."BaseSum") FROM "%sNameDB%"."RIN4" A WHERE A."DocEntry" = :DocEntry)+T0."DiscSum")),19,0),',','.') AS "Desc_montoBase",														
-					      T0."DiscPrcnt" AS "Desc_porcentaje",
-					      '0' AS "Desc_secuencia",
-					      */
-
 					      CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y')= 'Y' THEN (T8."U_BO_PREF"||T0."DocNum") 
 		                       ELSE CAST(T0."DocNum" AS NVARCHAR(20)) 
 						       END AS "consecutivoDocumento",
@@ -1119,16 +1100,6 @@
 						       ELSE REPLACE(TO_DECIMAL((T0."BaseAmntFC"),19,2),',','.') 
 					           END AS "totalSinImpuestos",
 
-					      /*
-					      T0."U_BO_DESC" AS "Desc_Codigo",					
-					      'Descuento Comercial' AS "Desc_descripcion",
-					      '0' AS "Desc_indicador",
-					      REPLACE(TO_DECIMAL(( 0 ),19,2),',','.') AS "Desc_monto",				
-				          ((SELECT TOP 1 SUM(A."BaseSum") FROM "%sNameDB%"."INV4" A WHERE A."DocEntry" = :DocEntry)+0) AS "Desc_montoBase",				
-				          REPLACE(TO_DECIMAL((T0."DiscPrcnt"),19,2),',','.') AS "Desc_porcentaje",				
-				          '0' AS "Desc_secuencia",					
-					      */
-
                           CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y') = 'Y' THEN (T6."BeginStr"||T0."DocNum"-100000) 
                 		       ELSE CAST(T0."DocNum" AS NVARCHAR(20)) 
 						       END AS "consecutivoDocumento",
@@ -1231,6 +1202,8 @@
                           'NO' AS "FacturaTieneMuestras",
                 
                 	      "Comments" AS "Comentarios",
+
+						  IFNULL(T0."U_BO_AFV",0) AS "No_FV",
                 
                           (SELECT count(W."AbsEntry") FROM "%sNameDB%"."ATC1" W WHERE W."AbsEntry" = T0."AtcEntry") AS "CantidadAdjuntos",
                  
@@ -2593,6 +2566,7 @@
 	
   <BO_FacturaXML_HBT_v19_TFHKA>
 
+    
     CREATE PROCEDURE "%sNameDB%"."BO_GeneraXML_v19_TFHKA"
       (
 	      DocEntry INT,
@@ -3010,7 +2984,6 @@
                   		   T1."U_HBT_TipRet",
                   		   T2."DocCur",
 			      		   T2."DocRate";
-                  		   
 
 	      ELSEIF ( :Object = '13' AND :Tipo = 'ImpuestosTotales')
 		
@@ -3927,6 +3900,8 @@
                           '01' AS "numeroDeReferencia",
                 
                 	      "Comments" AS "Comentarios",
+
+						  IFNULL(T0."U_BO_AFV",0) AS "No_FV",
                 
                           (SELECT count(W."AbsEntry") FROM "%sNameDB%"."ATC1" W WHERE W."AbsEntry" = T0."AtcEntry") AS "CantidadAdjuntos",
                  

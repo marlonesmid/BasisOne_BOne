@@ -37,8 +37,8 @@ namespace eBilling
         private SAPbouiCOM.Application sboapp;
         private SAPbobsCOM.Company oCompany;
 
-        string sGetLastRecord = null;        
-        
+        string sGetLastRecord = null;
+
         string sGetTiposOperacion = null;
         string sGetFormattedSearch = null;
         string _IDCategory;
@@ -62,7 +62,67 @@ namespace eBilling
 
         #endregion
 
-        #region Formularios
+
+        public void ActualizaFormVisorDocumentosEnviados(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company oCompany, SAPbouiCOM.Form oFormVDBO, string _sMotor)
+        {
+
+            #region Variables y Objetos
+
+            SAPbouiCOM.ComboBox _cboStado = (SAPbouiCOM.ComboBox)oFormVDBO.Items.Item("cboStado").Specific;
+
+            SAPbouiCOM.Folder oFolder1 = (SAPbouiCOM.Folder)oFormVDBO.Items.Item("Folder1").Specific;
+            SAPbouiCOM.EditText otxtFI = (SAPbouiCOM.EditText)oFormVDBO.Items.Item("txtFI").Specific;
+            SAPbouiCOM.EditText otxtFF = (SAPbouiCOM.EditText)oFormVDBO.Items.Item("txtFF").Specific;
+            SAPbouiCOM.EditText otxtSN = (SAPbouiCOM.EditText)oFormVDBO.Items.Item("txtSN").Specific;
+
+            SAPbouiCOM.PictureBox oLogoBO = (SAPbouiCOM.PictureBox)oFormVDBO.Items.Item("LogoBO").Specific;
+
+            #endregion
+
+            #region Asignacion Logo BO
+
+            oLogoBO.Picture = (Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Core\\Imagenes\\BO.jpg");
+
+            #endregion
+
+            #region Se adicona el ChooFromList 
+
+            oFormVDBO.DataSources.UserDataSources.Add("EditDS", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 254);
+
+            AddChooseFromList(_sboapp, oFormVDBO);
+
+            otxtSN.DataBind.SetBound(true, "", "EditDS");
+            otxtSN.ChooseFromListUID = "CFL1";
+            otxtSN.ChooseFromListAlias = "CardCode";
+
+            #endregion
+
+            #region Se colocan fechas
+
+            DateTime dtFechaActual = DateTime.Now;
+
+            DateTime dtPrimerDiadelMes = new DateTime(dtFechaActual.Year, dtFechaActual.Month, 1);
+            DateTime dtUltimaDiaMes = dtPrimerDiadelMes.AddMonths(1).AddDays(-1);
+
+            otxtFI.Value = dtPrimerDiadelMes.ToString("yyyyMMdd");
+            otxtFF.Value = dtUltimaDiaMes.ToString("yyyyMMdd");
+
+            #endregion
+
+            _cboStado.Select("-", BoSearchKey.psk_ByValue);
+
+            oFormVDBO.Left = (_sboapp.Desktop.Width - oFormVDBO.Width) / 2;
+            oFormVDBO.Top = (_sboapp.Desktop.Height - oFormVDBO.Height) / 4;
+
+            oFolder1.Select();
+
+            oFormVDBO.Visible = true;
+
+            oFormVDBO.Refresh();
+
+            otxtFI.Item.Click();
+
+        }
 
         public void OpenFormParametrosIniciales(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string sMotor)
         {
@@ -240,7 +300,7 @@ namespace eBilling
 
                 #region Valores validos Tipo de Operacion
 
-                sGetTiposOperacion = DLLFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "GetTiposOperacion");               
+                sGetTiposOperacion = DLLFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "GetTiposOperacion");
 
                 oValidValuesTO.DoQuery(sGetTiposOperacion);
                 oValidValuesTO.MoveFirst();
@@ -276,14 +336,14 @@ namespace eBilling
                     {
                         oFolderTFHKA.Item.Visible = false;
                         oFolderFacture.Item.Visible = false;
-                    }                    
+                    }
                 }
                 else
                 {
                     oFolderTFHKA.Item.Visible = false;
                     oFolderFacture.Item.Visible = false;
                 }
-                
+
                 #endregion
 
                 #region Asignacion Logo BO
@@ -344,67 +404,6 @@ namespace eBilling
             {
                 DLLFunciones.sendErrorMessage(_sboapp, e);
             }
-        }
-
-        public void ActualizaFormVisorDocumentosEnviados(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company oCompany, SAPbouiCOM.Form oFormVDBO, string _sMotor)
-        {
-
-            #region Variables y Objetos
-
-            SAPbouiCOM.ComboBox _cboStado = (SAPbouiCOM.ComboBox)oFormVDBO.Items.Item("cboStado").Specific;
-
-            SAPbouiCOM.Folder oFolder1 = (SAPbouiCOM.Folder)oFormVDBO.Items.Item("Folder1").Specific;
-            SAPbouiCOM.EditText otxtFI = (SAPbouiCOM.EditText)oFormVDBO.Items.Item("txtFI").Specific;
-            SAPbouiCOM.EditText otxtFF = (SAPbouiCOM.EditText)oFormVDBO.Items.Item("txtFF").Specific;
-            SAPbouiCOM.EditText otxtSN = (SAPbouiCOM.EditText)oFormVDBO.Items.Item("txtSN").Specific;
-
-            SAPbouiCOM.PictureBox oLogoBO = (SAPbouiCOM.PictureBox)oFormVDBO.Items.Item("LogoBO").Specific;
-
-            #endregion
-
-            #region Asignacion Logo BO
-
-            oLogoBO.Picture = (Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Core\\Imagenes\\BO.jpg");
-
-            #endregion
-
-            #region Se adicona el ChooFromList 
-
-            oFormVDBO.DataSources.UserDataSources.Add("EditDS", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 254);
-
-            AddChooseFromList(_sboapp, oFormVDBO);
-
-            otxtSN.DataBind.SetBound(true, "", "EditDS");
-            otxtSN.ChooseFromListUID = "CFL1";
-            otxtSN.ChooseFromListAlias = "CardCode";
-
-            #endregion
-
-            #region Se colocan fechas
-
-            DateTime dtFechaActual = DateTime.Now;
-
-            DateTime dtPrimerDiadelMes = new DateTime(dtFechaActual.Year, dtFechaActual.Month, 1);
-            DateTime dtUltimaDiaMes = dtPrimerDiadelMes.AddMonths(1).AddDays(-1);
-
-            otxtFI.Value = dtPrimerDiadelMes.ToString("yyyyMMdd");
-            otxtFF.Value = dtUltimaDiaMes.ToString("yyyyMMdd");
-
-            #endregion
-
-            _cboStado.Select("-", BoSearchKey.psk_ByValue);
-
-            oFormVDBO.Left = (_sboapp.Desktop.Width - oFormVDBO.Width) / 2;
-            oFormVDBO.Top = (_sboapp.Desktop.Height - oFormVDBO.Height) / 4;
-
-            oFolder1.Select();
-
-            oFormVDBO.Visible = true;
-
-            oFormVDBO.Refresh();
-
-            otxtFI.Item.Click();
-
         }
 
         public void LoadFormSendMail(SAPbobsCOM.Company oCompany, SAPbouiCOM.Application _sboapp, SAPbouiCOM.Form oFormSM, string _sMotor, string _sPrefijoDocNumSM)
@@ -3154,12 +3153,6 @@ namespace eBilling
             _oFormBP.PaneLevel = 28;
         }
 
-        #endregion
-
-        #region Eventos 
-
-        
-
         public void CargaInformacionEnMatrix(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company oCompany, SAPbouiCOM.Form oFormMatrixInovice)
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
@@ -3854,11 +3847,6 @@ namespace eBilling
 
         }
 
-        #endregion
-
-        #region Metodos
-
-
         private FacturaGeneral oBuillInvoice(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oLineas, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oImpuestosTotales, SAPbobsCOM.Recordset oCargosyDecuentos, SAPbobsCOM.Recordset OCUFEInvoice, string ___TipoDocumento, SAPbobsCOM.Company _oCompany)
         {
             #region Instanciacion
@@ -4343,8 +4331,14 @@ namespace eBilling
                     FacturadeVenta.fechaInicioPeriodoFacturacion = oCabecera.Fields.Item("fechaInicioPeriodoFacturacion").Value.ToString();
                     FacturadeVenta.fechaFinPeriodoFacturacion = oCabecera.Fields.Item("fechaFinPeriodoFacturacion").Value.ToString();
                 }
+                else if (Convert.ToString(oCabecera.Fields.Item("tipoOperacion").Value.ToString()) == "32")
+                {
+                    FacturadeVenta.fechaInicioPeriodoFacturacion = oCabecera.Fields.Item("fechaInicioPeriodoFacturacion").Value.ToString();
+                    FacturadeVenta.fechaFinPeriodoFacturacion = oCabecera.Fields.Item("fechaFinPeriodoFacturacion").Value.ToString();
+                }
                 else
                 {
+
 
                     #region Arreglo donde se asigna comentarios acerca del motivo de la devolucion o anulacion
 
@@ -6120,7 +6114,7 @@ namespace eBilling
                 {
                     return "";
                 }
-                
+
             }
             else if (AnexoTecnico == "1.9")
             {
@@ -8189,12 +8183,12 @@ namespace eBilling
                             else if (_TipoDocumento == "FacturaDeProveedores")
                             {
                                 sNombreDocumento = "Documento_Soporte_No_";
-                                sNombreDocWarning = "Documento soporte No.";
+                                sNombreDocWarning = "Documento soporte ";
                             }
                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                             {
                                 sNombreDocumento = "Documento_Soporte_No_";
-                                sNombreDocWarning = "Documento soporte No.";
+                                sNombreDocWarning = "Documento soporte ";
                             }
                             #endregion
 
@@ -8409,19 +8403,19 @@ namespace eBilling
 
                                                 if (_TipoDocumento == "FacturaDeClientes" || (_TipoDocumento == "NotaDebitoClientes"))
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, null, RespuestaDoc.fechaAceptacionDIAN);                                                    
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, null, RespuestaDoc.fechaAceptacionDIAN);
                                                 }
                                                 else if (_TipoDocumento == "NotaCreditoClientes")
                                                 {
-                                                    UpdateoCreditNote(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null);                                                    
+                                                    UpdateoCreditNote(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null);
                                                 }
                                                 else if (_TipoDocumento == "FacturaDeProveedores")
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", RespuestaDoc.fechaAceptacionDIAN);                                                    
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
                                                 }
                                                 else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", RespuestaDoc.fechaAceptacionDIAN);                                                    
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
                                                 }
 
 
@@ -10402,17 +10396,17 @@ namespace eBilling
                                 if (_TipoDocumento == "FacturaDeClientes" || (_TipoDocumento == "NotaDebitoClientes"))
                                 {
                                     UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.mensaje), RespuestaDoc.cufe, RespuestaDoc.qr, null, null, null, null);
-                                    
+
                                 }
                                 else if (_TipoDocumento == "NotaCreditoClientes")
                                 {
                                     UpdateoCreditNote(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.mensaje), RespuestaDoc.cufe, RespuestaDoc.qr, null, null);
-                                    
+
                                 }
                                 else if (_TipoDocumento == "FacturaDeProveedores")
                                 {
                                     UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.mensaje), RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", null);
-                                    
+
                                 }
 
                                 #endregion
@@ -11600,12 +11594,12 @@ namespace eBilling
                     }
                     else if (_sArquitectura == "4")
                     {
-                        
+
                     }
                 }
                 else
                 {
-                    
+
                 }
 
                 #endregion
@@ -12704,8 +12698,6 @@ namespace eBilling
             }
 
         }
-
-        #endregion
 
     }
 }
