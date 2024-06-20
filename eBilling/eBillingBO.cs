@@ -124,6 +124,126 @@ namespace eBilling
 
         }
 
+        public void AddItemsToDocumets(SAPbouiCOM.Form oFormInvoices, string _TipoDoc)
+        {
+            SAPbouiCOM.Form _oFormInvoices;
+            SAPbouiCOM.Item _oNewItem;
+            SAPbouiCOM.Item _oItem;
+            SAPbouiCOM.Folder _oFolderItem;
+
+            _oFormInvoices = oFormInvoices;
+            _oNewItem = _oFormInvoices.Items.Add("FolderBO1", SAPbouiCOM.BoFormItemTypes.it_FOLDER);
+            _oItem = _oFormInvoices.Items.Item("1320002137");
+
+            _oNewItem.Top = _oItem.Top;
+            _oNewItem.Height = _oItem.Height;
+            _oNewItem.Width = _oItem.Width;
+            _oNewItem.Left = _oItem.Left + _oItem.Width;
+
+            _oFolderItem = ((SAPbouiCOM.Folder)(_oNewItem.Specific));
+
+            _oFolderItem.Caption = "Facturacion Electronica";
+
+            _oFolderItem.GroupWith("1320002137");
+
+            ItemsDocuments(_oFormInvoices, _TipoDoc);
+
+            _oFormInvoices.PaneLevel = 1;
+
+        }
+
+        public void AddItemsToBP(SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form oFormBusinessParnerd)
+        {
+            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
+
+            try
+            {
+                SAPbouiCOM.Form _oFormBusinessParnerd;
+                SAPbouiCOM.Item _oNewItem;
+                SAPbouiCOM.Item _oItem;
+                SAPbouiCOM.Folder _oFolderItem;
+
+                SAPbobsCOM.Recordset oQuantityEmails = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                string sQuantityEmails = null;
+                int iQuantityEmails = 0;
+
+                sQuantityEmails = DLLFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetQuantityEmails");
+                oQuantityEmails.DoQuery(sQuantityEmails);
+
+                iQuantityEmails = Convert.ToInt32(oQuantityEmails.Fields.Item(0).Value.ToString());
+
+                _oFormBusinessParnerd = oFormBusinessParnerd;
+                _oNewItem = _oFormBusinessParnerd.Items.Add("FolderBO1", SAPbouiCOM.BoFormItemTypes.it_FOLDER);
+                _oItem = _oFormBusinessParnerd.Items.Item("234000007");
+
+                _oNewItem.Top = _oItem.Top;
+                _oNewItem.Height = _oItem.Height;
+                _oNewItem.Width = _oItem.Width;
+                _oNewItem.Left = _oItem.Left + _oItem.Width;
+
+                _oFolderItem = ((SAPbouiCOM.Folder)(_oNewItem.Specific));
+
+                _oFolderItem.Caption = "Facturacion Electronica";
+
+                _oFolderItem.GroupWith("234000007");
+
+                ItemsBusinessParnerd(_oFormBusinessParnerd, iQuantityEmails);
+
+                _oFormBusinessParnerd.PaneLevel = 1;
+
+                DLLFunciones.liberarObjetos(oQuantityEmails);
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
+
+        private void AddChooseFromList(SAPbouiCOM.Application _sboapp, SAPbouiCOM.Form _oFormVD)
+        {
+
+            SAPbouiCOM.ChooseFromListCollection oCFLs = null;
+            SAPbouiCOM.Conditions oCons = null;
+            SAPbouiCOM.Condition oCon = null;
+
+            oCFLs = _oFormVD.ChooseFromLists;
+
+            SAPbouiCOM.ChooseFromList oCFL = null;
+            SAPbouiCOM.ChooseFromListCreationParams oCFLCreationParams = null;
+            oCFLCreationParams = ((SAPbouiCOM.ChooseFromListCreationParams)(_sboapp.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_ChooseFromListCreationParams)));
+
+            //  Adding 2 CFL, one for the button and one for the edit text.
+            oCFLCreationParams.MultiSelection = false;
+            oCFLCreationParams.ObjectType = "2";
+            oCFLCreationParams.UniqueID = "CFL1";
+
+            oCFL = oCFLs.Add(oCFLCreationParams);
+
+            //  Adding Conditions to CFL1
+
+            oCons = oCFL.GetConditions();
+
+            oCon = oCons.Add();
+            oCon.Alias = "CardType";
+            oCon.Operation = SAPbouiCOM.BoConditionOperation.co_EQUAL;
+            oCon.CondVal = "C";
+            oCFL.SetConditions(oCons);
+
+            oCFLCreationParams.UniqueID = "CFL2";
+            oCFL = oCFLs.Add(oCFLCreationParams);
+        }
+
+        public void AddRowMatrix(SAPbouiCOM.Form _oFormPareBilling)
+        {
+            SAPbouiCOM.Matrix oMatrixSeres = (Matrix)_oFormPareBilling.Items.Item("MtxSN").Specific;
+
+            oMatrixSeres.AddRow();
+
+        }
+
         public void OpenFormParametrosIniciales(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string sMotor)
         {
             try
@@ -3061,84 +3181,6 @@ namespace eBilling
             }
         }
 
-        public void AddItemsToDocumets(SAPbouiCOM.Form oFormInvoices, string _TipoDoc)
-        {
-            SAPbouiCOM.Form _oFormInvoices;
-            SAPbouiCOM.Item _oNewItem;
-            SAPbouiCOM.Item _oItem;
-            SAPbouiCOM.Folder _oFolderItem;
-
-            _oFormInvoices = oFormInvoices;
-            _oNewItem = _oFormInvoices.Items.Add("FolderBO1", SAPbouiCOM.BoFormItemTypes.it_FOLDER);
-            _oItem = _oFormInvoices.Items.Item("1320002137");
-
-            _oNewItem.Top = _oItem.Top;
-            _oNewItem.Height = _oItem.Height;
-            _oNewItem.Width = _oItem.Width;
-            _oNewItem.Left = _oItem.Left + _oItem.Width;
-
-            _oFolderItem = ((SAPbouiCOM.Folder)(_oNewItem.Specific));
-
-            _oFolderItem.Caption = "Facturacion Electronica";
-
-            _oFolderItem.GroupWith("1320002137");
-
-            ItemsDocuments(_oFormInvoices, _TipoDoc);
-
-            _oFormInvoices.PaneLevel = 1;
-
-        }
-
-        public void AddItemsToBP(SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form oFormBusinessParnerd)
-        {
-            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
-
-            try
-            {
-                SAPbouiCOM.Form _oFormBusinessParnerd;
-                SAPbouiCOM.Item _oNewItem;
-                SAPbouiCOM.Item _oItem;
-                SAPbouiCOM.Folder _oFolderItem;
-
-                SAPbobsCOM.Recordset oQuantityEmails = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                string sQuantityEmails = null;
-                int iQuantityEmails = 0;
-
-                sQuantityEmails = DLLFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetQuantityEmails");
-                oQuantityEmails.DoQuery(sQuantityEmails);
-
-                iQuantityEmails = Convert.ToInt32(oQuantityEmails.Fields.Item(0).Value.ToString());
-
-                _oFormBusinessParnerd = oFormBusinessParnerd;
-                _oNewItem = _oFormBusinessParnerd.Items.Add("FolderBO1", SAPbouiCOM.BoFormItemTypes.it_FOLDER);
-                _oItem = _oFormBusinessParnerd.Items.Item("234000007");
-
-                _oNewItem.Top = _oItem.Top;
-                _oNewItem.Height = _oItem.Height;
-                _oNewItem.Width = _oItem.Width;
-                _oNewItem.Left = _oItem.Left + _oItem.Width;
-
-                _oFolderItem = ((SAPbouiCOM.Folder)(_oNewItem.Specific));
-
-                _oFolderItem.Caption = "Facturacion Electronica";
-
-                _oFolderItem.GroupWith("234000007");
-
-                ItemsBusinessParnerd(_oFormBusinessParnerd, iQuantityEmails);
-
-                _oFormBusinessParnerd.PaneLevel = 1;
-
-                DLLFunciones.liberarObjetos(oQuantityEmails);
-
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-        }
-
         public void ChangePaneFolderDocuments(SAPbouiCOM.Form oFormInvoice)
         {
             SAPbouiCOM.Form _oFormInvoice;
@@ -3764,40 +3806,6 @@ namespace eBilling
             }
         }
 
-        private void AddChooseFromList(SAPbouiCOM.Application _sboapp, SAPbouiCOM.Form _oFormVD)
-        {
-
-            SAPbouiCOM.ChooseFromListCollection oCFLs = null;
-            SAPbouiCOM.Conditions oCons = null;
-            SAPbouiCOM.Condition oCon = null;
-
-            oCFLs = _oFormVD.ChooseFromLists;
-
-            SAPbouiCOM.ChooseFromList oCFL = null;
-            SAPbouiCOM.ChooseFromListCreationParams oCFLCreationParams = null;
-            oCFLCreationParams = ((SAPbouiCOM.ChooseFromListCreationParams)(_sboapp.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_ChooseFromListCreationParams)));
-
-            //  Adding 2 CFL, one for the button and one for the edit text.
-            oCFLCreationParams.MultiSelection = false;
-            oCFLCreationParams.ObjectType = "2";
-            oCFLCreationParams.UniqueID = "CFL1";
-
-            oCFL = oCFLs.Add(oCFLCreationParams);
-
-            //  Adding Conditions to CFL1
-
-            oCons = oCFL.GetConditions();
-
-            oCon = oCons.Add();
-            oCon.Alias = "CardType";
-            oCon.Operation = SAPbouiCOM.BoConditionOperation.co_EQUAL;
-            oCon.CondVal = "C";
-            oCFL.SetConditions(oCons);
-
-            oCFLCreationParams.UniqueID = "CFL2";
-            oCFL = oCFLs.Add(oCFLCreationParams);
-        }
-
         public void Right_Click(ref SAPbouiCOM.ContextMenuInfo _eventInfo, SAPbouiCOM.Application _sboapp, string NumeroID)
         {
             SAPbouiCOM.MenuItem oMenuItem = null;
@@ -3839,13 +3847,6 @@ namespace eBilling
             }
         }
 
-        public void AddRowMatrix(SAPbouiCOM.Form _oFormPareBilling)
-        {
-            SAPbouiCOM.Matrix oMatrixSeres = (Matrix)_oFormPareBilling.Items.Item("MtxSN").Specific;
-
-            oMatrixSeres.AddRow();
-
-        }
 
         private FacturaGeneral oBuillInvoice(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oLineas, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oImpuestosTotales, SAPbobsCOM.Recordset oCargosyDecuentos, SAPbobsCOM.Recordset OCUFEInvoice, string ___TipoDocumento, SAPbobsCOM.Company _oCompany)
         {
@@ -3872,23 +3873,45 @@ namespace eBilling
 
             #region Tasa de Cambio
 
-            //if (Convert.ToString(oCabecera.Fields.Item("moneda").Value.ToString()) != "COP" || Convert.ToString(oCabecera.Fields.Item("moneda").Value.ToString()) != "$")
-            //{
-            //    TasaDeCambio TRM = new TasaDeCambio();
+            if (Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString()) != "COP" && Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString()) != "$")
+            {
 
-            //    string stasaDeCambio = Convert.ToString(oCabecera.Fields.Item("tasaDeCambio").Value.ToString());
-            //    stasaDeCambio = stasaDeCambio.Replace(",", ".");
+                if (Convert.ToString(oCabecera.Fields.Item("tipoDocumento").Value.ToString()) == "05")
+                {
+                    TasaDeCambio TRM = new TasaDeCambio();
 
-            //    TRM.tasaDeCambio = stasaDeCambio;
+                    string stasaDeCambio = Convert.ToString(oCabecera.Fields.Item("tasaDeCambio").Value.ToString());
+                    stasaDeCambio = stasaDeCambio.Replace(",", ".");
 
-            //    TRM.baseMonedaDestino = "1";
-            //    TRM.baseMonedaOrigen = "1";
-            //    TRM.fechaDeTasaDeCambio = Convert.ToString(oCabecera.Fields.Item("fechaDeTasaDeCambio").Value.ToString());
-            //    TRM.monedaOrigen = Convert.ToString(oCabecera.Fields.Item("moneda").Value.ToString());
-            //    TRM.monedaDestino = "COP";
+                    TRM.tasaDeCambio = stasaDeCambio;
 
-            //    FacturadeVenta.tasaDeCambio = TRM;
-            //}
+                    TRM.baseMonedaDestino = "1";
+                    TRM.baseMonedaOrigen = "1";
+                    TRM.fechaDeTasaDeCambio = Convert.ToString(oCabecera.Fields.Item("fechaDeTasaDeCambio").Value.ToString());
+                    TRM.monedaOrigen = Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString());
+                    TRM.monedaDestino = "COP";
+
+                    FacturadeVenta.tasaDeCambio = TRM;
+                }
+                else
+                {
+                    TasaDeCambio TRM = new TasaDeCambio();
+
+                    string stasaDeCambio = Convert.ToString(oCabecera.Fields.Item("tasaDeCambio").Value.ToString());
+                    stasaDeCambio = stasaDeCambio.Replace(",", ".");
+                    
+
+                    TRM.baseMonedaDestino = "1";
+                    TRM.baseMonedaOrigen = stasaDeCambio;
+                    TRM.fechaDeTasaDeCambio = Convert.ToString(oCabecera.Fields.Item("fechaDeTasaDeCambio").Value.ToString());
+                    TRM.monedaDestino = Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString());
+                    TRM.monedaOrigen = "COP";                    
+                    TRM.tasaDeCambio = stasaDeCambio;
+
+                    FacturadeVenta.tasaDeCambio = TRM;
+                }
+                
+            }
 
             #endregion
 
@@ -3952,6 +3975,15 @@ namespace eBilling
 
             FacturadeVenta.consecutivoDocumento = Convert.ToString(oCabecera.Fields.Item("consecutivoDocumento").Value.ToString());
             FacturadeVenta.fechaEmision = oCabecera.Fields.Item("fechaEmision").Value.ToString();
+            
+            #endregion
+
+            #region Terminos de entrega
+
+            if (Convert.ToString(oCabecera.Fields.Item("tipoDocumento").Value.ToString()) == "02")
+            {
+                FacturadeVenta.terminosEntrega.codigoCondicionEntrega = Convert.ToString(oCabecera.Fields.Item("CodigoIcoterm").Value.ToString());
+            }
 
             #endregion
 
@@ -4842,6 +4874,14 @@ namespace eBilling
 
                 DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo -  Periodo NC/ND - Fecha Final , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Date, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "ORIN", "BO_PNCDFF", "Periodo NC/DN - FF");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Es FE Exportacion ? , por favor espere...");
+                string[] ValidValues_BO_FEE = { "Si", "Si", "No", "No" };
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "No", BoYesNoEnum.tNO, ValidValues_BO_FEE, "OINV", "BO_FEE", "Es FE Exportacion ?");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV FE Icoterms, por favor espere...");
+                string[] ValidValues_BO_ICT = { "CFR", "Costo y flete", "CIF", "Costo, flete y seguro", "CIP", "Transporte y Seguro Pagados hast", "CPT", "Transporte Pagado Hasta", "DAP", "Entregado en un Lugar", "EXW", "En Fábrica", "DAT", "Entregado en Terminal", "DDP", "Entregado con Pago de Derechos", "FAS", "Franco al costado del buque", "FCA", "Franco transportista", "FOB", "Franco a bordo" };
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, ValidValues_BO_ICT, "OINV", "BO_ICT", "FE Icoterms");
 
                 #endregion
 
@@ -8187,8 +8227,8 @@ namespace eBilling
                             }
                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                             {
-                                sNombreDocumento = "Documento_Soporte_No_";
-                                sNombreDocWarning = "Documento soporte ";
+                                sNombreDocumento = "Documento_Soporte_Ajuste_No_";
+                                sNombreDocWarning = "Documento soporte Ajuste";
                             }
                             #endregion
 
@@ -11305,29 +11345,12 @@ namespace eBilling
                     //64X
                     if (_sArquitectura == "8")
                     {
-                        #region GenerarQR - No se utiliza
-
-                        //var url = string.Format("http://chart.apis.google.com/chart?cht=qr&chs={1}x{2}&chl={0}", _CadenaQR, "200", "200");
-                        //System.Net.WebResponse response = default(System.Net.WebResponse);
-                        //Stream remoteStream = default(Stream);
-                        //StreamReader readStream = default(StreamReader);
-                        //System.Net.WebRequest request = System.Net.WebRequest.Create(url);
-                        //response = request.GetResponse();
-                        //remoteStream = response.GetResponseStream();
-                        //readStream = new StreamReader(remoteStream);
-                        //System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
-                        //img.Save(_RutaQR);
-                        //response.Close();
-                        //remoteStream.Close();
-                        //readStream.Close();
-
-                        #endregion
-
                         #region Genera el PDF con cliente SAP a 64X
 
                         ReportDocument LayoutPDF = new ReportDocument();
-
+                        
                         LayoutPDF.Load(sRutaLayout);
+                        
                         LayoutPDF.DataSourceConnections.Clear();
 
                         _sServer = Convert.ToString(_oCompany.SLDServer);
@@ -11378,29 +11401,13 @@ namespace eBilling
                     }
                     else if (_sArquitectura == "4")
                     {
-                        #region GenerarQR - No se tuliza
-
-                        //var url = string.Format("http://chart.apis.google.com/chart?cht=qr&chs={1}x{2}&chl={0}", _CadenaQR, "200", "200");
-                        //System.Net.WebResponse response = default(System.Net.WebResponse);
-                        //Stream remoteStream = default(Stream);
-                        //StreamReader readStream = default(StreamReader);
-                        //System.Net.WebRequest request = System.Net.WebRequest.Create(url);
-                        //response = request.GetResponse();
-                        //remoteStream = response.GetResponseStream();
-                        //readStream = new StreamReader(remoteStream);
-                        //System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
-                        //img.Save(_RutaQR);
-                        //response.Close();
-                        //remoteStream.Close();
-                        //readStream.Close();
-
-                        #endregion
 
                         #region Genera el PDF con cliente SAP a 32X
 
                         ReportDocument LayoutPDF = new ReportDocument();
-
+                        
                         LayoutPDF.Load(sRutaLayout);
+                        
                         LayoutPDF.DataSourceConnections.Clear();
 
                         _sServer = Convert.ToString(_oCompany.SLDServer);
@@ -11791,6 +11798,7 @@ namespace eBilling
                 }
                 else
                 {
+                    oInvoice.CreateQRCodeFrom = Convert.ToString(_WSQR);
                     oInvoice.UserFields.Fields.Item("U_BO_QR").Value = Convert.ToString(_WSQR);
                 }
 
@@ -11822,13 +11830,13 @@ namespace eBilling
 
                 #region Campo Fecha y Hora Aceptacion DIAN
 
-                //if (string.IsNullOrEmpty(sFechaHoraDIAN))
-                //{
-                //}
-                //else
-                //{
-                //    oInvoice.UserFields.Fields.Item("U_BO_FHAD").Value = Convert.ToString(sFechaHoraDIAN);
-                //}
+                if (string.IsNullOrEmpty(sFechaHoraDIAN))
+                {
+                }
+                else
+                {
+                    oInvoice.UserFields.Fields.Item("U_BO_FHAD").Value = Convert.ToString(sFechaHoraDIAN);
+                }
 
                 #endregion
 
@@ -11910,6 +11918,7 @@ namespace eBilling
                 }
                 else
                 {
+                    oCreditNote.CreateQRCodeFrom = Convert.ToString(_WSQR);
                     oCreditNote.UserFields.Fields.Item("U_BO_QR").Value = Convert.ToString(_WSQR);
                 }
 
@@ -12698,6 +12707,5 @@ namespace eBilling
             }
 
         }
-
     }
 }

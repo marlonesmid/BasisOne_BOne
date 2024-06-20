@@ -380,7 +380,7 @@
 	         "jobTitle" AS "Cargo",
 	         "dept" AS "Departamento",
 	         "ExtEmpNo" AS "NIT",
-	         "BOTTD" AS "TipoDocumento",
+	         "U_BOTTD" AS "TipoDocumento",
 	         "userId" AS "IdUser"
 	  
     FROM OHEM

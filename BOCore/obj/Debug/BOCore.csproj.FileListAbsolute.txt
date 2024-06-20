@@ -43,3 +43,15 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOCo
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOCore\obj\Debug\BOCore.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOCore\obj\Debug\BOCore.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOCore\obj\Debug\BOCore.pdb
+C:\GitHub\BasisOne\BasisOne_BOne\BOCore\obj\Debug\BOCore.csproj.AssemblyReference.cache
+C:\GitHub\BasisOne\BasisOne_BOne\BOCore\obj\Debug\BOCore.csproj.CoreCompileInputs.cache
+C:\GitHub\BasisOne\BasisOne_BOne\BOCore\obj\Debug\BOCore.dll
+C:\GitHub\BasisOne\BasisOne_BOne\BOCore\obj\Debug\BOCore.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOElectronicReception.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOFacturacionElectronica.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\log4net.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOElectronicReception.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOFacturacionElectronica.pdb
