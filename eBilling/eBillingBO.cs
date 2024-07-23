@@ -62,7 +62,6 @@ namespace eBilling
 
         #endregion
 
-
         public void ActualizaFormVisorDocumentosEnviados(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company oCompany, SAPbouiCOM.Form oFormVDBO, string _sMotor)
         {
 
@@ -124,7 +123,7 @@ namespace eBilling
 
         }
 
-        public void AddItemsToDocumets(SAPbouiCOM.Form oFormInvoices, string _TipoDoc)
+        public void AddItemsToDocumets(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form oFormInvoices, string _TipoDoc)
         {
             SAPbouiCOM.Form _oFormInvoices;
             SAPbouiCOM.Item _oNewItem;
@@ -146,13 +145,13 @@ namespace eBilling
 
             _oFolderItem.GroupWith("1320002137");
 
-            ItemsDocuments(_oFormInvoices, _TipoDoc);
+            ItemsDocuments(sboapp, _oCompany, _oFormInvoices, _TipoDoc);
 
             _oFormInvoices.PaneLevel = 1;
 
         }
 
-        public void AddItemsToBP(SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form oFormBusinessParnerd)
+        public void AddItemsToBP(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form oFormBusinessParnerd)
         {
             Funciones.Comunes DLLFunciones = new Funciones.Comunes();
 
@@ -188,7 +187,7 @@ namespace eBilling
 
                 _oFolderItem.GroupWith("234000007");
 
-                ItemsBusinessParnerd(_oFormBusinessParnerd, iQuantityEmails);
+                ItemsBusinessParnerd(_sboapp, _oCompany, _oFormBusinessParnerd, iQuantityEmails);
 
                 _oFormBusinessParnerd.PaneLevel = 1;
 
@@ -373,6 +372,7 @@ namespace eBilling
                 #region Variables y objetos
 
                 SAPbouiCOM.ComboBox _cboTO = (SAPbouiCOM.ComboBox)oFormVDBO.Items.Item("cboTO").Specific;
+                SAPbouiCOM.ComboBox cboMP = (SAPbouiCOM.ComboBox)oFormVDBO.Items.Item("cboMP").Specific;
                 SAPbouiCOM.ComboBox _cboPT = (SAPbouiCOM.ComboBox)oFormVDBO.Items.Item("Item_34").Specific;
 
                 SAPbouiCOM.Folder oFolder1 = (SAPbouiCOM.Folder)oFormVDBO.Items.Item("Folder1").Specific;
@@ -382,9 +382,11 @@ namespace eBilling
                 SAPbouiCOM.PictureBox oLogoBO = (SAPbouiCOM.PictureBox)oFormVDBO.Items.Item("LogoBO").Specific;
 
                 SAPbobsCOM.Recordset oValidValuesTO = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                SAPbobsCOM.Recordset oValidValuesMedioPago = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                 SAPbobsCOM.Recordset oRsProveedorTecnologico = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                 string sGetProveedorTecnologico = null;
+                string sGetMediosPago = null;
 
                 #endregion
 
@@ -407,6 +409,7 @@ namespace eBilling
                 oMatrixSeres.Columns.Item("Col_2").DataBind.SetBound(true, "@BOSERNUM", "U_BO_NI");
                 oMatrixSeres.Columns.Item("Col_3").DataBind.SetBound(true, "@BOSERNUM", "U_BO_NF");
                 oMatrixSeres.Columns.Item("Col_1").DataBind.SetBound(true, "@BOSERNUM", "U_BO_CD");
+                oMatrixSeres.Columns.Item("Col_06").DataBind.SetBound(true, "@BOSERNUM", "U_BO_FORIMP");
 
                 oMatrixSeres.Clear();
 
@@ -432,6 +435,23 @@ namespace eBilling
                 }
 
                 DLLFunciones.liberarObjetos(oValidValuesTO);
+
+                #endregion
+
+                #region Valores Medios de pago
+
+                sGetMediosPago = DLLFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "GetMediosPago");
+
+                oValidValuesMedioPago.DoQuery(sGetMediosPago);
+                oValidValuesMedioPago.MoveFirst();
+
+                for (int K = 0; oValidValuesMedioPago.RecordCount - 1 >= K; K++)
+                {
+                    cboMP.ValidValues.Add(oValidValuesMedioPago.Fields.Item("Valor").Value.ToString(), oValidValuesMedioPago.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesMedioPago.MoveNext();
+                }
+
+                DLLFunciones.liberarObjetos(oValidValuesMedioPago);
 
                 #endregion
 
@@ -949,8 +969,10 @@ namespace eBilling
             }
         }
 
-        private void ItemsDocuments(SAPbouiCOM.Form oFormInvoices, string __TipoDoc)
+        private void ItemsDocuments(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form oFormInvoices, string __TipoDoc)
         {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
             #region Variables y Objetos
 
             SAPbouiCOM.Item oCampoInvoices = null;
@@ -1273,7 +1295,7 @@ namespace eBilling
 
             #region Campo PDF enviado 
 
-            if (__TipoDoc == "FacturaDeClientes" || __TipoDoc == "NotaDebitoClientes" || __TipoDoc == "NotaCreditoClientes")
+            if (__TipoDoc == "FacturaDeClientes" || __TipoDoc == "NotaDebitoClientes" || __TipoDoc == "NotaCreditoClientes" )
             {
 
                 //*******************************************
@@ -1317,10 +1339,7 @@ namespace eBilling
                 {
                     otxtRPDF.DataBind.SetBound(true, "ORIN", "U_BO_RPDF");
                 }
-                else if (__TipoDoc == "NotaCreditoProveedores")
-                {
-                    otxtRPDF.DataBind.SetBound(true, "ORPC", "U_BO_RPDF");
-                }
+
                 oCampoInvoices.FromPane = 5;
                 oCampoInvoices.ToPane = 5;
 
@@ -1735,7 +1754,6 @@ namespace eBilling
                 oCampoInvoices.Top = oItem.Top + 160;
                 oCampoInvoices.Height = oItem.Height;
 
-
                 oCampoInvoices.DisplayDesc = true;
 
                 _oFormInvoices.DataSources.UserDataSources.Add("cboMP", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
@@ -1751,83 +1769,45 @@ namespace eBilling
                     cboMP.DataBind.SetBound(true, "ORIN", "U_BO_MP");
                 }
 
-                cboMP.ValidValues.Add("1", "Instrumento no definido");
-                cboMP.ValidValues.Add("2", "Crédito ACH");
-                cboMP.ValidValues.Add("3", "Débito ACH");
-                cboMP.ValidValues.Add("4", "Reversión débito de demanda ACH");
-                cboMP.ValidValues.Add("5", "Reversión crédito de demanda ACH");
-                cboMP.ValidValues.Add("6", "Reversión crédito de demanda ACH");
-                cboMP.ValidValues.Add("7", "Débito de demanda ACH");
-                cboMP.ValidValues.Add("8", "Mantener");
-                cboMP.ValidValues.Add("9", "Clearing Nacional o Regional");
-                cboMP.ValidValues.Add("10", "Efectivo");
-                cboMP.ValidValues.Add("11", "Reversión Crédito Ahorro");
-                cboMP.ValidValues.Add("12", "Reversión Débito Ahorro");
-                cboMP.ValidValues.Add("13", "Crédito Ahorro");
-                cboMP.ValidValues.Add("14", "Débito Ahorro");
-                cboMP.ValidValues.Add("15", "Bookentry Crédito");
-                cboMP.ValidValues.Add("16", "Bookentry Débito");
-                cboMP.ValidValues.Add("17", "Concentración de la demanda en efectivo / Crédito (CCD)");
-                cboMP.ValidValues.Add("18", "Concentración de la demanda en efectivo / Debito (CCD)");
-                cboMP.ValidValues.Add("19", "Crédito Pago negocio corporativo (CTP)");
-                cboMP.ValidValues.Add("20", "Cheque");
-                cboMP.ValidValues.Add("21", "Proyecto bancario");
-                cboMP.ValidValues.Add("22", "Proyecto bancario certificado");
-                cboMP.ValidValues.Add("23", "Cheque bancario");
-                cboMP.ValidValues.Add("24", "Nota cambiaria esperando aceptación");
-                cboMP.ValidValues.Add("25", "Cheque certificado");
-                cboMP.ValidValues.Add("26", "Cheque local");
-                cboMP.ValidValues.Add("27", "Débito Pago Negocio Corporativo (CTP)");
-                cboMP.ValidValues.Add("28", "Crédito Negocio Intercambio Corporativo (CTX)");
-                cboMP.ValidValues.Add("29", "Débito Negocio Intercambio Corporativo (CTX)");
-                cboMP.ValidValues.Add("30", "Transferencia Crédito");
-                cboMP.ValidValues.Add("31", "Transferencia Débito");
-                cboMP.ValidValues.Add("32", "Concentración Efectivo / Desembolso Crédito plus");
-                cboMP.ValidValues.Add("33", "Concentración Efectivo / Desembolso Débito plus");
-                cboMP.ValidValues.Add("34", "Pago y depósito pre acordado");
-                cboMP.ValidValues.Add("35", "Concentración efectivo");
-                cboMP.ValidValues.Add("36", "Concentración efectivo ahorros / Desembolso");
-                cboMP.ValidValues.Add("37", "Pago Negocio Corporativo Ahorros Crédito");
-                cboMP.ValidValues.Add("38", "Pago Negocio Corporativo Ahorros Débito");
-                cboMP.ValidValues.Add("39", "Crédito Negocio Intercambio Corporativo");
-                cboMP.ValidValues.Add("40", "Débito Negocio Intercambio Corporativo");
-                cboMP.ValidValues.Add("41", "Concentración efectivo/Desembolso Crédito plus");
-                cboMP.ValidValues.Add("42", "Consignación bancaria");
-                cboMP.ValidValues.Add("43", "Concentración efectivo / Desembolso Débito plus");
-                cboMP.ValidValues.Add("44", "Nota cambiaria");
-                cboMP.ValidValues.Add("45", "Transferencia Crédito Bancario");
-                cboMP.ValidValues.Add("46", "Transferencia Débito Interbancario");
-                cboMP.ValidValues.Add("47", "Transferencia Débito Bancaria");
-                cboMP.ValidValues.Add("48", "Tarjeta Crédito");
-                cboMP.ValidValues.Add("49", "Tarjeta Débito");
-                cboMP.ValidValues.Add("50", "Pstgiro");
-                cboMP.ValidValues.Add("51", "Telex estándar bancario francés");
-                cboMP.ValidValues.Add("52", "Pago comercial Urgente");
-                cboMP.ValidValues.Add("53", "Pago Tesorería Urgente");
-                cboMP.ValidValues.Add("60", "Nota promisoria");
-                cboMP.ValidValues.Add("61", "Nota promisoria firmada por el acreedor");
-                cboMP.ValidValues.Add("62", "Nota promisoria firmada por el acreedor, avalada por el banco");
-                cboMP.ValidValues.Add("63", "Nota promisoria firmada por el acreedor, avalada por un tercero");
-                cboMP.ValidValues.Add("64", "Nota promisoria firmada por el banco");
-                cboMP.ValidValues.Add("65", "Nota promisoria firmada por un banco, avalada por otro banco");
-                cboMP.ValidValues.Add("66", "Nota promisoria firmada");
-                cboMP.ValidValues.Add("67", "Nota promisoria firmada por un tercero avalada por un banco");
-                cboMP.ValidValues.Add("70", "Retiro de nota por el acreedor");
-                cboMP.ValidValues.Add("74", "Retiro de nota por el acreedor sobre un banco");
-                cboMP.ValidValues.Add("75", "Retiro de nota por el acreedor, avalada por otro banco");
-                cboMP.ValidValues.Add("76", "Retiro de nota por el acreedor, sobre un banco avalada por un tercero");
-                cboMP.ValidValues.Add("77", "Retiro de nota por el acreedor sobre un tercero");
-                cboMP.ValidValues.Add("78", "Retiro de nota por el acreedor sobre un tercero avalada por un banco");
-                cboMP.ValidValues.Add("91", "Nota bancaria transferible");
-                cboMP.ValidValues.Add("92", "Cheque local transferible");
-                cboMP.ValidValues.Add("93", "Giro referenciado");
-                cboMP.ValidValues.Add("94", "Giro Urgente");
-                cboMP.ValidValues.Add("95", "Giro formato abierto");
-                cboMP.ValidValues.Add("96", "Método de pago solicitado no usado");
-                cboMP.ValidValues.Add("97", "Clearing entre partners");
-                cboMP.ValidValues.Add("ZZZ", "Acuerdo mutuo");
+                #region Valores Medios de pago
 
-                cboMP.Select("10", BoSearchKey.psk_ByValue);
+                SAPbobsCOM.Recordset oValidValuesMedioPago = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                string sGetMediosPago = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetMediosPago");
+
+                oValidValuesMedioPago.DoQuery(sGetMediosPago);
+                oValidValuesMedioPago.MoveFirst();
+
+                for (int K = 0; oValidValuesMedioPago.RecordCount - 1 >= K; K++)
+                {
+                    cboMP.ValidValues.Add(oValidValuesMedioPago.Fields.Item("Valor").Value.ToString(), oValidValuesMedioPago.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesMedioPago.MoveNext();
+                }
+
+                DllFunciones.liberarObjetos(oValidValuesMedioPago);
+
+                #endregion
+                
+                if (string.IsNullOrEmpty(cboMP.Value))
+                {
+                    SAPbobsCOM.Recordset GetMediosPagoDflt = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    string sGetMediosPagoDflt = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetMediosPagoDflt");
+
+                    GetMediosPagoDflt.DoQuery(sGetMediosPagoDflt);
+
+                    if (GetMediosPagoDflt.RecordCount > 0)
+                    {
+                        cboMP.Select(GetMediosPagoDflt.Fields.Item("MedioPago").Value.ToString(), BoSearchKey.psk_ByValue);
+                    }
+
+                    DllFunciones.liberarObjetos(GetMediosPagoDflt);
+                                        
+                }
+                else
+                {
+
+                }                
 
                 oCampoInvoices.FromPane = 5;
                 oCampoInvoices.ToPane = 5;
@@ -1838,7 +1818,7 @@ namespace eBilling
 
             #region Campo Aplica a Factura de venta - Solo para NC y ND
 
-            if (__TipoDoc == "NotaCreditoClientes" || __TipoDoc == "NotaDebitoClientes")
+            if (__TipoDoc == "NotaCreditoClientes" || __TipoDoc == "NotaDebitoClientes" || __TipoDoc == "NotaCreditoProveedores")
             {
                 //*******************************************
                 // Se adiciona Label "Aplica a Factura de venta - Solo para Notas Credito"
@@ -1879,6 +1859,10 @@ namespace eBilling
                 {
                     otxtAFV.DataBind.SetBound(true, "OINV", "U_BO_AFV");
                 }
+                else if (__TipoDoc == "NotaCreditoProveedores")
+                {
+                    otxtAFV.DataBind.SetBound(true, "ORPC", "U_BO_AFV");
+                }
             }
 
             if (__TipoDoc == "FacturaDeClientes")
@@ -1888,6 +1872,10 @@ namespace eBilling
             else if (__TipoDoc == "NotaCreditoClientes")
             {
                 otxtCEB.DataBind.SetBound(true, "ORIN", "U_BO_EBC");
+            }
+            else if (__TipoDoc == "NotaCreditoProveedores")
+            {
+                otxtCEB.DataBind.SetBound(true, "ORPC", "U_BO_EBC");
             }
 
             oCampoInvoices.FromPane = 5;
@@ -1938,7 +1926,6 @@ namespace eBilling
                 otxtTN.ValidValues.Add("2", "Anulación de factura electrónica");
                 otxtTN.ValidValues.Add("3", "Rebaja");
                 otxtTN.ValidValues.Add("4", "Descuento");
-
 
                 otxtTN.Select("1", BoSearchKey.psk_ByValue);
 
@@ -2007,7 +1994,7 @@ namespace eBilling
 
             #endregion
 
-            #region Vacia Campós en Notas Credito
+            #region Vacia Campós en Notas Credito Clientes
 
             if (_oFormInvoices.Mode == BoFormMode.fm_ADD_MODE && __TipoDoc == "NotaCreditoClientes")
             {
@@ -2027,6 +2014,35 @@ namespace eBilling
                 _txtCRWS.Value = ValorGeneral;
                 _txtMRWS.Value = ValorGeneral;
                 _txtRPDF.Value = ValorGeneral;
+                _txtXML.Value = ValorGeneral;
+                _txtCUFE.Value = ValorGeneral;
+                _txtQR.Value = ValorGeneral;
+
+
+            }
+
+            #endregion
+
+            #region Vacia Campós en Nota Credito Proveedores
+
+            if (_oFormInvoices.Mode == BoFormMode.fm_ADD_MODE && __TipoDoc == "NotaCreditoProveedores")
+            {
+                #region Variables
+
+                string ValorGeneral = "_";
+
+                SAPbouiCOM.EditText _txtCRWS = (SAPbouiCOM.EditText)(_oFormInvoices.Items.Item("txtCRWS").Specific);
+                SAPbouiCOM.EditText _txtMRWS = (SAPbouiCOM.EditText)(_oFormInvoices.Items.Item("txtMRWS").Specific);
+                
+                SAPbouiCOM.EditText _txtXML = (SAPbouiCOM.EditText)(_oFormInvoices.Items.Item("txtXML").Specific);
+                SAPbouiCOM.EditText _txtCUFE = (SAPbouiCOM.EditText)(_oFormInvoices.Items.Item("txtCUFE").Specific);
+                SAPbouiCOM.EditText _txtQR = (SAPbouiCOM.EditText)(_oFormInvoices.Items.Item("txtQR").Specific);
+
+                #endregion
+
+                _txtCRWS.Value = ValorGeneral;
+                _txtMRWS.Value = ValorGeneral;
+                
                 _txtXML.Value = ValorGeneral;
                 _txtCUFE.Value = ValorGeneral;
                 _txtQR.Value = ValorGeneral;
@@ -2057,22 +2073,19 @@ namespace eBilling
                 if (otxtCRWS.Value.ToString() == "200")
                 {
                     oStaticText.Caption = otxtMRWS.Value.ToString();
-                    oStaticText.Item.ForeColor = ColorTranslator.ToOle(Color.Green);
-                    //oStaticText.Item.TextStyle = 1;
+                    oStaticText.Item.ForeColor = ColorTranslator.ToOle(Color.Green);                    
                 }
                 else
                 {
                     if (string.IsNullOrEmpty(otxtMRWS.Value.ToString()))
                     {
                         oStaticText.Caption = "Documento no autorizado por la DIAN";
-                        oStaticText.Item.ForeColor = ColorTranslator.ToOle(Color.Red);
-                        //oStaticText.Item.TextStyle = 1;
+                        oStaticText.Item.ForeColor = ColorTranslator.ToOle(Color.Red);                        
                     }
                     else
                     {
                         oStaticText.Caption = otxtMRWS.Value.ToString();
-                        oStaticText.Item.ForeColor = ColorTranslator.ToOle(Color.Red);
-                        //oStaticText.Item.TextStyle = 1;
+                        oStaticText.Item.ForeColor = ColorTranslator.ToOle(Color.Red);                        
                     }
                 }
             }
@@ -2229,7 +2242,7 @@ namespace eBilling
             }
         }
 
-        private void ItemsBusinessParnerd(SAPbouiCOM.Form oFormBusinessParnerd, int _QuantityEmails)
+        private void ItemsBusinessParnerd(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form oFormBusinessParnerd, int _QuantityEmails)
         {
             SAPbouiCOM.Form _oFormBusinessParnerd;
             SAPbouiCOM.Item oItem;
@@ -2356,15 +2369,27 @@ namespace eBilling
 
                 cboTR.DataBind.SetBound(true, "OCRD", "U_BO_TR");
 
-                cboTR.ValidValues.Add("04", "Régimen Simple");
-                cboTR.ValidValues.Add("05", "Régimen Ordinario");
-                cboTR.ValidValues.Add("48", "Impuesto sobre las ventas - IVA");
-                cboTR.ValidValues.Add("49", "No responsable de IVA");
 
-                //cboTR.Select("0", BoSearchKey.psk_ByValue);
+                #region Valores Medios de pago
 
-                oCampoInvoices.FromPane = 28;
-                oCampoInvoices.ToPane = 28;
+                SAPbobsCOM.Recordset oValidValuesTipoResponsabilidad = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                string sGetResponsabilidadFiscal = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetResponsabilidadFiscal");
+
+                oValidValuesTipoResponsabilidad.DoQuery(sGetResponsabilidadFiscal);
+                oValidValuesTipoResponsabilidad.MoveFirst();
+
+                for (int K = 0; oValidValuesTipoResponsabilidad.RecordCount - 1 >= K; K++)
+                {
+                    cboTR.ValidValues.Add(oValidValuesTipoResponsabilidad.Fields.Item("Valor").Value.ToString(), oValidValuesTipoResponsabilidad.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesTipoResponsabilidad.MoveNext();
+                }
+
+                DllFunciones.liberarObjetos(oValidValuesTipoResponsabilidad);
+
+                #endregion
+
+
 
                 #endregion
             }
@@ -3846,8 +3871,7 @@ namespace eBilling
                 MessageBox.Show(ex.Message);
             }
         }
-
-
+        
         private FacturaGeneral oBuillInvoice(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oLineas, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oImpuestosTotales, SAPbobsCOM.Recordset oCargosyDecuentos, SAPbobsCOM.Recordset OCUFEInvoice, string ___TipoDocumento, SAPbobsCOM.Company _oCompany)
         {
             #region Instanciacion
@@ -3867,7 +3891,7 @@ namespace eBilling
 
             FacturaGeneral FacturadeVenta = new FacturaGeneral();
 
-            FacturadeVenta.cantidadDecimales = Convert.ToString(oCabecera.Fields.Item("cantidadDecimales").Value.ToString());
+            FacturadeVenta.cantidadDecimales = Convert.ToString(oCabecera.Fields.Item("cantidadDecimales").Value.ToString());            
             FacturadeVenta.moneda = Convert.ToString(oCabecera.Fields.Item("Moneda").Value.ToString());
             FacturadeVenta.rangoNumeracion = Convert.ToString(oCabecera.Fields.Item("RangoNmeracion").Value.ToString());
 
@@ -3936,16 +3960,25 @@ namespace eBilling
             string stotalSinImpuestos = Convert.ToString(oCabecera.Fields.Item("totalSinImpuestos").Value.ToString());
             FacturadeVenta.totalSinImpuestos = stotalSinImpuestos.Replace(",", ".");
 
+
+            string stotalCargosAplicados = Convert.ToString(oCabecera.Fields.Item("totalCargosAplicados").Value.ToString());
+            FacturadeVenta.totalCargosAplicados = stotalCargosAplicados.Replace(",", ".");
+
             #region Cargos y descuentos en la factura de venta
+
 
             if (oCargosyDecuentos.RecordCount > 0)
             {
                 FacturadeVenta.cargosDescuentos = new CargosDescuentos[oCargosyDecuentos.RecordCount];
 
-                CargosDescuentos DescuentoGeneral = new CargosDescuentos();
-
+                int CargosDescuentosSecuenciaArreglo = 0;
+                
+                oCargosyDecuentos.MoveFirst();
+            
                 do
                 {
+                    CargosDescuentos DescuentoGeneral = new CargosDescuentos();
+
                     DescuentoGeneral.codigo = Convert.ToString(oCargosyDecuentos.Fields.Item("codigo").Value.ToString());
                     DescuentoGeneral.descripcion = Convert.ToString(oCargosyDecuentos.Fields.Item("descripcion").Value.ToString());
                     DescuentoGeneral.indicador = Convert.ToString(oCargosyDecuentos.Fields.Item("indicador").Value.ToString());
@@ -3961,9 +3994,9 @@ namespace eBilling
 
                     DescuentoGeneral.secuencia = Convert.ToString(oCargosyDecuentos.Fields.Item("secuencia").Value.ToString());
 
-                    FacturadeVenta.cargosDescuentos[0] = DescuentoGeneral;
+                    FacturadeVenta.cargosDescuentos[CargosDescuentosSecuenciaArreglo] = DescuentoGeneral;                    
 
-                    FacturadeVenta.totalDescuentos = sDesc_monto.Replace(",", ".");
+                    CargosDescuentosSecuenciaArreglo++;
 
                     oCargosyDecuentos.MoveNext();
 
@@ -3975,23 +4008,28 @@ namespace eBilling
 
             FacturadeVenta.consecutivoDocumento = Convert.ToString(oCabecera.Fields.Item("consecutivoDocumento").Value.ToString());
             FacturadeVenta.fechaEmision = oCabecera.Fields.Item("fechaEmision").Value.ToString();
-            
-            #endregion
+
+            #endregion            
 
             #region Terminos de entrega
 
             if (Convert.ToString(oCabecera.Fields.Item("tipoDocumento").Value.ToString()) == "02")
             {
-                FacturadeVenta.terminosEntrega.codigoCondicionEntrega = Convert.ToString(oCabecera.Fields.Item("CodigoIcoterm").Value.ToString());
+                TerminosDeEntrega TerminosEntregaExportacion = new TerminosDeEntrega();
+
+                TerminosEntregaExportacion.codigoCondicionEntrega = Convert.ToString(oCabecera.Fields.Item("CodigoIcoterm").Value.ToString());
+
+                FacturadeVenta.terminosEntrega = TerminosEntregaExportacion;                
             }
 
-            #endregion
+            #endregion            
 
             #region cliente
 
             Cliente cliente = new Cliente();
 
             cliente.actividadEconomicaCIIU = Convert.ToString(oCabecera.Fields.Item("actividadEconomicaCIIU").Value.ToString());
+            cliente.telefono = Convert.ToString(oCabecera.Fields.Item("telefono").Value.ToString());
 
             cliente.destinatario = new Destinatario[1];
             Destinatario destinatario1 = new Destinatario();
@@ -4104,6 +4142,7 @@ namespace eBilling
             destinatario1.fechaProgramada = Convert.ToString(oCabecera.Fields.Item("fechaProgramada").Value.ToString());
             destinatario1.nitProveedorReceptor = Convert.ToString(oCabecera.Fields.Item("nitProveedorReceptor").Value.ToString());
             destinatario1.telefono = Convert.ToString(oCabecera.Fields.Item("telefono").Value.ToString());
+            
             cliente.destinatario[0] = destinatario1;
 
             cliente.detallesTributarios = new Tributos[1];
@@ -4161,19 +4200,46 @@ namespace eBilling
             cliente.notificar = Convert.ToString(oCabecera.Fields.Item("notificar").Value.ToString());
             cliente.numeroDocumento = Convert.ToString(oCabecera.Fields.Item("numeroDocumento").Value.ToString());
             cliente.numeroIdentificacionDV = sDV;
+            
 
-            cliente.responsabilidadesRut = new Obligaciones[1];
-            Obligaciones obligaciones1 = new Obligaciones();
-            obligaciones1.obligaciones = Convert.ToString(oCabecera.Fields.Item("obligaciones").Value.ToString());
-            obligaciones1.regimen = Convert.ToString(oCabecera.Fields.Item("regimen").Value.ToString());
-            cliente.responsabilidadesRut[0] = obligaciones1;
+
+            string[] ArrayObligaciones = Convert.ToString(oCabecera.Fields.Item("obligaciones").Value.ToString()).Split(';');
+            
+            if (ArrayObligaciones.Length > 1)
+            {
+                cliente.responsabilidadesRut = new Obligaciones[ArrayObligaciones.Length];                
+
+                int PosicionArrayObligaciones = 0;
+
+                foreach (string codigoObligacion in ArrayObligaciones)
+                {
+                    Obligaciones obligaciones1 = new Obligaciones();
+
+                    obligaciones1.obligaciones = codigoObligacion;
+
+                    obligaciones1.regimen = Convert.ToString(oCabecera.Fields.Item("regimen").Value.ToString());
+                    
+                    cliente.responsabilidadesRut[PosicionArrayObligaciones] = obligaciones1;
+
+                    PosicionArrayObligaciones++;
+                }                
+            }
+            else
+            {
+                cliente.responsabilidadesRut = new Obligaciones[ArrayObligaciones.Length];
+                Obligaciones obligaciones1 = new Obligaciones();
+
+                obligaciones1.obligaciones = Convert.ToString(oCabecera.Fields.Item("obligaciones").Value.ToString());
+                obligaciones1.regimen = Convert.ToString(oCabecera.Fields.Item("regimen").Value.ToString());
+                cliente.responsabilidadesRut[0] = obligaciones1;
+            }
 
             cliente.tipoIdentificacion = Convert.ToString(oCabecera.Fields.Item("tipoIdentificacion").Value.ToString());
             cliente.tipoPersona = Convert.ToString(oCabecera.Fields.Item("tipoPersona").Value.ToString());
 
             FacturadeVenta.cliente = cliente;
 
-            #endregion 
+            #endregion             
 
             #region Consulta las lineas en la factura de venta
 
@@ -4181,9 +4247,7 @@ namespace eBilling
             int SecuenciaArreglo;
             int Posicion;
             CantidadArticulos = oLineas.RecordCount;
-
-            #endregion
-
+            
             #region Si existen Lineas Asigna los valores de cada columna al arreglo Detalle Factura
 
             if (CantidadArticulos > 0)
@@ -4324,6 +4388,7 @@ namespace eBilling
 
                     #endregion
 
+
                     string sprecioTotal_Articulo = Convert.ToString(oLineas.Fields.Item("precioTotal").Value.ToString());
                     Articulo.precioTotal = sprecioTotal_Articulo.Replace(",", ".");
 
@@ -4336,6 +4401,111 @@ namespace eBilling
                     Articulo.secuencia = Convert.ToString(oLineas.Fields.Item("Secuencia").Value.ToString());
                     Articulo.unidadMedida = Convert.ToString(oLineas.Fields.Item("unidadMedida").Value.ToString());
 
+                    #region InformacioAdicional
+
+                    if (Convert.ToString(oCabecera.Fields.Item("NITEmpresaEmisora").Value.ToString()) == "900229376-3")
+                    {
+                        bool MonedaDiferenteCOP = false;
+                        bool VIN_Vehiculo = false;
+                        bool Motor_vehiculo = false;
+                        int CantidadPropiedades = 0;
+                        int SecuencialArrayInformacionAdicional = 0;
+
+                        #region Valida cuales son los parametros seleccionados para colocarlos como informacion adicional                    
+
+                        if (Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString()) != "COP" && Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString()) != "$")
+                        {
+                            MonedaDiferenteCOP = true;
+                            CantidadPropiedades++;
+                        }
+
+                        if (!string.IsNullOrEmpty(Convert.ToString(oLineas.Fields.Item("TT_VIN").Value.ToString())))
+                        {
+                            VIN_Vehiculo = true;
+                            CantidadPropiedades++;
+                        }
+
+                        if (!string.IsNullOrEmpty(Convert.ToString(oLineas.Fields.Item("TT_Motor").Value.ToString())))
+                        {
+                            Motor_vehiculo = true;
+                            CantidadPropiedades++;
+                        }
+
+                        #endregion
+
+
+                        if (CantidadPropiedades == 1)
+                        {
+                            #region Adiciona solo una informacion adicional
+
+                            Articulo.informacionAdicional = new LineaInformacionAdicional[CantidadPropiedades];
+
+                            LineaInformacionAdicional InformacionAdicional1 = new LineaInformacionAdicional();
+
+                            if (MonedaDiferenteCOP)
+                            {
+                                InformacionAdicional1.nombre = "Conversion USD Linea";
+                                InformacionAdicional1.valor = Convert.ToString(oLineas.Fields.Item("NotaLineasOtrasMonedas").Value.ToString());
+                            }
+                            else if (VIN_Vehiculo)
+                            {
+                                InformacionAdicional1.nombre = "VIN";
+                                InformacionAdicional1.valor = Convert.ToString(oLineas.Fields.Item("TT_VIN").Value.ToString());
+                            }
+                            else if (Motor_vehiculo)
+                            {
+                                InformacionAdicional1.nombre = "Motor";
+                                InformacionAdicional1.valor = Convert.ToString(oLineas.Fields.Item("TT_Motor").Value.ToString());
+                            }
+
+                            Articulo.informacionAdicional[0] = InformacionAdicional1;
+
+                            #endregion
+
+                        }
+                        else if (CantidadPropiedades > 1)
+                        {
+                            #region Adiciona mas de una informacio adicional
+
+                            Articulo.informacionAdicional = new LineaInformacionAdicional[CantidadPropiedades];
+
+                            if (MonedaDiferenteCOP)
+                            {
+                                LineaInformacionAdicional InformacionAdicional1 = new LineaInformacionAdicional();
+                                InformacionAdicional1.nombre = "Conversion USD Linea";
+                                InformacionAdicional1.valor = Convert.ToString(oLineas.Fields.Item("NotaLineasOtrasMonedas").Value.ToString());
+                                Articulo.informacionAdicional[SecuencialArrayInformacionAdicional] = InformacionAdicional1;
+                                SecuencialArrayInformacionAdicional++;
+
+                            }
+
+                            if (VIN_Vehiculo)
+                            {
+                                LineaInformacionAdicional InformacionAdicional2 = new LineaInformacionAdicional();
+                                InformacionAdicional2.nombre = "VIN";
+                                InformacionAdicional2.valor = Convert.ToString(oLineas.Fields.Item("TT_VIN").Value.ToString());
+                                Articulo.informacionAdicional[SecuencialArrayInformacionAdicional] = InformacionAdicional2;
+                                SecuencialArrayInformacionAdicional++;
+                            }
+
+                            if (Motor_vehiculo)
+                            {
+                                LineaInformacionAdicional InformacionAdicional3 = new LineaInformacionAdicional();
+                                InformacionAdicional3.nombre = "Motor_vehiculo";
+                                InformacionAdicional3.valor = Convert.ToString(oLineas.Fields.Item("TT_Motor").Value.ToString());
+                                Articulo.informacionAdicional[SecuencialArrayInformacionAdicional] = InformacionAdicional3;
+                                SecuencialArrayInformacionAdicional++;
+                            }
+
+
+                            #endregion
+                        }
+                    }
+
+
+
+                    #endregion
+                    
 
                     #endregion
 
@@ -4354,10 +4524,15 @@ namespace eBilling
 
             #endregion
 
+
+            #endregion
+
             #region Documento Referenciado
 
             if (___TipoDocumento == "NotaCreditoClientes" || ___TipoDocumento == "NotaDebitoClientes")
             {
+                #region Notas debito y notas credito
+                
                 if (Convert.ToString(oCabecera.Fields.Item("tipoOperacion").Value.ToString()) == "22")
                 {
                     FacturadeVenta.fechaInicioPeriodoFacturacion = oCabecera.Fields.Item("fechaInicioPeriodoFacturacion").Value.ToString();
@@ -4406,6 +4581,8 @@ namespace eBilling
                     Datos_NCoND_DR2.cufeDocReferenciado = Convert.ToString(OCUFEInvoice.Fields.Item("CUFE").Value.ToString());
                     Datos_NCoND_DR2.fecha = Convert.ToString(OCUFEInvoice.Fields.Item("fechaEmision").Value.ToString());
                     Datos_NCoND_DR2.numeroDocumento = Convert.ToString(OCUFEInvoice.Fields.Item("consecutivoDocumento").Value.ToString());
+                    Datos_NCoND_DR2.descripcion = descripcion;
+
                     Datos_NCoND_DR2.tipoCUFE = "CUFE-SHA384";
 
                     FacturadeVenta.documentosReferenciados[1] = Datos_NCoND_DR2;
@@ -4414,7 +4591,137 @@ namespace eBilling
 
                 }
 
+                #endregion
 
+            }
+            else if (___TipoDocumento == "NotaCreditoDeProveedores" )
+            {
+                #region Arreglo donde se asigna comentarios acerca del motivo de la devolucion o anulacion
+                
+                string[] descripcion = new string[1];
+
+                descripcion[0] = Convert.ToString(oCabecera.Fields.Item("Comentarios_NC").Value.ToString());
+
+                #endregion
+
+                FacturadeVenta.documentosReferenciados = new DocumentoReferenciado[1];
+
+                //#region Documento Referenciado 1
+                
+                //DocumentoReferenciado Datos_NCoND_DR1 = new DocumentoReferenciado();
+
+                //Datos_NCoND_DR1.codigoEstatusDocumento = Convert.ToString(oCabecera.Fields.Item("codigoEstatusDocumento").Value.ToString());
+                //Datos_NCoND_DR1.codigoInterno = "4";
+                //Datos_NCoND_DR1.cufeDocReferenciado = Convert.ToString(OCUFEInvoice.Fields.Item("CUFE").Value.ToString());
+
+                //Datos_NCoND_DR1.descripcion = descripcion;
+
+                //Datos_NCoND_DR1.numeroDocumento = Convert.ToString(OCUFEInvoice.Fields.Item("consecutivoDocumento").Value.ToString());
+
+                //FacturadeVenta.documentosReferenciados[0] = Datos_NCoND_DR1;
+
+                //#endregion
+
+                #region Documento Referenciado 2
+                
+                DocumentoReferenciado Datos_NCoND_DR2 = new DocumentoReferenciado();
+
+                Datos_NCoND_DR2.codigoInterno = "5";
+                Datos_NCoND_DR2.cufeDocReferenciado = Convert.ToString(OCUFEInvoice.Fields.Item("CUFE").Value.ToString());
+                Datos_NCoND_DR2.fecha = Convert.ToString(OCUFEInvoice.Fields.Item("fechaEmision").Value.ToString());
+                Datos_NCoND_DR2.numeroDocumento = Convert.ToString(OCUFEInvoice.Fields.Item("consecutivoDocumento").Value.ToString());
+                Datos_NCoND_DR2.tipoCUFE = "CUFE-SHA384";
+                Datos_NCoND_DR2.tipoDocumento = "05";
+
+                FacturadeVenta.documentosReferenciados[0] = Datos_NCoND_DR2;
+
+                #endregion
+                
+            }
+
+            #endregion
+
+            #region Extras - Factura Dolares SAP
+
+            if (Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString()) != "COP")
+            {
+
+                if (___TipoDocumento == "NotaCreditoClientes" || ___TipoDocumento == "NotaDebitoClientes" || ___TipoDocumento == "FacturaDeClientes")
+                {
+                    FacturadeVenta.extras = new Extras[3];
+
+                    #region <!--Campo que activara el ubl extensión Group schemeName=Exportación-->
+
+                    Extras camposExtrasExportacion1 = new Extras();
+
+                    camposExtrasExportacion1.nombre = "FEXP1";
+                    camposExtrasExportacion1.pdf = "1";
+                    camposExtrasExportacion1.valor = "1";
+                    camposExtrasExportacion1.xml = "1";
+
+                    FacturadeVenta.extras[0] = camposExtrasExportacion1;
+
+                    #endregion
+
+                    #region <!--Collection schemeName="DATOS ADICIONALES-->
+
+                    Extras camposExtrasExportacion2 = new Extras();
+
+                    camposExtrasExportacion2.nombre = "FEXP2";
+                    camposExtrasExportacion2.pdf = "1";
+                    camposExtrasExportacion2.valor = string.Format("Responsable:{0}#Lugar de Salida:{1}#Medio de transporte:{2}#Tipo de Doc.de transporte:{3}#N° de Doc. de transporte:{4}#Transportadora o Tramitadora:{5}#País de Origen de la M/cia:{6}#Destino:{7}#Términos de pago:{8}#Seguro:{9}",
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_Responsable").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_LugardeSalida").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_MedioDeTransporte").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_TipoDocumentoTransporte").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_NumeroDocumentoTransporte").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_Transpotadora").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_PaisOrigenMercancia").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_Destino").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_TerminoDePago").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("EM_Seguro").Value.ToString())
+                                                     );
+                    camposExtrasExportacion2.xml = "1";
+
+                    FacturadeVenta.extras[1] = camposExtrasExportacion2;
+
+                    #endregion
+
+                    #region <!--Campo creara el nodo TotalesCop-->
+
+                    Extras camposExtrasExportacion3 = new Extras();
+
+                    camposExtrasExportacion3.controlInterno1 = "TotalesCop";
+                    camposExtrasExportacion3.nombre = "FEXP3";
+                    camposExtrasExportacion3.pdf = "1";
+                    camposExtrasExportacion3.valor = string.Format("{0}#{1}#{2}#{3}#{4}#{5}#{6}#{7}#{8}#{9}#{10}#{11}#{12}#{13}#{14}#{15}#{16}#{17}#{18}",
+                                                     Convert.ToString(oCabecera.Fields.Item("tasaDeCambio").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("MonedaOriginalSAP").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("FEXP3_BaseSum").Value.ToString()),
+                                                     "0.00000",
+                                                     "0.00000",
+                                                     Convert.ToString(oCabecera.Fields.Item("FEXP3_BaseSum").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("FEXP3_Iva").Value.ToString()),
+                                                     "0.00000",
+                                                     "0.00000",
+                                                     "0.00000",
+                                                     "0.00000",
+                                                     Convert.ToString(oCabecera.Fields.Item("FEXP3_Total").Value.ToString()),
+                                                     "0.00000",
+                                                     Convert.ToString(oCabecera.Fields.Item("FEXP3_TotalRecargoGlobal").Value.ToString()),
+                                                     Convert.ToString(oCabecera.Fields.Item("FEXP3_Total_recargos_descuentos").Value.ToString()),
+                                                     "0.00000",
+                                                     "0.00000",
+                                                     "0.00000",
+                                                     "0.00000"
+                                                     );
+
+                    camposExtrasExportacion3.xml = "1";
+
+                    FacturadeVenta.extras[2] = camposExtrasExportacion3;
+
+                    #endregion
+                }
             }
 
             #endregion
@@ -4594,22 +4901,22 @@ namespace eBilling
                 #region Creacion de tablas
 
                 //1
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Tabla - Parametros Iniciales, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Tabla - Parametros Iniciales, por favor espere...");
                 DllFunciones.crearTabla(oCompany, sboapp, "BOEBILLINGP", "BO-Param. Init. eBilling", SAPbobsCOM.BoUTBTableType.bott_Document);
                 //2
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Tabla - Responsabilidades Fiscales, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Tabla - Responsabilidades Fiscales, por favor espere...");
                 DllFunciones.crearTabla(oCompany, sboapp, "BORESFISCAL", "BO-Responsabilidades Fiscales", SAPbobsCOM.BoUTBTableType.bott_NoObject);
                 //3
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Tabla - Unidades de Medida Estandar, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Tabla - Unidades de Medida Estandar, por favor espere...");
                 DllFunciones.crearTabla(oCompany, sboapp, "BOUNDMED", "BO-Unidades Medida", SAPbobsCOM.BoUTBTableType.bott_MasterData);
                 //4
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Tabla - Series de Nuemracion, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Tabla - Series de Nuemracion, por favor espere...");
                 DllFunciones.crearTabla(oCompany, sboapp, "BOSERNUM", "BO-Series Numeracion", SAPbobsCOM.BoUTBTableType.bott_MasterData);
                 //5
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Tabla - Unidades de Medida DIAN, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Tabla - Unidades de Medida DIAN, por favor espere...");
                 DllFunciones.crearTabla(oCompany, sboapp, "BOUNIDMDIAN", "BO-Unidades de Medida DIAN", SAPbobsCOM.BoUTBTableType.bott_NoObject);
                 //6
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Tabla - E-mail Enviados, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Tabla - E-mail Enviados, por favor espere...");
                 DllFunciones.crearTabla(oCompany, sboapp, "BOEE", "BO-Email reportados", SAPbobsCOM.BoUTBTableType.bott_NoObject);
 
                 #endregion
@@ -4617,15 +4924,15 @@ namespace eBilling
                 #region Creacion de UDOS
 
                 //6
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando UDO - Parametros Iniciales, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando UDO - Parametros Iniciales, por favor espere...");
                 string[] TablaseBilling = { "BOEBILLINGP" };
                 DllFunciones.CrearUDO(oCompany, sboapp, "BOEBILLINGP", "Parametros iniciales", BoUDOObjType.boud_Document, TablaseBilling, BoYesNoEnum.tNO, BoYesNoEnum.tYES, null, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, 0, 1, BoYesNoEnum.tYES, null);
                 //7
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando UDO - Unidades Medida, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando UDO - Unidades Medida, por favor espere...");
                 string[] TablaseBilling1 = { "BOUNDMED" };
                 DllFunciones.CrearUDO(oCompany, sboapp, "BOUNDMED", "Unidades Medida", BoUDOObjType.boud_MasterData, TablaseBilling1, BoYesNoEnum.tNO, BoYesNoEnum.tYES, null, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, 0, 1, BoYesNoEnum.tYES, null);
                 //8
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando UDO - Series Numeracion, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando UDO - Series Numeracion, por favor espere...");
                 string[] TablaseBilling2 = { "BOSERNUM" };
                 DllFunciones.CrearUDO(oCompany, sboapp, "BOSERNUM", "Series Numeracion", BoUDOObjType.boud_MasterData, TablaseBilling2, BoYesNoEnum.tNO, BoYesNoEnum.tYES, null, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, BoYesNoEnum.tNO, 0, 1, BoYesNoEnum.tYES, null);
 
@@ -4636,225 +4943,248 @@ namespace eBilling
 
                 #region Campos tabla Parametros Generales                
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Unidad Medida DIAN , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Unidad Medida DIAN , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOUNDMED", "BO_UMDIAN", "Unidad Medida DIAN");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Token Empresa , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Token Empresa , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_LlE", "Token Empresa Prod");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Token Password , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Token Password , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_PwdE", "Token Password Prod");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Token Empresa , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Token Empresa , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_LlED", "Token Empresa Demo");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Token Password , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Token Password , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_PwdED", "Token Password Demo");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Modo , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Modo , por favor espere...");
                 string[] ValidValuesFields1 = { "PRO", "PRODUCTIVO", "PRU", "PRUEBAS" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, ValidValuesFields1, "@BOEBILLINGP", "BO_Mdo", "Modo");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Activo , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Activo , por favor espere...");
                 string[] ValidValuesFields2 = { "Y", "Si", "N", "No" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesFields2, "@BOEBILLINGP", "BO_Status", "Activo");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Localización utilizada , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Localización utilizada , por favor espere...");
                 string[] ValidValuesFields3 = { "OK1", "Consensus", "HBT", "Heinsohn", "EXX", "Exxis", "BO", "Basis One" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, ValidValuesFields3, "@BOEBILLINGP", "BO_L", "Localización utilizada");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Forma de Emision , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Forma de Emision , por favor espere...");
                 string[] ValidValuesFields11 = { "0", "Sin Adjuntos y R.G. Estandar", "1", "Con Adjuntos y R.G. Estandar", "2", "Con Adjuntos y R.G. Personalizada", "10", "Sin Adjuntos y Sin R.G. Estandar", "11", "Con Adjuntos y sin R.G. Estandar" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFields11, "@BOEBILLINGP", "BO_FormE", "Forma de Emision");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Correo Generico , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Correo Generico , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_EmailGen", "Correo Electronico");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Generar XML Prueba , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Generar XML Prueba , por favor espere...");
                 string[] ValidValuesFields20 = { "Y", "Si", "N", "No" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesFields2, "@BOEBILLINGP", "BO_GXP", "Generar XML P.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Proveedor tecnologico , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Proveedor tecnologico , por favor espere...");
                 string[] ValidValuesFieldsPT = { "TFHKA", "The Factory HKA", "FBE", "Facture By Estela" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 5, "", BoYesNoEnum.tNO, ValidValuesFieldsPT, "@BOEBILLINGP", "BO_PT", "Proveedor tecnologico");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Tipo de operacion , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Tipo de operacion , por favor espere...");
                 string[] ValidValuesFields6 = { "05", "Generica", "09", "AIU", "10", "Estandar", "11", "Mandatos bienes", "12", "Mandatos Servicios", "13", "Cambiario" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, ValidValuesFields6, "@BOEBILLINGP", "BO_TO", "Tipo de Operación");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Prefijo Serie Numeracion , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Prefijo Serie Numeracion , por favor espere...");
                 string[] ValidValuesFields12 = { "Y", "Si", "N", "No" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFields12, "@BOEBILLINGP", "BO_Pref", "Pref. Numeracion");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Cantidad Correo , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Cantidad Correo , por favor espere...");
                 string[] ValidValuesFields7 = { "1", "Hasta 1 Correo", "2", "Hasta 2 Correos", "3", "Hasta 3 Correos", "4", "Hasta 4 Correos", "5", "Hasta 5 Correos", };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFields7, "@BOEBILLINGP", "BO_Emails", "Cantidad de Correos");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Resolucion DIAN , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Resolucion DIAN , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Date, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_FRDIAN", "Fecha Res. DIAN");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - No. Res. DIAN , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - No. Res. DIAN , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_NRDIAN", "Num. Res. DIAN");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Folios , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Folios , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Numeric, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_Fol", "Folios");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Folios Recepcion, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Folios Recepcion, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Numeric, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_FolR", "Folios Recep.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - WS Produccion , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - WS Produccion , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_URLWSPRD", "WEB Services producción");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - WS Pruebas , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - WS Pruebas , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_URLWSPRU", "WEB Services pruebas");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - WS Produccion Recepción , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - WS Produccion Recepción , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_URLWSRPRD", "WEB Services producción R");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - WS Pruebas Recepción , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - WS Pruebas Recepción , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_URLWSRPRU", "WEB Services pruebas R");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Ruta Crystal Report Layout , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Ruta Crystal Report Layout , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_RutaCRL", "Ruta Crystal Report Layout");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Ruta Crystal Report Informes, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Ruta Crystal Report Informes, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_RutaCRI", "Ruta Crystal Report Layout");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Ruta XML , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Ruta XML , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_RutaXML", "Ruta XML");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Ruta PDF, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Ruta PDF, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_RutaPDF", "Ruta PDF");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - User DB , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - User DB , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_UserDB", "Usuario DB");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Pass DB , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Pass DB , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_PassDB", "Password DB");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Modo de Integración , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Modo de Integración , por favor espere...");
                 string[] ValidValuesFields16 = { "On", "OnLine", "Off", "OffLine" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, ValidValuesFields16, "@BOEBILLINGP", "BO_MI", "Modo de Integración");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Protocolo de comunicación , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Protocolo de comunicación , por favor espere...");
                 string[] ValidValuesFields17 = { "HTTP", "HTTP", "HTTPS", "HTTPS" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 5, "", BoYesNoEnum.tNO, ValidValuesFields17, "@BOEBILLINGP", "BO_PC", "Pro. Com.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Protocolo de comunicación , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Protocolo de comunicación , por favor espere...");
                 string[] ValidValuesFields18 = { "HTTP", "HTTP", "HTTPS", "HTTPS" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 5, "", BoYesNoEnum.tNO, ValidValuesFields18, "@BOEBILLINGP", "BO_PCR", "Pro. Com. Recp.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Forma de Emision Documento Soporte , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Forma de Emision Documento Soporte , por favor espere...");
                 string[] ValidValuesFields50 = { "0", "Sin Adjuntos y R.G. Estandar", "1", "Con Adjuntos y R.G. Estandar", "2", "Con Adjuntos y R.G. Personalizada", "10", "Sin Adjuntos y Sin R.G. Estandar", "11", "Con Adjuntos y sin R.G. Estandar" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFields50, "@BOEBILLINGP", "BO_FEDS", "Forma de Emision D.S.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Envia documentos adjuntos , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Envia documentos adjuntos , por favor espere...");
                 string[] ValidValuesEDA = { "Y", "SI", "N", "NO" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesEDA, "@BOEBILLINGP", "BO_EDA", "Enviar doc. adj.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo -Tamaño maximo de los adjuntos, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo -Tamaño maximo de los adjuntos, por favor espere...");
                 string[] ValidValuesTMA = { "1", "1", "2", "2" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesEDA, "@BOEBILLINGP", "BO_TMA", "Tam. Max. Adjun");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Pais, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Pais, por favor espere...");
                 string[] ValidValuesOCRY = { "CO", "Colombia" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, null, BoYesNoEnum.tNO, ValidValuesOCRY, "@BOEBILLINGP", "BO_OCRY", "Pais");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Pais, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Pais, por favor espere...");
                 string[] ValidValuesAT = { "1.8", "1.8", "1.9", "1.9" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, null, BoYesNoEnum.tNO, ValidValuesAT, "@BOEBILLINGP", "BO_AT", "Anexo Tecnico");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Habilitar campos de entrega , por favor espere...");
+                string[] ValidValuesHCE = { "Y", "Si", "N", "No" };
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesHCE, "@BOEBILLINGP", "BO_HCE", "Habi. Camp. Entre.");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Medio de pago estandar , por favor espere...");
+                string[] ValidValuesMediosPago = { "1", "Instrumento no definido", "2", "Crédito ACH", "3", "Débito ACH", "4", "Reversión débito de demanda ACH", "5", "Reversión crédito de demanda ACH", "6", "Reversión crédito de demanda ACH", "7", "Débito de demanda ACH", "8", "Mantener", "9", "Clearing Nacional o Regional", "10", "Efectivo", "11", "Reversión Crédito Ahorro", "12", "Reversión Débito Ahorro", "13", "Crédito Ahorro", "14", "Débito Ahorro", "15", "Bookentry Crédito", "16", "Bookentry Débito", "17", "Concentración de la demanda en efectivo / Crédito (CCD)", "18", "Concentración de la demanda en efectivo / Debito (CCD)", "19", "Crédito Pago negocio corporativo (CTP)", "20", "Cheque", "21", "Proyecto bancario", "22", "Proyecto bancario certificado", "23", "Cheque bancario", "24", "Nota cambiaria esperando aceptación", "25", "Cheque certificado", "26", "Cheque local", "27", "Débito Pago Negocio Corporativo (CTP)", "28", "Crédito Negocio Intercambio Corporativo (CTX)", "29", "Débito Negocio Intercambio Corporativo (CTX)", "30", "Transferencia Crédito", "31", "Transferencia Débito", "32", "Concentración Efectivo / Desembolso Crédito plus", "33", "Concentración Efectivo / Desembolso Débito plus", "34", "Pago y depósito pre acordado", "35", "Concentración efectivo", "36", "Concentración efectivo ahorros / Desembolso", "37", "Pago Negocio Corporativo Ahorros Crédito", "38", "Pago Negocio Corporativo Ahorros Débito", "39", "Crédito Negocio Intercambio Corporativo", "40", "Débito Negocio Intercambio Corporativo", "41", "Concentración efectivo/Desembolso Crédito plus", "42", "Consignación bancaria", "43", "Concentración efectivo / Desembolso Débito plus", "44", "Nota cambiaria", "45", "Transferencia Crédito Bancario", "46", "Transferencia Débito Interbancario", "47", "Transferencia Débito Bancaria", "48", "Tarjeta Crédito", "49", "Tarjeta Débito", "50", "Pstgiro", "51", "Telex estándar bancario francés", "52", "Pago comercial Urgente", "53", "Pago Tesorería Urgente", "60", "Nota promisoria", "61", "Nota promisoria firmada por el acreedor", "62", "Nota promisoria firmada por el acreedor, avalada por el banco", "63", "Nota promisoria firmada por el acreedor, avalada por un tercero", "64", "Nota promisoria firmada por el banco", "65", "Nota promisoria firmada por un banco, avalada por otro banco", "66", "Nota promisoria firmada", "67", "Nota promisoria firmada por un tercero avalada por un banco", "70", "Retiro de nota por el acreedor", "74", "Retiro de nota por el acreedor sobre un banco", "75", "Retiro de nota por el acreedor, avalada por otro banco", "76", "Retiro de nota por el acreedor, sobre un banco avalada por un tercero", "77", "Retiro de nota por el acreedor sobre un tercero", "78", "Retiro de nota por el acreedor sobre un tercero avalada por un banco", "91", "Nota bancaria transferible", "92", "Cheque local transferible", "93", "Giro referenciado", "94", "Giro Urgente", "95", "Giro formato abierto", "96", "Método de pago solicitado no usado", "97", "Clearing entre partners", "ZZZ", "Acuerdo mutuo" };
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, ValidValuesMediosPago, "@BOEBILLINGP", "BO_MPE", "Medio de pago estandar");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Unidad de medida estandar , por favor espere...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 20, "", BoYesNoEnum.tNO, null, "@BOEBILLINGP", "BO_UME", "Unid. Med. Estan.");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Ocultar pestaña facturacion electronica , por favor espere...");
+                string[] ValidValuesOPFE = { "Y", "Si", "N", "No" };
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesOPFE, "@BOEBILLINGP", "BO_OPFE", "Ocul. Pes. FE");
+
 
                 #endregion
 
                 #region Campos tabla Serie Numeracion                
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Serie Num. Fact , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Serie Num. Fact , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_SN", "Ser. Num. Fac. FE");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Numero de resolución, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Numero de resolución, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_NR", "No. Resolución");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Fecha Inicial, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Fecha Inicial, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Date, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_FR", "Fecha Inicial");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Fecha Final, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Fecha Final, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Date, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_FF", "Fecha Final");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Prefijo, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Prefijo, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_PREF", "Prefijo");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Numero Inicial, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Numero Inicial, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_NI", "Num. Ini");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Numero Final, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Numero Final, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_NF", "Num. Fin");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Cantidad Digitos, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Cantidad Digitos, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Numeric, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_CD", "Cant. Dig.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Tipo de Documento , por favor espere...");
-                string[] ValidValuesFields25 = { "FVC", "Factura de venta clientes", "FCC", "Factura de venta contingencia clientes", "NCC", "Nota credito de clientes", "NDC", "Nota debito de clientes", "DSA", "Doc. Sop. Adq.", "NADSA", "Nota Adj. Doc. Sop. Adq." };
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Tipo de Documento , por favor espere...");
+                string[] ValidValuesFields25 = { "FVC", "Factura de venta clientes", "FCC", "Factura de venta contingencia clientes", "NCC", "Nota credito de clientes", "NDC", "Nota debito de clientes", "DSA", "Doc. Sop. Adq.", "NADSA", "Nota Adj. Doc. Sop. Adq.", "FVE", "Factura Venta Exportacion" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 5, "", BoYesNoEnum.tNO, ValidValuesFields25, "@BOSERNUM", "BO_TD", "Tipo Doc");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Formato de Impresion, por favor espere...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "@BOSERNUM", "BO_FORIMP", "Formato Impresion");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Formato Impresion Master , por favor espere...");
+                string[] ValidValuesFieldsBO_FORIMPMAS = { "Y", "Si", "N", "No" };
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesFieldsBO_FORIMPMAS, "@BOSERNUM", "BO_FORIMPMAS", "Formato Impresion Master");
 
                 #endregion
 
                 #region Campo tabla Documentos de Marketing
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - Comentarios Fact.  Electr. , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - Comentarios Fact.  Electr. , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "OINV", "BO_EBC", "Comentarios Fac.Elec");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Respuesta , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Respuesta , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "OINV", "BO_CRWS", "Cod. Resp. Fac. Elec");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Mensaje. Res , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Mensaje. Res , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "OINV", "BO_MRWS", "Mens. Resp. Fac. Elec");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV PDF Enviado , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV PDF Enviado , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Memo, BoFldSubTypes.st_Link, 100, "", BoYesNoEnum.tNO, null, "OINV", "BO_RPDF", "PDF Enviado");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Estado Doc. , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Estado Doc. , por favor espere...");
                 string[] ValidValuesFields4 = { "0", "A la espera", "1", "Aceptada", "2", "Rechazada", "3", "En Validación", "-", "Todos" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesFields4, "OINV", "BO_S", "Estado Documento");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV CUFE , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV CUFE , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "OINV", "BO_CUFE", "CUFE");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV XML Enviado , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV XML Enviado , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Memo, BoFldSubTypes.st_Link, 254, "", BoYesNoEnum.tNO, null, "OINV", "BO_XML", "XML Enviado");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Med. Pago , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Med. Pago , por favor espere...");
                 string[] ValidValuesFields9 = { "1", "Instrumento no definido", "2", "Crédito ACH", "3", "Débito ACH", "4", "Reversión débito de demanda ACH", "5", "Reversión crédito de demanda ACH", "6", "Reversión crédito de demanda ACH", "7", "Débito de demanda ACH", "8", "Mantener", "9", "Clearing Nacional o Regional", "10", "Efectivo", "11", "Reversión Crédito Ahorro", "12", "Reversión Débito Ahorro", "13", "Crédito Ahorro", "14", "Débito Ahorro", "15", "Bookentry Crédito", "16", "Bookentry Débito", "17", "Concentración de la demanda en efectivo / Crédito (CCD)", "18", "Concentración de la demanda en efectivo / Debito (CCD)", "19", "Crédito Pago negocio corporativo (CTP)", "20", "Cheque", "21", "Proyecto bancario", "22", "Proyecto bancario certificado", "23", "Cheque bancario", "24", "Nota cambiaria esperando aceptación", "25", "Cheque certificado", "26", "Cheque local", "27", "Débito Pago Negocio Corporativo (CTP)", "28", "Crédito Negocio Intercambio Corporativo (CTX)", "29", "Débito Negocio Intercambio Corporativo (CTX)", "30", "Transferencia Crédito", "31", "Transferencia Débito", "32", "Concentración Efectivo / Desembolso Crédito plus", "33", "Concentración Efectivo / Desembolso Débito plus", "34", "Pago y depósito pre acordado", "35", "Concentración efectivo", "36", "Concentración efectivo ahorros / Desembolso", "37", "Pago Negocio Corporativo Ahorros Crédito", "38", "Pago Negocio Corporativo Ahorros Débito", "39", "Crédito Negocio Intercambio Corporativo", "40", "Débito Negocio Intercambio Corporativo", "41", "Concentración efectivo/Desembolso Crédito plus", "42", "Consignación bancaria", "43", "Concentración efectivo / Desembolso Débito plus", "44", "Nota cambiaria", "45", "Transferencia Crédito Bancario", "46", "Transferencia Débito Interbancario", "47", "Transferencia Débito Bancaria", "48", "Tarjeta Crédito", "49", "Tarjeta Débito", "50", "Pstgiro", "51", "Telex estándar bancario francés", "52", "Pago comercial Urgente", "53", "Pago Tesorería Urgente", "60", "Nota promisoria", "61", "Nota promisoria firmada por el acreedor", "62", "Nota promisoria firmada por el acreedor, avalada por el banco", "63", "Nota promisoria firmada por el acreedor, avalada por un tercero", "64", "Nota promisoria firmada por el banco", "65", "Nota promisoria firmada por un banco, avalada por otro banco", "66", "Nota promisoria firmada", "67", "Nota promisoria firmada por un tercero avalada por un banco", "70", "Retiro de nota por el acreedor", "74", "Retiro de nota por el acreedor sobre un banco", "75", "Retiro de nota por el acreedor, avalada por otro banco", "76", "Retiro de nota por el acreedor, sobre un banco avalada por un tercero", "77", "Retiro de nota por el acreedor sobre un tercero", "78", "Retiro de nota por el acreedor sobre un tercero avalada por un banco", "91", "Nota bancaria transferible", "92", "Cheque local transferible", "93", "Giro referenciado", "94", "Giro Urgente", "95", "Giro formato abierto", "96", "Método de pago solicitado no usado", "97", "Clearing entre partners", "ZZZ", "Acuerdo mutuo" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, ValidValuesFields9, "OINV", "BO_MP", "Medio Pago");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Tipo de descuento , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Tipo de descuento , por favor espere...");
                 string[] ValidValuesFields21 = { "00", "Descuento por impuesto asumido", "01", "Pague uno lleve otro", "02", "Descuentos contractuales", "03", "Descuento por pronto pago", "04", "Envío gratis", "05", "Descuentos específicos por inventarios", "06", "Descuento por monto de compras", "07", "Descuento de temporada", "08", "Descuento por actualización de productos / servicios", "09", "Descuento general", "10", "Descuento por volumen", "11", "Otro descuento" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFields21, "OINV", "BO_DESC", "Tipo Descuento");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Forma de Envio , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Forma de Envio , por favor espere...");
                 string[] ValidValuesFields5 = { "A", "AddIn", "M", "Masivo" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesFields5, "OINV", "BO_PP", "Enviado por");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Cod QR , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Cod QR , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Memo, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "OINV", "BO_QR", "Codigo QR");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Enviar E-Mail ? , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Enviar E-Mail ? , por favor espere...");
                 string[] ValidValuesFields15 = { "Y", "Si", "N", "No" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 1, "", BoYesNoEnum.tNO, ValidValuesFields15, "OINV", "BO_EE", "Enviar E-mail");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Fechay Hora Aceptacion DIAN   , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Fechay Hora Aceptacion DIAN   , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "OINV", "BO_FHAD", "Fecha Hora Acep DIAN");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - INV1 Tipo de precio referencia , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - INV1 Tipo de precio referencia , por favor espere...");
                 string[] ValidValuesBOCP = { "MC", "Muestra comercial" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesBOCP, "INV1", "BO_TPR", "(BO) Tipo Precio Referencia");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Descripcion , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Descripcion , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BORESFISCAL", "BO_Des", "Descripcion");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - ORIN Aplicar a FV No. , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - ORIN Aplicar a FV No. , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 50, "", BoYesNoEnum.tNO, null, "ORIN", "BO_AFV", "Aplicar a FV No.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo -  Tipo de nota Credito , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo -  Tipo de nota Credito , por favor espere...");
 
                 if (_Localizacion == "HBT" || _Localizacion == "HCO")
                 {
@@ -4862,50 +5192,53 @@ namespace eBilling
                     DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFields13, "ORIN", "BO_TN", "Tipo de Nota");
                 }
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo -  Tipo de nota Debito , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo -  Tipo de nota Debito , por favor espere...");
                 if (_Localizacion == "HBT" || _Localizacion == "HCO")
                 {
                     string[] ValidValuesFields14 = { "1", "Intereses", "2", "Gastos por Cobrar", "3", "Cambio Valor", "4", "Otro" };
                     DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFields14, "ORIN", "BO_TipND", "Tipo de Nota Debito");
                 }
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo -  Periodo NC/ND - Fecha Inicial , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo -  Periodo NC/ND - Fecha Inicial , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Date, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "ORIN", "BO_PNCDFI", "Periodo NC/DN - FI");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo -  Periodo NC/ND - Fecha Final , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo -  Periodo NC/ND - Fecha Final , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Date, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "ORIN", "BO_PNCDFF", "Periodo NC/DN - FF");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV Es FE Exportacion ? , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Es FE Exportacion ? , por favor espere...");
                 string[] ValidValues_BO_FEE = { "Si", "Si", "No", "No" };
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "No", BoYesNoEnum.tNO, ValidValues_BO_FEE, "OINV", "BO_FEE", "Es FE Exportacion ?");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "No", BoYesNoEnum.tNO, ValidValues_BO_FEE, "OINV", "BO_FEE", "(FE)Es FE Exportacion ?");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OINV FE Icoterms, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV FE Icoterms, por favor espere...");
                 string[] ValidValues_BO_ICT = { "CFR", "Costo y flete", "CIF", "Costo, flete y seguro", "CIP", "Transporte y Seguro Pagados hast", "CPT", "Transporte Pagado Hasta", "DAP", "Entregado en un Lugar", "EXW", "En Fábrica", "DAT", "Entregado en Terminal", "DDP", "Entregado con Pago de Derechos", "FAS", "Franco al costado del buque", "FCA", "Franco transportista", "FOB", "Franco a bordo" };
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, ValidValues_BO_ICT, "OINV", "BO_ICT", "FE Icoterms");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, ValidValues_BO_ICT, "OINV", "BO_ICT", "(FE) FE Icoterms");
 
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OINV Factura Exportacion Responsable, por favor espere...");                
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, ValidValues_BO_ICT, "OINV", "BO_ICT", "(FE) Fac.Exp Responsable");
+                
                 #endregion
 
                 #region Campo tabla Datos Maestros Socios de Negocio
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OCRD Correo 1 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OCRD Correo 1 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "OCRD", "BO_E_mail_1", "Correo 1");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OCRD Correo 2 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OCRD Correo 2 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "OCRD", "BO_E_mail_2", "Correo 2");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OCRD Correo 3 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OCRD Correo 3 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "OCRD", "BO_E_mail_3", "Correo 3");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OCRD Correo 4 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OCRD Correo 4 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "OCRD", "BO_E_mail_4", "Correo 4");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OCRD Correo 5 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OCRD Correo 5 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 100, "", BoYesNoEnum.tNO, null, "OCRD", "BO_E_mail_5", "Correo 5");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OCRD Resp. Fiscal , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OCRD Resp. Fiscal , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "OCRD", "BO_RF", "Respon. Fiscal");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - OCRD Tip Regimen , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - OCRD Tip Regimen , por favor espere...");
                 string[] ValidValuesFields8 = { "04", "Régimen Simple", "05", "Régimen Ordinario", "48", "Impuesto sobre las ventas - IVA", "49", "No responsable de IVA" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, ValidValuesFields8, "OCRD", "BO_TR", "Tipo Regimen");
 
@@ -4914,34 +5247,34 @@ namespace eBilling
 
                 #region Campos tabla Emails
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE DocEntry , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE DocEntry , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_DocEntry", "DocEntry");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE ObjecType , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE ObjecType , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_ObjecType", "ObjecType");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE Correo 1 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE Correo 1 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_Email1", "E-mail 1");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE Correo 2 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE Correo 2 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_Email2", "E-mail 2");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE Correo 3 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE Correo 3 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_Email3", "E-mail 3");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE Correo 4 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE Correo 4 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_Email4", "E-mail 4");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE Correo 5 , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE Correo 5 , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_Email5", "E-mail 5");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE Estatus Correo , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE Estatus Correo , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 50, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_StatusEmail", "Estatus Email");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE Contador , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE Contador , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 50, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_Count", "Contador");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Campo - BOEE PDF TFHKA , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Campo - BOEE PDF TFHKA , por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 50, "", BoYesNoEnum.tNO, null, "@BOEE", "BO_PdfTFHKA", "PDF TFHKA");
 
                 #endregion
@@ -4951,7 +5284,7 @@ namespace eBilling
                 #region Creacion Procedures
 
                 //60
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Procedimientos almacenados , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Procedimientos almacenados , por favor espere...");
 
                 SAPbobsCOM.Recordset oEliminaProcedures = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                 SAPbobsCOM.Recordset oCreaProcedures = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -5230,7 +5563,7 @@ namespace eBilling
 
                 #region Creacion Funciones
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando funciones en la base de datos , por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando funciones en la base de datos , por favor espere...");
 
                 SAPbobsCOM.Recordset oFunctions = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                 SAPbobsCOM.Recordset oEliminaFunciones = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -5239,9 +5572,39 @@ namespace eBilling
                 if (_sMotor == "dst_HANADB")
                 {
 
+                    //#region Consulta si existe la funcion CheckDigitCalculation
+
+                    //sFunction_Delete = DllFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "DropFunction");
+                    //sFunction_Delete = sFunction_Delete.Replace("%sNameFuction%", "BO_CheckDigitCalculation");
+
+                    //oEliminaFunciones.DoQuery(sFunction_Delete);
+
+                    //#endregion
+
+
+
+
+                    //#region Elimina el procedure BO_GeneraXML_FE 1.8
+
+                    //if (oEliminaProcedures.RecordCount > 0)
+                    //{
+
+                    //    sProcedure_Eliminar = null;
+                    //    sProcedure_Eliminar = DllFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "Eliminar_BO_FacturaXML");
+                    //    sProcedure_Eliminar = sProcedure_Eliminar.Replace("%sNameProcedure%", "BO_GeneraXML_v18_TFHKA");
+
+                    //    oEliminaProcedures.DoQuery(sProcedure_Eliminar);
+
+                    //}
+
+                    //#endregion
+
+
+
                 }
                 else
                 {
+
                     #region Consulta si existe la funcion CheckDigitCalculation
 
                     sFunction_Delete = DllFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "DropFunction");
@@ -5268,64 +5631,64 @@ namespace eBilling
 
                 #region Creacion Busquedas Formateadas y Queries
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando Busquedas Formateadas, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando Busquedas Formateadas, por favor espere...");
 
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Unid Medida Estandar", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaEstandar");
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Facturas de Venta", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchFacturasdeVenta");
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Series Numeracion", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchSeriesNumeracion");
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANHBT");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Unid Medida Estandar", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaEstandar");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Facturas de Venta", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchFacturasdeVenta");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Series Numeracion", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchSeriesNumeracion");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANHBT");                
 
                 if (_Localizacion == "HBT")
                 {
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscalHBT");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaHBT");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscalHBT");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaHBT");
 
                 }
                 else if (_Localizacion == "OK1")
                 {
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaOK1");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANOK1");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaOK1");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANOK1");
                 }
                 else if (_Localizacion == "EXX")
                 {
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaEXX");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANEXX");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaEXX");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANEXX");
                 }
                 else if (_Localizacion == "BO")
                 {
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaBO");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANBO");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaBO");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANBO");
                 }
                 else if (_Localizacion == "HCO")
                 {
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaHCO");
-                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANHCO");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Respon. Fiscales", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchResponFiscal");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Actividad Economica", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchActividadEconomicaHCO");
+                    DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Unid Medida DIAN", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchUnidadesMedidaDIANHCO");
                 }
 
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Creando consultas en QueryManager, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Creando consultas en QueryManager, por favor espere...");
 
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Facturas sin enviar a la DIAN - Ultimos 10 dias", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchInvoiceNotSentDIAN");
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Notas Credito sin enviar a la DIAN - Ultimos 10 dias", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchCreditNoteNotSentDIAN");
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Documento Soporte sin enviar a la DIAN - Ultimos 10 dias", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchDocumentSupportNotSentDIAN");
-                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica BO", "Resoluciones de facturacion por vencer", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchDueBillingResolutions");
-
-
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Facturas sin enviar a la DIAN - Ultimos 10 dias", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchInvoiceNotSentDIAN");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Notas Credito sin enviar a la DIAN - Ultimos 10 dias", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchCreditNoteNotSentDIAN");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Documento Soporte sin enviar a la DIAN - Ultimos 10 dias", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchDocumentSupportNotSentDIAN");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Resoluciones de facturacion por vencer", "eBilling", "GetIntrnalKeySearchFormatted", "GetSearchDueBillingResolutions");
+                DllFunciones.AddFormatedSearch(oCompany, sboapp, "Facturacion Electronica", "Formatos Crystal", "eBilling", "GetIntrnalKeySearchFormatted", "FormattedSearchReportCrystalReport");
+                
                 #endregion
 
                 #region Asignacion Busquedas Formateadas
                 //62
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Asignando Busquedas Formateadas, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Asignando Busquedas Formateadas, por favor espere...");
 
                 #region Actividad Economica tabla parametros eBilling
 
                 IDFormattedSearchKey = 0;
 
-                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BO_eBillingP", "txtAC", oCompany, sboapp);
+                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BO_eBillingP", "txtAC", "-1", oCompany, sboapp);
 
                 if (IDFormattedSearchKey == 0)
                 {
@@ -5377,7 +5740,7 @@ namespace eBilling
 
                 IDFormattedSearchKey = 0;
 
-                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BO_eBillingP", "MtxSN", oCompany, sboapp);
+                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BO_eBillingP", "MtxSN", "Col_02",oCompany, sboapp);
 
                 if (IDFormattedSearchKey == 0)
                 {
@@ -5424,12 +5787,64 @@ namespace eBilling
                 }
 
                 #endregion
+                
+                #region Formatos Crystal Report Matrix parametros eBilling
+
+                IDFormattedSearchKey = 0;
+
+                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BO_eBillingP", "MtxSN", "Col_06", oCompany, sboapp);
+
+                if (IDFormattedSearchKey == 0)
+                {
+                    #region Se adiciona la busqueda formateada al campo 
+
+                    SAPbobsCOM.FormattedSearches oSFActividadEconomica = (SAPbobsCOM.FormattedSearches)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oFormattedSearches);
+                    SAPbobsCOM.Recordset oFormattedSearched = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    oSFActividadEconomica.FormID = "UDO_FT_BO_eBillingP";
+                    oSFActividadEconomica.ItemID = "MtxSN";
+                    oSFActividadEconomica.Action = SAPbobsCOM.BoFormattedSearchActionEnum.bofsaQuery;
+                    oSFActividadEconomica.FieldID = "MtxSN";
+                    oSFActividadEconomica.ColumnID = "Col_06";
+
+                    sGetFormattedSearch = DllFunciones.GetStringXMLDocument(oCompany, "eBilling", "eBilling", "GetIntrnalKeySearchFormatted");
+                    _IDCategory = DllFunciones.SearchCatetoryID(oCompany, "Facturacion Electronica", "eBilling");
+                    sGetFormattedSearch = sGetFormattedSearch.Replace("%CategoryID%", _IDCategory).Replace("%NameSearchFormatted%", "Formatos Crystal");
+
+                    oFormattedSearched.DoQuery(sGetFormattedSearch);
+
+                    oSFActividadEconomica.QueryID = Convert.ToInt32(oFormattedSearched.Fields.Item(0).Value.ToString());
+
+                    oSFActividadEconomica.Refresh = SAPbobsCOM.BoYesNoEnum.tYES;
+                    oSFActividadEconomica.ForceRefresh = SAPbobsCOM.BoYesNoEnum.tYES;
+                    oSFActividadEconomica.ByField = SAPbobsCOM.BoYesNoEnum.tYES;
+
+                    Rsd = oSFActividadEconomica.Add();
+
+                    if (Rsd == 0)
+                    {
+                        DllFunciones.liberarObjetos(oFormattedSearched);
+                    }
+                    else
+                    {
+                        DllFunciones.sendMessageBox(sboapp, oCompany.GetLastErrorDescription());
+                        DllFunciones.liberarObjetos(oFormattedSearched);
+                    }
+
+                    #endregion
+                }
+                else
+                {
+
+                }
+
+                #endregion
 
                 #region Responsabilidades Fiscales 
 
                 IDFormattedSearchKey = 0;
 
-                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("134", "txtRF", oCompany, sboapp);
+                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("134", "txtRF", "-1", oCompany, sboapp);
 
                 if (IDFormattedSearchKey == 0)
                 {
@@ -5480,7 +5895,7 @@ namespace eBilling
 
                 IDFormattedSearchKey = 0;
 
-                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BOUNDMED", "txtUMS", oCompany, sboapp);
+                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BOUNDMED", "txtUMS", "-1", oCompany, sboapp);
 
                 if (IDFormattedSearchKey == 0)
                 {
@@ -5531,7 +5946,7 @@ namespace eBilling
 
                 IDFormattedSearchKey = 0;
 
-                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BOUNDMED", "txtUMD", oCompany, sboapp);
+                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("UDO_FT_BOUNDMED", "txtUMD", "-1", oCompany, sboapp);
 
                 if (IDFormattedSearchKey == 0)
                 {
@@ -5583,7 +5998,7 @@ namespace eBilling
 
                 IDFormattedSearchKey = 0;
 
-                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("179", "txtAFV", oCompany, sboapp);
+                IDFormattedSearchKey = DllFunciones.GetFormmatedSearchKey("179", "txtAFV", "-1", oCompany, sboapp);
 
                 if (IDFormattedSearchKey == 0)
                 {
@@ -5634,7 +6049,7 @@ namespace eBilling
 
                 #region Importacion Archivos CSV
                 //63
-                DllFunciones.ProgressBar(oCompany, sboapp, 98, 1, "Importando archivos CSV, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 107, 1, "Importando archivos CSV, por favor espere...");
 
                 #region Elimina infomacion tablas BORESFISCAL y BOUNIDMDIAN
 
@@ -5660,6 +6075,40 @@ namespace eBilling
                 DllFunciones.sendErrorMessage(sboapp, e);
             }
 
+        }
+
+        public void CreacionTablasyCamposeBillingEntregaMercancia(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany)
+        {
+            try
+            {
+                SAPbouiCOM.Form frm = null;
+                bool ExistForm = false;
+
+                for (int i = 0; i < _sboapp.Forms.Count; i++)
+                {
+                    if (_sboapp.Forms.Item(i).UniqueID == "BO_eBillingP")
+                    {
+                        frm = _sboapp.Forms.Item("BO_eBillingP");
+                        ExistForm = true;
+                    }
+                }
+
+                if (ExistForm)
+                {
+                    SAPbouiCOM.Button obtnVCHE = (SAPbouiCOM.Button)frm.Items.Item("btnVCHE").Specific;
+
+                    obtnVCHE.Item.Enabled = true;
+                    frm.Refresh();
+
+
+
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void ConsultaTokens(SAPbobsCOM.Company _oCompany, SAPbouiCOM.Application sboapp, SAPbouiCOM.Form _oFormParametros)
@@ -5791,22 +6240,19 @@ namespace eBilling
                 EditText BO_Email_1;
                 EditText BO_RF;
                 SAPbouiCOM.ComboBox BO_TR;
+                SAPbouiCOM.ComboBox BO_CardType;
 
                 BO_Email_1 = (EditText)oFormBusinessPartnerd.Items.Item("txtEmail1").Specific;
                 BO_RF = (EditText)oFormBusinessPartnerd.Items.Item("txtRF").Specific;
                 BO_TR = (SAPbouiCOM.ComboBox)oFormBusinessPartnerd.Items.Item("cboTR").Specific;
+                BO_CardType = (SAPbouiCOM.ComboBox)oFormBusinessPartnerd.Items.Item("40").Specific;
 
                 #endregion
 
                 #region Validación de los campos obligatorios 
 
-                if (string.IsNullOrEmpty(BO_Email_1.Value))
-                {
-                    DllFunciones.sendMessageBox(sboapp, "Por favor diligenciar al menos 1 correo electronico en la pestaña 'eBilling'");
-                    Flag = false;
-
-                }
-                else if (string.IsNullOrEmpty(BO_RF.Value))
+                
+                if (string.IsNullOrEmpty(BO_RF.Value))
                 {
                     DllFunciones.sendMessageBox(sboapp, "Por favor seleccionar la responsabilidad fiscal en la pestaña 'eBilling'");
                     Flag = false;
@@ -5816,6 +6262,20 @@ namespace eBilling
                 {
                     DllFunciones.sendMessageBox(sboapp, "Por favor diligenciar el Tipo de regimen en la pestaña 'eBilling'");
                     Flag = false;
+                }
+                else if (string.IsNullOrEmpty(BO_Email_1.Value))
+                {
+
+                    if (BO_CardType.Value == "C")
+                    {
+                        DllFunciones.sendMessageBox(sboapp, "Por favor diligenciar al menos 1 correo electronico en la pestaña 'eBilling'");
+                        Flag = false;
+                    }
+                    else
+                    {
+                        Flag = true;
+                    }
+
                 }
                 else
                 {
@@ -8262,7 +8722,7 @@ namespace eBilling
                             }
                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                             {
-                                sQueryDocEntryDocument = sQueryDocEntryDocument.Replace("%sDocNumInvoice%", sDocNumInvoice).Replace("%sSerieNumeracion%", sSerieNumeracion).Replace("%Tabla%", "OPCH").Replace("%DocSubType%", "--");
+                                sQueryDocEntryDocument = sQueryDocEntryDocument.Replace("%sDocNumInvoice%", sDocNumInvoice).Replace("%sSerieNumeracion%", sSerieNumeracion).Replace("%Tabla%", "ORPC").Replace("%DocSubType%", "--");
                             }
 
                             oConsultaDocEntry.DoQuery(sQueryDocEntryDocument);
@@ -8375,6 +8835,14 @@ namespace eBilling
                                             oCUFEInvoice.DoQuery(sCUFEInvoice);
 
                                         }
+                                        else if (_TipoDocumento == "NotaCreditoDeProveedores")
+                                        {
+                                            sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoicePurchase");
+                                            sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabeceraDocumento.Fields.Item("No_FV").Value.ToString()));
+
+                                            oCUFEInvoice.DoQuery(sCUFEInvoice);
+
+                                        }
 
                                         FacturaGeneral Documento = oBuillInvoice(oCabeceraDocumento, oLineasDocumento, oImpuestosGenerales, oImpuestosTotales, oCargosyDescuentos, oCUFEInvoice, _TipoDocumento, _oCompany);
 
@@ -8431,7 +8899,19 @@ namespace eBilling
                                         {
                                             #region Respuesta el Web Service de TFHKA y actualizacion de los campos en la factura
 
-                                            RespuestaDoc = serviceClient.Enviar(sLlave, sPassword, Documento, sFormaEnvio);
+                                            if (_TipoDocumento == "FacturaDeProveedores")
+                                            {
+                                                RespuestaDoc = serviceClient.Enviar(sLlave, sPassword, Documento, sFormaEnvioDS);
+                                            }
+                                            else if (_TipoDocumento == "NotaCreditoDeProveedores") 
+                                            {
+                                                RespuestaDoc = serviceClient.Enviar(sLlave, sPassword, Documento, sFormaEnvioDS);
+                                            }
+                                            else
+                                            {
+                                                RespuestaDoc = serviceClient.Enviar(sLlave, sPassword, Documento, sFormaEnvio);
+                                            }
+                                            
 
                                             if (RespuestaDoc.codigo == 200)
                                             {
@@ -8455,7 +8935,7 @@ namespace eBilling
                                                 }
                                                 else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "NotaCreditoDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
                                                 }
 
 
@@ -8764,7 +9244,7 @@ namespace eBilling
                                                     }
                                                     else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                                     {
-                                                        UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString() + ", Total de Factura es diferente de la suma de Total valor bruto + Tributos - Total Tributo Retenidos - Anticipos ", "", "", null, null, "FacturaDeProveedores", null);
+                                                        UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString() + ", Total de Factura es diferente de la suma de Total valor bruto + Tributos - Total Tributo Retenidos - Anticipos ", "", "", null, null, "NotaCreditoDeProveedores", null);
                                                     }
 
                                                 DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString() + ", Total de Factura es diferente de la suma de Total valor bruto + Tributos - Total Tributo Retenidos - Anticipos ");
@@ -8791,7 +9271,7 @@ namespace eBilling
                                                 }
                                                 else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "FacturaDeProveedores", null);
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "NotaCreditoDeProveedores", null);
                                                 }
 
                                                 DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString());
@@ -8819,7 +9299,7 @@ namespace eBilling
                                                 }
                                                 else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "FacturaDeProveedores", null);
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "NotaCreditoDeProveedores", null);
                                                 }
 
 
@@ -8870,7 +9350,7 @@ namespace eBilling
                                                 }
                                                 else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "FacturaDeProveedores", resp.fechaAceptacionDIAN);
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "NotaCreditoDeProveedores", resp.fechaAceptacionDIAN);
 
                                                 }
 
@@ -9235,7 +9715,6 @@ namespace eBilling
                                         sDocumentoImpuestosGenerales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Impuestos");
                                         sDocumentoImpuestosTotales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "ImpuestosTotales");
                                         sDocumentoCargosyDescuentos = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "CargosyDescuentos");
-
                                     }
                                     else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                     {
@@ -9263,6 +9742,14 @@ namespace eBilling
                                     else if (_TipoDocumento == "NotaDebitoClientes")
                                     {
                                         sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEDebitNote");
+                                        sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabeceraDocumento.Fields.Item("No_FV").Value.ToString()));
+
+                                        oCUFEInvoice.DoQuery(sCUFEInvoice);
+
+                                    }
+                                    else if (_TipoDocumento == "NotaCreditoDeProveedores")
+                                    {
+                                        sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoicePurchase");
                                         sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabeceraDocumento.Fields.Item("No_FV").Value.ToString()));
 
                                         oCUFEInvoice.DoQuery(sCUFEInvoice);
@@ -9323,7 +9810,22 @@ namespace eBilling
                                     {
                                         #region Respuesta el Web Service de TFHKA y actualizacion de los campos en la factura
 
-                                        RespuestaDoc = serviceClient.Enviar(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), Documento, sFormaEnvio);
+                                        if (_TipoDocumento == "FacturaDeProveedores")
+                                        {
+                                            RespuestaDoc = serviceClient.Enviar(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), Documento, sFormaEnvioDS);
+
+                                        }
+                                        else if (_TipoDocumento == "NotaCreditoDeProveedores")
+                                        {
+                                            RespuestaDoc = serviceClient.Enviar(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), Documento, sFormaEnvioDS);
+
+                                        }
+                                        else
+                                        {
+                                            RespuestaDoc = serviceClient.Enviar(Convert.ToString(oParametrosTFHKA.Fields.Item("TokenEmpresa").Value.ToString()), Convert.ToString(oParametrosTFHKA.Fields.Item("TokenPassword").Value.ToString()), Documento, sFormaEnvio);
+
+                                        }
+
 
                                         if (RespuestaDoc.codigo == 200)
                                         {
@@ -9335,7 +9837,7 @@ namespace eBilling
 
                                             if (_TipoDocumento == "FacturaDeClientes" || (_TipoDocumento == "NotaDebitoClientes"))
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, null, null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, null, RespuestaDoc.fechaAceptacionDIAN);
 
                                             }
                                             else if (_TipoDocumento == "NotaCreditoClientes")
@@ -9345,12 +9847,12 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "FacturaDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "FacturaDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
 
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "NotaCreditoDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, "Documento autorizado por la DIAN", RespuestaDoc.cufe, RespuestaDoc.qr, null, null, "NotaCreditoDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
 
                                             }
                                             #endregion
@@ -9498,7 +10000,7 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "FacturaDeProveedores", resp.fechaAceptacionDIAN);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "NotaCreditoDeProveedores", resp.fechaAceptacionDIAN);
 
                                             }
 
@@ -9582,7 +10084,7 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.reglasValidacionDIAN.GetValue(0)), "", "", null, null, "FacturaDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.reglasValidacionDIAN.GetValue(0)), "", "", null, null, "NotaCreditoDeProveedores", null);
                                             }
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + " , " + Convert.ToString(RespuestaDoc.reglasValidacionDIAN.GetValue(0)));
 
@@ -9608,7 +10110,7 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.reglasValidacionDIAN.GetValue(0)), "", "", null, null, "FacturaDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.reglasValidacionDIAN.GetValue(0)), "", "", null, null, "NotaCreditoDeProveedores", null);
                                             }
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + " , " + Convert.ToString(RespuestaDoc.mensaje));
 
@@ -9635,7 +10137,7 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.mensajesValidacion.GetValue(0)), "", "", null, null, "FacturaDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, Convert.ToString(RespuestaDoc.mensajesValidacion.GetValue(0)), "", "", null, null, "NotaCreditoDeProveedores", null);
                                             }
 
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString() + " " + RespuestaDoc.mensajesValidacion.GetValue(0));
@@ -9662,7 +10164,7 @@ namespace eBilling
                                                 }
                                                 else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                                 {
-                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString() + ", Total de Factura es diferente de la suma de Total valor bruto + Tributos - Total Tributo Retenidos - Anticipos ", "", "", null, null, "FacturaDeProveedores", null);
+                                                    UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString() + ", Total de Factura es diferente de la suma de Total valor bruto + Tributos - Total Tributo Retenidos - Anticipos ", "", "", null, null, "NotaCreditoDeProveedores", null);
                                                 }
 
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString() + ", Total de Factura es diferente de la suma de Total valor bruto + Tributos - Total Tributo Retenidos - Anticipos ");
@@ -9743,7 +10245,7 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "FacturaDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "NotaCreditoDeProveedores", null);
                                             }
 
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString());
@@ -9769,7 +10271,7 @@ namespace eBilling
 
                                             if (_TipoDocumento == "FacturaDeClientes" || (_TipoDocumento == "NotaDebitoClientes"))
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, null, null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, null, RespuestaDoc.fechaAceptacionDIAN);
 
                                             }
                                             else if (_TipoDocumento == "NotaCreditoClientes")
@@ -9779,11 +10281,11 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "FacturaDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "FacturaDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "FacturaDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "NotaCreditoDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, resp.codigo, "Documento autorizado por la DIAN", resp.cufe, resp.cadenaCodigoQR, null, null, "NotaCreditoDeProveedores", RespuestaDoc.fechaAceptacionDIAN);
 
                                             }
                                             #endregion
@@ -10112,7 +10614,7 @@ namespace eBilling
                                             }
                                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                             {
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "FacturaDeProveedores", null);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, RespuestaDoc.codigo, RespuestaDoc.mensaje.ToString(), "", "", null, null, "NotaCreditoDeProveedores", null);
                                             }
 
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString());
@@ -11744,6 +12246,10 @@ namespace eBilling
                 {
                     oInvoice = (SAPbobsCOM.Documents)(__oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oPurchaseInvoices));
                 }
+                else if (_TipoDocumento == "NotaCreditoDeProveedores")
+                {
+                    oInvoice = (SAPbobsCOM.Documents)(__oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oPurchaseCreditNotes));
+                }
                 else
                 {
                     oInvoice = (SAPbobsCOM.Documents)(__oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInvoices));
@@ -12687,13 +13193,13 @@ namespace eBilling
 
 
         }
-
+        
         public string VersionDll()
         {
             try
             {
 
-                Assembly Assembly = Assembly.LoadFrom("BOFacturacionElectronica.dll");
+                Assembly Assembly = Assembly.LoadFrom("BOeBilling.dll");
                 Version vVersion = Assembly.GetName().Version;
 
                 String VersionDll = vVersion.ToString();

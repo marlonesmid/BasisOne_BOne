@@ -8,6 +8,7 @@
       <xsd:import schemaLocation="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/ServiceSoap.UBL2._0.Response" />
       <xsd:import schemaLocation="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/ServiceSoap.Models.Response" />
+      <xsd:import schemaLocation="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/WebApi.Domain.Models" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService_Enviar_InputMessage">
@@ -70,6 +71,12 @@
   <wsdl:message name="IService_GenerarContenedor_OutputMessage">
     <wsdl:part name="parameters" element="tns:GenerarContenedorResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_EstadoLegalDocumentos_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstadoLegalDocumentos" />
+  </wsdl:message>
+  <wsdl:message name="IService_EstadoLegalDocumentos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstadoLegalDocumentosResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService">
     <wsdl:operation name="Enviar">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/Enviar" message="tns:IService_Enviar_InputMessage" />
@@ -110,6 +117,10 @@
     <wsdl:operation name="GenerarContenedor">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/GenerarContenedor" message="tns:IService_GenerarContenedor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/GenerarContenedorResponse" message="tns:IService_GenerarContenedor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EstadoLegalDocumentos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/EstadoLegalDocumentos" message="tns:IService_EstadoLegalDocumentos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/EstadoLegalDocumentosResponse" message="tns:IService_EstadoLegalDocumentos_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
@@ -197,6 +208,15 @@
     </wsdl:operation>
     <wsdl:operation name="GenerarContenedor">
       <soap:operation soapAction="http://tempuri.org/IService/GenerarContenedor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstadoLegalDocumentos">
+      <soap:operation soapAction="http://tempuri.org/IService/EstadoLegalDocumentos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -221,6 +221,20 @@
     WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" IN (SELECT TOP 1 "FieldID" FROM CUFD WHERE AliasID = 'BO_TO') AND T0.Descr IN ('Estandar','Servicios AIU','Mandatos bienes')
   </GetTiposOperacion>
 
+  <GetMediosPagoDflt>
+    SELECT TOP 1 "U_BO_MPE" AS "MedioPago" FROM "@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+  </GetMediosPagoDflt>  
+
+  <GetMediosPago>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion"  FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_MPE' )
+  </GetMediosPago>
+
+  <GetResponsabilidadFiscal>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion"  FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_RF' )
+  </GetResponsabilidadFiscal>
+  
   <GetCategoryIDFormattedSearch>
     SELECT "CategoryId" FROM "OQCN" WHERE "CatName" = '%CategoryName%'
   </GetCategoryIDFormattedSearch>
@@ -296,8 +310,12 @@
     WHERE ObjectCode IN ('13','14','18')
   </FormattedSearchSeriesNumeracion>
 
+  <FormattedSearchReportCrystalReport>
+    SELECT T0."DocName", T0."DocCode", T0."Category", T0."TypeCode" FROM "RDOC" T0 WHERE T0."Category" ='C' AND  T0."TypeCode" IN ('RIN2','INV2','PCH2')
+  </FormattedSearchReportCrystalReport>
+
   <GetFormmatedSearchKey>
-    SELECT TOP 1 ISNULL("IndexID",0) FROM CSHS WHERE "FormID" = '%FormID%' AND "ItemID" = '%ItemID%'
+    SELECT TOP 1 ISNULL("IndexID",0) FROM CSHS WHERE "FormID" = '%FormID%' AND "ItemID" = '%ItemID%' AND "ColID" = '%ColID%'
   </GetFormmatedSearchKey>
 
   <GetQuantityEmails>
@@ -419,32 +437,55 @@
   </GetRPTDocUser>
 
   <GetCUFEInvoice>
-    SELECT U_BO_CUFE AS 'CUFE',
-    CASE WHEN "U_BO_Pref" = 'Y' THEN CONCAT(T2."BeginStr",CAST(T0."DocNum" AS NVARCHAR(50)))
-    ELSE CAST(T0."DocNum" as NVARCHAR(50))
-    END AS "consecutivoDocumento",
-    FORMAT (T0."DocDate", 'yyyy-MM-dd') AS 'fechaEmision'
+    
+        SELECT TOP 1 U_BO_CUFE AS 'CUFE',
+    	         
+    	         CASE WHEN "U_BO_Pref" = 'Y' THEN CONCAT( (SELECT TOP 1 "U_BO_PREF" FROM "@BOSERNUM" A WHERE A."Code" = T0."Series" ) , CAST(T0."DocNum" AS NVARCHAR(50)))
+				       ELSE CAST(T0."DocNum" as NVARCHAR(50))
+    			     END AS "consecutivoDocumento",
+    				
+    			    FORMAT (T0."DocDate", 'yyyy-MM-dd') AS 'fechaEmision'
 
-    FROM OINV T0 LEFT JOIN [@BOSERNUM] T1 ON T0."Series"=T1."Code"
-    LEFT JOIN "NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
+        FROM OINV T0 LEFT JOIN [@BOSERNUM] T1 ON T0."Series"=T1."Code"
+    			           LEFT JOIN "NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
 
-    WHERE T0.DocNum = '%DocNum%'
+        WHERE T0.DocNum = '%DocNum%'
+    
   </GetCUFEInvoice>
 
   <GetCUFEDebitNote>
-    SELECT U_BO_CUFE AS 'CUFE',
+    
+        SELECT TOP 1 U_BO_CUFE AS 'CUFE',
+    	         
+    	         CASE WHEN "U_BO_Pref" = 'Y' THEN CONCAT( (SELECT TOP 1 "U_BO_PREF" FROM "@BOSERNUM" A WHERE A."Code" = T0."Series" ) , CAST(T0."DocNum" AS NVARCHAR(50)))
+				       ELSE CAST(T0."DocNum" as NVARCHAR(50))
+    			     END AS "consecutivoDocumento",
+    				
+    			    FORMAT (T0."DocDate", 'yyyy-MM-dd') AS 'fechaEmision'
 
-    CASE WHEN "U_BO_Pref" = 'Y' THEN CONCAT(T2."BeginStr",CAST(T0."DocNum" AS NVARCHAR(50)))
-    ELSE CAST(T0."DocNum" AS NVARCHAR(50))
-    END AS "consecutivoDocumento",
+        FROM OINV T0 LEFT JOIN [@BOSERNUM] T1 ON T0."Series"=T1."Code"
+    			           LEFT JOIN "NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
 
-    FORMAT (T0."DocDate", 'yyyy-MM-dd') AS 'fechaEmision'
-
-    FROM OINV T0 LEFT JOIN [@BOSERNUM] T1 ON T0."Series"=T1."Code"
-    LEFT JOIN "NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
-
-    WHERE T0.DocNum = '%DocNum%' AND T0.Series = T0."DocSubType" = 'DN'
+        WHERE T0.DocNum = '%DocNum%'
+  
   </GetCUFEDebitNote>
+  
+      <GetCUFEInvoicePurchase>
+    
+        SELECT TOP 1 U_BO_CUFE AS 'CUFE',
+    	         
+    	         CASE WHEN "U_BO_Pref" = 'Y' THEN CONCAT( (SELECT TOP 1 "U_BO_PREF" FROM "@BOSERNUM" A WHERE A."Code" = T0."Series" ) , CAST(T0."DocNum" AS NVARCHAR(50)))
+				       ELSE CAST(T0."DocNum" as NVARCHAR(50))
+    			     END AS "consecutivoDocumento",
+    				
+    			    FORMAT (T0."DocDate", 'yyyy-MM-dd') AS 'fechaEmision'
+
+        FROM OPCH T0 LEFT JOIN [@BOSERNUM] T1 ON T0."Series"=T1."Code"
+    			           LEFT JOIN "NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
+
+        WHERE T0.DocNum = '%DocNum%'
+       
+  </GetCUFEInvoicePurchase>
 
   <GetInvoiceandPrefijo>
     SELECT TOP 1 CONCAT(T1.BeginStr,CAST(T0.DocNum AS NVARCHAR(20))) AS 'PrefWithDoc',

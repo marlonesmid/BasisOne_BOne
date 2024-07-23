@@ -27,6 +27,7 @@
     <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="7750979d-339e-46f8-9c7b-52e92c58f855" SourceId="1" SourceUrl="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd2" />
     <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="f43483eb-2405-4b3b-982c-f900c9fdb31a" SourceId="1" SourceUrl="https://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?wsdl" />
     <MetadataFile FileName="Service3.xsd" MetadataType="Schema" ID="26f3f824-b1b9-4d6e-b550-c5b31cd945d1" SourceId="1" SourceUrl="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd4" />
+    <MetadataFile FileName="Service6.xsd" MetadataType="Schema" ID="ec4237ad-c814-4d93-8083-b82bc5fa22ca" SourceId="1" SourceUrl="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd6" />
     <MetadataFile FileName="Service4.xsd" MetadataType="Schema" ID="3c9b5823-4988-4da0-80ae-6da228689cb1" SourceId="1" SourceUrl="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd1" />
     <MetadataFile FileName="Service5.xsd" MetadataType="Schema" ID="107a8974-c9f2-4f83-8ece-6e0e30914bf3" SourceId="1" SourceUrl="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd3" />
   </Metadata>

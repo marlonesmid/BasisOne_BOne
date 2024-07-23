@@ -222,6 +222,20 @@
     WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = '14'
   </GetTiposOperacion>
 
+  <GetMediosPago>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion"  FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_MPE' )
+  </GetMediosPago>
+
+  <GetMediosPagoDflt>
+    SELECT TOP 1 "U_BO_MPE" AS "MedioPago" FROM "@BOEBILLINGP" WHERE "U_BO_Status" = 'Y' AND "U_BO_MPE" IS NOT NULL
+  </GetMediosPagoDflt>
+
+  <GetResponsabilidadFiscal>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion"  FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_RF' )
+  </GetResponsabilidadFiscal>
+
   <GetCategoryIDFormattedSearch>
     SELECT "CategoryId" FROM "%sNameDB%"."OQCN" WHERE "CatName" = '%CategoryName%'
   </GetCategoryIDFormattedSearch>
@@ -239,6 +253,10 @@
     SELECT "Code", "U_Descripcion" FROM "%sNameDB%"."@HBT_ACTIVIDADECO"  ORDER BY 1
   </FormattedSearchActividadEconomicaHBT>
 
+  <FormattedSearchActividadEconomicaHCO>
+    SELECT T1."Code", T1."Name" FROM "@HCO_RP0007" T1 ORDER BY 1
+  </FormattedSearchActividadEconomicaHCO>
+
   <FormattedSearchActividadEconomicaOK1>
     SELECT T0."Code", T0."U_desc" FROM "@BPCO_MM_ACECO" T0 ORDER BY T0.Code
   </FormattedSearchActividadEconomicaOK1>
@@ -247,16 +265,14 @@
     SELECT T0."Code", T0."U_desc" FROM "@BPCO_MM_ACECO" T0 ORDER BY T0.Code
   </FormattedSearchActividadEconomicaEXX>
 
-  <FormattedSearchActividadEconomicaBO>
-    
-  </FormattedSearchActividadEconomicaBO>
-
   <FormattedSearchActividadEconomicaHCO>
+
+    SELECT "Code", "Name"  FROM "%sNameDB%"."@HCO_RP0007"  T0
 
   </FormattedSearchActividadEconomicaHCO>
 
   <FormattedSearchActividadEconomicaBO>
-    SELECT T0."Code", T0."U_desc" FROM "@BPCO_MM_ACECO" T0 ORDER BY T0.Code
+    
   </FormattedSearchActividadEconomicaBO>
   
   <FormattedSearchResponFiscal>
@@ -279,6 +295,10 @@
     SELECT * FROM "%sNameDB%"."@BOUNIDMDIAN" ORDER BY 1
   </FormattedSearchUnidadesMedidaDIANOK1>
 
+  <FormattedSearchUnidadesMedidaDIANHCO>
+    SELECT * FROM "%sNameDB%"."@BOUNIDMDIAN" ORDER BY 1
+  </FormattedSearchUnidadesMedidaDIANHCO>
+
   <FormattedSearchFacturasdeVenta>
     SELECT "DocNum" AS "No. Factura",
     "DocDate" AS "Fecha Contabilizacion",
@@ -293,8 +313,12 @@
     WHERE "ObjectCode" IN ('13','14','18')
   </FormattedSearchSeriesNumeracion>
 
+  <FormattedSearchReportCrystalReport>
+    SELECT T0."DocName", T0."DocCode", T0."Category", T0."TypeCode" FROM "RDOC" T0 WHERE T0."Category" ='C' AND  T0."TypeCode" IN ('RIN2','INV2','PCH2')
+  </FormattedSearchReportCrystalReport>
+
   <GetFormmatedSearchKey>
-    SELECT TOP 1 IFNULL("IndexID",0) FROM "%sNameDB%"."CSHS" WHERE "FormID" = '%FormID%' AND "ItemID" = '%ItemID%'
+    SELECT TOP 1 IFNULL("IndexID",0) FROM "%sNameDB%"."CSHS" WHERE "FormID" = '%FormID%' AND "ItemID" = '%ItemID%' AND "ColID" = '%ColID%'
   </GetFormmatedSearchKey>
 
   <GetQuantityEmails>
@@ -409,31 +433,51 @@
   </GetRPTDocUser>
 
   <GetCUFEInvoice>
-    SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
-    CASE WHEN (SELECT TOP 1 "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (T2."BeginStr"||CAST(T0."DocNum" AS NVARCHAR(20)))
-    ELSE CAST(T0."DocNum" AS NVARCHAR(20))END
-    AS "consecutivoDocumento",
-    TO_VARCHAR(T0."DocDate", 'YYYY-MM-DD') AS "fechaEmision"
+    
+       SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
+              
+              CASE WHEN (SELECT TOP 1 "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT TOP 1 "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
+    			    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
+    			    END AS "consecutivoDocumento",
+    		      
+              TO_VARCHAR(T0."DocDate", 'YYYY-MM-DD') AS "fechaEmision"
 
-    FROM "%sNameDB%"."OINV" T0 LEFT JOIN "%sNameDB%"."NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
-
-    WHERE T0."DocNum" =  '%DocNum%'
+       FROM "%sNameDB%"."OINV" T0 LEFT JOIN "%sNameDB%"."NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
+       WHERE T0."DocNum" =  '%DocNum%'
+    
   </GetCUFEInvoice>
 
   <GetCUFEDebitNote>
-    SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
+    
+       SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
+              
+              CASE WHEN (SELECT TOP 1 "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT TOP 1 "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
+    			    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
+    			    END AS "consecutivoDocumento",
+    		      
+              TO_VARCHAR(T0."DocDate", 'YYYY-MM-DD') AS "fechaEmision"
 
-    CASE WHEN (SELECT TOP 1 "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (T2."U_BO_PREF"||CAST(T0."DocNum" AS NVARCHAR(20)))
-    ELSE CAST(T0."DocNum" AS NVARCHAR(20))END
-    AS "consecutivoDocumento",
-
-    TO_VARCHAR(T0."DocDate", 'YYYY-MM-DD') AS "fechaEmision"
-
-    FROM "%sNameDB%"."OINV" T0 LEFT JOIN "%sNameDB%"."@BOSERNUM" T2 ON T0."Series"=T2."Code"
-    WHERE T0."DocNum" = '%DocNum%' AND "DocSubType" = '--'
-
+       FROM "%sNameDB%"."OINV" T0 LEFT JOIN "%sNameDB%"."NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
+       WHERE T0."DocNum" =  '%DocNum%'
+       
   </GetCUFEDebitNote>
 
+    <GetCUFEInvoicePurchase>
+    
+       SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
+              
+              CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
+    			    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
+    			    END AS "consecutivoDocumento",
+    		      
+              TO_VARCHAR(T0."DocDate", 'YYYY-MM-DD') AS "fechaEmision"
+
+       FROM "%sNameDB%"."OPCH" T0 LEFT JOIN "%sNameDB%"."NNM1" T2 ON T0."Series"=T2."Series" AND T2."ObjectCode" = '13'
+       WHERE T0."DocNum" =  '%DocNum%'
+       
+  </GetCUFEInvoicePurchase>
+  
+  
   <GetInvoiceandPrefijo>
     SELECT TOP 1 CONCAT(T1."BeginStr",CAST(T0."DocNum" AS NVARCHAR(20))) AS "PrefWithDoc",
     (SELECT TOP 1 "U_BO_LlE" FROM "%sNameDB%"."@BOEBILLINGP") AS "TokenEmpresa",
@@ -606,6 +650,12 @@ SELECT "trgtPath" || '\' || "FileName" || '.' || "FileExt" AS "PathFile"
           
 
   </BO_CheckDigitCalculation>
+  
+    <DropFunction>
+      SELECT * FROM "SYS"."FUNCTIONS"
+      WHERE "SCHEMA_NAME" = '%sNameDB%'
+      AND "PROCEDURE_NAME"= '%sNameProcedure%'
+    </DropFunction>
 
   <SearchProcedure>
     SELECT * FROM "SYS"."PROCEDURES"

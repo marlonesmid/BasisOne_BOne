@@ -31,11 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BOeBilling">
+      <HintPath>..\eBilling\bin\x64\BOeBilling.dll</HintPath>
+    </Reference>
     <Reference Include="BOElectronicReception">
       <HintPath>..\BOElectronicReception\bin\x64\BOElectronicReception.dll</HintPath>
-    </Reference>
-    <Reference Include="BOFacturacionElectronica">
-      <HintPath>..\eBilling\bin\x64\BOFacturacionElectronica.dll</HintPath>
     </Reference>
     <Reference Include="BOFunciones">
       <HintPath>..\Funciones\bin\x64\BOFunciones.dll</HintPath>

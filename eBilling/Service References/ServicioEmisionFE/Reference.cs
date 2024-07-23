@@ -9142,6 +9142,682 @@ namespace eBilling.ServicioEmisionFE {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceStatusDianDtoResponse", Namespace="http://schemas.datacontract.org/2004/07/ServiceSoap.Models.Response")]
+    [System.SerializableAttribute()]
+    public partial class InvoiceStatusDianDtoResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private eBilling.ServicioEmisionFE.InvoiceStatusResponse EstadoDocumentoDIANResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private eBilling.ServicioEmisionFE.EventsDocumentResponse[] EventosResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CódigoRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private eBilling.ServicioEmisionFE.ResumenEventosDocumento ResumenEventosDocumentoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public eBilling.ServicioEmisionFE.InvoiceStatusResponse EstadoDocumentoDIANResult {
+            get {
+                return this.EstadoDocumentoDIANResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstadoDocumentoDIANResultField, value) != true)) {
+                    this.EstadoDocumentoDIANResultField = value;
+                    this.RaisePropertyChanged("EstadoDocumentoDIANResult");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public eBilling.ServicioEmisionFE.EventsDocumentResponse[] EventosResult {
+            get {
+                return this.EventosResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EventosResultField, value) != true)) {
+                    this.EventosResultField = value;
+                    this.RaisePropertyChanged("EventosResult");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public int CódigoRespuesta {
+            get {
+                return this.CódigoRespuestaField;
+            }
+            set {
+                if ((this.CódigoRespuestaField.Equals(value) != true)) {
+                    this.CódigoRespuestaField = value;
+                    this.RaisePropertyChanged("CódigoRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public string MensajeRespuesta {
+            get {
+                return this.MensajeRespuestaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeRespuestaField, value) != true)) {
+                    this.MensajeRespuestaField = value;
+                    this.RaisePropertyChanged("MensajeRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public eBilling.ServicioEmisionFE.ResumenEventosDocumento ResumenEventosDocumento {
+            get {
+                return this.ResumenEventosDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResumenEventosDocumentoField, value) != true)) {
+                    this.ResumenEventosDocumentoField = value;
+                    this.RaisePropertyChanged("ResumenEventosDocumento");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceStatusResponse", Namespace="http://schemas.datacontract.org/2004/07/ServiceSoap.Models.Response")]
+    [System.SerializableAttribute()]
+    public partial class InvoiceStatusResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int codigoEstadoFacturaDIANField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DocumentoValidoenDIANField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cufeCudeDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroIdentificacionEmisorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string tipoIdentificacionEmisorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroIdentificacionReceptorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoIdentificacionReceptorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int codigoEstadoFacturaDIAN {
+            get {
+                return this.codigoEstadoFacturaDIANField;
+            }
+            set {
+                if ((this.codigoEstadoFacturaDIANField.Equals(value) != true)) {
+                    this.codigoEstadoFacturaDIANField = value;
+                    this.RaisePropertyChanged("codigoEstadoFacturaDIAN");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public string DocumentoValidoenDIAN {
+            get {
+                return this.DocumentoValidoenDIANField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DocumentoValidoenDIANField, value) != true)) {
+                    this.DocumentoValidoenDIANField = value;
+                    this.RaisePropertyChanged("DocumentoValidoenDIAN");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public string numeroDocumento {
+            get {
+                return this.numeroDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroDocumentoField, value) != true)) {
+                    this.numeroDocumentoField = value;
+                    this.RaisePropertyChanged("numeroDocumento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public string cufeCudeDocumento {
+            get {
+                return this.cufeCudeDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cufeCudeDocumentoField, value) != true)) {
+                    this.cufeCudeDocumentoField = value;
+                    this.RaisePropertyChanged("cufeCudeDocumento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public string numeroIdentificacionEmisor {
+            get {
+                return this.numeroIdentificacionEmisorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroIdentificacionEmisorField, value) != true)) {
+                    this.numeroIdentificacionEmisorField = value;
+                    this.RaisePropertyChanged("numeroIdentificacionEmisor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public string tipoIdentificacionEmisor {
+            get {
+                return this.tipoIdentificacionEmisorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tipoIdentificacionEmisorField, value) != true)) {
+                    this.tipoIdentificacionEmisorField = value;
+                    this.RaisePropertyChanged("tipoIdentificacionEmisor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public string numeroIdentificacionReceptor {
+            get {
+                return this.numeroIdentificacionReceptorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroIdentificacionReceptorField, value) != true)) {
+                    this.numeroIdentificacionReceptorField = value;
+                    this.RaisePropertyChanged("numeroIdentificacionReceptor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        public string TipoIdentificacionReceptor {
+            get {
+                return this.TipoIdentificacionReceptorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoIdentificacionReceptorField, value) != true)) {
+                    this.TipoIdentificacionReceptorField = value;
+                    this.RaisePropertyChanged("TipoIdentificacionReceptor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResumenEventosDocumento", Namespace="http://schemas.datacontract.org/2004/07/ServiceSoap.Models.Response")]
+    [System.SerializableAttribute()]
+    public partial class ResumenEventosDocumento : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CódigoRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadEventosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EsAceptadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AceptaciónTácitaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EsBienoServicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EsReclamadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EsRecibidaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TieneEventosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EsTituloValorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EstaEndosadaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CódigoRespuesta {
+            get {
+                return this.CódigoRespuestaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CódigoRespuestaField, value) != true)) {
+                    this.CódigoRespuestaField = value;
+                    this.RaisePropertyChanged("CódigoRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeRespuesta {
+            get {
+                return this.MensajeRespuestaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeRespuestaField, value) != true)) {
+                    this.MensajeRespuestaField = value;
+                    this.RaisePropertyChanged("MensajeRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public int CantidadEventos {
+            get {
+                return this.CantidadEventosField;
+            }
+            set {
+                if ((this.CantidadEventosField.Equals(value) != true)) {
+                    this.CantidadEventosField = value;
+                    this.RaisePropertyChanged("CantidadEventos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public string EsAceptada {
+            get {
+                return this.EsAceptadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EsAceptadaField, value) != true)) {
+                    this.EsAceptadaField = value;
+                    this.RaisePropertyChanged("EsAceptada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public string AceptaciónTácita {
+            get {
+                return this.AceptaciónTácitaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AceptaciónTácitaField, value) != true)) {
+                    this.AceptaciónTácitaField = value;
+                    this.RaisePropertyChanged("AceptaciónTácita");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public string EsBienoServicio {
+            get {
+                return this.EsBienoServicioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EsBienoServicioField, value) != true)) {
+                    this.EsBienoServicioField = value;
+                    this.RaisePropertyChanged("EsBienoServicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public string EsReclamada {
+            get {
+                return this.EsReclamadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EsReclamadaField, value) != true)) {
+                    this.EsReclamadaField = value;
+                    this.RaisePropertyChanged("EsReclamada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        public string EsRecibida {
+            get {
+                return this.EsRecibidaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EsRecibidaField, value) != true)) {
+                    this.EsRecibidaField = value;
+                    this.RaisePropertyChanged("EsRecibida");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+        public string TieneEventos {
+            get {
+                return this.TieneEventosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TieneEventosField, value) != true)) {
+                    this.TieneEventosField = value;
+                    this.RaisePropertyChanged("TieneEventos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+        public string EsTituloValor {
+            get {
+                return this.EsTituloValorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EsTituloValorField, value) != true)) {
+                    this.EsTituloValorField = value;
+                    this.RaisePropertyChanged("EsTituloValor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+        public string EstaEndosada {
+            get {
+                return this.EstaEndosadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstaEndosadaField, value) != true)) {
+                    this.EstaEndosadaField = value;
+                    this.RaisePropertyChanged("EstaEndosada");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EventsDocumentResponse", Namespace="http://schemas.datacontract.org/2004/07/WebApi.Domain.Models")]
+    [System.SerializableAttribute()]
+    public partial class EventsDocumentResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string codigoEventoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descripcionEventoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime fechaEventoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroEventoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cudeEventoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string emisorEventoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string tipoIdentificacionEmisorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroIdentificacionEmisorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string receptorEventoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroIdentificacionReceptorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string tipoIdentificacionReceptorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string codigoEvento {
+            get {
+                return this.codigoEventoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.codigoEventoField, value) != true)) {
+                    this.codigoEventoField = value;
+                    this.RaisePropertyChanged("codigoEvento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string descripcionEvento {
+            get {
+                return this.descripcionEventoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descripcionEventoField, value) != true)) {
+                    this.descripcionEventoField = value;
+                    this.RaisePropertyChanged("descripcionEvento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime fechaEvento {
+            get {
+                return this.fechaEventoField;
+            }
+            set {
+                if ((this.fechaEventoField.Equals(value) != true)) {
+                    this.fechaEventoField = value;
+                    this.RaisePropertyChanged("fechaEvento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string numeroEvento {
+            get {
+                return this.numeroEventoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroEventoField, value) != true)) {
+                    this.numeroEventoField = value;
+                    this.RaisePropertyChanged("numeroEvento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public string cudeEvento {
+            get {
+                return this.cudeEventoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cudeEventoField, value) != true)) {
+                    this.cudeEventoField = value;
+                    this.RaisePropertyChanged("cudeEvento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public string emisorEvento {
+            get {
+                return this.emisorEventoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.emisorEventoField, value) != true)) {
+                    this.emisorEventoField = value;
+                    this.RaisePropertyChanged("emisorEvento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public string tipoIdentificacionEmisor {
+            get {
+                return this.tipoIdentificacionEmisorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tipoIdentificacionEmisorField, value) != true)) {
+                    this.tipoIdentificacionEmisorField = value;
+                    this.RaisePropertyChanged("tipoIdentificacionEmisor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        public string numeroIdentificacionEmisor {
+            get {
+                return this.numeroIdentificacionEmisorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroIdentificacionEmisorField, value) != true)) {
+                    this.numeroIdentificacionEmisorField = value;
+                    this.RaisePropertyChanged("numeroIdentificacionEmisor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+        public string receptorEvento {
+            get {
+                return this.receptorEventoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.receptorEventoField, value) != true)) {
+                    this.receptorEventoField = value;
+                    this.RaisePropertyChanged("receptorEvento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+        public string numeroIdentificacionReceptor {
+            get {
+                return this.numeroIdentificacionReceptorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroIdentificacionReceptorField, value) != true)) {
+                    this.numeroIdentificacionReceptorField = value;
+                    this.RaisePropertyChanged("numeroIdentificacionReceptor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+        public string tipoIdentificacionReceptor {
+            get {
+                return this.tipoIdentificacionReceptorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tipoIdentificacionReceptorField, value) != true)) {
+                    this.tipoIdentificacionReceptorField = value;
+                    this.RaisePropertyChanged("tipoIdentificacionReceptor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioEmisionFE.IService")]
     public interface IService {
@@ -9205,6 +9881,12 @@ namespace eBilling.ServicioEmisionFE {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GenerarContenedor", ReplyAction="http://tempuri.org/IService/GenerarContenedorResponse")]
         System.Threading.Tasks.Task<eBilling.ServicioEmisionFE.ContenedorResponse> GenerarContenedorAsync(string tokenEmpresa, string tokenPassword, string documento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EstadoLegalDocumentos", ReplyAction="http://tempuri.org/IService/EstadoLegalDocumentosResponse")]
+        eBilling.ServicioEmisionFE.InvoiceStatusDianDtoResponse EstadoLegalDocumentos(string tokenEmpresa, string tokenPassword, string cufe, string supplierIdentification, string documentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EstadoLegalDocumentos", ReplyAction="http://tempuri.org/IService/EstadoLegalDocumentosResponse")]
+        System.Threading.Tasks.Task<eBilling.ServicioEmisionFE.InvoiceStatusDianDtoResponse> EstadoLegalDocumentosAsync(string tokenEmpresa, string tokenPassword, string cufe, string supplierIdentification, string documentId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -9312,6 +9994,14 @@ namespace eBilling.ServicioEmisionFE {
         
         public System.Threading.Tasks.Task<eBilling.ServicioEmisionFE.ContenedorResponse> GenerarContenedorAsync(string tokenEmpresa, string tokenPassword, string documento) {
             return base.Channel.GenerarContenedorAsync(tokenEmpresa, tokenPassword, documento);
+        }
+        
+        public eBilling.ServicioEmisionFE.InvoiceStatusDianDtoResponse EstadoLegalDocumentos(string tokenEmpresa, string tokenPassword, string cufe, string supplierIdentification, string documentId) {
+            return base.Channel.EstadoLegalDocumentos(tokenEmpresa, tokenPassword, cufe, supplierIdentification, documentId);
+        }
+        
+        public System.Threading.Tasks.Task<eBilling.ServicioEmisionFE.InvoiceStatusDianDtoResponse> EstadoLegalDocumentosAsync(string tokenEmpresa, string tokenPassword, string cufe, string supplierIdentification, string documentId) {
+            return base.Channel.EstadoLegalDocumentosAsync(tokenEmpresa, tokenPassword, cufe, supplierIdentification, documentId);
         }
     }
 }

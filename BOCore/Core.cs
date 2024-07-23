@@ -40,9 +40,11 @@ namespace BOCore
                 SAPbouiCOM.PictureBox oLogoBO;
                 SAPbouiCOM.Folder oFolder1;
                 SAPbouiCOM.StaticText olblVersion;
+                SAPbouiCOM.StaticText olblDevelp;
                 SAPbouiCOM.ComboBox ocboLocalizacion;
                 SAPbouiCOM.CheckBox ChkFEE;
                 SAPbouiCOM.CheckBox ChkFER;
+                SAPbouiCOM.EditText otxtServer;
 
                 SAPbobsCOM.Recordset oLisencedActiveAddOns = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -60,11 +62,14 @@ namespace BOCore
                 oFolder1 = (SAPbouiCOM.Folder)_oFormGA.Items.Item("Folder1").Specific;
 
                 olblVersion = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblVersion").Specific);
+                olblDevelp = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblDevelp").Specific);
 
                 ocboLocalizacion = (SAPbouiCOM.ComboBox)(_oFormGA.Items.Item("txtLoca").Specific);
 
                 ChkFEE = (SAPbouiCOM.CheckBox)(_oFormGA.Items.Item("ChkFEE").Specific);
                 ChkFER = (SAPbouiCOM.CheckBox)(_oFormGA.Items.Item("ChkFER").Specific);
+
+                otxtServer = (SAPbouiCOM.EditText)(_oFormGA.Items.Item("txtServer").Specific);
 
                 #endregion
 
@@ -166,10 +171,18 @@ namespace BOCore
 
                 #endregion
 
-                #region Asignacion Label
+                #region Asignacion Valores Label
 
                 olblVersion.Caption = "AddOn BOne ";
                 olblVersion.Item.TextStyle = 1;
+                
+                olblDevelp.Item.TextStyle = 1;
+
+                #endregion
+
+                #region Consulta Servidor
+
+                otxtServer.Value = _sboapp.Company.ServerName.ToString();
 
                 #endregion
 
@@ -228,6 +241,36 @@ namespace BOCore
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public void CloseFormGestorAddOn(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany)
+        {
+            try
+            {
+                Form frm = null;
+                bool ExistForm = false;
+
+                for (int i = 0; i < _sboapp.Forms.Count; i++)
+                {
+                    if (_sboapp.Forms.Item(i).UniqueID == "BO_Gestion_AddOn")
+                    {
+                        frm = _sboapp.Forms.Item("BO_Gestion_AddOn");
+                        ExistForm = true;
+                    }
+                }
+
+                //si el formulario ya estaba creado le hace focus
+
+                if (ExistForm)
+                {
+                    frm.Close();
+                }
+                               
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
@@ -443,7 +486,10 @@ namespace BOCore
 
             SAPbouiCOM.Form oBO_Gestion_AddOn = sboapp.Forms.Item("BO_Gestion_AddOn");
             SAPbouiCOM.CheckBox oChkFEE = (SAPbouiCOM.CheckBox)oBO_Gestion_AddOn.Items.Item("ChkFEE").Specific;
-            SAPbouiCOM.CheckBox oChkFER = (SAPbouiCOM.CheckBox)oBO_Gestion_AddOn.Items.Item("ChkFER").Specific;            
+            SAPbouiCOM.CheckBox oChkFER = (SAPbouiCOM.CheckBox)oBO_Gestion_AddOn.Items.Item("ChkFER").Specific;
+
+            bool bValidarCamposFacturacionElectronicaEmision = false;
+            bool bValidarCamposRepcecionElectronica = false;
 
             string sLocalizacion;            
             int ContadorAddInsActive = 0;
@@ -473,11 +519,13 @@ namespace BOCore
                 if (oChkFEE.Checked)
                 {
                     ContadorAddInsActive++;
+                    bValidarCamposFacturacionElectronicaEmision = true;
                 }
 
                 if (oChkFER.Checked)
                 {
                     ContadorAddInsActive++;
+                    bValidarCamposRepcecionElectronica = true;
                 }
 
                 if (ContadorAddInsActive == 0)
@@ -490,12 +538,12 @@ namespace BOCore
 
                     if (sProcesar == 1)
                     {
-                        if (oChkFEE.Checked)
+                        if (bValidarCamposFacturacionElectronicaEmision)
                         {
                             DllFacturacionElectronica.CreacionTablasyCamposeBillingBO(sboapp, _company, Convert.ToString(_company.DbServerType), sLocalizacion);
                         }
 
-                        if (oChkFER.Checked)
+                        if (bValidarCamposRepcecionElectronica)
                         {
                             DllElectronicReception.CreacionTablasyCamposeBillingBO(sboapp, _company);
                         }

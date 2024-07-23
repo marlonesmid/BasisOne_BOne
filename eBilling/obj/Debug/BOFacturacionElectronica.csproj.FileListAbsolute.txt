@@ -35,7 +35,6 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\eBil
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\eBilling\bin\x86\log4net.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\eBilling\bin\x86\stdole.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\eBilling\bin\x86\BOFunciones.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\obj\Debug\BOFacturacionElectronica.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\obj\Debug\BOFacturacionElectronica.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x86\BOFacturacionElectronica.dll.config
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x86\BOFacturacionElectronica.dll
@@ -58,3 +57,4 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\log4net.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\stdole.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\obj\Debug\BOFacturacionElectronica.csprojResolveAssemblyReference.cache

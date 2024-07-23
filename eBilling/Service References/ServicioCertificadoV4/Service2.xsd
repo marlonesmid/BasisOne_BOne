@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://emision21v4.thefactoryhka.com.co/ws/certificado/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ServiceSoap.UBL2._0.Response" />
+  <xs:element name="EstadoCertificado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tokenPasswords" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EstadoCertificadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ServiceSoap.UBL2._0.Response" minOccurs="0" name="EstadoCertificadoResult" nillable="true" type="q1:EstadoCertificadoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

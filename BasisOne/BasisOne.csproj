@@ -104,11 +104,11 @@
     <Reference Include="BOCore">
       <HintPath>..\BOCore\bin\x64\BOCore.dll</HintPath>
     </Reference>
+    <Reference Include="BOeBilling">
+      <HintPath>..\eBilling\bin\x64\BOeBilling.dll</HintPath>
+    </Reference>
     <Reference Include="BOElectronicReception">
       <HintPath>..\BOElectronicReception\bin\x64\BOElectronicReception.dll</HintPath>
-    </Reference>
-    <Reference Include="BOFacturacionElectronica">
-      <HintPath>..\eBilling\bin\x64\BOFacturacionElectronica.dll</HintPath>
     </Reference>
     <Reference Include="BOFunciones, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

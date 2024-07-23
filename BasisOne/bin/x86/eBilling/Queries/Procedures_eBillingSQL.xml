@@ -539,7 +539,7 @@
 					          ELSE T0."DocCur" END 
 					          AS 'Moneda',
 
-					  					          REPLACE(CONVERT(varchar(100),(CAST(T0.DocRate AS DECIMAL(19,2))), 0), '.', ',') AS "tasaDeCambio", 
+					  		 REPLACE(CONVERT(varchar(100),(CAST(T0.DocRate AS DECIMAL(19,2))), 0), '.', ',') AS "tasaDeCambio", 
 
 					          FORMAT (T0.DocDate, 'yyyy-MM-dd ')AS "fechaDeTasaDeCambio", 
 
@@ -562,7 +562,9 @@
 						           ELSE '0' END 
 					          AS 'tipoDocumento',
 
-					          '22' AS 'tipoOperacion',
+					          CASE WHEN T0."ObjType" = '14' AND (ISNULL(T0."U_BO_AFV",0)) != 0 THEN '20' 
+							  	   WHEN T0."ObjType" = '14' AND (ISNULL(T0."U_BO_AFV",0)) = 0 THEN '22' 
+								   ELSE '0' END AS 'tipoOperacion',
 
 					          CASE WHEN isnull(T0."DiscPrcnt",0) = '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST((SELECT SUM(SQ.BaseSum) FROM RIN4 SQ WHERE SQ.DocEntry = @DocEntryLayout) AS DECIMAL(19,2))), 0), '.', ',')
 						           WHEN isnull(T0."DiscPrcnt",0) != '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST(((SELECT SUM(SQ.BaseSum) FROM RIN4 SQ WHERE SQ.DocEntry = @DocEntryLayout AND SQ."RelateType" = 1)+T0."DiscSum")AS DECIMAL(19,2))), 0), '.', ',')
@@ -2336,9 +2338,7 @@
 
 
       	          END
-          
-
-    
+              
   </BO_FacturaXML_HBT_v18_TFHKA>
 
   <BO_FacturaXML_HBT_v19_TFHKA>    
@@ -2895,7 +2895,9 @@
 						           ELSE '0' END 
 					          AS 'tipoDocumento',
 
-					          '22' AS 'tipoOperacion',
+					          CASE WHEN T0."ObjType" = '14' AND (ISNULL(T0."U_BO_AFV",0)) != 0 THEN '20' 
+							  	   WHEN T0."ObjType" = '14' AND (ISNULL(T0."U_BO_AFV",0)) = 0 THEN '22' 
+								   ELSE '0' END AS 'tipoOperacion',
 
 					          CASE WHEN isnull(T0."DiscPrcnt",0) = '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST((SELECT SUM(SQ.BaseSum) FROM RIN4 SQ WHERE SQ.DocEntry = @DocEntryLayout) AS DECIMAL(19,2))), 0), '.', ',')
 						           WHEN isnull(T0."DiscPrcnt",0) != '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST(((SELECT SUM(SQ.BaseSum) FROM RIN4 SQ WHERE SQ.DocEntry = @DocEntryLayout AND SQ."RelateType" = 1)+T0."DiscSum")AS DECIMAL(19,2))), 0), '.', ',')
@@ -6514,7 +6516,10 @@
 						       ELSE '0' END 
 					      AS 'tipoDocumento',
 
-					      '22' AS 'tipoOperacion',
+					      CASE WHEN T0."ObjType" = '14' AND (ISNULL(T0."U_BO_AFV",0)) != 0 THEN '20' 
+							   WHEN T0."ObjType" = '14' AND (ISNULL(T0."U_BO_AFV",0)) = 0 THEN '22' 
+							   ELSE '0' 
+							   END AS 'tipoOperacion',
 
 					      CASE WHEN isnull(T0."DiscPrcnt",0) = '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST((SELECT SUM(SQ.BaseSum) FROM RIN4 SQ WHERE SQ.DocEntry = @DocEntryLayout) AS DECIMAL(19,2))), 0), '.', ',')
 						       WHEN isnull(T0."DiscPrcnt",0) != '0' AND T0."DocCur" IN ('$','COP') THEN REPLACE(CONVERT(varchar(50),(CAST(((SELECT SUM(SQ.BaseSum) FROM RIN4 SQ WHERE SQ.DocEntry = @DocEntryLayout AND SQ."RelateType" = 1)+T0."DiscSum")AS DECIMAL(19,2))), 0), '.', ',')

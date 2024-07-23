@@ -248,6 +248,16 @@ namespace BasisOne
 
                                 #endregion
                             }
+                            else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "chkCCEM" && pVal.Before_Action == true && pVal.Action_Success == false)
+                            {
+                                #region Valida informacion del formulario parametros iniciales eBilling 
+
+                                
+                                    //DlleBilling.CreacionTablasyCamposeBillingEntregaMercancia(sboapp, _company);                                   
+
+                                
+                                #endregion
+                            }
 
                             #endregion
 
@@ -349,6 +359,8 @@ namespace BasisOne
 
                                 #endregion
                             }
+
+
                             #endregion
 
                             #region Socios de negocio
@@ -837,7 +849,7 @@ namespace BasisOne
                         }
                         else if (pVal.FormUID == "BO_Gestion_AddOn" && pVal.ItemUID == "btnLeft" && pVal.BeforeAction == true)
                         {
-                            ActivacionAddIn();
+                            ActivacionAddIn(sboapp, _company);
                         }
                         else if (pVal.FormUID == "BO_Gestion_AddOn" && pVal.ItemUID == "btnRight" && pVal.BeforeAction == true)
                         {
@@ -1237,6 +1249,10 @@ namespace BasisOne
                                 SAPbouiCOM.Form oFormParametros = sboapp.Forms.Item("BO_eBillingP");
 
                                 DlleBilling.ConsultaTokens(_company, sboapp, oFormParametros);
+                            }
+                            else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "btnVCHE" && pVal.BeforeAction == true)
+                            {
+                                DlleBilling.CreacionTablasyCamposeBillingEntregaMercancia(sboapp, _company);
                             }
 
                             #endregion
@@ -1781,7 +1797,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == true)
                                 {
-                                    DlleBilling.AddItemsToDocumets(oFormInvoice, "FacturaDeClientes");
+                                    DlleBilling.AddItemsToDocumets(sboapp, _company, oFormInvoice, "FacturaDeClientes");
                                 }
                             }
 
@@ -1793,7 +1809,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == false)
                                 {
-                                    DlleBilling.AddItemsToDocumets(oFormInvoice, "FacturaDeProveedores");
+                                    DlleBilling.AddItemsToDocumets(sboapp, _company, oFormInvoice, "FacturaDeProveedores");
                                 }
                             }
 
@@ -1805,7 +1821,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == true)
                                 {
-                                    DlleBilling.AddItemsToDocumets(oFormPaymentAndInvoice, "FacturaDeClientes");
+                                    DlleBilling.AddItemsToDocumets(sboapp, _company, oFormPaymentAndInvoice, "FacturaDeClientes");
                                 }
                             }
 
@@ -1817,7 +1833,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == true)
                                 {
-                                    DlleBilling.AddItemsToDocumets(oFormInvoice, "FacturaDeClientes");
+                                    DlleBilling.AddItemsToDocumets(sboapp, _company, oFormInvoice, "FacturaDeClientes");
                                 }
                             }
 
@@ -1829,7 +1845,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == true)
                                 {
-                                    DlleBilling.AddItemsToDocumets(oCreditNote, "NotaCreditoClientes");
+                                    DlleBilling.AddItemsToDocumets(sboapp, _company, oCreditNote, "NotaCreditoClientes");
                                 }
 
                             }
@@ -1841,7 +1857,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == true)
                                 {
-                                    DlleBilling.AddItemsToDocumets(oDebitNote, "NotaDebitoClientes");
+                                    DlleBilling.AddItemsToDocumets(sboapp, _company, oDebitNote, "NotaDebitoClientes");
                                 }
 
                             }
@@ -1853,7 +1869,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == true)
                                 {
-                                    DlleBilling.AddItemsToBP(_company, oFormBusinessParnerd);
+                                    DlleBilling.AddItemsToBP(sboapp, _company, oFormBusinessParnerd);
                                 }
 
                             }
@@ -1865,7 +1881,7 @@ namespace BasisOne
 
                                 if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && pVal.Before_Action == true)
                                 {
-                                    DlleBilling.AddItemsToDocumets(oDebitNote, "NotaCreditoProveedores");
+                                    DlleBilling.AddItemsToDocumets(sboapp, _company, oDebitNote, "NotaCreditoProveedores");
                                 }
 
                             }
@@ -2629,6 +2645,8 @@ namespace BasisOne
 
                     #endregion
 
+
+
                 }
             }
             catch (Exception)
@@ -2638,7 +2656,6 @@ namespace BasisOne
         }
 
         #region Metodos
-
 
         public void AdicionSubmenu(SAPbouiCOM.MenuCreationParams _oCreationPackage, SAPbouiCOM.Menus _oMenus, SAPbouiCOM.MenuItem _oMenuItem, Application _sboapp, string AddIn, string _sNameDB)
         {
@@ -2992,7 +3009,7 @@ namespace BasisOne
             }
         }
 
-        public void ActivacionAddIn()
+        public void ActivacionAddIn(Application _sboapp, SAPbobsCOM.Company _oCompany)
         {
             try
             {
@@ -3134,6 +3151,13 @@ namespace BasisOne
                             }
 
                             DllFunciones.sendMessageBox(sboapp, "AddIn Activado correctamente, por favor salir y volver a ingresar a SAP");
+
+                            #region Cierra Formulario
+
+                            DllCore.CloseFormGestorAddOn(_sboapp, _oCompany);
+
+                            #endregion
+                            
 
                             oBO_Gestion_AddOn.Close();
 

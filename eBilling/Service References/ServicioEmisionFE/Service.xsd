@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ServiceSoap.Models.Response" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ServiceSoap.Models.Response" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://emision21v4.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/WebApi.Domain.Models" />
   <xs:complexType name="ArrayOfEvento">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Evento" nillable="true" type="tns:Evento" />
@@ -53,4 +54,43 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ExtrasEvento" nillable="true" type="tns:ExtrasEvento" />
+  <xs:complexType name="InvoiceStatusDianDtoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EstadoDocumentoDIANResult" nillable="true" type="tns:InvoiceStatusResponse" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WebApi.Domain.Models" minOccurs="0" name="EventosResult" nillable="true" type="q1:ArrayOfEventsDocumentResponse" />
+      <xs:element minOccurs="0" name="CódigoRespuesta" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResumenEventosDocumento" nillable="true" type="tns:ResumenEventosDocumento" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceStatusDianDtoResponse" nillable="true" type="tns:InvoiceStatusDianDtoResponse" />
+  <xs:complexType name="InvoiceStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoEstadoFacturaDIAN" type="xs:int" />
+      <xs:element minOccurs="0" name="DocumentoValidoenDIAN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cufeCudeDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroIdentificacionEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoIdentificacionEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroIdentificacionReceptor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoIdentificacionReceptor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceStatusResponse" nillable="true" type="tns:InvoiceStatusResponse" />
+  <xs:complexType name="ResumenEventosDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CódigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CantidadEventos" type="xs:int" />
+      <xs:element minOccurs="0" name="EsAceptada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AceptaciónTácita" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsBienoServicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsReclamada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsRecibida" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TieneEventos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsTituloValor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstaEndosada" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResumenEventosDocumento" nillable="true" type="tns:ResumenEventosDocumento" />
 </xs:schema>

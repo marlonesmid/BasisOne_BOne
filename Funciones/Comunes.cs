@@ -74,7 +74,7 @@ namespace Funciones
             }
             else
             {
-                sendMessageBox(_sboapp, "No se pudo crear la categoria eBilling");
+                sendMessageBox(_sboapp, "No se pudo crear la categoria "+ NameCategory);
                 return NewCategory;
             }
             liberarObjetos(oCategory);
@@ -1003,13 +1003,13 @@ namespace Funciones
 
         }
 
-        public int GetFormmatedSearchKey(string _FormID, string _ItemID, SAPbobsCOM.Company oCompany, SAPbouiCOM.Application sboapp)
+        public int GetFormmatedSearchKey(string _FormID, string _ItemID, string _Column, SAPbobsCOM.Company oCompany, SAPbouiCOM.Application sboapp)
         {
             int ID = 0;
             string sGetStringXMLDocument = null;
 
             sGetStringXMLDocument = GetStringXMLDocument(oCompany, "eBilling", "eBilling", "GetFormmatedSearchKey");
-            sGetStringXMLDocument = sGetStringXMLDocument.Replace("%FormID%", _FormID).Replace("%ItemID%", _ItemID);
+            sGetStringXMLDocument = sGetStringXMLDocument.Replace("%FormID%", _FormID).Replace("%ItemID%", _ItemID).Replace("%ColID%", _Column);
 
             SAPbobsCOM.Recordset oGetStringXMLDocument = ((SAPbobsCOM.Recordset)(oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)));
 
