@@ -1,0 +1,58 @@
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\BOTCRMService.dll
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\BOTCRMService.pdb
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\BOFunciones.dll
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\Newtonsoft.Json.dll
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\RestSharp.dll
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\SAPBusinessOneSDK.dll
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\BOFunciones.pdb
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\Newtonsoft.Json.xml
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\bin\x86\RestSharp.xml
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\obj\Debug\BOTCRMService.dll
+D:\Github\ServicioLocalizacionSAP10\BOTCRM\obj\Debug\BOTCRMService.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOTCRMService.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOTCRMService.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\Newtonsoft.Json.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\RestSharp.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\SAPBusinessOneSDK.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOFunciones.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\Newtonsoft.Json.xml
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\RestSharp.xml
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOTCRMService.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOTCRMService.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\Newtonsoft.Json.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\RestSharp.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOFunciones.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\Newtonsoft.Json.xml
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\RestSharp.xml
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.csproj.AssemblyReference.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.csproj.CoreCompileInputs.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.csproj.CopyComplete
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.csproj.AssemblyReference.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.csproj.CoreCompileInputs.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOTCRMService.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOTCRMService.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\Newtonsoft.Json.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\RestSharp.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\SAPBusinessOneSDK.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\BOFunciones.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\Newtonsoft.Json.xml
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\bin\x86\RestSharp.xml
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOTCRM\obj\Debug\BOTCRMService.csproj.CopyComplete
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\bin\x86\BOTCRMService.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\bin\x86\BOTCRMService.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\bin\x86\Newtonsoft.Json.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\bin\x86\RestSharp.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\bin\x86\Newtonsoft.Json.xml
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\bin\x86\RestSharp.xml
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\obj\Debug\BOTCRMService.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\obj\Debug\BOTCRMService.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOTCRM\obj\Debug\BOTCRMService.pdb

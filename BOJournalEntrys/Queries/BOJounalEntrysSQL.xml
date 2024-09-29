@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Queries>
+  <GetJounalEntrysHead>
+    
+     SELECT DISTINCT A.TransId
+         
+     FROM JDT1 A LEFT JOIN OJDT B ON A.TransId=B.TransId 
+     WHERE A.RefDate BETWEEN '20210101' AND '20231231' AND U_BO_SocioNegocio IS NULL AND A.TransType IN('13','16','24','59','60','202') AND A.TransId = ''
+	   ORDER BY 1
+    
+  </GetJounalEntrysHead>
+
+  <GetJounalEntrysLines>
+
+    	 SELECT * FROM (
+
+					 SELECT A.TransId,
+							   A.Line_ID,
+							   A.Account,
+							   CASE WHEN A.TransType IN('202','60', '67', '68', '59', '25') THEN (SELECT TOP 1 U_BO_Dflt_CardCode FROM [@BO_CONFIG]) 
+										  WHEN A.TransType IN('16') THEN (SELECT TOP 1 CardCode FROM ORDN WHERE TransId = A.TransId) 
+										  WHEN A.TransType IN('24') THEN (SELECT TOP 1 CardCode FROM ORCT WHERE TransId = A.TransId) 
+										  WHEN A.TransType IN('13') THEN (SELECT TOP 1 CardCode FROM OINV WHERE TransId = A.TransId) 
+								  WHEN A.TransType IN('14') THEN (SELECT TOP 1 CardCode FROM ORIN WHERE TransId = A.TransId) 
+								  WHEN A.TransType IN('15') THEN (SELECT TOP 1 CardCode FROM ODLN WHERE TransId = A.TransId) 
+								  WHEN A.TransType IN('16') THEN (SELECT TOP 1 CardCode FROM ORDN WHERE TransId = A.TransId) 
+								  WHEN A.TransType IN('18') THEN (SELECT TOP 1 CardCode FROM OPCH WHERE TransId = A.TransId) 
+								  WHEN A.TransType IN('19') THEN (SELECT TOP 1 CardCode FROM ORPC WHERE TransId = A.TransId) 
+								  WHEN A.TransType IN('20') THEN (SELECT TOP 1 CardCode FROM OPDN WHERE TransId = A.TransId) 
+								  WHEN A.TransType IN('21') THEN (SELECT TOP 1 CardCode FROM ORPD WHERE TransId = A.TransId) 
+
+								  WHEN A.TransType IN('46') THEN (SELECT TOP 1 CardCode FROM OVPM WHERE TransId = A.TransId) 
+                  
+								 ELSE U_BO_SocioNegocio END AS "U_BO_SocioNegocio", 
+								 A.TransType
+         
+					 FROM JDT1 A LEFT JOIN OJDT B ON A.TransId=B.TransId 
+					 WHERE A.RefDate BETWEEN '20200101' AND '20231231' AND U_BO_SocioNegocio IS NULL AND A.TransType IN('60','67','68','59', '25','24','14','15','16','18','19','20','21', '46', '13','60','202', '30') AND (A.Debit+A.Credit) != 0
+    ) C
+	WHERE U_BO_SocioNegocio IS NOT NULL AND C.TransId = '%TransId%'
+    
+    
+  </GetJounalEntrysLines>
+  
+</Queries>

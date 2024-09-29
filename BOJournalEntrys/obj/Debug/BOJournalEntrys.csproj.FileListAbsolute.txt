@@ -1,0 +1,43 @@
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\Debug\BOJournalEntrys.dll
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\Debug\BOJournalEntrys.pdb
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\Debug\BOFunciones.dll
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\Debug\SAPBusinessOneSDK.dll
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\Debug\BOFunciones.pdb
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\x86\BOJournalEntrys.dll
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\x86\BOJournalEntrys.pdb
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\x86\BOFunciones.dll
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\x86\SAPBusinessOneSDK.dll
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\bin\x86\BOFunciones.pdb
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\obj\Debug\BOJournalEntrys.dll
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\obj\Debug\BOJournalEntrys.pdb
+D:\Github\ServicioLocalizacionSAP10\BOJournalEntrys\obj\Debug\BOJournalEntrys.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\SAPBusinessOneSDK.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOFunciones.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOFunciones.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.csproj.AssemblyReference.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.csproj.CoreCompileInputs.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.csproj.CopyComplete
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.csproj.AssemblyReference.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.csproj.CoreCompileInputs.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\SAPBusinessOneSDK.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\bin\x86\BOFunciones.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.csproj.CopyComplete
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOJournalEntrys\bin\x86\BOJournalEntrys.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOJournalEntrys\bin\x86\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOJournalEntrys\obj\Debug\BOJournalEntrys.pdb

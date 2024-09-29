@@ -1,0 +1,151 @@
+D:\OneDrive\05. Libros y Cursos\03. cSharp\ServicioLocalizacion\ServicioLocalizacion\bin\Debug\ServicioLocalizacion.exe.config
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\Debug\ServicioLocalizacion.exe.config
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.ProjectInstaller.resources
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.Service1.resources
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.GenerateResource.Cache
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe.config
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\ServicioLocalizacion.pdb
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\BOeBillingService.dll
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\CrystalDecisions.Shared.dll
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\stdole.dll
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\bin\x86\BOeBillingService.pdb
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.exe
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.pdb
+D:\Github\ServicioLocalizacionBO_SAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csprojResolveAssemblyReference.cache
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.ProjectInstaller.resources
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.Service1.resources
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.GenerateResource.Cache
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe.config
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\ServicioLocalizacion.pdb
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOConnection.dll
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOeBillingService.dll
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOJournalEntrys.dll
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOTCRMService.dll
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\CrystalDecisions.Shared.dll
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\stdole.dll
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOConnection.pdb
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOeBillingService.pdb
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOFunciones.pdb
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOJournalEntrys.pdb
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\bin\x86\BOTCRMService.pdb
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csprojResolveAssemblyReference.cache
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.exe
+D:\Github\ServicioLocalizacionSAP10\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.pdb
+D:\Github\BasisOne\SAP\ServicioLocalizacion\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe.config
+D:\Github\BasisOne\SAP\ServicioLocalizacion\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.exe
+D:\Github\BasisOne\SAP\ServicioLocalizacion\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe.config
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.exe
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOConnection.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.Shared.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\stdole.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOConnection.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.ProjectInstaller.resources
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.Service1.resources
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.GenerateResource.Cache
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe.config
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOConnection.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.Shared.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOConnection.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.dll.config
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.AssemblyReference.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.SuggestedBindingRedirects.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.ProjectInstaller.resources
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.Service1.resources
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.GenerateResource.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.CoreCompileInputs.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.CopyComplete
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.exe
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe.config
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOConnection.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.Shared.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\stdole.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOConnection.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.dll.config
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.AssemblyReference.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.SuggestedBindingRedirects.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.ProjectInstaller.resources
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.Service1.resources
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.GenerateResource.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.CoreCompileInputs.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.CopyComplete
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.exe
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.ProjectInstaller.resources
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.Service1.resources
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.csproj.GenerateResource.Cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\ServicioLocalizacion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOConnection.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOBusinessPartners.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOConnection.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOeBillingService.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOJournalEntrys.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x86\BOTCRMService.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\obj\Debug\ServicioLocalizacion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\ServicioLocalizacion.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\ServicioLocalizacion.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\ServicioLocalizacion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOBusinessPartners.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOConnection.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOeBillingService.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOJournalEntrys.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOTCRMService.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\CrystalDecisions.Shared.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\stdole.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOBusinessPartners.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOConnection.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOeBillingService.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOJournalEntrys.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\ServicioLocalizacion\bin\x64\BOTCRMService.pdb

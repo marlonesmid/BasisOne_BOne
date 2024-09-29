@@ -1,0 +1,39 @@
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csprojResolveAssemblyReference.cache
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOFunciones.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\SAPBusinessOneSDK.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOFunciones.pdb
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.dll
+D:\Github\BasisOne\SAP\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOFunciones.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\SAPBusinessOneSDK.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOFunciones.pdb
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csproj.AssemblyReference.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csproj.CoreCompileInputs.cache
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csproj.CopyComplete
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.dll
+C:\Users\DESARROLLADORSENIOR\Documents\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csproj.AssemblyReference.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csproj.CoreCompileInputs.cache
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOFunciones.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\SAPBusinessOneSDK.dll
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\bin\Debug\BOFunciones.pdb
+C:\GitHub\BasisOne\BasisOne_ServicioLocalizacionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csproj.CopyComplete
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\Debug\BOBusinessPartners.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\Debug\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\Debug\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\obj\Debug\BOBusinessPartners.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\x64\BOBusinessPartners.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\x64\BOBusinessPartners.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BOne_ServicioIntegracionSAP\BOne_ServicioIntegracionSAP\BOBusinessPartners\bin\x64\SAPBusinessOneSDK.dll
