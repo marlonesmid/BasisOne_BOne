@@ -1,13 +1,8 @@
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\BOeBilling.dll.config
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\BOeBilling.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\BOeBilling.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\CrystalDecisions.CrystalReports.Engine.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\CrystalDecisions.ReportSource.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\CrystalDecisions.Shared.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\SAPBusinessOneSDK.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\stdole.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\obj\Debug\BOeBilling.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\obj\Debug\BOeBilling.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\obj\Debug\BOeBilling.csprojResolveAssemblyReference.cache
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\BOFunciones.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\eBilling\bin\x64\BOFunciones.pdb

@@ -431,9 +431,6 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\BOPresupuesto.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\BOProduccion.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\SAPBusinessOneSDK.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\CrystalDecisions.CrystalReports.Engine.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\CrystalDecisions.Shared.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\log4net.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\stdole.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\BOCore.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x86\BOeBilling.pdb

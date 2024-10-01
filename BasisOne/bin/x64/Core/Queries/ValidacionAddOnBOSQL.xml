@@ -41,7 +41,7 @@
                  WHEN "U_Status" = 'I' THEN 'Inactivo'
                  WHEN "U_Status" = 'S' THEN 'Sin licencia"'
     ELSE '' END AS "Estado"
-    FROM "%sNameDB%"."@BOADMINADDON"
+    FROM "@BOADMINADDON"
     WHERE "U_Status" IN ('A')
   </LisencedActiveAddOns>
   

@@ -429,9 +429,14 @@
 
   <GetRPTDocUser>
     SELECT TOP 1 "DoumntDode" AS "TipoDoc",
-    T0.DfltReport AS "ID_Layout",
-    T1.DocName AS "NombreFormato",
-    (SELECT TOP 1 A.U_BO_RutaCRL FROM "@BOEBILLINGP" A) AS "RutaPDFyXML"
+           T0.DfltReport AS "ID_Layout",
+           T1.DocName AS "NombreFormato",
+           (SELECT TOP 1 A.U_BO_RutaCRL FROM "@BOEBILLINGP" A) AS "RutaPDFyXML",
+            CASE WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
+			           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "ORIN" WHERE "DocEntry" = '%DocEntry%'))
+    	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
+    	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OPCH" WHERE "DocEntry" = '%DocEntry%'))
+                 ELSE 'N' END "FormatoMaster"
     FROM "RDFL" T0 INNER JOIN "RDOC" T1 ON T0."DfltReport" =  T1.DocCode
     WHERE DoumntDode = '%TypeDoc%' AND T0.UserId = '%UserId%'
   </GetRPTDocUser>

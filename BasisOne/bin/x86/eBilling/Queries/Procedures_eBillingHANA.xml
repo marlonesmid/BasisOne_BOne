@@ -5852,7 +5852,9 @@
 					           END AS "totalSinImpuestos",
 					     
 					           ( SELECT SUM(T0."BaseSum") FROM "INV4" T0 LEFT JOIN "OEXD" T1 ON T0."ExpnsCode"=T1."ExpnsCode" WHERE "DocEntry" = :DocEntry AND T1."ExpnsName" IS NOT NULL  ) AS "totalCargosAplicados",
-				          ''  AS "Desc_Codigo",				
+				          
+                  
+                  ''  AS "Desc_Codigo",				
 				          'Descuento Comercial' AS "Desc_descripcion",				
 				          '0' AS "Desc_indicador",				
 				          CASE WHEN LEFT(T0."DiscSum", 1) = '-' THEN REPLACE(TO_DECIMAL((0),19,5),',','.') ELSE REPLACE(TO_DECIMAL((0),19,5),',','.') END  AS "Desc_monto",				
