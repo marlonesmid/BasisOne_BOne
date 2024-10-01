@@ -95,3 +95,11 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOPr
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOProduccion\obj\Debug\BOProduccion.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_1.9\BOProduccion\obj\Debug\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\obj\Debug\BOProduccion.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\obj\Debug\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOProduccion\obj\Debug\BOProduccion.pdb

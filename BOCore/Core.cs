@@ -556,6 +556,38 @@ namespace BOCore
             #endregion
 
         }
-        
+
+        public string MessageSystem(string idMessage, SAPbobsCOM.Company oCompanyCore)
+        {
+            if (idMessage == "00001")
+            {
+                if (oCompanyCore.language == BoSuppLangs.ln_Spanish_La)
+                {
+                    return idMessage + " - Cargando AddOn BOne ,  espere por favor....";
+                }
+                else
+                {
+                    return idMessage + " - Loading AddOn BOne, please wait....";
+                }
+            }
+            else if (idMessage == "00002")
+            {
+                if (oCompanyCore.language == BoSuppLangs.ln_Spanish_La)
+                {
+                    return idMessage + " - AddOn BOne cargado correctamente";
+                }
+                else
+                {
+                    return idMessage + " - AddOn BOne loaded successfully";
+                }
+            }
+            else
+            {
+                return "";
+            }
+            
+        }
+
+
     }
 }

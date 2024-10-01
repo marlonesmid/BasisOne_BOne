@@ -31,7 +31,8 @@ namespace BasisOne
         public bool TieneLicenciaeBilling = false;
         public bool TieneLicenciaProduction = false;
         public bool TieneLicenciaElectronicRepception = false;
-
+        public int IdLanguage = 0;
+        
         string Llave = "B4s1s0neS4S";
         string sMotor = null;
         string sNameDB = null;
@@ -40,6 +41,7 @@ namespace BasisOne
         string sQuerieValidacionCopia = null;
         string sCurrentUser;
         string sPrefijoDocNumSM = null;
+        string sProveedorTecnologico = null;
 
         #endregion
 
@@ -62,17 +64,14 @@ namespace BasisOne
             guiApi.Connect(connectionString);
             sboapp = guiApi.GetApplication();
 
-
             _company = (SAPbobsCOM.Company)sboapp.Company.GetDICompany();
 
             sNameDB = _company.CompanyDB;
             sMotor = Convert.ToString(_company.DbServerType);
 
-            //Mensaje inicio de AddOn
-            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Warning, "Cargando AddOn BOne ,  espere por favor....");
-
-            //Creacion Tablas y Campos Base del AddOn Basis One
             DllCore.TablasyCamposBaseBO(sboapp, _company, sNameDB);
+
+            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Warning, DllCore.MessageSystem("00001", _company));
 
             //Crear menus        
             setMenus();
@@ -83,8 +82,8 @@ namespace BasisOne
             //asignar los filtros en los eventos que debe estar a la escucha
             setFilter();
 
-            //Mensaje finalizacion AddOn Basis One 
-            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Success, "AddOn BOne cargado correctamente");
+            
+            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Success, DllCore.MessageSystem("00002", _company));
 
         }
 
@@ -916,15 +915,13 @@ namespace BasisOne
 
                                 #endregion
                             }
-                            else if (pVal.FormType == 133 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
+                            else 
+                            if (pVal.FormType == 133 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
                             {
                                 #region Boton enviar a la DIAN
 
-                                SAPbouiCOM.Form oFormInvoice;
-
-                                oFormInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, oFormInvoice, null, "FacturaDeClientes", "A", "ItemEvent");
-
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
+                                
                                 #endregion
                             }
                             else if (pVal.FormType == 133 && pVal.ItemUID == "BtnSM" && pVal.Before_Action == true)
@@ -1032,12 +1029,9 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 60091 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
                             {
-                                #region boton enviar a la DIAN
+                                #region Boton enviar a la DIAN
 
-                                SAPbouiCOM.Form oFormReserveInvoice;
-
-                                oFormReserveInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, oFormReserveInvoice, null, "FacturaDeClientes", "A", "ItemEvent");
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
 
                                 #endregion
 
@@ -1117,12 +1111,9 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 60090 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
                             {
-                                #region Se adiciona boton enviar a la DIAN
+                                #region Boton enviar a la DIAN
 
-                                SAPbouiCOM.Form oFormPaymentandInvoice;
-
-                                oFormPaymentandInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, oFormPaymentandInvoice, null, "FacturaDeClientes", "A", "ItemEvent");
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
 
                                 #endregion
                             }
@@ -1201,12 +1192,9 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 141 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
                             {
-                                #region Se adiciona boton enviar a la DIAN
+                                #region Boton enviar a la DIAN
 
-                                SAPbouiCOM.Form oFormPaymentandInvoice;
-
-                                oFormPaymentandInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, oFormPaymentandInvoice, null, "FacturaDeProveedores", "A", "ItemEvent");
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
 
                                 #endregion
                             }
@@ -1229,12 +1217,9 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 181 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
                             {
-                                #region Se adiciona boton enviar a la DIAN
+                                #region Boton enviar a la DIAN
 
-                                SAPbouiCOM.Form oFormPaymentandInvoice;
-
-                                oFormPaymentandInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, oFormPaymentandInvoice, null, "NotaCreditoDeProveedores", "A", "ItemEvent");
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
 
                                 #endregion
                             }
@@ -1254,7 +1239,10 @@ namespace BasisOne
                             {
                                 DlleBilling.CreacionTablasyCamposeBillingEntregaMercancia(sboapp, _company);
                             }
-
+                            else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "btnTestAPI" && pVal.BeforeAction == true)
+                            {
+                                 var response = DlleBilling.FBE_TestAuthorizationAPI(sboapp, _company);
+                            }
                             #endregion
 
                             #region Socios de Negocio
@@ -1281,10 +1269,11 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 179 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
                             {
-                                SAPbouiCOM.Form oFormCreditNote;
+                                #region Boton enviar a la DIAN
 
-                                oFormCreditNote = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, oFormCreditNote, null, "NotaCreditoClientes", "A", "ItemEvent");
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
+
+                                #endregion
 
                             }
 
@@ -1302,10 +1291,11 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 65303 && pVal.ItemUID == "BtnEnvi" && pVal.Before_Action == true)
                             {
-                                SAPbouiCOM.Form oFormInvoice;
+                                #region Boton enviar a la DIAN
 
-                                oFormInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-                                DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, oFormInvoice, null, "NotaDebitoClientes", "A", "ItemEvent");
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
+
+                                #endregion
 
                             }
 
@@ -2581,73 +2571,172 @@ namespace BasisOne
 
             try
             {
-                if (TieneLicenciaeBilling == true)
+
+                switch (ByRef.EventType)
                 {
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
 
-                    #region Factura de venta
+                        if (TieneLicenciaeBilling)
+                        {
+                            #region Factura de venta
 
-                    if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD && ByRef.ActionSuccess == true && (ByRef.FormTypeEx == "133" || ByRef.FormTypeEx == "179" || ByRef.FormTypeEx == "141" || ByRef.FormTypeEx == "60090" || ByRef.FormTypeEx == "60091") )
-                    {
-                        #region Actualiza Label Status DIAN
+                            if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "133")
+                            {
+                                #region Actualiza Label Status DIAN
 
-                        SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
 
-                        DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
 
-                        #endregion
+                                #endregion
+                            }
 
-                    }
-                    else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "133")
-                    {
-                        SAPbouiCOM.Form frm = null;
+                            #endregion
 
-                        DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, frm, ByRef, "FacturaDeClientes", "A", "DataEvent");
+                            #region Factura + pago
 
-                    }
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60090")
+                            {
+                                #region Actualiza Label Status DIAN
 
-                    #endregion
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
 
-                    #region Factura + Pago 
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
 
-                    else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60090")
-                    {
-                        SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+                                #endregion
 
-                        DlleBilling.ItemsLabelStatusDIAN(frm, "60090", "DataEvent");
-                    }
+                            }
 
-                    else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60090")
-                    {
-                        SAPbouiCOM.Form frm = null;
+                            #endregion
 
-                        DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, frm, ByRef, "FacturaDeClientes", "A", "DataEvent");
+                            #region Factura reserva
 
-                    }
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60091")
+                            {
+                                #region Actualiza Label Status DIAN
 
-                    #endregion
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
 
-                    #region Factura de reserva
-
-                    else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60091")
-                    {
-                        SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
-
-                        DlleBilling.ItemsLabelStatusDIAN(frm, "60091", "DataEvent");
-                    }
-
-                    else if (ByRef.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD && ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60091")
-                    {
-                        SAPbouiCOM.Form frm = null;
-
-                        DlleBilling.EnviarDocumentoTFHKA(sboapp, _company, frm, ByRef, "FacturaDeClientes", "A", "DataEvent");
-
-                    }
-
-                    #endregion
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
 
 
+
+                                #endregion
+
+                            }
+
+                            #endregion
+
+                            #region Nota credito de clientes
+
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "179")
+                            {
+                                #region Actualiza Label Status DIAN
+
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+
+                                #endregion
+
+                            }
+
+                            #endregion
+
+                            #region Factura de compra
+
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "141")
+                            {
+                                #region Actualiza Label Status DIAN
+
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+
+                                #endregion
+
+                            }
+
+                            #endregion                            
+
+                        }
+
+                        break;
+
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
+
+                        if (TieneLicenciaeBilling)
+                        {
+
+                            #region Factura de venta 
+
+                            if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "133")
+                            {
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+
+                                #region Boton enviar a la DIAN
+
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company,133);
+
+                                #endregion
+
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+                            }
+
+                            #endregion
+
+                            #region Factura + pago
+                            
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60090")
+                            {
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+
+                                #region Boton enviar a la DIAN
+
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 60090);
+
+                                #endregion
+
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+
+                            }
+
+                            #endregion
+
+                            #region Factura de reserva 
+
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "60091")
+                            {
+                                #region Boton enviar a la DIAN
+
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 60091);
+
+                                #endregion
+
+                            }
+
+                            #endregion
+
+
+
+                        }
+
+                        break;
+
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
+
+                        if (TieneLicenciaeBilling)
+                        {
+                            if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "UDO_FT_BO_eBillingP")
+                            {
+                                DlleBilling.UpdateChangueProveedorTecnologico(sboapp,_company);
+                            }
+                        }
+
+                        break;
 
                 }
+
             }
             catch (Exception)
             {

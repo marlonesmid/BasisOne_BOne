@@ -373,6 +373,28 @@
     WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
 
   </GetDocEntryAndParameters>
+  
+    
+  <GetDocEntryAndParametersFBE>
+
+    SELECT TOP 1 T0."DocEntry",
+                 T0."Series",
+                (SELECT TOP 1 "U_BO_L" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP") AS "Localizacion",
+                T0."U_BO_CRWS" AS "CRWS",
+                (SELECT TOP 1 "U_BO_UserDB" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP") AS "UserDB",
+                (SELECT TOP 1 "U_BO_PassDB" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP") AS "PassDB",
+                (SELECT TOP 1 A."U_BO_RutaPDF" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP" A) AS "RutaPDF",
+                (SELECT TOP 1 A."U_BO_RutaXML" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP" A) AS "RutaXML",
+                (SELECT TOP 1 A."U_BO_RutaCRL" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP" A) AS "RutaCR",
+                (SELECT TOP 1 COALESCE(A."U_BO_GXP",'N') FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP" A) AS "GeneraXMLP",
+                T1."U_BO_PREF" AS "PrefijoDes",
+                (SELECT TOP 1 A."U_BO_PT" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP" A) AS "ProveedorTecnologico",
+                (SELECT TOP 1 A."U_BO_AT" FROM "PRUEBAS_ACTUAL"."@BOEBILLINGP" A) AS "VersionAnexoTecnico"
+                
+    FROM "%sNameDB%"."%Tabla%" T0 LEFT JOIN "%sNameDB%"."@BOSERNUM" T1 ON T0."Series"=T1."Code"
+    WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
+
+  </GetDocEntryAndParametersFBE>
 
   <GetDocEntryAndParametersService>
 
@@ -417,14 +439,9 @@
   <GetRPTDoc>
 
     SELECT T0."CODE" AS "TipoDoc",
-          T0."DEFLT_REP" AS "ID_Layout",
-          T1."DocName" AS "NombreFormato",
-          (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaCRL",
-          CASE WHEN T0."CODE" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
-			           WHEN T0."CODE"= '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "ORIN" WHERE "DocEntry" = '%DocEntry%'))
-    	           WHEN T0."CODE" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
-    	           WHEN "CODE" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OPCH" WHERE "DocEntry" = '%DocEntry%'))
-                 ELSE 'N' END "FormatoMaster"
+    T0."DEFLT_REP" AS "ID_Layout",
+    T1."DocName" AS "NombreFormato",
+    (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaCRL"
     FROM "%sNameDB%"."RTYP" T0 LEFT JOIN "%sNameDB%"."RDOC" T1 ON T0."DEFLT_REP"="DocCode"
     WHERE T0."CODE" = '%TypeDoc%'
 
@@ -435,8 +452,7 @@
            T0."DfltReport" AS "ID_Layout",
            T1."DocName" AS "NombreFormato",
            (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaPDFyXML",
-           
-           CASE WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
+            CASE WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
 			           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "ORIN" WHERE "DocEntry" = '%DocEntry%'))
     	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
     	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OPCH" WHERE "DocEntry" = '%DocEntry%'))
@@ -445,28 +461,12 @@
     FROM "%sNameDB%"."RDFL" T0 INNER JOIN "%sNameDB%"."RDOC" T1 ON T0."DfltReport" =  T1."DocCode"
     WHERE "DoumntDode" = '%TypeDoc%' AND T0."UserId" = '%UserId%'
   </GetRPTDocUser>
-  
-    <GetRPTDocBusinessPartnerd>
-    SELECT TOP 1 "DoumntDode" AS "TipoDoc",
-           T0."DfltReport" AS "ID_Layout",
-           T1."DocName" AS "NombreFormato",
-           (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaPDFyXML",
-           
-           CASE WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
-			           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "ORIN" WHERE "DocEntry" = '%DocEntry%'))
-    	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
-    	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OPCH" WHERE "DocEntry" = '%DocEntry%'))
-                 ELSE 'N' END "FormatoMaster"
-           
-    FROM "%sNameDB%"."RDFL" T0 INNER JOIN "%sNameDB%"."RDOC" T1 ON T0."DfltReport" =  T1."DocCode"
-    WHERE "DoumntDode" = '%TypeDoc%' AND "CardCode" = (SELECT "CardCode" FROM "OINV" WHERE "DocEntry"= '%DocEntry%'')
-  </GetRPTDocBusinessPartnerd>
 
   <GetCUFEInvoice>
     
        SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
               
-              CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT  "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
+              CASE WHEN (SELECT TOP 1 "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT TOP 1 "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
     			    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
     			    END AS "consecutivoDocumento",
     		      
@@ -491,8 +491,8 @@
        WHERE T0."DocNum" =  '%DocNum%'
        
   </GetCUFEDebitNote>
-
-    <GetCUFEInvoicePurchase>
+    
+  <GetCUFEInvoicePurchase>
     
        SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
               
@@ -506,8 +506,7 @@
        WHERE T0."DocNum" =  '%DocNum%'
        
   </GetCUFEInvoicePurchase>
-  
-  
+    
   <GetInvoiceandPrefijo>
     SELECT TOP 1 CONCAT(T1."BeginStr",CAST(T0."DocNum" AS NVARCHAR(20))) AS "PrefWithDoc",
     (SELECT TOP 1 "U_BO_LlE" FROM "%sNameDB%"."@BOEBILLINGP") AS "TokenEmpresa",
@@ -524,6 +523,15 @@
     FROM "%sNameDB%"."@BOEBILLINGP"
     WHERE %Estado% %DocEntry%
   </GetModoandURL>
+
+  <GetModoandURLFBE>
+    SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRU' THEN "U_BO_APIFBE" ELSE "U_BO_APIFBE" END AS "APIFBE",
+           "U_BO_Mdo" AS "Modo",
+           "U_BO_MI" AS "ModoIntegracion",
+           "U_BO_PC" AS "ProtocoloComunicacion"
+    FROM "%sNameDB%"."@BOEBILLINGP"
+    WHERE %Estado% %DocEntry%
+  </GetModoandURLFBE>
 
   <CFLSN>
     SELECT TOP 1 IFNULL("CardCode",'') FROM "%sNameDB%"."OCRD" WHERE "CardCode" = '%CardCode%'
@@ -679,9 +687,9 @@ SELECT "trgtPath" || '\' || "FileName" || '.' || "FileExt" AS "PathFile"
        END;
           
 
-  </BO_CheckDigitCalculation>
-  
-    <DropFunction>
+  </BO_CheckDigitCalculation>  
+    
+  <DropFunction>
       SELECT * FROM "SYS"."FUNCTIONS"
       WHERE "SCHEMA_NAME" = '%sNameDB%'
       AND "PROCEDURE_NAME"= '%sNameProcedure%'
@@ -728,5 +736,11 @@ SELECT "trgtPath" || '\' || "FileName" || '.' || "FileExt" AS "PathFile"
       SELECT T0."U_BO_NR", T0."U_BO_FR", T0."U_BO_FF", T0."U_BO_NI", T0."U_BO_NF" FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE IFNULL(T0."U_BO_FF",CURRENT_DATE ) > add_days(CURRENT_DATE, -30)
 
   </GetSearchDueBillingResolutions>
+
+  <GetTechnologyProvide>
+
+    SELECT TOP 1 "U_BO_PT" AS "ProveedorTecnologico" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+
+  </GetTechnologyProvide>
 
 </Queries>

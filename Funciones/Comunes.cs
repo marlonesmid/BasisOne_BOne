@@ -1128,6 +1128,17 @@ namespace Funciones
 
         }
 
+        public string LoadJSON(SAPbouiCOM.Application sboapp, string NombreDll, string FileName)
+        {   
+            string sPath = null;
+
+            sPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            sPath = sPath + "\\" + NombreDll + "\\JSON\\" + FileName;
+
+            return  File.ReadAllText(sPath);
+
+        }
+
         /// <summary>
         /// Método que retorna el ID de la tabla OUSR según el código de usuario
         /// </summary>

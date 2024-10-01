@@ -1,0 +1,5 @@
+{
+    "u": "%User%",
+    "p": "%Password%",
+    "t": "%TenantId%"
+}
