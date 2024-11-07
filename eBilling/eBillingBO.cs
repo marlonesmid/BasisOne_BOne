@@ -3860,29 +3860,26 @@ namespace eBilling
                 cboTR = ((SAPbouiCOM.ComboBox)(oCampoInvoices.Specific));
 
                 cboTR.DataBind.SetBound(true, "OCRD", "U_BO_TR");
+                
+                #region Valores validos tipo de regimen
 
+                SAPbobsCOM.Recordset oValidValuesTipoRegimen = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-                #region Valores Medios de pago
+                string sGetTipoRegimen = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetTipoRegimen");
 
-                SAPbobsCOM.Recordset oValidValuesTipoResponsabilidad = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                oValidValuesTipoRegimen.DoQuery(sGetTipoRegimen);
+                oValidValuesTipoRegimen.MoveFirst();
 
-                string sGetResponsabilidadFiscal = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetResponsabilidadFiscal");
-
-                oValidValuesTipoResponsabilidad.DoQuery(sGetResponsabilidadFiscal);
-                oValidValuesTipoResponsabilidad.MoveFirst();
-
-                for (int K = 0; oValidValuesTipoResponsabilidad.RecordCount - 1 >= K; K++)
+                for (int K = 0; oValidValuesTipoRegimen.RecordCount - 1 >= K; K++)
                 {
-                    cboTR.ValidValues.Add(oValidValuesTipoResponsabilidad.Fields.Item("Valor").Value.ToString(), oValidValuesTipoResponsabilidad.Fields.Item("Descripcion").Value.ToString());
-                    oValidValuesTipoResponsabilidad.MoveNext();
+                    cboTR.ValidValues.Add(oValidValuesTipoRegimen.Fields.Item("Valor").Value.ToString(), oValidValuesTipoRegimen.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesTipoRegimen.MoveNext();
                 }
 
-                DllFunciones.liberarObjetos(oValidValuesTipoResponsabilidad);
+                DllFunciones.liberarObjetos(oValidValuesTipoRegimen);
 
                 #endregion
-
-
-
+                
                 #endregion
             }
             else if (_QuantityEmails == 2)
@@ -4033,10 +4030,24 @@ namespace eBilling
 
                 cboTR.DataBind.SetBound(true, "OCRD", "U_BO_TR");
 
-                cboTR.ValidValues.Add("04", "Régimen Simple");
-                cboTR.ValidValues.Add("05", "Régimen Ordinario");
-                cboTR.ValidValues.Add("48", "Impuesto sobre las ventas - IVA");
-                cboTR.ValidValues.Add("49", "No responsable de IVA");
+                #region Valores validos tipo de regimen
+
+                SAPbobsCOM.Recordset oValidValuesTipoRegimen = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                string sGetTipoRegimen = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetTipoRegimen");
+
+                oValidValuesTipoRegimen.DoQuery(sGetTipoRegimen);
+                oValidValuesTipoRegimen.MoveFirst();
+
+                for (int K = 0; oValidValuesTipoRegimen.RecordCount - 1 >= K; K++)
+                {
+                    cboTR.ValidValues.Add(oValidValuesTipoRegimen.Fields.Item("Valor").Value.ToString(), oValidValuesTipoRegimen.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesTipoRegimen.MoveNext();
+                }
+
+                DllFunciones.liberarObjetos(oValidValuesTipoRegimen);
+
+                #endregion;
 
 
 
@@ -4230,12 +4241,24 @@ namespace eBilling
 
                 cboTR.DataBind.SetBound(true, "OCRD", "U_BO_TR");
 
-                cboTR.ValidValues.Add("04", "Régimen Simple");
-                cboTR.ValidValues.Add("05", "Régimen Ordinario");
-                cboTR.ValidValues.Add("48", "Impuesto sobre las ventas - IVA");
-                cboTR.ValidValues.Add("49", "No responsable de IVA");
+                #region Valores validos tipo de regimen
 
-                //cboTR.Select("04", BoSearchKey.psk_ByValue);
+                SAPbobsCOM.Recordset oValidValuesTipoRegimen = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                string sGetTipoRegimen = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetTipoRegimen");
+
+                oValidValuesTipoRegimen.DoQuery(sGetTipoRegimen);
+                oValidValuesTipoRegimen.MoveFirst();
+
+                for (int K = 0; oValidValuesTipoRegimen.RecordCount - 1 >= K; K++)
+                {
+                    cboTR.ValidValues.Add(oValidValuesTipoRegimen.Fields.Item("Valor").Value.ToString(), oValidValuesTipoRegimen.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesTipoRegimen.MoveNext();
+                }
+
+                DllFunciones.liberarObjetos(oValidValuesTipoRegimen);
+
+                #endregion
 
                 oCampoInvoices.FromPane = 28;
                 oCampoInvoices.ToPane = 28;
@@ -4460,12 +4483,24 @@ namespace eBilling
 
                 cboTR.DataBind.SetBound(true, "OCRD", "U_BO_TR");
 
-                cboTR.ValidValues.Add("04", "Régimen Simple");
-                cboTR.ValidValues.Add("05", "Régimen Ordinario");
-                cboTR.ValidValues.Add("48", "Impuesto sobre las ventas - IVA");
-                cboTR.ValidValues.Add("49", "No responsable de IVA");
+                #region Valores validos tipo de regimen
 
-                cboTR.Select("0", BoSearchKey.psk_ByValue);
+                SAPbobsCOM.Recordset oValidValuesTipoRegimen = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                string sGetTipoRegimen = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetTipoRegimen");
+
+                oValidValuesTipoRegimen.DoQuery(sGetTipoRegimen);
+                oValidValuesTipoRegimen.MoveFirst();
+
+                for (int K = 0; oValidValuesTipoRegimen.RecordCount - 1 >= K; K++)
+                {
+                    cboTR.ValidValues.Add(oValidValuesTipoRegimen.Fields.Item("Valor").Value.ToString(), oValidValuesTipoRegimen.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesTipoRegimen.MoveNext();
+                }
+
+                DllFunciones.liberarObjetos(oValidValuesTipoRegimen);
+
+                #endregion
 
                 oCampoInvoices.FromPane = 28;
                 oCampoInvoices.ToPane = 28;
@@ -4685,6 +4720,25 @@ namespace eBilling
                 otxtEmail1 = ((SAPbouiCOM.EditText)(oCampoInvoices.Specific));
 
                 otxtEmail1.DataBind.SetBound(true, "OCRD", "U_BO_RF");
+
+                #region Valores validos tipo de regimen
+
+                SAPbobsCOM.Recordset oValidValuesTipoRegimen = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                string sGetTipoRegimen = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetTipoRegimen");
+
+                oValidValuesTipoRegimen.DoQuery(sGetTipoRegimen);
+                oValidValuesTipoRegimen.MoveFirst();
+
+                for (int K = 0; oValidValuesTipoRegimen.RecordCount - 1 >= K; K++)
+                {
+                    cboTR.ValidValues.Add(oValidValuesTipoRegimen.Fields.Item("Valor").Value.ToString(), oValidValuesTipoRegimen.Fields.Item("Descripcion").Value.ToString());
+                    oValidValuesTipoRegimen.MoveNext();
+                }
+
+                DllFunciones.liberarObjetos(oValidValuesTipoRegimen);
+
+                #endregion
 
                 oCampoInvoices.FromPane = 28;
                 oCampoInvoices.ToPane = 28;
@@ -7313,12 +7367,15 @@ namespace eBilling
                 {
                     oInvoice = (SAPbobsCOM.Documents)(__oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oPurchaseCreditNotes));
                 }
+                else if (_TipoDocumento == "NotaCreditoClientes")
+                {
+                    oInvoice = (SAPbobsCOM.Documents)(__oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oCreditNotes));
+                }
                 else
                 {
                     oInvoice = (SAPbobsCOM.Documents)(__oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInvoices));
                 }
-
-
+                
                 oInvoice.GetByKey(_DocEntry);
 
                 #region Campo CRWS
@@ -15408,6 +15465,9 @@ namespace eBilling
                             string sTotales = null;
                             string sLineas = null;
                             string sCamposAdicionales = null;
+                            string sPeriodoFacturadoNC = null;
+                            string sMotivosNota = null;
+                            string sSoporteAdquisicionesRelacionados = null;
                             string sRutaCR = null;
                             string sPrefijo = null;
                             string sStatusDoc = null;
@@ -15454,7 +15514,7 @@ namespace eBilling
                             else if (_TipoDocumento == "NotaCreditoDeProveedores")
                             {
                                 sNombreDocumento = "Documento_Soporte_Ajuste_No_";
-                                sNombreDocWarning = "Documento soporte Ajuste";
+                                sNombreDocWarning = "Nota ajuste documentos soporte";
                             }
                             #endregion
 
@@ -15555,7 +15615,11 @@ namespace eBilling
                                         SAPbobsCOM.Recordset oTotales = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                                         SAPbobsCOM.Recordset oLineas = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                                         SAPbobsCOM.Recordset oCamposAdicionales = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
                                         SAPbobsCOM.Recordset oCUFEInvoice = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                        SAPbobsCOM.Recordset oPeriodoFacturado = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                        SAPbobsCOM.Recordset oMotivosNota = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                        SAPbobsCOM.Recordset oSoporteAdquisicionesRelacionados = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                                         #endregion
 
@@ -15619,14 +15683,22 @@ namespace eBilling
                                             sLineas = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "14").Replace("%TipoConsulta%", "Lineas");
                                             sCamposAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "14").Replace("%TipoConsulta%", "CamposAdicionales");
 
+                                            sPeriodoFacturadoNC = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "14").Replace("%TipoConsulta%", "PeriodoFacturado");
+
                                             #endregion
 
                                             #region Consulta CUFE
 
-                                            sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoice");
-                                            sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
+                                            //sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoice");
+                                            //sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
 
-                                            oCUFEInvoice.DoQuery(sCUFEInvoice);
+                                            //oCUFEInvoice.DoQuery(sCUFEInvoice);
+
+                                            #endregion
+
+                                            #region Consulta Periodo inicial y Final de la Factura Asociada                                       
+
+                                            oPeriodoFacturado.DoQuery(sPeriodoFacturadoNC);
 
                                             #endregion
                                         }
@@ -15662,10 +15734,10 @@ namespace eBilling
 
                                             #region Consulta CUFE
 
-                                            sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEDebitNote");
-                                            sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
+                                            //sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEDebitNote");
+                                            //sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
 
-                                            oCUFEInvoice.DoQuery(sCUFEInvoice);
+                                            //oCUFEInvoice.DoQuery(sCUFEInvoice);
 
                                             #endregion
 
@@ -15678,6 +15750,7 @@ namespace eBilling
                                             sObservacionesAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "ObservacionesAdicionales");
                                             sNumeracionDIAN = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "NumeracionDIAN");
                                             sNotificacion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Notificacion");
+                                            sEmisor = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor");
                                             sEmisor_Obligaciones = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor_Obligaciones");
                                             sEmisor_Tributo = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor_Tributo");
                                             sEmisor_direccion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor_direccion");
@@ -15699,14 +15772,6 @@ namespace eBilling
 
                                             #endregion
 
-                                            #region Consulta CUFE
-
-                                            sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoicePurchase");
-                                            sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
-
-                                            oCUFEInvoice.DoQuery(sCUFEInvoice);
-
-                                            #endregion
                                         }
                                         else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                         {
@@ -15716,9 +15781,11 @@ namespace eBilling
                                             sObservacionesAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "ObservacionesAdicionales");
                                             sNumeracionDIAN = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "NumeracionDIAN");
                                             sNotificacion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Notificacion");
+                                            sEmisor = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor");
                                             sEmisor_Obligaciones = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor_Obligaciones");
                                             sEmisor_Tributo = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor_Tributo");
                                             sEmisor_direccion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor_direccion");
+                                            sCliente = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente");
                                             sCliente_direccion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente_direccion");
                                             sCliente_ObligacionesCliente = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente_ObligacionesCliente");
                                             sCliente_DireccionFiscal = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente_DireccionFiscal");
@@ -15733,6 +15800,18 @@ namespace eBilling
                                             sTotales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Totales");
                                             sLineas = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Lineas");
                                             sCamposAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "CamposAdicionales");
+
+                                            sPeriodoFacturadoNC = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "PeriodoFacturado");
+                                            sMotivosNota = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "MotivosNota");
+                                            sSoporteAdquisicionesRelacionados = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "SoporteAdquisicionesRelacionados");
+
+                                            #endregion
+
+                                            #region Consulta Periodo inicial y Final de la Factura Asociada y motivos nota credito                                      
+
+                                            oPeriodoFacturado.DoQuery(sPeriodoFacturadoNC);
+                                            oMotivosNota.DoQuery(sMotivosNota);
+                                            oSoporteAdquisicionesRelacionados.DoQuery(sSoporteAdquisicionesRelacionados);
 
                                             #endregion
                                         }
@@ -15791,7 +15870,10 @@ namespace eBilling
                                                                                 oLineas,
                                                                                 oCamposAdicionales,
                                                                                 oCUFEInvoice,
-                                                                                sRutaXML);
+                                                                                sRutaXML,
+                                                                                oPeriodoFacturado,
+                                                                                oMotivosNota,
+                                                                                oSoporteAdquisicionesRelacionados);
                                         #endregion
 
                                         #endregion
@@ -15806,7 +15888,7 @@ namespace eBilling
 
                                         if (_TipoDocumento == "FacturaDeClientes")
                                         {
-                                            #region Envia Factura de Venta
+                                            #region Envia Factura de Venta                                                                                
 
                                             var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "FACTURA-UBL", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
 
@@ -15822,9 +15904,7 @@ namespace eBilling
 
                                                 var sUUID = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UUID").Select(row => row.Field<string>("Value")).FirstOrDefault();
                                                 var sQR = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "QR").Select(row => row.Field<string>("Value")).FirstOrDefault();
-                                                var srequestId = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "requestId").Select(row => row.Field<string>("Value")).FirstOrDefault();
-                                                var sLDF = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "LDF").Select(row => row.Field<string>("Value")).FirstOrDefault();
-                                                UpdateoInvoiceFBE(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, srequestId, sLDF);
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, null, null);
 
                                                 DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + "200" + ", Documento enviado correctamente a la DIAN");
                                             }
@@ -15844,28 +15924,36 @@ namespace eBilling
                                         }
                                         else if (_TipoDocumento == "NotaCreditoClientes")
                                         {
-                                            #region Envia Nota credito de clientes
+                                            #region Envia nota credito de ventas                                                                               
 
                                             var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "NC-UBL", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
 
-                                            if (ResponseEnvio.Columns.Count > 3)
+                                            if (ResponseEnvio.Rows.Count > 1)
                                             {
-                                                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviado correctamente a " + ProveedorTecnologico);
+                                                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
 
-                                                FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlPdf"].ToString(), sRutaPDF).GetAwaiter().GetResult();
+                                                var sUrlPdf = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlPdf").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                FBE_DownloadFiles(_sboapp, _oCompany, sUrlPdf, sRutaPDF).GetAwaiter().GetResult();
 
-                                                FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlXml"].ToString(), sRutaXML).GetAwaiter().GetResult();
+                                                var sUrlXml = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlXml").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                FBE_DownloadFiles(_sboapp, _oCompany, sUrlXml, sRutaFinalXML).GetAwaiter().GetResult();
 
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                                var sUUID = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UUID").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                var sQR = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "QR").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, null, null);
+
+                                                DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + "200" + ", Documento enviado correctamente a la DIAN");
                                             }
                                             else
                                             {
-                                                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviado correctamente a " + ProveedorTecnologico);
-
                                                 int sResponseErrorCode = Convert.ToInt32(ResponseEnvio.Rows[0]["errorCode"].ToString());
                                                 string sResponseErrorDescription = ResponseEnvio.Rows[0]["shortDescription"].ToString();
 
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                                sResponseErrorDescription = sResponseErrorDescription.Length > 254 ? sResponseErrorDescription.Substring(0, 254) : sResponseErrorDescription;
+
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, null, null, null, null, _TipoDocumento, null, null, null);
+
+                                                DllFunciones.sendMessageBox(_sboapp, "Error al enviar el documento a la DIAN - Codigo de mensaje No. " + sResponseErrorCode + ", " + ResponseEnvio.Rows[0]["shortDescription"].ToString().Replace(",", "\n"));
                                             }
 
                                             #endregion
@@ -15900,62 +15988,75 @@ namespace eBilling
                                         }
                                         else if (_TipoDocumento == "FacturaDeProveedores")
                                         {
-                                            #region Envia Factura de proveedores
+                                            #region Envia nota credito de ventas                                                                               
 
                                             var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "SOPORTE-ADQUISICION", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
 
-                                            if (ResponseEnvio.Columns.Count > 3)
+                                            if (ResponseEnvio.Rows.Count > 1)
                                             {
                                                 DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
 
-                                                FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlPdf"].ToString(), sRutaPDF).GetAwaiter().GetResult();
+                                                var sUrlPdf = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlPdf").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                FBE_DownloadFiles(_sboapp, _oCompany, sUrlPdf, sRutaPDF).GetAwaiter().GetResult();
 
-                                                FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlXml"].ToString(), sRutaXML).GetAwaiter().GetResult();
+                                                var sUrlXml = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlXml").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                FBE_DownloadFiles(_sboapp, _oCompany, sUrlXml, sRutaFinalXML).GetAwaiter().GetResult();
 
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                                var sUUID = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UUID").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                var sQR = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "QR").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, null, null);
+
+                                                DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + "200" + ", Documento enviado correctamente a la DIAN");
                                             }
                                             else
                                             {
-                                                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
-
                                                 int sResponseErrorCode = Convert.ToInt32(ResponseEnvio.Rows[0]["errorCode"].ToString());
                                                 string sResponseErrorDescription = ResponseEnvio.Rows[0]["shortDescription"].ToString();
 
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                                sResponseErrorDescription = sResponseErrorDescription.Length > 254 ? sResponseErrorDescription.Substring(0, 254) : sResponseErrorDescription;
+
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, null, null, null, null, _TipoDocumento, null, null, null);
+
+                                                DllFunciones.sendMessageBox(_sboapp, "Error al enviar el documento a la DIAN - Codigo de mensaje No. " + sResponseErrorCode + ", " + ResponseEnvio.Rows[0]["shortDescription"].ToString().Replace(",", "\n"));
                                             }
 
                                             #endregion
                                         }
                                         else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                         {
-                                            #region Envia Factura de proveedores
+                                            #region Envia nota credito de ventas                                                                               
 
                                             var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "SOPORTE-ADQUISICION", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
 
-                                            if (ResponseEnvio.Columns.Count > 3)
+                                            if (ResponseEnvio.Rows.Count > 1)
                                             {
                                                 DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
 
-                                                FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlPdf"].ToString(), sRutaPDF).GetAwaiter().GetResult();
+                                                var sUrlPdf = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlPdf").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                FBE_DownloadFiles(_sboapp, _oCompany, sUrlPdf, sRutaPDF).GetAwaiter().GetResult();
 
-                                                FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlXml"].ToString(), sRutaXML).GetAwaiter().GetResult();
+                                                var sUrlXml = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlXml").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                FBE_DownloadFiles(_sboapp, _oCompany, sUrlXml, sRutaFinalXML).GetAwaiter().GetResult();
 
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                                var sUUID = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UUID").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                var sQR = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "QR").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, null, null);
+
+                                                DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + "200" + ", Documento enviado correctamente a la DIAN");
                                             }
                                             else
                                             {
-                                                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
-
                                                 int sResponseErrorCode = Convert.ToInt32(ResponseEnvio.Rows[0]["errorCode"].ToString());
                                                 string sResponseErrorDescription = ResponseEnvio.Rows[0]["shortDescription"].ToString();
 
-                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                                sResponseErrorDescription = sResponseErrorDescription.Length > 254 ? sResponseErrorDescription.Substring(0, 254) : sResponseErrorDescription;
+
+                                                UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, null, null, null, null, _TipoDocumento, null, null, null);
+
+                                                DllFunciones.sendMessageBox(_sboapp, "Error al enviar el documento a la DIAN - Codigo de mensaje No. " + sResponseErrorCode + ", " + ResponseEnvio.Rows[0]["shortDescription"].ToString().Replace(",", "\n"));
                                             }
 
                                             #endregion
-                                        }
-                                        else
-                                        {
 
                                         }
 
@@ -16004,7 +16105,11 @@ namespace eBilling
                                     SAPbobsCOM.Recordset oTotales = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                                     SAPbobsCOM.Recordset oLineas = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                                     SAPbobsCOM.Recordset oCamposAdicionales = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
                                     SAPbobsCOM.Recordset oCUFEInvoice = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                    SAPbobsCOM.Recordset oPeriodoFacturado = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                    SAPbobsCOM.Recordset oMotivosNota = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                    SAPbobsCOM.Recordset oSoporteAdquisicionesRelacionados = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                                     #endregion
 
@@ -16068,14 +16173,22 @@ namespace eBilling
                                         sLineas = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "14").Replace("%TipoConsulta%", "Lineas");
                                         sCamposAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "14").Replace("%TipoConsulta%", "CamposAdicionales");
 
+                                        sPeriodoFacturadoNC = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "14").Replace("%TipoConsulta%", "PeriodoFacturado");
+
                                         #endregion
 
                                         #region Consulta CUFE
 
-                                        sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoice");
-                                        sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
+                                        //sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoice");
+                                        //sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
 
-                                        oCUFEInvoice.DoQuery(sCUFEInvoice);
+                                        //oCUFEInvoice.DoQuery(sCUFEInvoice);
+
+                                        #endregion
+
+                                        #region Consulta Periodo inicial y Final de la Factura Asociada                                       
+
+                                        oPeriodoFacturado.DoQuery(sPeriodoFacturadoNC);
 
                                         #endregion
                                     }
@@ -16111,10 +16224,10 @@ namespace eBilling
                                         
                                         #region Consulta CUFE
 
-                                        sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEDebitNote");
-                                        sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
+                                        //sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEDebitNote");
+                                        //sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
 
-                                        oCUFEInvoice.DoQuery(sCUFEInvoice);
+                                        //oCUFEInvoice.DoQuery(sCUFEInvoice);
                                         
                                         #endregion                                        
 
@@ -16127,6 +16240,7 @@ namespace eBilling
                                         sObservacionesAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "ObservacionesAdicionales");
                                         sNumeracionDIAN = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "NumeracionDIAN");
                                         sNotificacion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Notificacion");
+                                        sEmisor = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor");
                                         sEmisor_Obligaciones = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor_Obligaciones");
                                         sEmisor_Tributo = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor_Tributo");
                                         sEmisor_direccion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "18").Replace("%TipoConsulta%", "Emisor_direccion");
@@ -16148,26 +16262,21 @@ namespace eBilling
 
                                         #endregion
 
-                                        #region Consulta CUFE
-
-                                        sCUFEInvoice = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetCUFEInvoicePurchase");
-                                        sCUFEInvoice = sCUFEInvoice.Replace("%DocNum%", Convert.ToString(oCabecera.Fields.Item("No_FV").Value.ToString()));
-
-                                        oCUFEInvoice.DoQuery(sCUFEInvoice);
-
-                                        #endregion
                                     }
                                     else if (_TipoDocumento == "NotaCreditoDeProveedores")
-                                    {
+                                    {                                        
+
                                         #region Consulta por tipo de documento
 
                                         sCabecera = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cabecera");
                                         sObservacionesAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "ObservacionesAdicionales");
                                         sNumeracionDIAN = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "NumeracionDIAN");
                                         sNotificacion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Notificacion");
+                                        sEmisor = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor");
                                         sEmisor_Obligaciones = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor_Obligaciones");
                                         sEmisor_Tributo = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor_Tributo");
                                         sEmisor_direccion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Emisor_direccion");
+                                        sCliente = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente");
                                         sCliente_direccion = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente_direccion");
                                         sCliente_ObligacionesCliente = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente_ObligacionesCliente");
                                         sCliente_DireccionFiscal = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Cliente_DireccionFiscal");
@@ -16182,6 +16291,18 @@ namespace eBilling
                                         sTotales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Totales");
                                         sLineas = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "Lineas");
                                         sCamposAdicionales = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "CamposAdicionales");
+
+                                        sPeriodoFacturadoNC = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "PeriodoFacturado");
+                                        sMotivosNota = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "MotivosNota");
+                                        sSoporteAdquisicionesRelacionados = sProcedureXML.Replace("%DocEntry%", sDocEntryInvoice).Replace("%ObjecType%", "19").Replace("%TipoConsulta%", "SoporteAdquisicionesRelacionados");
+
+                                        #endregion
+
+                                        #region Consulta Periodo inicial y Final de la Factura Asociada y motivos nota credito                                      
+
+                                        oPeriodoFacturado.DoQuery(sPeriodoFacturadoNC);
+                                        oMotivosNota.DoQuery(sMotivosNota);
+                                        oSoporteAdquisicionesRelacionados.DoQuery(sSoporteAdquisicionesRelacionados);
 
                                         #endregion
                                     }
@@ -16240,7 +16361,10 @@ namespace eBilling
                                                                             oLineas,
                                                                             oCamposAdicionales,
                                                                             oCUFEInvoice,
-                                                                            sRutaXML);
+                                                                            sRutaXML,
+                                                                            oPeriodoFacturado,
+                                                                            oMotivosNota,
+                                                                            oSoporteAdquisicionesRelacionados);
                                     #endregion
                                     
                                     #endregion                                    
@@ -16255,9 +16379,9 @@ namespace eBilling
 
                                     if (_TipoDocumento == "FacturaDeClientes")
                                     {
-                                        #region Envia Factura de Venta
+                                        #region Envia Factura de Venta                                                                                
 
-                                        var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "FACTURA-UBL", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
+                                        var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "FACTURA-UBL", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();                                        
 
                                         if (ResponseEnvio.Rows.Count > 1)
                                         {
@@ -16291,28 +16415,36 @@ namespace eBilling
                                     }
                                     else if (_TipoDocumento == "NotaCreditoClientes")
                                     {
-                                        #region Envia Nota credito de clientes
+                                        #region Envia nota credito de ventas                                                                               
 
                                         var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "NC-UBL", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
-
-                                        if (ResponseEnvio.Columns.Count > 3)
+                                        
+                                        if (ResponseEnvio.Rows.Count > 1)
                                         {
-                                            DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviado correctamente a " + ProveedorTecnologico);
+                                            DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
 
-                                            FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlPdf"].ToString(), sRutaPDF).GetAwaiter().GetResult();
+                                            var sUrlPdf = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlPdf").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            FBE_DownloadFiles(_sboapp, _oCompany, sUrlPdf, sRutaPDF).GetAwaiter().GetResult();
 
-                                            FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlXml"].ToString(), sRutaXML).GetAwaiter().GetResult();
+                                            var sUrlXml = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlXml").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            FBE_DownloadFiles(_sboapp, _oCompany, sUrlXml, sRutaFinalXML).GetAwaiter().GetResult();
 
-                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                            var sUUID = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UUID").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            var sQR = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "QR").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, null, null);
+
+                                            DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + "200" + ", Documento enviado correctamente a la DIAN");
                                         }
                                         else
                                         {
-                                            DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviado correctamente a " + ProveedorTecnologico);
-
                                             int sResponseErrorCode = Convert.ToInt32(ResponseEnvio.Rows[0]["errorCode"].ToString());
                                             string sResponseErrorDescription = ResponseEnvio.Rows[0]["shortDescription"].ToString();
 
-                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                            sResponseErrorDescription = sResponseErrorDescription.Length > 254 ? sResponseErrorDescription.Substring(0, 254) : sResponseErrorDescription;
+
+                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, null, null, null, null, _TipoDocumento, null, null, null);
+
+                                            DllFunciones.sendMessageBox(_sboapp, "Error al enviar el documento a la DIAN - Codigo de mensaje No. " + sResponseErrorCode + ", " + ResponseEnvio.Rows[0]["shortDescription"].ToString().Replace(",", "\n"));
                                         }
 
                                         #endregion
@@ -16347,59 +16479,76 @@ namespace eBilling
                                     }
                                     else if (_TipoDocumento == "FacturaDeProveedores")
                                     {
-                                        #region Envia Factura de proveedores
+                                        #region Envia nota credito de ventas                                                                               
 
                                         var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "SOPORTE-ADQUISICION", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
 
-                                        if (ResponseEnvio.Columns.Count > 3)
+                                        if (ResponseEnvio.Rows.Count > 1)
                                         {
                                             DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
 
-                                            FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlPdf"].ToString(), sRutaPDF).GetAwaiter().GetResult();
+                                            var sUrlPdf = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlPdf").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            FBE_DownloadFiles(_sboapp, _oCompany, sUrlPdf, sRutaPDF).GetAwaiter().GetResult();
 
-                                            FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlXml"].ToString(), sRutaXML).GetAwaiter().GetResult();
+                                            var sUrlXml = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlXml").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            FBE_DownloadFiles(_sboapp, _oCompany, sUrlXml, sRutaFinalXML).GetAwaiter().GetResult();
 
-                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                            var sUUID = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UUID").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            var sQR = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "QR").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, null, null);
+
+                                            DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + "200" + ", Documento enviado correctamente a la DIAN");
                                         }
                                         else
                                         {
-                                            DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
-
                                             int sResponseErrorCode = Convert.ToInt32(ResponseEnvio.Rows[0]["errorCode"].ToString());
                                             string sResponseErrorDescription = ResponseEnvio.Rows[0]["shortDescription"].ToString();
 
-                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                            sResponseErrorDescription = sResponseErrorDescription.Length > 254 ? sResponseErrorDescription.Substring(0, 254) : sResponseErrorDescription;
+
+                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, null, null, null, null, _TipoDocumento, null, null, null);
+
+                                            DllFunciones.sendMessageBox(_sboapp, "Error al enviar el documento a la DIAN - Codigo de mensaje No. " + sResponseErrorCode + ", " + ResponseEnvio.Rows[0]["shortDescription"].ToString().Replace(",", "\n"));
                                         }
 
                                         #endregion
                                     }
                                     else if (_TipoDocumento == "NotaCreditoDeProveedores")
                                     {
-                                        #region Envia Factura de proveedores
+                                        #region Envia nota credito de ventas                                                                               
 
-                                        var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "SOPORTE-ADQUISICION", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
+                                        var ResponseEnvio = EnviarFacturaElectronica(_sboapp, _oCompany, sRutaFinalXML, sApiFBE, AccesTokenFBE.ToString(), "NA-SOPORTE-ADQUISICION", sX_Who, sX_KEYCONTROL).GetAwaiter().GetResult();
 
-                                        if (ResponseEnvio.Columns.Count > 3)
+                                        if (ResponseEnvio.Rows.Count > 1)
                                         {
                                             DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
 
-                                            FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlPdf"].ToString(), sRutaPDF).GetAwaiter().GetResult();
+                                            var sUrlPdf = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlPdf").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            FBE_DownloadFiles(_sboapp, _oCompany, sUrlPdf, sRutaPDF).GetAwaiter().GetResult();
 
-                                            FBE_DownloadFiles(_sboapp, _oCompany, ResponseEnvio.Rows[0]["UrlXml"].ToString(), sRutaXML).GetAwaiter().GetResult();
+                                            var sUrlXml = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UrlXml").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            FBE_DownloadFiles(_sboapp, _oCompany, sUrlXml, sRutaFinalXML).GetAwaiter().GetResult();
 
-                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                            var sUUID = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "UUID").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            var sQR = ResponseEnvio.AsEnumerable().Where(row => row.Field<string>("Key") == "QR").Select(row => row.Field<string>("Value")).FirstOrDefault();
+                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, 200, "Documento autorizado por la DIAN", sUUID, sQR, sRutaPDF, sRutaFinalXML, _TipoDocumento, null, null, null);
+
+                                            DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + "200" + ", Documento enviado correctamente a la DIAN");
                                         }
                                         else
                                         {
-                                            DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 4: " + sNombreDocWarning + " enviada correctamente a " + ProveedorTecnologico);
-
                                             int sResponseErrorCode = Convert.ToInt32(ResponseEnvio.Rows[0]["errorCode"].ToString());
                                             string sResponseErrorDescription = ResponseEnvio.Rows[0]["shortDescription"].ToString();
 
-                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, ResponseEnvio.Rows[0]["UUID"].ToString(), ResponseEnvio.Rows[0]["QR"].ToString(), sRutaPDF, sRutaXML, _TipoDocumento, null, null, null);
+                                            sResponseErrorDescription = sResponseErrorDescription.Length > 254 ? sResponseErrorDescription.Substring(0, 254) : sResponseErrorDescription;
+
+                                            UpdateoInvoice(_oCompany, _sboapp, sDocEntryInvoice, sResponseErrorCode, sResponseErrorDescription, null, null, null, null, _TipoDocumento, null, null, null);
+
+                                            DllFunciones.sendMessageBox(_sboapp, "Error al enviar el documento a la DIAN - Codigo de mensaje No. " + sResponseErrorCode + ", " + ResponseEnvio.Rows[0]["shortDescription"].ToString().Replace(",", "\n"));
                                         }
 
                                         #endregion
+                                        
                                     }
 
                                     _sboapp.ActivateMenuItem("1304");
@@ -16857,8 +17006,7 @@ namespace eBilling
             }
 
         }
-
-
+        
         #region Clases JSON
 
         private class AuthorizationRequest
@@ -16870,9 +17018,9 @@ namespace eBilling
 
         #endregion
 
-        private string GenerateXMLFBE(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oObservacionesAdicionales, SAPbobsCOM.Recordset oNumeracionDIAN, SAPbobsCOM.Recordset oNotificacion, SAPbobsCOM.Recordset oEmisor, SAPbobsCOM.Recordset oEmisor_Obligaciones, SAPbobsCOM.Recordset oEmisor_Tributo, SAPbobsCOM.Recordset oEmisor_direccion, SAPbobsCOM.Recordset oCliente, SAPbobsCOM.Recordset oCliente_direccion, SAPbobsCOM.Recordset oCliente_ObligacionesCliente, SAPbobsCOM.Recordset oCliente_DireccionFiscal, SAPbobsCOM.Recordset oCliente_TributoCliente, SAPbobsCOM.Recordset oMediosDePago,SAPbobsCOM.Recordset oAnticipos, SAPbobsCOM.Recordset oDescuentosoCargos, SAPbobsCOM.Recordset oTasaDeCambio, SAPbobsCOM.Recordset oTasaDeCambioAlterna, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oRetenciones, SAPbobsCOM.Recordset oTotales, SAPbobsCOM.Recordset oLineas,SAPbobsCOM.Recordset oCamposAdicionales, SAPbobsCOM.Recordset oCUFEInvoice,string sRutaXML)
+        private string GenerateXMLFBE(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oObservacionesAdicionales, SAPbobsCOM.Recordset oNumeracionDIAN, SAPbobsCOM.Recordset oNotificacion, SAPbobsCOM.Recordset oEmisor, SAPbobsCOM.Recordset oEmisor_Obligaciones, SAPbobsCOM.Recordset oEmisor_Tributo, SAPbobsCOM.Recordset oEmisor_direccion, SAPbobsCOM.Recordset oCliente, SAPbobsCOM.Recordset oCliente_direccion, SAPbobsCOM.Recordset oCliente_ObligacionesCliente, SAPbobsCOM.Recordset oCliente_DireccionFiscal, SAPbobsCOM.Recordset oCliente_TributoCliente, SAPbobsCOM.Recordset oMediosDePago,SAPbobsCOM.Recordset oAnticipos, SAPbobsCOM.Recordset oDescuentosoCargos, SAPbobsCOM.Recordset oTasaDeCambio, SAPbobsCOM.Recordset oTasaDeCambioAlterna, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oRetenciones, SAPbobsCOM.Recordset oTotales, SAPbobsCOM.Recordset oLineas,SAPbobsCOM.Recordset oCamposAdicionales, SAPbobsCOM.Recordset oCUFEInvoice,string sRutaXML, SAPbobsCOM.Recordset oPeriodoFacturado, SAPbobsCOM.Recordset oMotivosNota, SAPbobsCOM.Recordset oSoporteAdquisicionesRelacionados)
         {
-            #region Datos Principales
+            #region Crea elementos generales  
 
             #region Creacion ElementoXML Notificacion
 
@@ -16898,221 +17046,1324 @@ namespace eBilling
 
             #endregion
 
-            // Crear el documento XML
-            XDocument DocumentoElectronico = new XDocument(
-                new XDeclaration("1.0", "UTF-8", "no"),
-                new XElement(Convert.ToString(oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString()),
-                    new XElement("Cabecera",
-                        new XAttribute("Numero", oCabecera.Fields.Item("Numero").Value.ToString()),
-                        new XAttribute("FechaEmision", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
-                        new XAttribute("Vencimiento", oCabecera.Fields.Item("Vencimiento").Value.ToString()),
-                        new XAttribute("HoraEmision", oCabecera.Fields.Item("HoraEmision").Value.ToString()),
-                        new XAttribute("Observaciones", oCabecera.Fields.Item("Observaciones").Value.ToString()),
-                        new XAttribute("TipoFactura", oCabecera.Fields.Item("TipoFactura").Value.ToString()),
-                        new XAttribute("FormaDePago", oCabecera.Fields.Item("FormaDePago").Value.ToString()),
-                        new XAttribute("TipoOperacion", oCabecera.Fields.Item("TipoOperacion").Value.ToString()),
-                        new XAttribute("OrdenCompra", oCabecera.Fields.Item("OrdenCompra").Value.ToString())
-                    ),
-                    new XElement("NumeracionDIAN",
-                        new XAttribute("NumeroResolucion", oNumeracionDIAN.Fields.Item("NumeroResolucion").Value.ToString()),
-                        new XAttribute("FechaInicio", oNumeracionDIAN.Fields.Item("FechaInicio").Value.ToString()),
-                        new XAttribute("FechaFin", oNumeracionDIAN.Fields.Item("FechaFin").Value.ToString()),
-                        new XAttribute("PrefijoNumeracion", oNumeracionDIAN.Fields.Item("PrefijoNumeracion").Value.ToString()),
-                        new XAttribute("ConsecutivoInicial", oNumeracionDIAN.Fields.Item("ConsecutivoInicial").Value.ToString()),
-                        new XAttribute("ConsecutivoFinal", oNumeracionDIAN.Fields.Item("ConsecutivoFinal").Value.ToString())
-                    ),
-                    notificacionElement,
-                    new XElement("Emisor",
-                        new XAttribute("TipoPersona", oEmisor.Fields.Item("TipoPersona").Value.ToString()),
-                        new XAttribute("RazonSocial", oEmisor.Fields.Item("RazonSocial").Value.ToString()),
-                        new XAttribute("TipoRegimen", oEmisor.Fields.Item("TipoRegimen").Value.ToString()),
-                        new XAttribute("TipoIdentificacion", oEmisor.Fields.Item("TipoIdentificacion").Value.ToString()),
-                        new XAttribute("Numero", oEmisor.Fields.Item("NumeroIdentificacion").Value.ToString()),
-                        new XAttribute("DV", oEmisor.Fields.Item("DV").Value.ToString()),
-                        new XElement("NombresComerciales",
-                            new XElement("NombreComercial", oEmisor.Fields.Item("RazonSocial").Value.ToString())
-                        ),
-                        new XElement("ObligacionesEmisor",
-                            new XAttribute("CodigoObligacion", oEmisor_Obligaciones.Fields.Item("CodigoObligacion").Value.ToString())
-                        ),
-                        new XElement("TributoEmisor",
-                            new XAttribute("CodigoTributo", oEmisor_Tributo.Fields.Item("CodigoTributo").Value.ToString()),
-                            new XAttribute("NombreTributo", oEmisor_Tributo.Fields.Item("NombreTributo").Value.ToString())
-                        ),
-                        new XElement("Direccion",
-                            new XAttribute("CodigoPais", oEmisor_direccion.Fields.Item("CodigoPais").Value.ToString()),
-                            new XAttribute("NombrePais", oEmisor_direccion.Fields.Item("NombrePais").Value.ToString()),
-                            new XAttribute("IdiomaPais", oEmisor_direccion.Fields.Item("IdiomaPais").Value.ToString()),
-                            new XAttribute("CodigoMunicipio", oEmisor_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
-                            new XAttribute("NombreCiudad", oEmisor_direccion.Fields.Item("NombreCiudad").Value.ToString()),
-                            new XAttribute("CodigoPostal", oEmisor_direccion.Fields.Item("CodigoPostal").Value.ToString()),
-                            new XAttribute("NombreDepartamento", oEmisor_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
-                            new XAttribute("CodigoDepartamento", oEmisor_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
-                            new XAttribute("Direccion", oEmisor_direccion.Fields.Item("Direccion").Value.ToString())
-                        )),
-                        new XElement("Cliente",
-                            new XAttribute("TipoPersona", oCliente.Fields.Item("TipoPersona").Value.ToString()),
-                            new XAttribute("TipoRegimen", oCliente.Fields.Item("TipoRegimen").Value.ToString()),
-                            new XAttribute("TipoIdentificacion", oCliente.Fields.Item("TipoIdentificacion").Value.ToString()),
-                            new XAttribute("NumeroIdentificacion", oCliente.Fields.Item("NumeroIdentificacion").Value.ToString()),
-                            new XAttribute("DV", oCliente.Fields.Item("DV").Value.ToString()),
-                            new XAttribute("RazonSocial", oCliente.Fields.Item("RazonSocial").Value.ToString()),
-                            new XAttribute("NombreComercial", oCliente.Fields.Item("NombreComercial").Value.ToString()),
-                            new XElement("Direccion",
-                                    new XAttribute("CodigoPais", oCliente_direccion.Fields.Item("CodigoPais").Value.ToString()),
-                                    new XAttribute("NombrePais", oCliente_direccion.Fields.Item("NombrePais").Value.ToString()),
-                                    new XAttribute("IdiomaPais", oCliente_direccion.Fields.Item("IdiomaPais").Value.ToString()),
-                                    new XAttribute("CodigoMunicipio", oCliente_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
-                                    new XAttribute("NombreCiudad", oCliente_direccion.Fields.Item("NombreCiudad").Value.ToString()),
-                                    new XAttribute("CodigoPostal", oCliente_direccion.Fields.Item("CodigoPostal").Value.ToString()),
-                                    new XAttribute("NombreDepartamento", oCliente_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
-                                    new XAttribute("CodigoDepartamento", oCliente_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
-                                    new XAttribute("Direccion", oCliente_direccion.Fields.Item("Direccion").Value.ToString())
-                                    ),
-                            new XElement("ObligacionesCliente",
-                                new XElement("CodigoObligacion", oCliente_ObligacionesCliente.Fields.Item("CodigoObligacion").Value.ToString())
-                                ),
-                            new XElement("DireccionFiscal",
-                                new XAttribute("CodigoPais", oCliente_DireccionFiscal.Fields.Item("CodigoPais").Value.ToString()),
-                                new XAttribute("NombrePais", oCliente_DireccionFiscal.Fields.Item("NombrePais").Value.ToString()),
-                                new XAttribute("IdiomaPais", oCliente_DireccionFiscal.Fields.Item("IdiomaPais").Value.ToString()),
-                                new XAttribute("CodigoMunicipio", oCliente_DireccionFiscal.Fields.Item("CodigoMunicipio").Value.ToString()),
-                                new XAttribute("NombreCiudad", oCliente_DireccionFiscal.Fields.Item("NombreCiudad").Value.ToString()),
-                                new XAttribute("CodigoPostal", oCliente_DireccionFiscal.Fields.Item("CodigoPostal").Value.ToString()),
-                                new XAttribute("NombreDepartamento", oCliente_DireccionFiscal.Fields.Item("NombreDepartamento").Value.ToString()),
-                                new XAttribute("CodigoDepartamento", oCliente_DireccionFiscal.Fields.Item("CodigoDepartamento").Value.ToString()),
-                                new XAttribute("Direccion", oCliente_DireccionFiscal.Fields.Item("Direccion").Value.ToString())))
-                   )                
-            );
-
             #endregion
-            
-            #region Lineas            
 
-            // Generar elementos Linea en un bucle            
-            oLineas.MoveFirst();
-            do
+            if (oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString() == "Factura")
             {
-                XElement linea = new XElement("Linea",
-                    new XElement("Detalle",
-                        new XAttribute("Codigo", oLineas.Fields.Item("Codigo").Value.ToString()),
-                        new XAttribute("Posicion", oLineas.Fields.Item("Posicion").Value.ToString()),
-                        new XAttribute("Cantidad", oLineas.Fields.Item("Cantidad").Value.ToString()),
-                        new XAttribute("PrecioUnitario", oLineas.Fields.Item("PrecioUnitario").Value.ToString()),
-                        new XAttribute("SubTotalLinea", oLineas.Fields.Item("SubTotalLinea").Value.ToString()),
-                        new XAttribute("ValorTotalItem", oLineas.Fields.Item("ValorTotalItem").Value.ToString()),
-                        new XAttribute("UnidadMedida", oLineas.Fields.Item("UnidadMedida").Value.ToString()),
-                        new XAttribute("Descripcion", oLineas.Fields.Item("Descripcion").Value.ToString())
+                #region Genera XML Factura de venta 
+
+                #region Datos Generales
+
+                // Crear el documento XML
+                XDocument DocumentoElectronico = new XDocument(
+                    new XDeclaration("1.0", "UTF-8", "no"),
+                    new XElement(Convert.ToString(oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString()),
+                        new XElement("Cabecera",
+                            new XAttribute("Numero", oCabecera.Fields.Item("Numero").Value.ToString()),
+                            new XAttribute("FechaEmision", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
+                            new XAttribute("Vencimiento", oCabecera.Fields.Item("Vencimiento").Value.ToString()),
+                            new XAttribute("HoraEmision", oCabecera.Fields.Item("HoraEmision").Value.ToString()),
+                            new XAttribute("Observaciones", oCabecera.Fields.Item("Observaciones").Value.ToString()),
+                            new XAttribute("TipoFactura", oCabecera.Fields.Item("TipoFactura").Value.ToString()),
+                            new XAttribute("FormaDePago", oCabecera.Fields.Item("FormaDePago").Value.ToString()),
+                            new XAttribute("TipoOperacion", oCabecera.Fields.Item("TipoOperacion").Value.ToString()),
+                            new XAttribute("OrdenCompra", oCabecera.Fields.Item("OrdenCompra").Value.ToString())
+                        ),                        
+                        new XElement("NumeracionDIAN",
+                            new XAttribute("NumeroResolucion", oNumeracionDIAN.Fields.Item("NumeroResolucion").Value.ToString()),
+                            new XAttribute("FechaInicio", oNumeracionDIAN.Fields.Item("FechaInicio").Value.ToString()),
+                            new XAttribute("FechaFin", oNumeracionDIAN.Fields.Item("FechaFin").Value.ToString()),
+                            new XAttribute("PrefijoNumeracion", oNumeracionDIAN.Fields.Item("PrefijoNumeracion").Value.ToString()),
+                            new XAttribute("ConsecutivoInicial", oNumeracionDIAN.Fields.Item("ConsecutivoInicial").Value.ToString()),
+                            new XAttribute("ConsecutivoFinal", oNumeracionDIAN.Fields.Item("ConsecutivoFinal").Value.ToString())
+                        ),
+                        notificacionElement
+                        ,
+                        new XElement("Emisor",
+                            new XAttribute("TipoPersona", oEmisor.Fields.Item("TipoPersona").Value.ToString()),
+                            new XAttribute("RazonSocial", oEmisor.Fields.Item("RazonSocial").Value.ToString()),
+                            new XAttribute("TipoRegimen", oEmisor.Fields.Item("TipoRegimen").Value.ToString()),
+                            new XAttribute("TipoIdentificacion", oEmisor.Fields.Item("TipoIdentificacion").Value.ToString()),
+                            new XAttribute("Numero", oEmisor.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                            new XAttribute("DV", oEmisor.Fields.Item("DV").Value.ToString()),
+                            new XElement("NombresComerciales",
+                                new XElement("NombreComercial", oEmisor.Fields.Item("RazonSocial").Value.ToString())
+                            ),
+                            new XElement("ObligacionesEmisor",
+                                new XAttribute("CodigoObligacion", oEmisor_Obligaciones.Fields.Item("CodigoObligacion").Value.ToString())
+                            ),
+                            new XElement("TributoEmisor",
+                                new XAttribute("CodigoTributo", oEmisor_Tributo.Fields.Item("CodigoTributo").Value.ToString()),
+                                new XAttribute("NombreTributo", oEmisor_Tributo.Fields.Item("NombreTributo").Value.ToString())
+                            ),
+                            new XElement("Direccion",
+                                new XAttribute("CodigoPais", oEmisor_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                                new XAttribute("NombrePais", oEmisor_direccion.Fields.Item("NombrePais").Value.ToString()),
+                                new XAttribute("IdiomaPais", oEmisor_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                                new XAttribute("CodigoMunicipio", oEmisor_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                new XAttribute("NombreCiudad", oEmisor_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                                new XAttribute("CodigoPostal", oEmisor_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                                new XAttribute("NombreDepartamento", oEmisor_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                                new XAttribute("CodigoDepartamento", oEmisor_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                new XAttribute("Direccion", oEmisor_direccion.Fields.Item("Direccion").Value.ToString())
+                            )),
+                            new XElement("Cliente",
+                                new XAttribute("TipoPersona", oCliente.Fields.Item("TipoPersona").Value.ToString()),
+                                new XAttribute("TipoRegimen", oCliente.Fields.Item("TipoRegimen").Value.ToString()),
+                                new XAttribute("TipoIdentificacion", oCliente.Fields.Item("TipoIdentificacion").Value.ToString()),
+                                new XAttribute("NumeroIdentificacion", oCliente.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                                new XAttribute("DV", oCliente.Fields.Item("DV").Value.ToString()),
+                                new XAttribute("RazonSocial", oCliente.Fields.Item("RazonSocial").Value.ToString()),
+                                new XAttribute("NombreComercial", oCliente.Fields.Item("NombreComercial").Value.ToString()),
+                                new XElement("Direccion",
+                                        new XAttribute("CodigoPais", oCliente_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                                        new XAttribute("NombrePais", oCliente_direccion.Fields.Item("NombrePais").Value.ToString()),
+                                        new XAttribute("IdiomaPais", oCliente_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                                        new XAttribute("CodigoMunicipio", oCliente_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                        new XAttribute("NombreCiudad", oCliente_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                                        new XAttribute("CodigoPostal", oCliente_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                                        new XAttribute("NombreDepartamento", oCliente_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                                        new XAttribute("CodigoDepartamento", oCliente_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                        new XAttribute("Direccion", oCliente_direccion.Fields.Item("Direccion").Value.ToString())
+                                        ),
+                                new XElement("ObligacionesCliente",
+                                    new XElement("CodigoObligacion", oCliente_ObligacionesCliente.Fields.Item("CodigoObligacion").Value.ToString())
+                                    ),
+                                new XElement("DireccionFiscal",
+                                    new XAttribute("CodigoPais", oCliente_DireccionFiscal.Fields.Item("CodigoPais").Value.ToString()),
+                                    new XAttribute("NombrePais", oCliente_DireccionFiscal.Fields.Item("NombrePais").Value.ToString()),
+                                    new XAttribute("IdiomaPais", oCliente_DireccionFiscal.Fields.Item("IdiomaPais").Value.ToString()),
+                                    new XAttribute("CodigoMunicipio", oCliente_DireccionFiscal.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                    new XAttribute("NombreCiudad", oCliente_DireccionFiscal.Fields.Item("NombreCiudad").Value.ToString()),
+                                    new XAttribute("CodigoPostal", oCliente_DireccionFiscal.Fields.Item("CodigoPostal").Value.ToString()),
+                                    new XAttribute("NombreDepartamento", oCliente_DireccionFiscal.Fields.Item("NombreDepartamento").Value.ToString()),
+                                    new XAttribute("CodigoDepartamento", oCliente_DireccionFiscal.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                    new XAttribute("Direccion", oCliente_DireccionFiscal.Fields.Item("Direccion").Value.ToString())))
+                       )
+                );
+
+                #endregion
+
+                #region Lineas            
+
+                // Generar elementos Linea en un bucle            
+                oLineas.MoveFirst();
+                do
+                {
+                    XElement linea = new XElement("Linea",
+                        new XElement("Detalle",
+                            new XAttribute("Codigo", oLineas.Fields.Item("Codigo").Value.ToString()),
+                            new XAttribute("Posicion", oLineas.Fields.Item("Posicion").Value.ToString()),
+                            new XAttribute("Cantidad", oLineas.Fields.Item("Cantidad").Value.ToString()),
+                            new XAttribute("PrecioUnitario", oLineas.Fields.Item("PrecioUnitario").Value.ToString()),
+                            new XAttribute("SubTotalLinea", oLineas.Fields.Item("SubTotalLinea").Value.ToString()),
+                            new XAttribute("ValorTotalItem", oLineas.Fields.Item("ValorTotalItem").Value.ToString()),
+                            new XAttribute("UnidadMedida", oLineas.Fields.Item("UnidadMedida").Value.ToString()),
+                            new XAttribute("Descripcion", oLineas.Fields.Item("Descripcion").Value.ToString())
+                        ),
+                        new XElement("Impuestos",
+                            new XElement("Impuesto",
+                                new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString()),
+                                new XAttribute("Tipo", oLineas.Fields.Item("Impuesto_Tipo").Value.ToString()),
+                                new XAttribute("Nombre", oLineas.Fields.Item("Impuesto_Nombre").Value.ToString()),
+                                new XAttribute("Redondeo", oLineas.Fields.Item("Impuesto_Redondeo").Value.ToString()),
+                                new XElement("Subtotal",
+                                    new XAttribute("ValorBase", oLineas.Fields.Item("Impuesto_ValorBase").Value.ToString()),
+                                    new XAttribute("Porcentaje", oLineas.Fields.Item("Impuesto_Porcentaje").Value.ToString()),
+                                    new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString())
+                                )
+                            )
+                        ),
+                        new XElement("Descuento"),
+                        new XElement("Cargo"),
+                        new XElement("ItemsAdicionales"),
+                        new XElement("DatosAdicionales",
+                            new XElement("campoAdicional",
+                                new XAttribute("Nombre", "PrecioUnitarioLineaUSD"),
+                                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_PrecioUnitarioLineaUSD").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("Nombre", "ITLinea1"),
+                                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_ITLinea1").Value.ToString()))
+                        )
+                    );
+
+                    DocumentoElectronico.Root.Add(linea);
+                    oLineas.MoveNext();
+                } while (oLineas.EoF == false); // Cambiar la condición según sea necesario
+
+                #endregion
+
+                #region Datos Finales
+
+                //string sValorEnLetras = ConvertirValorALetras(Convert.ToInt32(oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString()));
+
+                // Agregar otros elementos
+                DocumentoElectronico.Root.Add(
+                    new XElement("TasaDeCambioAlterna",
+                        new XAttribute("MonedaOrigen", ""),
+                        new XAttribute("MonedaDestino", ""),
+                        new XAttribute("ValorTasaDeCambio", ""),
+                        new XAttribute("FechaTasaCambioAlterna", "")
                     ),
                     new XElement("Impuestos",
                         new XElement("Impuesto",
-                            new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString()),
-                            new XAttribute("Tipo", oLineas.Fields.Item("Impuesto_Tipo").Value.ToString()),
-                            new XAttribute("Nombre", oLineas.Fields.Item("Impuesto_Nombre").Value.ToString()),
-                            new XAttribute("Redondeo", oLineas.Fields.Item("Impuesto_Redondeo").Value.ToString()),
+                            new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString()),
+                            new XAttribute("Tipo", oImpuestos.Fields.Item("Tipo").Value.ToString()),
+                            new XAttribute("Nombre", oImpuestos.Fields.Item("Nombre").Value.ToString()),
+                            new XAttribute("Redondeo", oImpuestos.Fields.Item("Redondeo").Value.ToString()),
                             new XElement("Subtotal",
-                                new XAttribute("ValorBase", oLineas.Fields.Item("Impuesto_ValorBase").Value.ToString()),
-                                new XAttribute("Porcentaje", oLineas.Fields.Item("Impuesto_Porcentaje").Value.ToString()),
-                                new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString())
+                                new XAttribute("ValorBase", oImpuestos.Fields.Item("ValorBase").Value.ToString()),
+                                new XAttribute("Porcentaje", oImpuestos.Fields.Item("Porcentaje").Value.ToString()),
+                                new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString())
                             )
                         )
                     ),
-                    new XElement("Descuento"),
-                    new XElement("Cargo"),
-                    new XElement("ItemsAdicionales"),
-                    new XElement("DatosAdicionales",
-                        new XElement("campoAdicional", 
-                            new XAttribute("Nombre", "PrecioUnitarioLineaUSD"), 
-                            new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_PrecioUnitarioLineaUSD").Value.ToString())),
-                        new XElement("campoAdicional", 
-                            new XAttribute("Nombre", "ITLinea1"), 
-                            new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_ITLinea1").Value.ToString()))
+                    new XElement("Retenciones"),
+                    new XElement("DescuentosOCargos"),
+                    new XElement("Generales"),
+                    new XElement("Totales",
+                        new XAttribute("Bruto", oTotales.Fields.Item("Bruto").Value.ToString()),
+                        new XAttribute("BaseImponible", oTotales.Fields.Item("BaseImponible").Value.ToString()),
+                        new XAttribute("BrutoMasImpuestos", oTotales.Fields.Item("BrutoMasImpuestos").Value.ToString()),
+                        new XAttribute("Impuestos", oTotales.Fields.Item("Impuestos").Value.ToString()),
+                        new XAttribute("Descuentos", oTotales.Fields.Item("Descuentos").Value.ToString()),
+                        new XAttribute("Retenciones", oTotales.Fields.Item("Retenciones").Value.ToString()),
+                        new XAttribute("Cargos", oTotales.Fields.Item("Cargos").Value.ToString()),
+                        new XAttribute("General", oTotales.Fields.Item("General").Value.ToString()),
+                        new XAttribute("Anticipo", oTotales.Fields.Item("Anticipo").Value.ToString()),
+                        new XAttribute("Redondeo", oTotales.Fields.Item("Redondeo").Value.ToString()),
+                        new XAttribute("TotalReteIva", oTotales.Fields.Item("TotalReteIva").Value.ToString()),
+                        new XAttribute("TotalReteFuente", oTotales.Fields.Item("TotalReteFuente").Value.ToString()),
+                        new XAttribute("TotalReteIca", oTotales.Fields.Item("TotalReteIca").Value.ToString())
+                    ),
+                    new XElement("Extensiones",
+                        new XElement("DatosAdicionales",
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "SubTotal"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("SubTotal").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "Total"),
+                                    new XAttribute("valor", oCamposAdicionales.Fields.Item("Total").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "NetoAPagar"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("NetoAPagar").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "ValorTotalDocumento"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "Condiciones"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("Condiciones").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "vendedor"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("Vendedor").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "PuntoVenta"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("PuntoVenta").Value.ToString()))
+                        )
                     )
                 );
 
-                DocumentoElectronico.Root.Add(linea);
-                oLineas.MoveNext();
-            } while (oLineas.EoF == false); // Cambiar la condición según sea necesario
+                #endregion
 
-            #endregion
+                // Guardar el XML en disco
+                sRutaXML = sRutaXML.Replace(".txt", ".xml");
+                DocumentoElectronico.Save(sRutaXML);
 
-            #region Datos Finales
+                #endregion
 
-            //string sValorEnLetras = ConvertirValorALetras(Convert.ToInt32(oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString()));
+                return sRutaXML;
+            }
+            else if (oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString() == "NotaCredito")
+            {
 
-            // Agregar otros elementos
-            DocumentoElectronico.Root.Add(
-                new XElement("TasaDeCambioAlterna",
-                    new XAttribute("MonedaOrigen", ""),
-                    new XAttribute("MonedaDestino", ""),
-                    new XAttribute("ValorTasaDeCambio", ""),
-                    new XAttribute("FechaTasaCambioAlterna", "")
-                ),
-                new XElement("Impuestos",
-                    new XElement("Impuesto",
-                        new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString()),
-                        new XAttribute("Tipo", oImpuestos.Fields.Item("Tipo").Value.ToString()),
-                        new XAttribute("Nombre", oImpuestos.Fields.Item("Nombre").Value.ToString()),
-                        new XAttribute("Redondeo", oImpuestos.Fields.Item("Redondeo").Value.ToString()),
-                        new XElement("Subtotal",
-                            new XAttribute("ValorBase", oImpuestos.Fields.Item("ValorBase").Value.ToString()),
-                            new XAttribute("Porcentaje", oImpuestos.Fields.Item("Porcentaje").Value.ToString()),
-                            new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString())
+                #region Creacion ElementoXML Periodo Facturado
+
+                XElement PeriodoFacturadoElement = new XElement("PeriodoFacturado",
+                    new XAttribute("FechaInicio", oPeriodoFacturado.Fields.Item("FechaInicio").Value.ToString()),
+                    new XAttribute("FechaFin", oPeriodoFacturado.Fields.Item("FechaFin").Value.ToString())
+                    );
+
+                #endregion
+
+                #region Genera XML Nota credito de venta
+
+                #region Datos Generales
+
+                // Crear el documento XML
+                XDocument DocumentoElectronico = new XDocument(
+                    new XDeclaration("1.0", "UTF-8", "no"),
+                    new XElement(Convert.ToString(oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString()),
+                        new XElement("Cabecera",
+                            new XAttribute("Numero", oCabecera.Fields.Item("Numero").Value.ToString()),
+                            new XAttribute("FechaEmision", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
+                            new XAttribute("Vencimiento", oCabecera.Fields.Item("Vencimiento").Value.ToString()),
+                            new XAttribute("HoraEmision", oCabecera.Fields.Item("HoraEmision").Value.ToString()),
+                            new XAttribute("Observaciones", oCabecera.Fields.Item("Observaciones").Value.ToString()),
+                            new XAttribute("TipoFactura", oCabecera.Fields.Item("TipoFactura").Value.ToString()),
+                            new XAttribute("FormaDePago", oCabecera.Fields.Item("FormaDePago").Value.ToString()),
+                            new XAttribute("TipoOperacion", oCabecera.Fields.Item("TipoOperacion").Value.ToString()),
+                            new XAttribute("OrdenCompra", oCabecera.Fields.Item("OrdenCompra").Value.ToString())
+                        ),
+                        PeriodoFacturadoElement
+                        ,
+                        new XElement("NumeracionDIAN",
+                            new XAttribute("NumeroResolucion", oNumeracionDIAN.Fields.Item("NumeroResolucion").Value.ToString()),
+                            new XAttribute("FechaInicio", oNumeracionDIAN.Fields.Item("FechaInicio").Value.ToString()),
+                            new XAttribute("FechaFin", oNumeracionDIAN.Fields.Item("FechaFin").Value.ToString()),
+                            new XAttribute("PrefijoNumeracion", oNumeracionDIAN.Fields.Item("PrefijoNumeracion").Value.ToString()),
+                            new XAttribute("ConsecutivoInicial", oNumeracionDIAN.Fields.Item("ConsecutivoInicial").Value.ToString()),
+                            new XAttribute("ConsecutivoFinal", oNumeracionDIAN.Fields.Item("ConsecutivoFinal").Value.ToString())
+                        ),
+                        notificacionElement
+                        ,
+                        new XElement("Emisor",
+                            new XAttribute("TipoPersona", oEmisor.Fields.Item("TipoPersona").Value.ToString()),
+                            new XAttribute("RazonSocial", oEmisor.Fields.Item("RazonSocial").Value.ToString()),
+                            new XAttribute("TipoRegimen", oEmisor.Fields.Item("TipoRegimen").Value.ToString()),
+                            new XAttribute("TipoIdentificacion", oEmisor.Fields.Item("TipoIdentificacion").Value.ToString()),
+                            new XAttribute("Numero", oEmisor.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                            new XAttribute("DV", oEmisor.Fields.Item("DV").Value.ToString()),
+                            new XElement("NombresComerciales",
+                                new XElement("NombreComercial", oEmisor.Fields.Item("RazonSocial").Value.ToString())
+                            ),
+                            new XElement("ObligacionesEmisor",
+                                new XAttribute("CodigoObligacion", oEmisor_Obligaciones.Fields.Item("CodigoObligacion").Value.ToString())
+                            ),
+                            new XElement("TributoEmisor",
+                                new XAttribute("CodigoTributo", oEmisor_Tributo.Fields.Item("CodigoTributo").Value.ToString()),
+                                new XAttribute("NombreTributo", oEmisor_Tributo.Fields.Item("NombreTributo").Value.ToString())
+                            ),
+                            new XElement("Direccion",
+                                new XAttribute("CodigoPais", oEmisor_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                                new XAttribute("NombrePais", oEmisor_direccion.Fields.Item("NombrePais").Value.ToString()),
+                                new XAttribute("IdiomaPais", oEmisor_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                                new XAttribute("CodigoMunicipio", oEmisor_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                new XAttribute("NombreCiudad", oEmisor_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                                new XAttribute("CodigoPostal", oEmisor_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                                new XAttribute("NombreDepartamento", oEmisor_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                                new XAttribute("CodigoDepartamento", oEmisor_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                new XAttribute("Direccion", oEmisor_direccion.Fields.Item("Direccion").Value.ToString())
+                            )),
+                            new XElement("Cliente",
+                                new XAttribute("TipoPersona", oCliente.Fields.Item("TipoPersona").Value.ToString()),
+                                new XAttribute("TipoRegimen", oCliente.Fields.Item("TipoRegimen").Value.ToString()),
+                                new XAttribute("TipoIdentificacion", oCliente.Fields.Item("TipoIdentificacion").Value.ToString()),
+                                new XAttribute("NumeroIdentificacion", oCliente.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                                new XAttribute("DV", oCliente.Fields.Item("DV").Value.ToString()),
+                                new XAttribute("RazonSocial", oCliente.Fields.Item("RazonSocial").Value.ToString()),
+                                new XAttribute("NombreComercial", oCliente.Fields.Item("NombreComercial").Value.ToString()),
+                                new XElement("Direccion",
+                                        new XAttribute("CodigoPais", oCliente_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                                        new XAttribute("NombrePais", oCliente_direccion.Fields.Item("NombrePais").Value.ToString()),
+                                        new XAttribute("IdiomaPais", oCliente_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                                        new XAttribute("CodigoMunicipio", oCliente_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                        new XAttribute("NombreCiudad", oCliente_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                                        new XAttribute("CodigoPostal", oCliente_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                                        new XAttribute("NombreDepartamento", oCliente_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                                        new XAttribute("CodigoDepartamento", oCliente_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                        new XAttribute("Direccion", oCliente_direccion.Fields.Item("Direccion").Value.ToString())
+                                        ),
+                                new XElement("ObligacionesCliente",
+                                    new XElement("CodigoObligacion", oCliente_ObligacionesCliente.Fields.Item("CodigoObligacion").Value.ToString())
+                                    ),
+                                new XElement("DireccionFiscal",
+                                    new XAttribute("CodigoPais", oCliente_DireccionFiscal.Fields.Item("CodigoPais").Value.ToString()),
+                                    new XAttribute("NombrePais", oCliente_DireccionFiscal.Fields.Item("NombrePais").Value.ToString()),
+                                    new XAttribute("IdiomaPais", oCliente_DireccionFiscal.Fields.Item("IdiomaPais").Value.ToString()),
+                                    new XAttribute("CodigoMunicipio", oCliente_DireccionFiscal.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                    new XAttribute("NombreCiudad", oCliente_DireccionFiscal.Fields.Item("NombreCiudad").Value.ToString()),
+                                    new XAttribute("CodigoPostal", oCliente_DireccionFiscal.Fields.Item("CodigoPostal").Value.ToString()),
+                                    new XAttribute("NombreDepartamento", oCliente_DireccionFiscal.Fields.Item("NombreDepartamento").Value.ToString()),
+                                    new XAttribute("CodigoDepartamento", oCliente_DireccionFiscal.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                    new XAttribute("Direccion", oCliente_DireccionFiscal.Fields.Item("Direccion").Value.ToString())))
+                       )
+                );
+
+                #endregion
+
+                #region Lineas            
+
+                // Generar elementos Linea en un bucle            
+                oLineas.MoveFirst();
+                do
+                {
+                    XElement linea = new XElement("Linea",
+                        new XElement("Detalle",
+                            new XAttribute("Codigo", oLineas.Fields.Item("Codigo").Value.ToString()),
+                            new XAttribute("Posicion", oLineas.Fields.Item("Posicion").Value.ToString()),
+                            new XAttribute("Cantidad", oLineas.Fields.Item("Cantidad").Value.ToString()),
+                            new XAttribute("PrecioUnitario", oLineas.Fields.Item("PrecioUnitario").Value.ToString()),
+                            new XAttribute("SubTotalLinea", oLineas.Fields.Item("SubTotalLinea").Value.ToString()),
+                            new XAttribute("ValorTotalItem", oLineas.Fields.Item("ValorTotalItem").Value.ToString()),
+                            new XAttribute("UnidadMedida", oLineas.Fields.Item("UnidadMedida").Value.ToString()),
+                            new XAttribute("Descripcion", oLineas.Fields.Item("Descripcion").Value.ToString())
+                        ),
+                        new XElement("Impuestos",
+                            new XElement("Impuesto",
+                                new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString()),
+                                new XAttribute("Tipo", oLineas.Fields.Item("Impuesto_Tipo").Value.ToString()),
+                                new XAttribute("Nombre", oLineas.Fields.Item("Impuesto_Nombre").Value.ToString()),
+                                new XAttribute("Redondeo", oLineas.Fields.Item("Impuesto_Redondeo").Value.ToString()),
+                                new XElement("Subtotal",
+                                    new XAttribute("ValorBase", oLineas.Fields.Item("Impuesto_ValorBase").Value.ToString()),
+                                    new XAttribute("Porcentaje", oLineas.Fields.Item("Impuesto_Porcentaje").Value.ToString()),
+                                    new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString())
+                                )
+                            )
+                        ),
+                        new XElement("Descuento"),
+                        new XElement("Cargo"),
+                        new XElement("ItemsAdicionales"),
+                        new XElement("DatosAdicionales",
+                            new XElement("campoAdicional",
+                                new XAttribute("Nombre", "PrecioUnitarioLineaUSD"),
+                                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_PrecioUnitarioLineaUSD").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("Nombre", "ITLinea1"),
+                                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_ITLinea1").Value.ToString()))
+                        )
+                    );
+
+                    DocumentoElectronico.Root.Add(linea);
+                    oLineas.MoveNext();
+                } while (oLineas.EoF == false); // Cambiar la condición según sea necesario
+
+                #endregion
+
+                #region Datos Finales
+
+                //string sValorEnLetras = ConvertirValorALetras(Convert.ToInt32(oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString()));
+
+                // Agregar otros elementos
+                DocumentoElectronico.Root.Add(
+                    new XElement("TasaDeCambioAlterna",
+                        new XAttribute("MonedaOrigen", ""),
+                        new XAttribute("MonedaDestino", ""),
+                        new XAttribute("ValorTasaDeCambio", ""),
+                        new XAttribute("FechaTasaCambioAlterna", "")
+                    ),
+                    new XElement("Impuestos",
+                        new XElement("Impuesto",
+                            new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString()),
+                            new XAttribute("Tipo", oImpuestos.Fields.Item("Tipo").Value.ToString()),
+                            new XAttribute("Nombre", oImpuestos.Fields.Item("Nombre").Value.ToString()),
+                            new XAttribute("Redondeo", oImpuestos.Fields.Item("Redondeo").Value.ToString()),
+                            new XElement("Subtotal",
+                                new XAttribute("ValorBase", oImpuestos.Fields.Item("ValorBase").Value.ToString()),
+                                new XAttribute("Porcentaje", oImpuestos.Fields.Item("Porcentaje").Value.ToString()),
+                                new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString())
+                            )
+                        )
+                    ),
+                    new XElement("Retenciones"),
+                    new XElement("DescuentosOCargos"),
+                    new XElement("Generales"),
+                    new XElement("Totales",
+                        new XAttribute("Bruto", oTotales.Fields.Item("Bruto").Value.ToString()),
+                        new XAttribute("BaseImponible", oTotales.Fields.Item("BaseImponible").Value.ToString()),
+                        new XAttribute("BrutoMasImpuestos", oTotales.Fields.Item("BrutoMasImpuestos").Value.ToString()),
+                        new XAttribute("Impuestos", oTotales.Fields.Item("Impuestos").Value.ToString()),
+                        new XAttribute("Descuentos", oTotales.Fields.Item("Descuentos").Value.ToString()),
+                        new XAttribute("Retenciones", oTotales.Fields.Item("Retenciones").Value.ToString()),
+                        new XAttribute("Cargos", oTotales.Fields.Item("Cargos").Value.ToString()),
+                        new XAttribute("General", oTotales.Fields.Item("General").Value.ToString()),
+                        new XAttribute("Anticipo", oTotales.Fields.Item("Anticipo").Value.ToString()),
+                        new XAttribute("Redondeo", oTotales.Fields.Item("Redondeo").Value.ToString()),
+                        new XAttribute("TotalReteIva", oTotales.Fields.Item("TotalReteIva").Value.ToString()),
+                        new XAttribute("TotalReteFuente", oTotales.Fields.Item("TotalReteFuente").Value.ToString()),
+                        new XAttribute("TotalReteIca", oTotales.Fields.Item("TotalReteIca").Value.ToString())
+                    ),
+                    new XElement("Extensiones",
+                        new XElement("DatosAdicionales",
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "SubTotal"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("SubTotal").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "Total"),
+                                    new XAttribute("valor", oCamposAdicionales.Fields.Item("Total").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "NetoAPagar"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("NetoAPagar").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "ValorTotalDocumento"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "Condiciones"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("Condiciones").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "vendedor"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("Vendedor").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "PuntoVenta"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("PuntoVenta").Value.ToString()))
                         )
                     )
-                ),
-                new XElement("Retenciones"),
-                new XElement("DescuentosOCargos"),
-                new XElement("Generales"),
-                new XElement("Totales",
-                    new XAttribute("Bruto", oTotales.Fields.Item("Bruto").Value.ToString()),
-                    new XAttribute("BaseImponible", oTotales.Fields.Item("BaseImponible").Value.ToString()),
-                    new XAttribute("BrutoMasImpuestos", oTotales.Fields.Item("BrutoMasImpuestos").Value.ToString()),
-                    new XAttribute("Impuestos", oTotales.Fields.Item("Impuestos").Value.ToString()),
-                    new XAttribute("Descuentos", oTotales.Fields.Item("Descuentos").Value.ToString()),
-                    new XAttribute("Retenciones", oTotales.Fields.Item("Retenciones").Value.ToString()),
-                    new XAttribute("Cargos", oTotales.Fields.Item("Cargos").Value.ToString()),
-                    new XAttribute("General", oTotales.Fields.Item("General").Value.ToString()),
-                    new XAttribute("Anticipo", oTotales.Fields.Item("Anticipo").Value.ToString()),
-                    new XAttribute("Redondeo", oTotales.Fields.Item("Redondeo").Value.ToString()),
-                    new XAttribute("TotalReteIva", oTotales.Fields.Item("TotalReteIva").Value.ToString()),
-                    new XAttribute("TotalReteFuente", oTotales.Fields.Item("TotalReteFuente").Value.ToString()),
-                    new XAttribute("TotalReteIca", oTotales.Fields.Item("TotalReteIca").Value.ToString())
-                ),
-                new XElement("Extensiones",
-                    new XElement("DatosAdicionales",
-                        new XElement("campoAdicional", 
-                            new XAttribute("nombre", "SubTotal"), 
-                            new XAttribute("valor", oCamposAdicionales.Fields.Item("SubTotal").Value.ToString())),
-                        new XElement("campoAdicional", 
-                            new XAttribute("nombre", "Total"), 
-                                new XAttribute("valor", oCamposAdicionales.Fields.Item("Total").Value.ToString())),
-                        new XElement("campoAdicional", 
-                            new XAttribute("nombre", "NetoAPagar"), 
-                            new XAttribute("valor", oCamposAdicionales.Fields.Item("NetoAPagar").Value.ToString())),
-                        new XElement("campoAdicional", 
-                            new XAttribute("nombre",   "ValorTotalDocumento"), 
-                            new XAttribute("valor", oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString())),
-                        new XElement("campoAdicional", 
-                            new XAttribute("nombre", "Condiciones"), 
-                            new XAttribute("valor", oCamposAdicionales.Fields.Item("Condiciones").Value.ToString())),
-                        new XElement("campoAdicional", 
-                            new XAttribute("nombre", "vendedor"), 
-                            new XAttribute("valor", oCamposAdicionales.Fields.Item("Vendedor").Value.ToString())),
-                        new XElement("campoAdicional", 
-                            new XAttribute("nombre", "PuntoVenta"), 
-                            new XAttribute("valor", oCamposAdicionales.Fields.Item("PuntoVenta").Value.ToString()))
+                );
+
+                #endregion
+
+                // Guardar el XML en disco
+                sRutaXML = sRutaXML.Replace(".txt", ".xml");
+                DocumentoElectronico.Save(sRutaXML);
+
+                #endregion
+
+                return sRutaXML;
+
+            }
+            else if (oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString() == "NotaDebito")
+            {
+                #region Creacion ElementoXML Periodo Facturado
+
+                XElement PeriodoFacturadoElement = new XElement("PeriodoFacturado",
+                    new XAttribute("FechaInicio", oPeriodoFacturado.Fields.Item("FechaInicio").Value.ToString()),
+                    new XAttribute("FechaFin", oPeriodoFacturado.Fields.Item("FechaFin").Value.ToString())
+                    );
+
+                #endregion
+                
+                #region Genera XML Nota debito de cliente
+
+                #region Datos Generales
+
+                // Crear el documento XML
+                XDocument DocumentoElectronico = new XDocument(
+                    new XDeclaration("1.0", "UTF-8", "no"),
+                    new XElement(Convert.ToString(oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString()),
+                        new XElement("Cabecera",
+                            new XAttribute("Numero", oCabecera.Fields.Item("Numero").Value.ToString()),
+                            new XAttribute("FechaEmision", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
+                            new XAttribute("Vencimiento", oCabecera.Fields.Item("Vencimiento").Value.ToString()),
+                            new XAttribute("HoraEmision", oCabecera.Fields.Item("HoraEmision").Value.ToString()),
+                            new XAttribute("Observaciones", oCabecera.Fields.Item("Observaciones").Value.ToString()),
+                            new XAttribute("TipoFactura", oCabecera.Fields.Item("TipoFactura").Value.ToString()),
+                            new XAttribute("FormaDePago", oCabecera.Fields.Item("FormaDePago").Value.ToString()),
+                            new XAttribute("TipoOperacion", oCabecera.Fields.Item("TipoOperacion").Value.ToString()),
+                            new XAttribute("OrdenCompra", oCabecera.Fields.Item("OrdenCompra").Value.ToString())
+                        ),
+                        PeriodoFacturadoElement
+                        ,
+                        new XElement("NumeracionDIAN",
+                            new XAttribute("NumeroResolucion", oNumeracionDIAN.Fields.Item("NumeroResolucion").Value.ToString()),
+                            new XAttribute("FechaInicio", oNumeracionDIAN.Fields.Item("FechaInicio").Value.ToString()),
+                            new XAttribute("FechaFin", oNumeracionDIAN.Fields.Item("FechaFin").Value.ToString()),
+                            new XAttribute("PrefijoNumeracion", oNumeracionDIAN.Fields.Item("PrefijoNumeracion").Value.ToString()),
+                            new XAttribute("ConsecutivoInicial", oNumeracionDIAN.Fields.Item("ConsecutivoInicial").Value.ToString()),
+                            new XAttribute("ConsecutivoFinal", oNumeracionDIAN.Fields.Item("ConsecutivoFinal").Value.ToString())
+                        ),
+                        notificacionElement
+                        ,
+                        new XElement("Emisor",
+                            new XAttribute("TipoPersona", oEmisor.Fields.Item("TipoPersona").Value.ToString()),
+                            new XAttribute("RazonSocial", oEmisor.Fields.Item("RazonSocial").Value.ToString()),
+                            new XAttribute("TipoRegimen", oEmisor.Fields.Item("TipoRegimen").Value.ToString()),
+                            new XAttribute("TipoIdentificacion", oEmisor.Fields.Item("TipoIdentificacion").Value.ToString()),
+                            new XAttribute("Numero", oEmisor.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                            new XAttribute("DV", oEmisor.Fields.Item("DV").Value.ToString()),
+                            new XElement("NombresComerciales",
+                                new XElement("NombreComercial", oEmisor.Fields.Item("RazonSocial").Value.ToString())
+                            ),
+                            new XElement("ObligacionesEmisor",
+                                new XAttribute("CodigoObligacion", oEmisor_Obligaciones.Fields.Item("CodigoObligacion").Value.ToString())
+                            ),
+                            new XElement("TributoEmisor",
+                                new XAttribute("CodigoTributo", oEmisor_Tributo.Fields.Item("CodigoTributo").Value.ToString()),
+                                new XAttribute("NombreTributo", oEmisor_Tributo.Fields.Item("NombreTributo").Value.ToString())
+                            ),
+                            new XElement("Direccion",
+                                new XAttribute("CodigoPais", oEmisor_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                                new XAttribute("NombrePais", oEmisor_direccion.Fields.Item("NombrePais").Value.ToString()),
+                                new XAttribute("IdiomaPais", oEmisor_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                                new XAttribute("CodigoMunicipio", oEmisor_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                new XAttribute("NombreCiudad", oEmisor_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                                new XAttribute("CodigoPostal", oEmisor_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                                new XAttribute("NombreDepartamento", oEmisor_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                                new XAttribute("CodigoDepartamento", oEmisor_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                new XAttribute("Direccion", oEmisor_direccion.Fields.Item("Direccion").Value.ToString())
+                            )),
+                            new XElement("Cliente",
+                                new XAttribute("TipoPersona", oCliente.Fields.Item("TipoPersona").Value.ToString()),
+                                new XAttribute("TipoRegimen", oCliente.Fields.Item("TipoRegimen").Value.ToString()),
+                                new XAttribute("TipoIdentificacion", oCliente.Fields.Item("TipoIdentificacion").Value.ToString()),
+                                new XAttribute("NumeroIdentificacion", oCliente.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                                new XAttribute("DV", oCliente.Fields.Item("DV").Value.ToString()),
+                                new XAttribute("RazonSocial", oCliente.Fields.Item("RazonSocial").Value.ToString()),
+                                new XAttribute("NombreComercial", oCliente.Fields.Item("NombreComercial").Value.ToString()),
+                                new XElement("Direccion",
+                                        new XAttribute("CodigoPais", oCliente_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                                        new XAttribute("NombrePais", oCliente_direccion.Fields.Item("NombrePais").Value.ToString()),
+                                        new XAttribute("IdiomaPais", oCliente_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                                        new XAttribute("CodigoMunicipio", oCliente_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                        new XAttribute("NombreCiudad", oCliente_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                                        new XAttribute("CodigoPostal", oCliente_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                                        new XAttribute("NombreDepartamento", oCliente_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                                        new XAttribute("CodigoDepartamento", oCliente_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                        new XAttribute("Direccion", oCliente_direccion.Fields.Item("Direccion").Value.ToString())
+                                        ),
+                                new XElement("ObligacionesCliente",
+                                    new XElement("CodigoObligacion", oCliente_ObligacionesCliente.Fields.Item("CodigoObligacion").Value.ToString())
+                                    ),
+                                new XElement("DireccionFiscal",
+                                    new XAttribute("CodigoPais", oCliente_DireccionFiscal.Fields.Item("CodigoPais").Value.ToString()),
+                                    new XAttribute("NombrePais", oCliente_DireccionFiscal.Fields.Item("NombrePais").Value.ToString()),
+                                    new XAttribute("IdiomaPais", oCliente_DireccionFiscal.Fields.Item("IdiomaPais").Value.ToString()),
+                                    new XAttribute("CodigoMunicipio", oCliente_DireccionFiscal.Fields.Item("CodigoMunicipio").Value.ToString()),
+                                    new XAttribute("NombreCiudad", oCliente_DireccionFiscal.Fields.Item("NombreCiudad").Value.ToString()),
+                                    new XAttribute("CodigoPostal", oCliente_DireccionFiscal.Fields.Item("CodigoPostal").Value.ToString()),
+                                    new XAttribute("NombreDepartamento", oCliente_DireccionFiscal.Fields.Item("NombreDepartamento").Value.ToString()),
+                                    new XAttribute("CodigoDepartamento", oCliente_DireccionFiscal.Fields.Item("CodigoDepartamento").Value.ToString()),
+                                    new XAttribute("Direccion", oCliente_DireccionFiscal.Fields.Item("Direccion").Value.ToString())))
+                       )
+                );
+
+                #endregion
+
+                #region Lineas            
+
+                // Generar elementos Linea en un bucle            
+                oLineas.MoveFirst();
+                do
+                {
+                    XElement linea = new XElement("Linea",
+                        new XElement("Detalle",
+                            new XAttribute("Codigo", oLineas.Fields.Item("Codigo").Value.ToString()),
+                            new XAttribute("Posicion", oLineas.Fields.Item("Posicion").Value.ToString()),
+                            new XAttribute("Cantidad", oLineas.Fields.Item("Cantidad").Value.ToString()),
+                            new XAttribute("PrecioUnitario", oLineas.Fields.Item("PrecioUnitario").Value.ToString()),
+                            new XAttribute("SubTotalLinea", oLineas.Fields.Item("SubTotalLinea").Value.ToString()),
+                            new XAttribute("ValorTotalItem", oLineas.Fields.Item("ValorTotalItem").Value.ToString()),
+                            new XAttribute("UnidadMedida", oLineas.Fields.Item("UnidadMedida").Value.ToString()),
+                            new XAttribute("Descripcion", oLineas.Fields.Item("Descripcion").Value.ToString())
+                        ),
+                        new XElement("Impuestos",
+                            new XElement("Impuesto",
+                                new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString()),
+                                new XAttribute("Tipo", oLineas.Fields.Item("Impuesto_Tipo").Value.ToString()),
+                                new XAttribute("Nombre", oLineas.Fields.Item("Impuesto_Nombre").Value.ToString()),
+                                new XAttribute("Redondeo", oLineas.Fields.Item("Impuesto_Redondeo").Value.ToString()),
+                                new XElement("Subtotal",
+                                    new XAttribute("ValorBase", oLineas.Fields.Item("Impuesto_ValorBase").Value.ToString()),
+                                    new XAttribute("Porcentaje", oLineas.Fields.Item("Impuesto_Porcentaje").Value.ToString()),
+                                    new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString())
+                                )
+                            )
+                        ),
+                        new XElement("Descuento"),
+                        new XElement("Cargo"),
+                        new XElement("ItemsAdicionales"),
+                        new XElement("DatosAdicionales",
+                            new XElement("campoAdicional",
+                                new XAttribute("Nombre", "PrecioUnitarioLineaUSD"),
+                                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_PrecioUnitarioLineaUSD").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("Nombre", "ITLinea1"),
+                                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_ITLinea1").Value.ToString()))
+                        )
+                    );
+
+                    DocumentoElectronico.Root.Add(linea);
+                    oLineas.MoveNext();
+                } while (oLineas.EoF == false); // Cambiar la condición según sea necesario
+
+                #endregion
+
+                #region Datos Finales
+
+                //string sValorEnLetras = ConvertirValorALetras(Convert.ToInt32(oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString()));
+
+                // Agregar otros elementos
+                DocumentoElectronico.Root.Add(
+                    new XElement("TasaDeCambioAlterna",
+                        new XAttribute("MonedaOrigen", ""),
+                        new XAttribute("MonedaDestino", ""),
+                        new XAttribute("ValorTasaDeCambio", ""),
+                        new XAttribute("FechaTasaCambioAlterna", "")
+                    ),
+                    new XElement("Impuestos",
+                        new XElement("Impuesto",
+                            new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString()),
+                            new XAttribute("Tipo", oImpuestos.Fields.Item("Tipo").Value.ToString()),
+                            new XAttribute("Nombre", oImpuestos.Fields.Item("Nombre").Value.ToString()),
+                            new XAttribute("Redondeo", oImpuestos.Fields.Item("Redondeo").Value.ToString()),
+                            new XElement("Subtotal",
+                                new XAttribute("ValorBase", oImpuestos.Fields.Item("ValorBase").Value.ToString()),
+                                new XAttribute("Porcentaje", oImpuestos.Fields.Item("Porcentaje").Value.ToString()),
+                                new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString())
+                            )
+                        )
+                    ),
+                    new XElement("Retenciones"),
+                    new XElement("DescuentosOCargos"),
+                    new XElement("Generales"),
+                    new XElement("Totales",
+                        new XAttribute("Bruto", oTotales.Fields.Item("Bruto").Value.ToString()),
+                        new XAttribute("BaseImponible", oTotales.Fields.Item("BaseImponible").Value.ToString()),
+                        new XAttribute("BrutoMasImpuestos", oTotales.Fields.Item("BrutoMasImpuestos").Value.ToString()),
+                        new XAttribute("Impuestos", oTotales.Fields.Item("Impuestos").Value.ToString()),
+                        new XAttribute("Descuentos", oTotales.Fields.Item("Descuentos").Value.ToString()),
+                        new XAttribute("Retenciones", oTotales.Fields.Item("Retenciones").Value.ToString()),
+                        new XAttribute("Cargos", oTotales.Fields.Item("Cargos").Value.ToString()),
+                        new XAttribute("General", oTotales.Fields.Item("General").Value.ToString()),
+                        new XAttribute("Anticipo", oTotales.Fields.Item("Anticipo").Value.ToString()),
+                        new XAttribute("Redondeo", oTotales.Fields.Item("Redondeo").Value.ToString()),
+                        new XAttribute("TotalReteIva", oTotales.Fields.Item("TotalReteIva").Value.ToString()),
+                        new XAttribute("TotalReteFuente", oTotales.Fields.Item("TotalReteFuente").Value.ToString()),
+                        new XAttribute("TotalReteIca", oTotales.Fields.Item("TotalReteIca").Value.ToString())
+                    ),
+                    new XElement("Extensiones",
+                        new XElement("DatosAdicionales",
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "SubTotal"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("SubTotal").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "Total"),
+                                    new XAttribute("valor", oCamposAdicionales.Fields.Item("Total").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "NetoAPagar"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("NetoAPagar").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "ValorTotalDocumento"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "Condiciones"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("Condiciones").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "vendedor"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("Vendedor").Value.ToString())),
+                            new XElement("campoAdicional",
+                                new XAttribute("nombre", "PuntoVenta"),
+                                new XAttribute("valor", oCamposAdicionales.Fields.Item("PuntoVenta").Value.ToString()))
+                        )
                     )
-                )
-            );
+                );
 
-            #endregion
+                #endregion
 
-            // Guardar el XML en disco
-            sRutaXML =  sRutaXML.Replace(".txt",".xml");
-            DocumentoElectronico.Save(sRutaXML);
+                // Guardar el XML en disco
+                sRutaXML = sRutaXML.Replace(".txt", ".xml");
+                DocumentoElectronico.Save(sRutaXML);
 
-            return sRutaXML;
+                #endregion
+
+                return sRutaXML;
+            }
+            else if (oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString() == "SoporteAdquisiciones")
+            {
+                #region Genera XML Documento Soporte
+
+                //#region Datos Generales
+
+                //// Crear el documento XML
+                //XDocument DocumentoElectronico = new XDocument(
+                //    new XDeclaration("1.0", "UTF-8", "no"),
+                //    new XElement(Convert.ToString(oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString()),
+                //        new XElement("Cabecera",
+                //            new XAttribute("Numero", oCabecera.Fields.Item("Numero").Value.ToString()),
+                //            new XAttribute("FechaEmision", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
+                //            new XAttribute("Vencimiento", oCabecera.Fields.Item("Vencimiento").Value.ToString()),
+                //            new XAttribute("HoraEmision", oCabecera.Fields.Item("HoraEmision").Value.ToString()),
+                //            new XAttribute("Observaciones", oCabecera.Fields.Item("Observaciones").Value.ToString()),
+                //            new XAttribute("TipoFactura", oCabecera.Fields.Item("TipoFactura").Value.ToString()),
+                //            new XAttribute("FormaDePago", oCabecera.Fields.Item("FormaDePago").Value.ToString()),
+                //            new XAttribute("TipoOperacion", oCabecera.Fields.Item("TipoOperacion").Value.ToString()),
+                //            new XAttribute("OrdenCompra", oCabecera.Fields.Item("OrdenCompra").Value.ToString())
+                //        ),
+                //        new XElement("NumeracionDIAN",
+                //            new XAttribute("NumeroResolucion", oNumeracionDIAN.Fields.Item("NumeroResolucion").Value.ToString()),
+                //            new XAttribute("FechaInicio", oNumeracionDIAN.Fields.Item("FechaInicio").Value.ToString()),
+                //            new XAttribute("FechaFin", oNumeracionDIAN.Fields.Item("FechaFin").Value.ToString()),
+                //            new XAttribute("PrefijoNumeracion", oNumeracionDIAN.Fields.Item("PrefijoNumeracion").Value.ToString()),
+                //            new XAttribute("ConsecutivoInicial", oNumeracionDIAN.Fields.Item("ConsecutivoInicial").Value.ToString()),
+                //            new XAttribute("ConsecutivoFinal", oNumeracionDIAN.Fields.Item("ConsecutivoFinal").Value.ToString())
+                //        ),
+                //        notificacionElement
+                //        ,
+                //        new XElement("Emisor",
+                //            new XAttribute("TipoPersona", oEmisor.Fields.Item("TipoPersona").Value.ToString()),
+                //            new XAttribute("RazonSocial", oEmisor.Fields.Item("RazonSocial").Value.ToString()),
+                //            new XAttribute("TipoRegimen", oEmisor.Fields.Item("TipoRegimen").Value.ToString()),
+                //            new XAttribute("TipoIdentificacion", oEmisor.Fields.Item("TipoIdentificacion").Value.ToString()),
+                //            new XAttribute("Numero", oEmisor.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                //            new XAttribute("DV", oEmisor.Fields.Item("DV").Value.ToString()),
+                //            new XElement("NombresComerciales",
+                //                new XElement("NombreComercial", oEmisor.Fields.Item("RazonSocial").Value.ToString())
+                //            ),
+                //            new XElement("ObligacionesEmisor",
+                //                new XAttribute("CodigoObligacion", oEmisor_Obligaciones.Fields.Item("CodigoObligacion").Value.ToString())
+                //            ),
+                //            new XElement("TributoEmisor",
+                //                new XAttribute("CodigoTributo", oEmisor_Tributo.Fields.Item("CodigoTributo").Value.ToString()),
+                //                new XAttribute("NombreTributo", oEmisor_Tributo.Fields.Item("NombreTributo").Value.ToString())
+                //            ),
+                //            new XElement("Direccion",
+                //                new XAttribute("CodigoPais", oEmisor_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                //                new XAttribute("NombrePais", oEmisor_direccion.Fields.Item("NombrePais").Value.ToString()),
+                //                new XAttribute("IdiomaPais", oEmisor_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                //                new XAttribute("CodigoMunicipio", oEmisor_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                //                new XAttribute("NombreCiudad", oEmisor_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                //                new XAttribute("CodigoPostal", oEmisor_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                //                new XAttribute("NombreDepartamento", oEmisor_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                //                new XAttribute("CodigoDepartamento", oEmisor_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                //                new XAttribute("Direccion", oEmisor_direccion.Fields.Item("Direccion").Value.ToString())
+                //            )),
+                //            new XElement("Cliente",
+                //                new XAttribute("TipoPersona", oCliente.Fields.Item("TipoPersona").Value.ToString()),
+                //                new XAttribute("TipoRegimen", oCliente.Fields.Item("TipoRegimen").Value.ToString()),
+                //                new XAttribute("TipoIdentificacion", oCliente.Fields.Item("TipoIdentificacion").Value.ToString()),
+                //                new XAttribute("NumeroIdentificacion", oCliente.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                //                new XAttribute("DV", oCliente.Fields.Item("DV").Value.ToString()),
+                //                new XAttribute("RazonSocial", oCliente.Fields.Item("RazonSocial").Value.ToString()),
+                //                new XAttribute("NombreComercial", oCliente.Fields.Item("NombreComercial").Value.ToString()),
+                //                new XElement("Direccion",
+                //                        new XAttribute("CodigoPais", oCliente_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                //                        new XAttribute("NombrePais", oCliente_direccion.Fields.Item("NombrePais").Value.ToString()),
+                //                        new XAttribute("IdiomaPais", oCliente_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                //                        new XAttribute("CodigoMunicipio", oCliente_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                //                        new XAttribute("NombreCiudad", oCliente_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                //                        new XAttribute("CodigoPostal", oCliente_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                //                        new XAttribute("NombreDepartamento", oCliente_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                //                        new XAttribute("CodigoDepartamento", oCliente_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                //                        new XAttribute("Direccion", oCliente_direccion.Fields.Item("Direccion").Value.ToString())
+                //                        ),
+                //                new XElement("ObligacionesCliente",
+                //                    new XElement("CodigoObligacion", oCliente_ObligacionesCliente.Fields.Item("CodigoObligacion").Value.ToString())
+                //                    ),
+                //                new XElement("DireccionFiscal",
+                //                    new XAttribute("CodigoPais", oCliente_DireccionFiscal.Fields.Item("CodigoPais").Value.ToString()),
+                //                    new XAttribute("NombrePais", oCliente_DireccionFiscal.Fields.Item("NombrePais").Value.ToString()),
+                //                    new XAttribute("IdiomaPais", oCliente_DireccionFiscal.Fields.Item("IdiomaPais").Value.ToString()),
+                //                    new XAttribute("CodigoMunicipio", oCliente_DireccionFiscal.Fields.Item("CodigoMunicipio").Value.ToString()),
+                //                    new XAttribute("NombreCiudad", oCliente_DireccionFiscal.Fields.Item("NombreCiudad").Value.ToString()),
+                //                    new XAttribute("CodigoPostal", oCliente_DireccionFiscal.Fields.Item("CodigoPostal").Value.ToString()),
+                //                    new XAttribute("NombreDepartamento", oCliente_DireccionFiscal.Fields.Item("NombreDepartamento").Value.ToString()),
+                //                    new XAttribute("CodigoDepartamento", oCliente_DireccionFiscal.Fields.Item("CodigoDepartamento").Value.ToString()),
+                //                    new XAttribute("Direccion", oCliente_DireccionFiscal.Fields.Item("Direccion").Value.ToString())))
+                //       )
+                //);
+
+                //#endregion
+
+                //#region Lineas            
+
+                //// Generar elementos Linea en un bucle            
+                //oLineas.MoveFirst();
+                //do
+                //{
+                //    XElement linea = new XElement("Linea",
+                //        new XElement("Detalle",
+                //            new XAttribute("Codigo", oLineas.Fields.Item("Codigo").Value.ToString()),
+                //            new XAttribute("Posicion", oLineas.Fields.Item("Posicion").Value.ToString()),
+                //            new XAttribute("Cantidad", oLineas.Fields.Item("Cantidad").Value.ToString()),
+                //            new XAttribute("PrecioUnitario", oLineas.Fields.Item("PrecioUnitario").Value.ToString()),
+                //            new XAttribute("SubTotalLinea", oLineas.Fields.Item("SubTotalLinea").Value.ToString()),
+                //            new XAttribute("ValorTotalItem", oLineas.Fields.Item("ValorTotalItem").Value.ToString()),
+                //            new XAttribute("UnidadMedida", oLineas.Fields.Item("UnidadMedida").Value.ToString()),
+                //            new XAttribute("Descripcion", oLineas.Fields.Item("Descripcion").Value.ToString())
+                //        ),
+                //        new XElement("Impuestos",
+                //            new XElement("Impuesto",
+                //                new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString()),
+                //                new XAttribute("Tipo", oLineas.Fields.Item("Impuesto_Tipo").Value.ToString()),
+                //                new XAttribute("Nombre", oLineas.Fields.Item("Impuesto_Nombre").Value.ToString()),
+                //                new XAttribute("Redondeo", oLineas.Fields.Item("Impuesto_Redondeo").Value.ToString()),
+                //                new XElement("Subtotal",
+                //                    new XAttribute("ValorBase", oLineas.Fields.Item("Impuesto_ValorBase").Value.ToString()),
+                //                    new XAttribute("Porcentaje", oLineas.Fields.Item("Impuesto_Porcentaje").Value.ToString()),
+                //                    new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString())
+                //                )
+                //            )
+                //        ),
+                //        new XElement("Descuento"),
+                //        new XElement("Cargo"),
+                //        new XElement("ItemsAdicionales"),
+                //        new XElement("DatosAdicionales",
+                //            new XElement("campoAdicional",
+                //                new XAttribute("Nombre", "PrecioUnitarioLineaUSD"),
+                //                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_PrecioUnitarioLineaUSD").Value.ToString())),
+                //            new XElement("campoAdicional",
+                //                new XAttribute("Nombre", "ITLinea1"),
+                //                new XAttribute("Valor", oLineas.Fields.Item("CampoAdicional_ITLinea1").Value.ToString()))
+                //        )
+                //    );
+
+                //    DocumentoElectronico.Root.Add(linea);
+                //    oLineas.MoveNext();
+                //} while (oLineas.EoF == false); // Cambiar la condición según sea necesario
+
+                //#endregion
+
+                //#region Datos Finales
+
+                ////string sValorEnLetras = ConvertirValorALetras(Convert.ToInt32(oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString()));
+
+                //// Agregar otros elementos
+                //DocumentoElectronico.Root.Add(
+                //    new XElement("TasaDeCambioAlterna",
+                //        new XAttribute("MonedaOrigen", ""),
+                //        new XAttribute("MonedaDestino", ""),
+                //        new XAttribute("ValorTasaDeCambio", ""),
+                //        new XAttribute("FechaTasaCambioAlterna", "")
+                //    ),
+                //    new XElement("Impuestos",
+                //        new XElement("Impuesto",
+                //            new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString()),
+                //            new XAttribute("Tipo", oImpuestos.Fields.Item("Tipo").Value.ToString()),
+                //            new XAttribute("Nombre", oImpuestos.Fields.Item("Nombre").Value.ToString()),
+                //            new XAttribute("Redondeo", oImpuestos.Fields.Item("Redondeo").Value.ToString()),
+                //            new XElement("Subtotal",
+                //                new XAttribute("ValorBase", oImpuestos.Fields.Item("ValorBase").Value.ToString()),
+                //                new XAttribute("Porcentaje", oImpuestos.Fields.Item("Porcentaje").Value.ToString()),
+                //                new XAttribute("Valor", oImpuestos.Fields.Item("Valor").Value.ToString())
+                //            )
+                //        )
+                //    ),
+                //    new XElement("Retenciones"),
+                //    new XElement("DescuentosOCargos"),
+                //    new XElement("Generales"),
+                //    new XElement("Totales",
+                //        new XAttribute("Bruto", oTotales.Fields.Item("Bruto").Value.ToString()),
+                //        new XAttribute("BaseImponible", oTotales.Fields.Item("BaseImponible").Value.ToString()),
+                //        new XAttribute("BrutoMasImpuestos", oTotales.Fields.Item("BrutoMasImpuestos").Value.ToString()),
+                //        new XAttribute("Impuestos", oTotales.Fields.Item("Impuestos").Value.ToString()),
+                //        new XAttribute("Descuentos", oTotales.Fields.Item("Descuentos").Value.ToString()),
+                //        new XAttribute("Retenciones", oTotales.Fields.Item("Retenciones").Value.ToString()),
+                //        new XAttribute("Cargos", oTotales.Fields.Item("Cargos").Value.ToString()),
+                //        new XAttribute("General", oTotales.Fields.Item("General").Value.ToString()),
+                //        new XAttribute("Anticipo", oTotales.Fields.Item("Anticipo").Value.ToString()),
+                //        new XAttribute("Redondeo", oTotales.Fields.Item("Redondeo").Value.ToString()),
+                //        new XAttribute("TotalReteIva", oTotales.Fields.Item("TotalReteIva").Value.ToString()),
+                //        new XAttribute("TotalReteFuente", oTotales.Fields.Item("TotalReteFuente").Value.ToString()),
+                //        new XAttribute("TotalReteIca", oTotales.Fields.Item("TotalReteIca").Value.ToString())
+                //    ),
+                //    new XElement("Extensiones",
+                //        new XElement("DatosAdicionales",
+                //            new XElement("campoAdicional",
+                //                new XAttribute("nombre", "SubTotal"),
+                //                new XAttribute("valor", oCamposAdicionales.Fields.Item("SubTotal").Value.ToString())),
+                //            new XElement("campoAdicional",
+                //                new XAttribute("nombre", "Total"),
+                //                    new XAttribute("valor", oCamposAdicionales.Fields.Item("Total").Value.ToString())),
+                //            new XElement("campoAdicional",
+                //                new XAttribute("nombre", "NetoAPagar"),
+                //                new XAttribute("valor", oCamposAdicionales.Fields.Item("NetoAPagar").Value.ToString())),
+                //            new XElement("campoAdicional",
+                //                new XAttribute("nombre", "ValorTotalDocumento"),
+                //                new XAttribute("valor", oCamposAdicionales.Fields.Item("ValorTotalDocumento").Value.ToString())),
+                //            new XElement("campoAdicional",
+                //                new XAttribute("nombre", "Condiciones"),
+                //                new XAttribute("valor", oCamposAdicionales.Fields.Item("Condiciones").Value.ToString())),
+                //            new XElement("campoAdicional",
+                //                new XAttribute("nombre", "vendedor"),
+                //                new XAttribute("valor", oCamposAdicionales.Fields.Item("Vendedor").Value.ToString())),
+                //            new XElement("campoAdicional",
+                //                new XAttribute("nombre", "PuntoVenta"),
+                //                new XAttribute("valor", oCamposAdicionales.Fields.Item("PuntoVenta").Value.ToString()))
+                //        )
+                //    )
+                //);
+
+                //#endregion
+
+                //// Guardar el XML en disco
+                //sRutaXML = sRutaXML.Replace(".txt", ".xml");
+                //DocumentoElectronico.Save(sRutaXML);
+
+                #endregion
+
+                #region Prueba2
+
+                XDocument doc = new XDocument(
+     new XElement("SoporteAdquisiciones",
+         new XElement("Cabecera",
+             new XAttribute("Numero", "DS3507"),
+             new XAttribute("FechaEmision", "2024-10-23"),
+             new XAttribute("Vencimiento", "2024-10-23"),
+             new XAttribute("HoraEmision", "00:00:00"),
+             new XAttribute("Observaciones", "Basado en Pedido de entrada de mercancías 53297. 53298."),
+             new XAttribute("TipoDocumentoSoporte", "05"),
+             new XAttribute("TipoOperacion", "10"),
+             new XAttribute("MonedaDocumentoSoporte", "COP")
+         ),
+         new XElement("NumeracionDIAN",
+             new XAttribute("NumeroResolucion", "18764076738741"),
+             new XAttribute("FechaInicio", "2024-08-08"),
+             new XAttribute("FechaFin", "2025-08-08"),
+             new XAttribute("PrefijoNumeracion", "DS"),
+             new XAttribute("ConsecutivoInicial", "3341"),
+             new XAttribute("ConsecutivoFinal", "20000")
+         ),
+         new XElement("Notificacion",
+             new XAttribute("Tipo", "Mail"),
+             new XAttribute("De", "")
+         ),
+         new XElement("Emisor",
+             new XAttribute("TipoPersona", "2"),
+             new XAttribute("RazonSocial", "ANDRES EDUARDO ORTIZ POSADA"),
+             new XAttribute("TipoIdentificacion", "13"),
+             new XAttribute("NumeroIdentificacion", "71790853"),
+             new XAttribute("DV", ""),
+             new XElement("NombresComerciales",
+                 new XElement("NombreComercial", "ANDRES EDUARDO ORTIZ POSADA")
+             ),
+             new XElement("ObligacionesEmisor", "R-99-PN"),
+             new XElement("TributoEmisor",
+                 new XAttribute("CodigoTributo", "01"),
+                 new XAttribute("NombreTributo", "IVA")
+             ),
+             new XElement("Direccion",
+                 new XAttribute("CodigoPais", "CO"),
+                 new XAttribute("NombrePais", "COLOMBIA"),
+                 new XAttribute("IdiomaPais", "es"),
+                 new XAttribute("CodigoMunicipio", "05172"),
+                 new XAttribute("NombreCiudad", ""),
+                 new XAttribute("CodigoPostal", ""),
+                 new XAttribute("NombreDepartamento", "Antioquia"),
+                 new XAttribute("CodigoDepartamento", "05"),
+                 new XAttribute("Direccion", "BRR CASA BLANCA CL 98 99 B 31")
+             )
+         ),
+         new XElement("Cliente",
+             new XAttribute("TipoPersona", "1"),
+             new XAttribute("TipoRegimen", "2"),
+             new XAttribute("TipoIdentificacion", "31"),
+             new XAttribute("NumeroIdentificacion", "900614404"),
+             new XAttribute("DV", "2"),
+             new XAttribute("RazonSocial", "BIOPLANTA"),
+             new XElement("Direccion",
+                 new XAttribute("CodigoPais", "CO"),
+                 new XAttribute("NombrePais", "COLOMBIA"),
+                 new XAttribute("IdiomaPais", "es"),
+                 new XAttribute("CodigoMunicipio", "05147"),
+                 new XAttribute("NombreCiudad", "CAREPA"),
+                 new XAttribute("CodigoPostal", "057850"),
+                 new XAttribute("NombreDepartamento", "ANTIOQUIA"),
+                 new XAttribute("CodigoDepartamento", "05"),
+                 new XAttribute("Direccion", "CALLE 80 CARRERA 80CC LAS PLAYAS BODEGA 1")
+             ),
+             new XElement("ObligacionesCliente",
+                 new XElement("CodigoObligacion", "R-99-PN")
+             )
+         ),
+         new XElement("Linea",
+             new XElement("Detalle",
+                 new XAttribute("Codigo", "MP001"),
+                 new XAttribute("Posicion", "1"),
+                 new XAttribute("Cantidad", "6960.00"),
+                 new XAttribute("PrecioUnitario", "810.18"),
+                 new XAttribute("SubTotalLinea", "5638854.41"),
+                 new XAttribute("ValorTotalItem", "5638854.41"),
+                 new XAttribute("UnidadMedida", "94"),
+                 new XAttribute("Descripcion", "FRUTA PALMA"),
+                 new XAttribute("FechaCompra", "2024-10-23"),
+                 new XAttribute("CodigoFormaGeneracionTransmision", "1"),
+                 new XAttribute("DescripcionFormaGeneracionTransmision", "Por operación")
+             ),
+             new XElement("Impuestos",
+                 new XElement("Impuesto",
+                     new XAttribute("Valor", "0.00"),
+                     new XAttribute("Tipo", "01"),
+                     new XAttribute("Nombre", "IVA"),
+                     new XAttribute("Redondeo", "0"),
+                     new XElement("Subtotal",
+                         new XAttribute("ValorBase", "0.00"),
+                         new XAttribute("Porcentaje", "0.00"),
+                         new XAttribute("Valor", "0.00")
+                     )
+                 )
+             ),
+             new XElement("Descuento"),
+             new XElement("Cargo"),
+             new XElement("CodificacionesEstandar",
+                 new XElement("CodificacionEstandar",
+                     new XAttribute("CodigoArticulo", "MP001"),
+                     new XAttribute("CodigoEstandar", "999")
+                 )
+             ),
+             new XElement("ItemsAdicionales"),
+             new XElement("DatosAdicionales",
+                 new XElement("campoAdicional",
+                     new XAttribute("Nombre", "PrecioUnitarioLinea1"),
+                     new XAttribute("Valor", "810.18")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("Nombre", "ITLinea1"),
+                     new XAttribute("Valor", "1")
+                 )
+             )
+         ),
+         // Segunda línea omitida para brevedad
+         new XElement("TasaDeCambioAlterna",
+             new XAttribute("MonedaOrigen", ""),
+             new XAttribute("MonedaDestino", ""),
+             new XAttribute("ValorTasaDeCambio", ""),
+             new XAttribute("FechaTasaCambioAlterna", "")
+         ),
+         new XElement("Impuestos"),
+         new XElement("Retenciones",
+             new XElement("Retencion",
+                 new XAttribute("Valor", "187748.75"),
+                 new XAttribute("Tipo", "06"),
+                 new XAttribute("Nombre", "ReteRenta"),
+                 new XAttribute("Redondeo", "0.00"),
+                 new XElement("Subtotal",
+                     new XAttribute("ValorBase", "12516583.60"),
+                     new XAttribute("Porcentaje", "1.50"),
+                     new XAttribute("Valor", "187748.75")
+                 )
+             )
+         ),
+         new XElement("DescuentosOCargos"),
+         new XElement("MediosDePago",
+             new XAttribute("CodigoMedioPago", "10"),
+             new XAttribute("FormaDePago", "1"),
+             new XAttribute("Vencimiento", "2024-10-23")
+         ),
+         new XElement("Totales",
+             new XAttribute("Bruto", "12516583.60"),
+             new XAttribute("BaseImponible", "0.00"),
+             new XAttribute("BrutoMasImpuestos", "12516583.60"),
+             new XAttribute("Impuestos", "0.00"),
+             new XAttribute("Descuentos", "0.00"),
+             new XAttribute("Retenciones", "187748.75"),
+             new XAttribute("Cargos", "0.00"),
+             new XAttribute("General", "12516583.60"),
+             new XAttribute("Anticipo", "0.00"),
+             new XAttribute("Redondeo", "0.15"),
+             new XAttribute("TotalReteIva", "0.00"),
+             new XAttribute("TotalReteFuente", "187748.75"),
+             new XAttribute("TotalReteIca", "0.00")
+         ),
+         new XElement("Extensiones",
+             new XElement("DatosAdicionales",
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "SubTotal"),
+                     new XAttribute("valor", "12516583.60")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "Total"),
+                     new XAttribute("valor", "12516583.60")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "NetoAPagar"),
+                     new XAttribute("valor", "12516583.60")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "ValorTotalDocumento"),
+                     new XAttribute("valor", "12516583.60")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "ValorLetras"),
+                     new XAttribute("valor", "DOCE MILLONES QUINIENTOS DIECISÉIS MIL QUINIENTOS OCHENTA Y TRES CON SESENTA CENTAVOS PESO COLOMBIANO")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "Condiciones"),
+                     new XAttribute("valor", "Contado")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "vendedor"),
+                     new XAttribute("valor", "-Ningún empleado del departamento de ventas-")
+                 ),
+                 new XElement("campoAdicional",
+                     new XAttribute("nombre", "Remision"),
+                     new XAttribute("valor", "52840")
+                 )
+             )
+         )
+     )
+ );
+
+
+                //// Guardar el XML en disco
+                sRutaXML = sRutaXML.Replace(".txt", ".xml");
+                doc.Save(sRutaXML);
+
+                #endregion
+
+                return sRutaXML;
+            }
+            else if (oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString() == "NotaSoporteAdquisiciones")
+            {
+                #region Genera XML Nota de ajuste documentos soporte
+
+                #region Datos Generales                 
+
+                XDocument xmlDoc = new XDocument(
+            new XElement(oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString(),
+                new XElement("Cabecera",
+                    new XAttribute("FechadenCompra", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
+                    new XAttribute("Numero", oCabecera.Fields.Item("Numero").Value.ToString()),
+                    new XAttribute("FechaEmision", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
+                    new XAttribute("Vencimiento", oCabecera.Fields.Item("Vencimiento").Value.ToString()),
+                    new XAttribute("HoraEmision", oCabecera.Fields.Item("HoraEmision").Value.ToString()),
+                    new XAttribute("Observaciones", oCabecera.Fields.Item("Observaciones").Value.ToString()),
+                    new XAttribute("TipoNota", oCabecera.Fields.Item("TipoNota").Value.ToString()),
+                    new XAttribute("TipoOperacion", oCabecera.Fields.Item("TipoOperacion").Value.ToString()),
+                    new XAttribute("MonedaNota", oCabecera.Fields.Item("MonedaNota").Value.ToString())
+                ),
+                new XElement("MotivosNota",
+                    new XElement("MotivoNota",
+                        new XAttribute("DescripcionConcepto", "Anulacion del documento soporte en adquisiciones efectuadas a sujetos no obligados a expedir factura de venta o documento equivalente"),
+                        new XAttribute("ConceptoCorreccion", "2")
+                    )
+                ),
+                new XElement("SoporteAdquisicionesRelacionados",
+                    new XElement("SoporteAdquisicionesRelacionado",
+                        new XAttribute("FechaEmision", oSoporteAdquisicionesRelacionados.Fields.Item("FechaEmision").Value.ToString()),
+                        new XAttribute("CUDS", oSoporteAdquisicionesRelacionados.Fields.Item("CUDS").Value.ToString()),
+                        new XAttribute("Numero", oSoporteAdquisicionesRelacionados.Fields.Item("Numero").Value.ToString())
+                    )
+                ),
+                new XElement("Emisor",
+                    new XAttribute("TipoPersona", oEmisor.Fields.Item("TipoPersona").Value.ToString()),
+                    new XAttribute("RazonSocial", oEmisor.Fields.Item("RazonSocial").Value.ToString()),
+                    new XAttribute("TipoIdentificacion", oEmisor.Fields.Item("TipoIdentificacion").Value.ToString()),
+                    new XAttribute("NumeroIdentificacion", oEmisor.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                    new XAttribute("DV", oEmisor.Fields.Item("DV").Value.ToString()),
+                    new XElement("ObligacionesEmisor", oEmisor_Obligaciones.Fields.Item("CodigoObligacion").Value.ToString()),
+                    new XElement("TributoEmisor",
+                        new XAttribute("CodigoTributo", oEmisor_Tributo.Fields.Item("CodigoTributo").Value.ToString()),
+                        new XAttribute("NombreTributo", oEmisor_Tributo.Fields.Item("NombreTributo").Value.ToString())
+                    ),
+                    new XElement("Direccion",
+                        new XAttribute("CodigoPais", oEmisor_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                        new XAttribute("IdiomaPais", oEmisor_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                        new XAttribute("CodigoMunicipio", oEmisor_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                        new XAttribute("NombreCiudad", oEmisor_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                        new XAttribute("CodigoPostal", oEmisor_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                        new XAttribute("NombreDepartamento", oEmisor_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                        new XAttribute("CodigoDepartamento", oEmisor_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                        new XAttribute("Direccion", oEmisor_direccion.Fields.Item("Direccion").Value.ToString())
+                    )
+                ),
+                new XElement("Cliente",
+                    new XAttribute("TipoPersona", oCliente.Fields.Item("TipoPersona").Value.ToString()),
+                    new XAttribute("TipoRegimen", oCliente.Fields.Item("TipoRegimen").Value.ToString()),
+                    new XAttribute("TipoIdentificacion", oCliente.Fields.Item("TipoIdentificacion").Value.ToString()),
+                    new XAttribute("NumeroIdentificacion", oCliente.Fields.Item("NumeroIdentificacion").Value.ToString()),
+                    new XAttribute("DV", oCliente.Fields.Item("DV").Value.ToString()),
+                    new XAttribute("RazonSocial", oCliente.Fields.Item("RazonSocial").Value.ToString()),
+                    new XElement("Direccion",
+                        new XAttribute("CodigoPais", oCliente_direccion.Fields.Item("CodigoPais").Value.ToString()),
+                        new XAttribute("NombrePais", oCliente_direccion.Fields.Item("NombrePais").Value.ToString()),
+                        new XAttribute("IdiomaPais", oCliente_direccion.Fields.Item("IdiomaPais").Value.ToString()),
+                        new XAttribute("CodigoMunicipio", oCliente_direccion.Fields.Item("CodigoMunicipio").Value.ToString()),
+                        new XAttribute("NombreCiudad", oCliente_direccion.Fields.Item("NombreCiudad").Value.ToString()),
+                        new XAttribute("CodigoPostal", oCliente_direccion.Fields.Item("CodigoPostal").Value.ToString()),
+                        new XAttribute("NombreDepartamento", oCliente_direccion.Fields.Item("NombreDepartamento").Value.ToString()),
+                        new XAttribute("CodigoDepartamento", oCliente_direccion.Fields.Item("CodigoDepartamento").Value.ToString()),
+                        new XAttribute("Direccion", oCliente_direccion.Fields.Item("Direccion").Value.ToString())
+                    ),
+                    new XElement("ObligacionesCliente",
+                        new XElement("CodigoObligacion", oCliente_ObligacionesCliente.Fields.Item("CodigoObligacion").Value.ToString())
+                    )))
+                );
+                
+                #endregion
+
+                #region Lineas
+
+                // Generar elementos Linea en un bucle            
+                oLineas.MoveFirst();
+
+                do
+                {
+                    XElement linea = new XElement("Linea",
+                        new XElement("Detalle",
+                            new XAttribute("NumeroLinea", oLineas.Fields.Item("Posicion").Value.ToString()),
+                            new XAttribute("Cantidad", oLineas.Fields.Item("Cantidad").Value.ToString()),
+                            new XAttribute("CantidadBase", oLineas.Fields.Item("Cantidad").Value.ToString()),
+                            new XAttribute("PrecioUnitario", oLineas.Fields.Item("PrecioUnitario").Value.ToString()),
+                            new XAttribute("SubTotalLinea", oLineas.Fields.Item("SubTotalLinea").Value.ToString()),
+                            new XAttribute("ValorTotalItem", oLineas.Fields.Item("ValorTotalItem").Value.ToString()),
+                            new XAttribute("UnidadMedida", oLineas.Fields.Item("UnidadMedida").Value.ToString()),
+                            new XAttribute("UnidadCantidadBase", oLineas.Fields.Item("UnidadMedida").Value.ToString()),
+                            new XAttribute("Descripcion", oLineas.Fields.Item("Descripcion").Value.ToString()),
+                            new XAttribute("FechaCompra", oCabecera.Fields.Item("FechaEmision").Value.ToString()),
+                            new XAttribute("CodigoFormaGeneracionTransmision", oLineas.Fields.Item("CodigoFormaGeneracionTransmision").Value.ToString()),
+                                new XAttribute("DescripcionFormaGeneracionTransmision", oLineas.Fields.Item("DescripcionFormaGeneracionTransmision").Value.ToString())
+                            ),
+                            new XElement("CodificacionesEstandar",
+                                new XElement("CodificacionEstandar",
+                                    new XAttribute("CodigoArticulo", oLineas.Fields.Item("CodigoArticulo").Value.ToString()),
+                                    new XAttribute("CodigoEstandar", oLineas.Fields.Item("CodigoEstandar").Value.ToString())
+                                )
+                            ),
+                            new XElement("Impuestos",
+                                new XElement("Impuesto",
+                                    new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString()),
+                                    new XAttribute("Tipo", oLineas.Fields.Item("Impuesto_Tipo").Value.ToString()),
+                                    new XAttribute("Nombre", oLineas.Fields.Item("Impuesto_Nombre").Value.ToString()),
+                                    new XAttribute("Redondeo", oLineas.Fields.Item("Impuesto_Redondeo").Value.ToString()),
+                                    new XElement("Subtotal",
+                                        new XAttribute("ValorBase", oLineas.Fields.Item("Impuesto_ValorBase").Value.ToString()),
+                                        new XAttribute("Porcentaje", oLineas.Fields.Item("Impuesto_Porcentaje").Value.ToString()),
+                                        new XAttribute("Valor", oLineas.Fields.Item("Impuesto_Valor").Value.ToString())
+                                    )
+                                )
+                            ),
+                            new XElement("ItemsAdicionales"),
+                            new XElement("DatosAdicionales",
+                                new XElement("campoAdicional",
+                                    new XAttribute("Nombre", "PrecioUnitarioLinea1"),
+                                    new XAttribute("Valor", oLineas.Fields.Item("PrecioUnitario").Value.ToString())
+                                ),
+                                new XElement("campoAdicional",
+                                    new XAttribute("Nombre", "ITLinea1"),
+                                    new XAttribute("Valor", oLineas.Fields.Item("Posicion").Value.ToString())
+                                )
+                            )
+                        );
+
+                    xmlDoc.Root.Add(linea);
+                    oLineas.MoveNext();
+
+                } while (oLineas.EoF == false); // Cambiar la condición según sea necesario
+
+                #endregion
+
+                #region Datos Finales 
+
+                xmlDoc.Root.Add(
+                    new XElement("Impuestos"),                    
+                    new XElement("Retenciones"),
+                    new XElement("DescuentosOCargos"),
+                    new XElement("MediosDePago",
+                        new XAttribute("CodigoMedioPago", oMediosDePago.Fields.Item("CodigoMedioPago").Value.ToString()),
+                        new XAttribute("FormaDePago", "1"),
+                        new XAttribute("Vencimiento", oCabecera.Fields.Item("Vencimiento").Value.ToString())
+                        ),
+                    new XElement("Totales",
+                        new XAttribute("Bruto", oTotales.Fields.Item("Bruto").Value.ToString()),
+                        new XAttribute("BaseImponible", oTotales.Fields.Item("BaseImponible").Value.ToString()),
+                        new XAttribute("BrutoMasImpuestos", oTotales.Fields.Item("BrutoMasImpuestos").Value.ToString()),
+                        new XAttribute("Impuestos", oTotales.Fields.Item("Impuestos").Value.ToString()),
+                        new XAttribute("Descuentos", oTotales.Fields.Item("Descuentos").Value.ToString()),
+                        new XAttribute("Retenciones", oTotales.Fields.Item("Retenciones").Value.ToString()),
+                        new XAttribute("Cargos", oTotales.Fields.Item("Cargos").Value.ToString()),
+                        new XAttribute("General", oTotales.Fields.Item("General").Value.ToString()),
+                        new XAttribute("Anticipo", oTotales.Fields.Item("Anticipo").Value.ToString()),
+                        new XAttribute("Redondeo", oTotales.Fields.Item("Redondeo").Value.ToString()),
+                        new XAttribute("TotalReteIva", oTotales.Fields.Item("TotalReteIva").Value.ToString()),
+                        new XAttribute("TotalReteFuente", oTotales.Fields.Item("TotalReteFuente").Value.ToString()),
+                        new XAttribute("TotalReteIca", oTotales.Fields.Item("TotalReteIca").Value.ToString())
+                        )
+                    );
+
+                #endregion
+                
+                //// Guardar el XML en disco
+                sRutaXML = sRutaXML.Replace(".txt", ".xml");
+                xmlDoc.Save(sRutaXML);
+                
+                #endregion
+
+                return sRutaXML;
+            }
+            else
+            {
+                return sRutaXML;
+            }
+            
         }
 
         #endregion

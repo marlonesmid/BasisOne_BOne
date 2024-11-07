@@ -236,6 +236,11 @@
     WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_RF' )
   </GetResponsabilidadFiscal>
 
+  <GetTipoRegimen>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion"  FROM "UFD1"
+    WHERE "TableID" = 'OCRD' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_TR' AND "TableID" = 'OCRD' )
+  </GetTipoRegimen>
+
   <GetCategoryIDFormattedSearch>
     SELECT "CategoryId" FROM "%sNameDB%"."OQCN" WHERE "CatName" = '%CategoryName%'
   </GetCategoryIDFormattedSearch>

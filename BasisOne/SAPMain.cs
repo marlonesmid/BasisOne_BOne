@@ -1272,7 +1272,7 @@ namespace BasisOne
                                 #region Boton enviar a la DIAN
 
                                 DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType);
-
+                                
                                 #endregion
 
                             }
