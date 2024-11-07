@@ -12404,8 +12404,8 @@
     
     
   </HX_FacturaXML_HCO_v19_FBE>
-  
-  <HX_FacturaXML_HBT_v19_FBE>
+
+  <HX_GeneraXML_HBT_v19_FBE>
     
     CREATE PROCEDURE "%sNameDB%"."HX_GeneraXML_v19_FBE"
       (    	    
@@ -12425,7 +12425,7 @@
                          ELSE CAST(T0."DocNum" AS NVARCHAR(20)) 
                          END AS "Numero",
 
-			              TO_VARCHAR(T0."DocDate", 'YYYY-MM-DD') AS "FechaEmision",
+			              TO_VARCHAR('20241017', 'YYYY-MM-DD') AS "FechaEmision",
 				          TO_VARCHAR(T0."DocDueDate", 'YYYY-MM-DD') AS "Vencimiento", 
 
                           CASE WHEN LENGTH(T0."DocTime") = '3' THEN ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00' 
@@ -12443,7 +12443,7 @@
                               ELSE '0' 
                               END AS "TipoFactura",
 
-                          CASE WHEN T11."ExtraDays" > '0' THEN '2'
+                          CASE WHEN T11."ExtraDays" &gt; '0' THEN '2'
                               ELSE '1' 
                               END AS "FormaDePago",
 
@@ -12519,7 +12519,7 @@
 				         "U_HBT_RegFis" AS "TipoRegimen",
 				         '31' AS "TipoIdentificacion",
 				   
-				          CASE WHEN LOCATE("TaxIdNum",'-') > 0 THEN SUBSTRING("TaxIdNum",1,LOCATE("TaxIdNum",'-')-1)
+				          CASE WHEN LOCATE("TaxIdNum",'-') &gt; 0 THEN SUBSTRING("TaxIdNum",1,LOCATE("TaxIdNum",'-')-1)
 						       ELSE "TaxIdNum" 
 						       END AS "NumeroIdentificacion",
 					
@@ -12576,7 +12576,7 @@
 
 					      T5."U_HBT_TipDoc" AS "TipoIdentificacion",
 
-					      CASE WHEN LOCATE(T5."LicTradNum",'-') > 0 THEN SUBSTRING(T5."LicTradNum",1,LOCATE(T5."LicTradNum",'-')-1)
+					      CASE WHEN LOCATE(T5."LicTradNum",'-') &gt; 0 THEN SUBSTRING(T5."LicTradNum",1,LOCATE(T5."LicTradNum",'-')-1)
   				    	       ELSE T5."LicTradNum" 
 						       END AS "NumeroIdentificacion",
 
@@ -12714,7 +12714,7 @@
                               ELSE REPLACE(TO_DECIMAL((SUM(T0."BaseSumSys"*T1."DocRate")),19,2),',','.') 
                   	 	      END AS "ValorBase",
 
-					      REPLACE(TO_DECIMAL((T0."TaxRate"),19,0),',','.') AS "Porcentaje"
+					      REPLACE(TO_DECIMAL((T0."TaxRate"),19,2),',','.') AS "Porcentaje"
 					 
                   FROM "%sNameDB%"."INV4" T0 LEFT JOIN "%sNameDB%"."OINV" T1 ON T0."DocEntry"=T1."DocEntry"
 			      WHERE T0."DocEntry" = :DocEntry AND T1."DocSubType" != 'DN' AND T0."RelateType" = 1
@@ -12904,10 +12904,10 @@
                		           ELSE REPLACE(TO_DECIMAL((T0."LineTotal"),19,2),',','.') 
 						       END AS "SubTotalLinea",
 
-					      CASE WHEN T0."DiscPrcnt" = 0 AND T3."DiscPrcnt" = 0 THEN REPLACE(TO_DECIMAL((T0."LineTotal"),19,2),',','.') 
+					      CASE WHEN T0."DiscPrcnt" = 0 AND T3."DiscPrcnt" = 0 THEN REPLACE(TO_DECIMAL((T0."LineTotal"+ T0."VatSum" ),19,2),',','.') 
 						       WHEN T0."DiscPrcnt" = 0 AND T3."DiscPrcnt" != 0 THEN REPLACE(TO_DECIMAL((       T0."LineTotal" -   ((( T0."LineTotal" / (SELECT SUM("LineTotal") FROM "INV1" W WHERE W."DocEntry" = :DocEntry) * 100  )  *  T3."DiscSum")   / 100  )        ),19,2),',','.') 
-						       WHEN T0."DiscPrcnt" != 0 AND T3."DiscPrcnt" = 0 THEN  REPLACE(TO_DECIMAL((T0."LineTotal"),19,2),',','.') 
-						       WHEN T0."DiscPrcnt" != 0 AND T3."DiscPrcnt" != 0 THEN  REPLACE(TO_DECIMAL((T0."LineTotal"),19,2),',','.') 
+						       WHEN T0."DiscPrcnt" != 0 AND T3."DiscPrcnt" = 0 THEN  REPLACE(TO_DECIMAL((T0."LineTotal" + T0."VatSum"),19,2),',','.') 
+						       WHEN T0."DiscPrcnt" != 0 AND T3."DiscPrcnt" != 0 THEN  REPLACE(TO_DECIMAL((T0."LineTotal" + T0."VatSum"),19,2),',','.') 
                		           ELSE REPLACE(TO_DECIMAL((T0."LineTotal"),19,2),',','.') 
 						       END AS "ValorTotalItem",						       
 						       
@@ -12969,16 +12969,16 @@
 		                           T3."DiscSum",
 		                           T2."U_BO_UMDIAN",
 		                           T1."ItemName",
-		                           T0."VatPrcnt"
+		                           T0."VatPrcnt",
+		                           T0."VatSum"
 
                           ORDER BY T0."VisOrder" ;			
 
 			            END IF;
 
                    end
-
     
-  </HX_FacturaXML_HBT_v19_FBE>
+  </HX_GeneraXML_HBT_v19_FBE>
   
   <HX_FacturaXML_HBT_v18_TFHKA_830011686>  
 	      
