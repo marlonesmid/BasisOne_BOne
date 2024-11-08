@@ -192,7 +192,54 @@
     ***SN***
     ***DocNum***
     ORDER BY 6 DESC
-  </GetPurchase>  
+  </GetPurchase>
+  
+  <GetCreditMemoPurchase>
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS "#",
+            CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
+            WHEN '1' THEN 'Aceptada'
+            WHEN '2' THEN 'Rechaza'
+            WHEN '3' THEN 'En validación'
+            ELSE 'A la espera' END AS "Estado",
+            A."DocNum" AS "No_Factura",
+            A."CardCode" AS "Codigo_cliente",
+            A."CardName" AS "Nombre_cliente",
+            A."DocDate" AS "Fecha_Documento",
+            A."DocDueDate" AS "Fecha_vencimiento",
+            CASE WHEN A."U_BO_EE" = 'Y' THEN 'SI'
+            WHEN A."U_BO_EE" = 'N' THEN 'NO'
+            ELSE '' END  AS "Enviar_Email",
+            CASE WHEN B."U_BO_StatusEmail" = '200' THEN 'Enviado' ELSE 'Pendiente' END AS "Estado_Correo",
+            B."U_BO_Email1" AS "Correo1",
+            B."U_BO_Email2" AS "Correo2",
+            B."U_BO_Email3" AS "Correo3",
+            B."U_BO_Email4" AS "Correo4",
+            B."U_BO_Email5" AS "Correo5",
+            A."DocTotal" AS "Total_documento",
+            CASE WHEN A."U_BO_MRWS" IS NULL THEN 'No Enviado'
+            ELSE A."U_BO_MRWS" END AS "Respuesta_TFHKA",
+            A."DocEntry" AS "DocEntry",
+            A."DocEntry" AS "DocEntry",
+            C."SeriesName" AS "SeriesName",
+            A."U_BO_CUFE" AS "CUFE",
+            A."CreateDate" AS "FechaCreacion",
+            CASE WHEN LENGTH(A."DocTime") = 3 THEN (LEFT(A."DocTime",1) || ':' || RIGHT(A."DocTime",2)) ELSE (LEFT(A."DocTime",2) || ':' || RIGHT(A."DocTime",2)) END "Hora_Creacion",
+            A."U_BO_FHAD" AS "FHAD",
+            'Ver XML' AS "XML",
+            'Ver PDF' AS "PDF",
+            D."PymntGroup" AS "Condicion_Pago"
+    
+    FROM "%sNameDB%"."ORPC" A LEFT JOIN "%sNameDB%"."@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '19'
+                              LEFT JOIN "%sNameDB%"."NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '19'
+                              LEFT JOIN "%sNameDB%"."OCTG" D ON A."GroupNum"=D."GroupNum"
+    WHERE "DocDate" BETWEEN '%FI%' AND '%FF%'
+    %EstadoDocumento%
+    AND A."Series" IN (SELECT "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'DSA')
+    AND A."DocSubType"= '--'
+    ***SN***
+    ***DocNum***
+    ORDER BY 6 DESC
+  </GetCreditMemoPurchase>
 
   <GetSeriesNumberInvoice>
     SELECT "Series" AS "Series", "SeriesName" AS "Nombre", "ObjectCode" AS "ObjectCode" FROM "%sNameDB%"."NNM1"
@@ -210,10 +257,12 @@
   </GetSeriesNumberDebitMemo>
 
   <GetSeriesNumberActive>
-    SELECT (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'FVC') AS "FVC", 
+    SELECT (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'FVC') AS "FVC",
+           (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'FCC') AS "FCC",            
            (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NCC') AS "NCC" , 
            (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NDC') AS "NDC", 
-           (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NDC') AS "DSA" 
+           (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'DSA') AS "DSA",
+           (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NADSA') AS "NADSA"
     FROM DUMMY;
   </GetSeriesNumberActive>
 
@@ -235,6 +284,11 @@
     SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion"  FROM "UFD1"
     WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_RF' )
   </GetResponsabilidadFiscal>
+
+  <GetTipoRegimen>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion"  FROM "UFD1"
+    WHERE "TableID" = 'OCRD' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'BO_TR' AND "TableID" = 'OCRD' )
+  </GetTipoRegimen>
 
   <GetCategoryIDFormattedSearch>
     SELECT "CategoryId" FROM "%sNameDB%"."OQCN" WHERE "CatName" = '%CategoryName%'

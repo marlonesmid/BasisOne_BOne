@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,12 +62,14 @@
     <None Include="Core\Formularios\Gestion_AddOn.srf" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Core\Docs\Updates and improvements.html" />
     <Content Include="Core\Images\LogoBO20x20.bmp" />
     <Content Include="Core\Queries\ValidacionAddOnBOHANA.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Core\Queries\ValidacionAddOnBOSQL.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

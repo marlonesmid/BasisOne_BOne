@@ -210,6 +210,25 @@ namespace BasisOne
                 {
                     case SAPbouiCOM.BoEventTypes.et_CLICK:
 
+                        #region Eventos Gestor de AddOn
+
+                        if (pVal.FormUID == "BO_Gestion_AddOn" && pVal.ItemUID == "lblUpdFea" && pVal.Before_Action == false && pVal.Action_Success == true )
+                        {
+                            #region Abre archivo actualizaciones y mejoras
+
+                            SAPbouiCOM.Form oInvoice;
+
+                            oInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
+
+                            DllCore.OpenFileUpdatesAndImprovements(sboapp, _company);                            
+
+                            #endregion
+
+                        }
+
+
+                        #endregion
+
                         if (TieneLicenciaPresupuesto == true)
                         {
                             #region Eventos_Presupuesto
@@ -259,7 +278,7 @@ namespace BasisOne
                             }
 
                             #endregion
-
+                            
                             #region Visor documentos eBilling
 
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "MtxOINV" && pVal.Before_Action == true && pVal.Action_Success == false)

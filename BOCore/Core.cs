@@ -9,6 +9,8 @@ using BOElectronicReception;
 using SAPbobsCOM;
 using SAPbouiCOM;
 using System.IO;
+using System.Diagnostics;
+using System.Drawing;
 
 namespace BOCore
 {
@@ -25,7 +27,6 @@ namespace BOCore
         {
             try
             {
-
                 #region Creacion Variables y Objetos
 
                 string sGridAddInAvailable = null;
@@ -40,6 +41,8 @@ namespace BOCore
                 SAPbouiCOM.PictureBox oLogoBO;
                 SAPbouiCOM.Folder oFolder1;
                 SAPbouiCOM.StaticText olblVersion;
+                SAPbouiCOM.StaticText olblEstado;
+                SAPbouiCOM.StaticText olblUpdFea;
                 SAPbouiCOM.StaticText olblDevelp;
                 SAPbouiCOM.ComboBox ocboLocalizacion;
                 SAPbouiCOM.CheckBox ChkFEE;
@@ -63,6 +66,8 @@ namespace BOCore
 
                 olblVersion = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblVersion").Specific);
                 olblDevelp = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblDevelp").Specific);
+                olblEstado = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblEstado").Specific);
+                olblUpdFea = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblUpdFea").Specific);
 
                 ocboLocalizacion = (SAPbouiCOM.ComboBox)(_oFormGA.Items.Item("txtLoca").Specific);
 
@@ -173,10 +178,17 @@ namespace BOCore
 
                 #region Asignacion Valores Label
 
-                olblVersion.Caption = "AddOn BOne ";
+                olblVersion.Caption = VersionAddOn();
                 olblVersion.Item.TextStyle = 1;
-                
+                                
                 olblDevelp.Item.TextStyle = 1;
+
+                olblEstado.Caption = "Su sistema se encuentra registrado";
+                olblEstado.Item.ForeColor = ColorTranslator.ToOle(Color.Green);
+                                
+                olblUpdFea.Item.ForeColor = ColorTranslator.ToOle(Color.Blue);
+                olblUpdFea.Item.TextStyle = 4;
+
 
                 #endregion
 
@@ -190,7 +202,7 @@ namespace BOCore
 
                 _oFormGA.Visible = true;
 
-                oFolder1.Select();
+                oFolder1.Select();                
 
             }
             catch (Exception e)
@@ -581,11 +593,59 @@ namespace BOCore
                     return idMessage + " - AddOn BOne loaded successfully";
                 }
             }
+            else if (idMessage == "00003")
+            {
+                if (oCompanyCore.language == BoSuppLangs.ln_Spanish_La)
+                {
+                    return idMessage + " - El archivo no existe el archivo \"Ultimas mejoras y actualizaciones\" ";
+                }
+                else
+                {
+                    return idMessage + " - The file does not exist the file \"Latest improvements and updates\"";
+                }
+            }
             else
             {
                 return "";
             }
             
+        }
+
+        public void OpenFileUpdatesAndImprovements(SAPbouiCOM.Application sboAppCore, SAPbobsCOM.Company oCompanyCore)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "Core\\Docs\\Updates and improvements.html";
+
+            if (File.Exists(filePath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                DllFunciones.sendMessageBox(sboAppCore, MessageSystem("00003", oCompanyCore));                
+            }
+        }
+
+
+        private string VersionAddOn()
+        {
+            try
+            {             
+                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(AppDomain.CurrentDomain.BaseDirectory + "BasisOne.exe");
+
+                return myFileVersionInfo.FileVersion.ToString();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
 
