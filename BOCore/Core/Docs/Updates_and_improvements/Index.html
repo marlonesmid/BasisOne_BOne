@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexagrama Consulting SAS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+            .container h1 {
+                font-size: 32px;
+                color: #1c1c1c;
+            }
+
+            .container p {
+                font-size: 18px;
+                color: #666;
+                margin-top: -10px;
+            }
+
+        .changelog-list {
+            margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .changelog-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+            .changelog-item:last-child {
+                border-bottom: none;
+            }
+
+            .changelog-item img {
+                width: 24px;
+                height: 24px;
+                margin-right: 15px;
+            }
+
+        .changelog-title {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .changelog-button {
+            padding: 8px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #7DB164;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+
+            .changelog-button:hover {
+                background-color: #e07c00;
+            }
+
+        .changelog-item img {
+            width: 20%; /* Ajusta al 100% del tamaño del contenedor */
+            max-width: 40px; /* No más grande que 200px */
+            height: auto; /* Mantiene la proporción original */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Últimas actualizaciones y funciones</h1>
+        <p>Vea los últimos lanzamientos de funciones, mejoras y correcciones de errores de nuestros productos.</p>
+
+        <div class="changelog-list">
+            <div class="changelog-item">
+                <div class="changelog-title">
+                    <img src="./Images/fe_invoice.png" alt="Icono Facturacion Electronica" />
+                    Facturación Electronica
+                </div>
+                <a href="./Resources/Updates and improvements.html" target="_blank">
+                    <button class="changelog-button">Ver registro de cambios</button>
+                </a>
+            </div>
+            <div class="changelog-item">
+                <div class="changelog-title">
+                    <!-- Icono SVG en lugar de imagen -->
+                    <img src="./Images/production_machine.png" alt="Icono Facturacion Electronica" />
+                    Producción Avanzada
+                </div>
+                <a href="#" target="_blank">
+                    <button class="changelog-button">Ver registro de cambios</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -62,7 +62,10 @@
     <None Include="Core\Formularios\Gestion_AddOn.srf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Core\Docs\Updates and improvements.html" />
+    <Content Include="Core\Docs\Updates_and_improvements\Images\fe_invoice.png" />
+    <Content Include="Core\Docs\Updates_and_improvements\Images\production_machine.png" />
+    <Content Include="Core\Docs\Updates_and_improvements\Index.html" />
+    <Content Include="Core\Docs\Updates_and_improvements\Resources\Updates and improvements.html" />
     <Content Include="Core\Images\LogoBO20x20.bmp" />
     <Content Include="Core\Queries\ValidacionAddOnBOHANA.xml">
       <SubType>Designer</SubType>

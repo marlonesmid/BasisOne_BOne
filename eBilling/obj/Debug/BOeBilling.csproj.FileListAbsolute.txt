@@ -11,7 +11,6 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBil
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\bin\x64\BOeBilling.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\bin\x64\SAPBusinessOneSDK.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\bin\x64\BOFunciones.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\obj\Debug\BOeBilling.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\obj\Debug\BOeBilling.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\obj\Debug\BOeBilling.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\bin\x64\Newtonsoft.Json.dll
@@ -25,3 +24,4 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBil
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\bin\x86\SAPBusinessOneSDK.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\bin\x86\BOFunciones.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\bin\x86\Newtonsoft.Json.xml
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\eBilling\obj\Debug\BOeBilling.csprojResolveAssemblyReference.cache

@@ -7,7 +7,7 @@
 
   <GetInvoices>
   
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS '#',
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS '#',
           CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
           WHEN '1' THEN 'Aceptada'
           WHEN '2' THEN 'Rechaza'
@@ -56,7 +56,7 @@
 
   <GetCreditMemo>
   
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS '#',
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS '#',
           CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
           WHEN '1' THEN 'Aceptada'
           WHEN '2' THEN 'Rechaza'
@@ -102,7 +102,7 @@
 
   <GetDebitMemo>
   
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS '#',
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS '#',
             CASE "U_BO_S" WHEN '0' THEN 'A la espera'
             WHEN '1' THEN 'Aceptada'
             WHEN '2' THEN 'Rechaza'
@@ -147,7 +147,7 @@
   </GetDebitMemo>
 
   <GetPurchase>
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS '#',
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS '#',
             CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
             WHEN '1' THEN 'Aceptada'
             WHEN '2' THEN 'Rechaza'
@@ -192,6 +192,53 @@
     ***DocNum***
 
   </GetPurchase>
+
+  <GetCreditMemoPurchase>
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS '#',
+            CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
+            WHEN '1' THEN 'Aceptada'
+            WHEN '2' THEN 'Rechaza'
+            WHEN '3' THEN 'En validación'
+            ELSE 'A la espera'
+            END AS 'Estado',
+            A."DocNum" AS 'No_Factura',
+            A."CardCode" AS 'Codigo_cliente',
+            A."CardName" AS 'Nombre_cliente',
+            A."DocDate" AS 'Fecha_Documento',
+            A."DocDueDate" AS 'Fecha_vencimiento',
+            CASE WHEN A."U_BO_EE" = 'Y' THEN 'SI'
+            WHEN A."U_BO_EE" = 'N' THEN 'NO'
+            ELSE '' END  AS 'Enviar_Email',
+            CASE WHEN B.U_BO_StatusEmail = '200' THEN 'Enviado' ELSE 'Pendiente' END AS 'Estado_Correo',
+            B.U_BO_Email1 AS 'Correo1',
+            B.U_BO_Email2 AS 'Correo2',
+            B.U_BO_Email3 AS 'Correo3',
+            B.U_BO_Email4 AS 'Correo4',
+            B.U_BO_Email5 AS 'Correo5',
+            A."DocTotal" AS 'Total_documento',
+            CASE WHEN A."U_BO_MRWS" IS NULL THEN 'No Enviado'
+            ELSE A."U_BO_MRWS" END AS "Respuesta_TFHKA",
+            A."DocEntry" AS 'DocEntry',
+			C."SeriesName" AS "SeriesName",
+            A."U_BO_CUFE" AS "CUFE",
+            A."CreateDate" AS "FechaCreacion",
+            CASE WHEN LEN(A."DocTime") = 3 THEN CONCAT(LEFT(A."DocTime",1) , ':' , RIGHT(A."DocTime",2)) ELSE CONCAT(LEFT(A."DocTime",2) , ':' , RIGHT(A."DocTime",2)) END "Hora_Creacion",
+            A."U_BO_FHAD" AS "FHAD",
+           'Ver XML' AS "XML",
+           'Ver PDF' AS "PDF",
+           D."PymntGroup" AS "Condicion_Pago"
+
+    FROM ORPC A LEFT JOIN "@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '19'
+				        LEFT JOIN "NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '19'
+                LEFT JOIN "OCTG" D ON A."GroupNum"=D."GroupNum"
+	WHERE A."DocDate" BETWEEN '%FI%' AND '%FF%'
+    %EstadoDocumento%
+    AND A."Series" in (%Series%)
+    AND A."DocSubType"= '--'
+    ***SN***
+    ***DocNum***
+
+  </GetCreditMemoPurchase>
 
   <GetSeriesNumberInvoice>
     SELECT "Series" AS 'Series', "SeriesName" 'Nombre', "ObjectCode" FROM NNM1
@@ -727,5 +774,6 @@
     SELECT TOP 1 "U_BO_PT" AS "ProveedorTecnologico" FROM "@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
 
   </GetTechnologyProvide>
+
 
 </Queries>

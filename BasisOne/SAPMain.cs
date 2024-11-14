@@ -223,10 +223,19 @@ namespace BasisOne
                             DllCore.OpenFileUpdatesAndImprovements(sboapp, _company);                            
 
                             #endregion
-
                         }
+                        else if (pVal.FormUID == "BO_Gestion_AddOn" && pVal.ItemUID == "lblHelp" && pVal.Before_Action == false && pVal.Action_Success == true)
+                        {
+                            #region Abre archivo actualizaciones y mejoras
 
+                            SAPbouiCOM.Form oInvoice;
 
+                            oInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
+
+                            DllCore.OpenURLHelpDesk(sboapp, _company);
+
+                            #endregion
+                        }
                         #endregion
 
                         if (TieneLicenciaPresupuesto == true)
@@ -276,9 +285,18 @@ namespace BasisOne
                                 
                                 #endregion
                             }
+                            else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "chkCCC" && pVal.Before_Action == true && pVal.Action_Success == false)
+                            {
+                                #region Valida informacion del formulario parametros iniciales eBilling 
 
+
+                                DlleBilling.CheckBoxCloudControlCenter(sboapp, _company);                                   
+
+
+                                #endregion
+                            }
                             #endregion
-                            
+
                             #region Visor documentos eBilling
 
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "MtxOINV" && pVal.Before_Action == true && pVal.Action_Success == false)
@@ -945,92 +963,31 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 133 && pVal.ItemUID == "BtnSM" && pVal.Before_Action == true)
                             {
-                                #region Abre formulario reenviar correo 
-
+                                #region Abre Formulario Reenviar Email 
+                                
                                 SAPbouiCOM.Form oFormInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
 
-                                if (oFormInvoice.Mode == BoFormMode.fm_OK_MODE)
-                                {
-                                    #region Consulta de documento en la base de datos
+                                sPrefijoDocNumSM = DlleBilling.OpenFormSendMail(sboapp, _company, pVal.FormType, oFormInvoice);
 
-                                    string sDocNumInvoice = ((SAPbouiCOM.EditText)(oFormInvoice.Items.Item("8").Specific)).Value.ToString();
-                                    SAPbouiCOM.ComboBox cbSerieNumeracion = (SAPbouiCOM.ComboBox)(oFormInvoice.Items.Item("88").Specific);
-                                    string sSerieNumeracion = cbSerieNumeracion.Selected.Value;
+                                DllFunciones.liberarObjetos(oFormInvoice);
 
-                                    SAPbobsCOM.Recordset oConsultaDocEntry = (SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                #endregion
+                            }
+                            
+                            #endregion                            
 
-                                    string sQueryDocEntryDocument = DllFunciones.GetStringXMLDocument(_company, "eBilling", "eBilling", "GetPrefijoSeries");
-                                    sQueryDocEntryDocument = sQueryDocEntryDocument.Replace("%Code%", sSerieNumeracion);
+                            else if (pVal.FormUID == "BO_SM" && pVal.ItemUID == "btnClose" && pVal.Before_Action == true)
+                            {
+                                #region Cierra Formulario Reenviar E-Mail
 
-                                    oConsultaDocEntry.DoQuery(sQueryDocEntryDocument);
-
-                                    sPrefijoDocNumSM = Convert.ToString(oConsultaDocEntry.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
-
-                                    DllFunciones.liberarObjetos(oConsultaDocEntry);
-                                    DllFunciones.liberarObjetos(oFormInvoice);
-
-                                    #endregion
-
-                                    #region Abre Formulario enviar correo
-
-                                    try
-                                    {
-                                        string ArchivoSRF = "Send_Mail.srf";
-
-                                        DllFunciones.LoadFromXML(sboapp, "eBilling", ref ArchivoSRF);
-
-                                        SAPbouiCOM.Form oFormSM;
-                                        oFormSM = sboapp.Forms.Item("BO_SM");
-
-                                        DlleBilling.LoadFormSendMail(_company, sboapp, oFormSM, sMotor, sPrefijoDocNumSM);
-
-                                    }
-                                    catch (Exception e)
-                                    {
-
-                                        DllFunciones.sendErrorMessage(sboapp, e);
-                                    }
-
-                                    #endregion
-
-                                    DllFunciones.liberarObjetos(oFormInvoice);
-                                }
+                                DllFunciones.CloseFormXML(sboapp, "BO_SM");
 
                                 #endregion
                             }
                             else if (pVal.FormUID == "BO_SM" && pVal.ItemUID == "btnSend" && pVal.Before_Action == true)
                             {
-
-                                #region Boton enviar del fomulario reenviar correo
-
-                                BubbleEvent = true;
-
-                                BubbleEvent = DlleBilling.validacionEnviarCorreo(sboapp);
-
-                                #region Enviar Correo
-
-                                if (BubbleEvent == true)
-                                {
-                                    DlleBilling.EnviarCorreo(_company, sboapp, sPrefijoDocNumSM);
-                                }
-
-                                #endregion
-
-                                #endregion
-
+                                DlleBilling.EnviarCorreoElectronico(sboapp, _company, sPrefijoDocNumSM);
                             }
-
-
-                            #endregion
-
-                            #region Reenviar E-Mail
-
-                            else if (pVal.FormUID == "BO_SM" && pVal.ItemUID == "btnClose" && pVal.Before_Action == true)
-                            {
-                                DllFunciones.CloseFormXML(sboapp, "BO_SM");
-                            }
-
-                            #endregion
 
                             #region Factura de reserva de clientes
 
@@ -1057,60 +1014,15 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 60091 && pVal.ItemUID == "BtnSM" && pVal.Before_Action == true)
                             {
-                                #region Abre el formulario reenviar a la DIAN 
+                                #region Abre Formulario Reenviar Email 
 
                                 SAPbouiCOM.Form oFormInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
 
-                                if (oFormInvoice.Mode == BoFormMode.fm_OK_MODE)
-                                {
+                                sPrefijoDocNumSM = DlleBilling.OpenFormSendMail(sboapp, _company, pVal.FormType, oFormInvoice);
 
-                                    #region Consulta de documento en la base de datos
-
-                                    string sDocNumInvoice = ((SAPbouiCOM.EditText)(oFormInvoice.Items.Item("8").Specific)).Value.ToString();
-                                    SAPbouiCOM.ComboBox cbSerieNumeracion = (SAPbouiCOM.ComboBox)(oFormInvoice.Items.Item("88").Specific);
-                                    string sSerieNumeracion = cbSerieNumeracion.Selected.Value;
-
-                                    SAPbobsCOM.Recordset oConsultaDocEntry = (SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                    string sQueryDocEntryDocument = DllFunciones.GetStringXMLDocument(_company, "eBilling", "eBilling", "GetPrefijoSeries");
-                                    sQueryDocEntryDocument = sQueryDocEntryDocument.Replace("%Code%", sSerieNumeracion);
-
-                                    oConsultaDocEntry.DoQuery(sQueryDocEntryDocument);
-
-                                    sPrefijoDocNumSM = Convert.ToString(oConsultaDocEntry.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
-
-                                    DllFunciones.liberarObjetos(oConsultaDocEntry);
-                                    DllFunciones.liberarObjetos(oFormInvoice);
-
-                                    #endregion
-
-                                    #region Abre Formulario enviar correo
-
-                                    try
-                                    {
-                                        string ArchivoSRF = "Send_Mail.srf";
-
-                                        DllFunciones.LoadFromXML(sboapp, "eBilling", ref ArchivoSRF);
-
-                                        SAPbouiCOM.Form oFormSM;
-                                        oFormSM = sboapp.Forms.Item("BO_SM");
-
-                                        DlleBilling.LoadFormSendMail(_company, sboapp, oFormSM, sMotor, sPrefijoDocNumSM);
-
-                                    }
-                                    catch (Exception e)
-                                    {
-
-                                        DllFunciones.sendErrorMessage(sboapp, e);
-                                    }
-
-                                    #endregion
-
-                                    DllFunciones.liberarObjetos(oFormInvoice);
-                                }
+                                DllFunciones.liberarObjetos(oFormInvoice);
 
                                 #endregion
-
                             }
 
                             #endregion
@@ -1138,60 +1050,15 @@ namespace BasisOne
                             }
                             else if (pVal.FormType == 60090 && pVal.ItemUID == "BtnSM" && pVal.Before_Action == true)
                             {
-                                #region Abre el formulario reenviar a la DIAN 
+                                #region Abre Formulario Reenviar Email 
 
                                 SAPbouiCOM.Form oFormInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
 
-                                if (oFormInvoice.Mode == BoFormMode.fm_OK_MODE)
-                                {
+                                sPrefijoDocNumSM = DlleBilling.OpenFormSendMail(sboapp, _company, pVal.FormType, oFormInvoice);
 
-                                    #region Consulta de documento en la base de datos
-
-                                    string sDocNumInvoice = ((SAPbouiCOM.EditText)(oFormInvoice.Items.Item("8").Specific)).Value.ToString();
-                                    SAPbouiCOM.ComboBox cbSerieNumeracion = (SAPbouiCOM.ComboBox)(oFormInvoice.Items.Item("88").Specific);
-                                    string sSerieNumeracion = cbSerieNumeracion.Selected.Value;
-
-                                    SAPbobsCOM.Recordset oConsultaDocEntry = (SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                    string sQueryDocEntryDocument = DllFunciones.GetStringXMLDocument(_company, "eBilling", "eBilling", "GetPrefijoSeries");
-                                    sQueryDocEntryDocument = sQueryDocEntryDocument.Replace("%Code%", sSerieNumeracion);
-
-                                    oConsultaDocEntry.DoQuery(sQueryDocEntryDocument);
-
-                                    sPrefijoDocNumSM = Convert.ToString(oConsultaDocEntry.Fields.Item("Prefijo").Value.ToString()) + sDocNumInvoice;
-
-                                    DllFunciones.liberarObjetos(oConsultaDocEntry);
-                                    DllFunciones.liberarObjetos(oFormInvoice);
-
-                                    #endregion
-
-                                    #region Abre Formulario enviar correo
-
-                                    try
-                                    {
-                                        string ArchivoSRF = "Send_Mail.srf";
-
-                                        DllFunciones.LoadFromXML(sboapp, "eBilling", ref ArchivoSRF);
-
-                                        SAPbouiCOM.Form oFormSM;
-                                        oFormSM = sboapp.Forms.Item("BO_SM");
-
-                                        DlleBilling.LoadFormSendMail(_company, sboapp, oFormSM, sMotor, sPrefijoDocNumSM);
-
-                                    }
-                                    catch (Exception e)
-                                    {
-
-                                        DllFunciones.sendErrorMessage(sboapp, e);
-                                    }
-
-                                    #endregion
-
-                                    DllFunciones.liberarObjetos(oFormInvoice);
-                                }
+                                DllFunciones.liberarObjetos(oFormInvoice);
 
                                 #endregion
-
                             }
 
                             #endregion
@@ -1218,7 +1085,6 @@ namespace BasisOne
                                 #endregion
                             }
 
-
                             #endregion
 
                             #region Nota Credito Proveedor - Documento Soporte
@@ -1242,7 +1108,6 @@ namespace BasisOne
 
                                 #endregion
                             }
-
 
                             #endregion
 
@@ -1295,6 +1160,18 @@ namespace BasisOne
                                 #endregion
 
                             }
+                            else if (pVal.FormType == 179 && pVal.ItemUID == "BtnSM" && pVal.Before_Action == true)
+                            {
+                                #region Abre Formulario Reenviar Email 
+
+                                SAPbouiCOM.Form oFormInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
+
+                                sPrefijoDocNumSM = DlleBilling.OpenFormSendMail(sboapp, _company, pVal.FormType, oFormInvoice);
+
+                                DllFunciones.liberarObjetos(oFormInvoice);
+
+                                #endregion
+                            }
 
                             #endregion
 
@@ -1316,6 +1193,18 @@ namespace BasisOne
 
                                 #endregion
 
+                            }
+                            else if (pVal.FormType == 179 && pVal.ItemUID == "BtnSM" && pVal.Before_Action == true)
+                            {
+                                #region Abre Formulario Reenviar Email 
+
+                                SAPbouiCOM.Form oFormInvoice = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
+
+                                sPrefijoDocNumSM = DlleBilling.OpenFormSendMail(sboapp, _company, pVal.FormType, oFormInvoice);
+
+                                DllFunciones.liberarObjetos(oFormInvoice);
+
+                                #endregion
                             }
 
                             #endregion
@@ -2671,6 +2560,17 @@ namespace BasisOne
                                 SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
 
                                 DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+
+                                #endregion
+
+                            }
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "UDO_FT_BO_eBillingP")
+                            {
+                                #region Actualiza Label Status DIAN
+
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+
+                                DlleBilling.CheckBoxCloudControlCenter(sboapp, _company);
 
                                 #endregion
 

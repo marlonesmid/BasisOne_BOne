@@ -1,0 +1,193 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Facturacion Electronica - Log cambios</title>
+</head>
+<body>
+    <style>
+        body {
+            color: #666;
+            background-color: #fff;
+            font-family: "Open Sans", Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.7em;
+        }
+
+        #changelog {
+            width: 900px;
+            margin: 0px auto;
+        }
+
+        .changelogVersion {
+            font-weight: 700;
+            font-size: 12pt;
+            line-height: 34px;
+            padding-top: 1em;
+        }
+
+        .changelogImprovements {
+            border-left: 1px solid #0068c3;
+            padding-left: 40px !important;
+            margin-bottom: 2em;
+        }
+
+            .changelogImprovements:before {
+                color: #0068c3;
+                font-weight: bold;
+                margin-left: -20px;
+                content: "Mejoras";
+            }
+
+        .changelogFixes {
+            border-left: 1px solid #fc3838;
+            padding-left: 40px !important;
+            margin-bottom: 2em;
+        }
+
+            .changelogFixes:before {
+                color: #fc3838;
+                font-weight: bold;
+                margin-left: -20px;
+                content: "Correcciones";
+            }
+
+        .icon {
+            width: 25px;
+            height: 24px;
+            margin-right: 5px;
+            float: left;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAYCAIAAACA18GRAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMS41ZEdYUgAABolJREFUSEslVGtQk2cWzk/IPaBbW92ZvXRnt3+667QzpWo7O9PZWVuq4+7sn8601q4k+ZJ8gV23raglRFcUOlKtUO1aCITc7+RCQoLsGAwJJTUoIIgh4SrIRQJoQsiX7333hJ05mTnvOe953ufkO89h0DSF8lmEqDz8EKYQ2sbUc4S3EN5GOE9TNMKYpgqG6BzCzzHewBgKaJxHGGGaxvQ2lOZozMhivAVHGpIFtA2Ej9Rq9n1yra1/AqDzhehOEmohTeeqNJHdx29WtwVyGEEBAjwoL6QQY5umM4UHqS2aSqP8Eo1/X9m+S2ys8TxO01Qun93C+ecYpRHKFPjnP7jyX67Ycazesb5DMI2pDL2doREQYmgjE3vFqr2EYQ+h/1XF9djGi9fJW7uEmrOuCaU5tEek3StRv0xo9kiN+0626KPJ8m+Cu4TaYxd15odzv6j4/mVC+4rE+MuKlt5HS4xvA/c5UidTHigmfSWEpbH3cWB8tr4rGl3dfK/WypZ6ODIPV+YuJnsEhKXiZvedhWcNzvCPy+mPboW4UjuXdHHlHgGhsw5NM74JjHBkLibpY1b1FMn8AsL6/rX+v2uH91d7SiQ2FtnFIv1s0s8iA2yZjy/S//Fy4LhmpKzuNk/iKJL1cMhuJtnFJay2oXlGY2CUI3XxZG5AZJHdbNLHkzlLpTbgwpH7mJU+ltzLJrs4Mh+T9PJldh7ZyZZ2cmWdRXIvszLAJX0smZcjsRsB62oByw1YAlknNMuSQZkX+gJG8CATHLmLQ7p5UkeRPMCRu4plcBngPHxw5C426WLLfTyxwzL0BHoc5UodP6+yHFJ63q1xHwKrdYP/lsJ/UOErq+06oHAfUHjfqXG9Xes+qPQeqHUeUlgOKj2HFM63lZ4yhednciePsBmH5hjXekZZQvOl24nlHHoGRtHPcvQqBYY2cyiVQ+CsUBBHyzu2AhcoesenIb5EoU9b+0uFGmtsBnoc4YjN3wanMhhb+uOXu2cudSdtsYX7c5sNvonL/uTX3odrCNd7Ruv8M/Weh4uZ/I3eZEP3VIMvGX68CCNPqPv5Ip05Ng+8Rjgiw41gArA+uuIpFZlhuE78J6iNJEsr1DzCvkesXs7jlz6+zpdaSk6oJ9a23/iXfrfIvPuk7mpXLE3T0o4wT2wwxp4A1jBHpP+uL/mCRkq1r7xWe+R8x0VrX9eDqQ+V7YfPmz5UdmzQ+OjZH/58QXdYYUisZ483msov6A8r9Ya+YZAtoRlki02mAq/AMFuka+5LphHun17U/DStuTcdnV9ey1Fj6+mHqfREKp1FeGwtPbKeHU2ln9Po0UZmeD0znEo/y2zl85RcHYG5s8Rmd7DEOuA1vUEd/bJZ2zemDsb/8lVLayT5a7n+d1XG/ZWqBRq/Jm599VTnazL1+Fr2vTO6V/9p+m2l9qZ3EJQoah/giEzm/2OxxPobfYl4KnekVh2cXbozt3z03K3vQtMcwgZz94pINZ/HJSdUPKlz1wnNyGruD6dtfKldILI2uu9BN8eu+nlis/3eDGCNsMX6prvJFwjr7tyvarZXNTsd0fj85lZv4imMyt3EIqT64guhxFJocjFF0eGZlWBiKTi5NL22+SSTe+uso7SANctoCgxzRZrmu/FtjHWh8S86xz93xnXRudjUSo19uMYxetExmEJYaY7WuMaUtuj8Vv667/55x70a24P+iaf28ZVSiZktcRQ01AQaEhkL3xHjjxs7S8QGgdD02fdBfXiGf9IkENn2VbQs5LHgk44iiZP3mXpkNbv/lFYgVL95SuWfXC07Z+NKXVzCrgMNXe0ZKxbbmu4WZvVCh7e8zvpBnb3eHvI/SJbXmY9csv7toiFF4fcVxvJLrqNKw2wq848W7w+ReO/C5p8avFyZgwXClDh0QwugR/iOhqa+BEVj2LPw18BGB45bGG/igg9v5FFhtcKxYHk0mt7++nb89VMG2AXFJGwRUL5ND7yaeh5wCUvZv7u/MA2eMQ+eM0W+MkVOmwfPwNE0eNoUO2v6sdr8U7UpWm0ekKmCf73S+xtSxxNaWVIP7CL2zqYsERlNBW37onyhliWxsQlzMWHliI0weFyRvrQCCkwcoZ0rsjCJTpbYwSaMbAKuOXlCB5+wsMCX2MF4EstLwnZLNMmYXM+2hR61DUypIwlVZKo1MqUKg5NQhydVkaQ6nOwI7wQjU22RJERaB6bbwlPtAwkY5p0gXJ7sCI0/zaL/AW7+jD7FHEORAAAAAElFTkSuQmCC');
+        }
+
+        ul > li {
+            font-weight: bold;
+        }
+
+        ul > li > ul > li {
+            font-weight: normal;
+        }
+
+    </style>
+
+    <div id="changelog">
+        <br>
+        <h1>Facturacion Electronica - Log de cambios</h1>
+        <br>
+
+        <div class="changelogVersion">
+            <div class="icon"></div>v10.23.46.0 - 2024/11/12
+        </div>
+        <ul class="changelogImprovements">
+            <li >Emision
+                <ul>
+                    Parametros Generales
+                    <li>
+                        <ul>Se adiciona mejora para integrarse con el proveedor tecnologico "Facture By Estela" para emision de documentos.</ul>
+                    </li>
+                </ul>
+                <ul>
+                    Socios de Negocios
+                    <li>
+                        <ul>En la pestaña de "Facturacion Electronica" en el modulo Socio de negocios en el campo "Tipo de Regimen" se actualiza listado de acuerdo a la resolución 000165 de 01-11-2023 anexo técnico v1.9</ul>
+                    </li>
+                    <li>
+                        <ul>En la pestaña de "Facturacion Electronica" en el modulo Socio de negocios en el campo "Responsabilidad Fiscal" se actualiza listado de acuerdo a la resolución 000165 de 01-11-2023 anexo técnico v1.9</ul>
+                    </li>
+                </ul>                
+                <ul>
+                    Visor de documentos
+                    <li>
+                        <ul>Se realizar mejora para para que se muestre correctamente el "Row Number" en los matrices de Facturas de venta, notas credito, notas debito, documento soporte y nota de ajsute documento soporte.</ul>                        
+                    </li>
+                    <li>                        
+                        <ul>Se adiciona la pestaña "Nota de ajuste documento soporte", donde se mostraran todas las notas credito de compra.</ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                DllCore
+                <ul>Gestor de addon
+                    <li>
+                        <ul>Se adiciona mejora donde para que los usuarios puedan descargar un archivo con los principales cambios realizados en el modulo.</ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="changelogFixes">
+            <li>
+                Emision
+                <ul>
+                    Visor de documentos
+                    <li>
+                        <ul>Se adiciona corrección para que cargue correctamente el logo en el formulario "Visor de documentos".</ul>
+                    </li>
+                </ul>
+                <ul>
+                    Factura de venta
+                    <li>
+                        <ul>Se realiza corrección para poder reenviar el E-mail a mas de un correo electronico.</ul>
+                    </li>
+                    <li>
+                        <ul>Se realiza corrección al mensaje que aparecía: "Referencia no establecida a objeto", ahora arroja el mensaje correcto.</ul>
+                    </li>
+                    <li>
+                        <ul>Se realiza corrección para que cargue correctamente los ComboBox de los campos "Estado del documento", "Enviado por", "Enviar por correo"</ul>
+                    </li>
+                </ul>
+                <ul>
+                    Nota credito de clientes
+                    <li>
+                        <ul>Se realiza corrección para poder reenviar el E-mail a mas de un correo electronico.</ul>
+                    </li>
+                    <li>
+                        <ul>Se realiza corrección al mensaje que aparecía: "Referencia no establecida a objeto", ahora arroja el mensaje correcto.</ul>
+                    </li>
+                    <li>
+                        <ul>Se realiza corrección para que cargue correctamente los ComboBox de los campos "Estado del documento", "Enviado por", "Enviar por correo"</ul>
+                    </li>
+                    <li>
+                        <ul>Se realiza corrección en el Label que muestra el mensaje si el documento fue autorizado o no por la DIAN, ahora muestra el mensaje correcto.</ul>
+                    </li>
+                </ul>
+                <ul>
+                    Nota debito de clientes
+                    <li>
+                        <ul>Se realiza corrección para poder reenviar el E-mail a mas de un correo electronico.</ul>
+                    </li>
+                    <li>
+                        <ul>Se realiza corrección al mensaje que aparecía: "Referencia no establecida a objeto", ahora arroja el mensaje correcto.</ul>
+                    </li>
+                    <li>
+                        <ul>Se realiza corrección para que cargue correctamente los ComboBox de los campos "Estado del documento", "Enviado por", "Enviar por correo"</ul>
+                    </li>
+                </ul>
+                <ul>
+                    Factura de Proveedores                    
+                    <li>
+                        <ul>Se realiza corrección para que cargue correctamente los ComboBox de los campos "Estado del documento", "Enviado por", "Enviar por correo"</ul>
+                    </li>
+                </ul>
+                <ul>
+                    Nota credito proveedor 
+                    <li>
+                        <ul>Se realiza corrección para que cargue correctamente los ComboBox de los campos "Estado del documento", "Enviado por", "Enviar por correo"</ul>
+                    </li>
+                </ul>
+                <ul>
+                    Gestor de AddOns
+                    <li>
+                        <ul>Se adiciona corrección para que cargue correctamente el logo en el formulario "Gestor AddOn".</ul>
+                    </li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+    </div>
+</body>
+</html>

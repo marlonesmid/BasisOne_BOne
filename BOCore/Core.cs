@@ -44,6 +44,7 @@ namespace BOCore
                 SAPbouiCOM.StaticText olblEstado;
                 SAPbouiCOM.StaticText olblUpdFea;
                 SAPbouiCOM.StaticText olblDevelp;
+                SAPbouiCOM.StaticText olblHelp;
                 SAPbouiCOM.ComboBox ocboLocalizacion;
                 SAPbouiCOM.CheckBox ChkFEE;
                 SAPbouiCOM.CheckBox ChkFER;
@@ -68,6 +69,7 @@ namespace BOCore
                 olblDevelp = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblDevelp").Specific);
                 olblEstado = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblEstado").Specific);
                 olblUpdFea = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblUpdFea").Specific);
+                olblHelp = (SAPbouiCOM.StaticText)(_oFormGA.Items.Item("lblHelp").Specific);
 
                 ocboLocalizacion = (SAPbouiCOM.ComboBox)(_oFormGA.Items.Item("txtLoca").Specific);
 
@@ -188,6 +190,9 @@ namespace BOCore
                                 
                 olblUpdFea.Item.ForeColor = ColorTranslator.ToOle(Color.Blue);
                 olblUpdFea.Item.TextStyle = 4;
+
+                olblHelp.Item.ForeColor = ColorTranslator.ToOle(Color.Blue);
+                olblHelp.Item.TextStyle = 4;
 
 
                 #endregion
@@ -615,14 +620,15 @@ namespace BOCore
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
 
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + "Core\\Docs\\Updates and improvements.html";
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "Core\\Docs\\Updates_and_improvements\\Index.html";
 
             if (File.Exists(filePath))
             {
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = filePath,
-                    UseShellExecute = true
+                    UseShellExecute = true,
+                    WindowStyle = ProcessWindowStyle.Normal
                 });
             }
             else
@@ -631,6 +637,25 @@ namespace BOCore
             }
         }
 
+        public void OpenURLHelpDesk(SAPbouiCOM.Application sboAppCore, SAPbobsCOM.Company oCompanyCore)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "Core\\Docs\\Updates_and_improvements\\Index.html";
+
+            if (File.Exists(filePath))
+            {
+                Process.Start(new ProcessStartInfo("https://hexagramaconsulting.atlassian.net/servicedesk/customer/portal/1")
+                {                    
+                    UseShellExecute = true,
+                    WindowStyle = ProcessWindowStyle.Normal
+                });
+            }
+            else
+            {
+                DllFunciones.sendMessageBox(sboAppCore, MessageSystem("00003", oCompanyCore));
+            }
+        }
 
         private string VersionAddOn()
         {

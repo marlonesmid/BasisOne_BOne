@@ -6,7 +6,7 @@
   </GetLastRecord>
 
   <GetInvoices>
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS "#",
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS "#",
            CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
                           WHEN '1' THEN 'Aceptada'
                           WHEN '2' THEN 'Rechaza'
@@ -38,7 +38,7 @@
           'Ver XML' AS "XML",
           'Ver PDF' AS "PDF",
           D."PymntGroup" AS "Condicion_Pago",
-          CASE WHEN A."DocSubType" = 'RI' THEN 'Factura Reserva' ELSE 'Factura deudores' END AS "DocSubType"
+          CASE WHEN A."isIns" = 'Y' THEN 'Factura Reserva' ELSE 'Factura deudores' END AS "DocSubType"
 
     FROM "%sNameDB%"."OINV" A LEFT JOIN "%sNameDB%"."@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '13'
                               LEFT JOIN "%sNameDB%"."NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '13'
@@ -48,12 +48,11 @@
     AND A."Series" IN (SELECT "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'FVC')
     AND A."DocSubType"= '--'
     ***SN***
-    ***DocNum***
-    ORDER BY 6 DESC
+    ***DocNum***    
   </GetInvoices>
 
   <GetCreditMemo>
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS "#",
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS "#",
             CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
             WHEN '1' THEN 'Aceptada'
             WHEN '2' THEN 'Rechaza'
@@ -97,11 +96,11 @@
     AND A."Series" IN (SELECT "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'NCC')
     ***SN***
     ***DocNum***
-        ORDER BY 6 DESC
+        
   </GetCreditMemo>
 
   <GetDebitMemo>
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS "#",
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS "#",
               CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
               WHEN '1' THEN 'Aceptada'
               WHEN '2' THEN 'Rechaza'
@@ -144,11 +143,10 @@
     AND A."DocSubType"= 'DN'
     ***SN***
     ***DocNum***
-    ORDER BY 6 DESC
   </GetDebitMemo>
 
   <GetPurchase>
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS "#",
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS "#",
             CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
             WHEN '1' THEN 'Aceptada'
             WHEN '2' THEN 'Rechaza'
@@ -191,11 +189,11 @@
     AND A."DocSubType"= '--'
     ***SN***
     ***DocNum***
-    ORDER BY 6 DESC
+    
   </GetPurchase>
   
   <GetCreditMemoPurchase>
-    SELECT ROW_NUMBER() OVER(ORDER BY A."DocNum" ASC) AS "#",
+    SELECT ROW_NUMBER() OVER(ORDER BY A."DocEntry" DESC) AS "#",
             CASE A."U_BO_S" WHEN '0' THEN 'A la espera'
             WHEN '1' THEN 'Aceptada'
             WHEN '2' THEN 'Rechaza'
@@ -238,7 +236,7 @@
     AND A."DocSubType"= '--'
     ***SN***
     ***DocNum***
-    ORDER BY 6 DESC
+    
   </GetCreditMemoPurchase>
 
   <GetSeriesNumberInvoice>
@@ -498,20 +496,27 @@
   <GetRPTDoc>
 
     SELECT T0."CODE" AS "TipoDoc",
-    T0."DEFLT_REP" AS "ID_Layout",
-    T1."DocName" AS "NombreFormato",
-    (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaCRL"
+          T0."DEFLT_REP" AS "ID_Layout",
+          T1."DocName" AS "NombreFormato",
+          (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaCRL",
+          CASE WHEN T0."CODE" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
+			           WHEN T0."CODE"= '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "ORIN" WHERE "DocEntry" = '%DocEntry%'))
+    	           WHEN T0."CODE" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
+    	           WHEN "CODE" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OPCH" WHERE "DocEntry" = '%DocEntry%'))
+                 ELSE 'N' END "FormatoMaster"
     FROM "%sNameDB%"."RTYP" T0 LEFT JOIN "%sNameDB%"."RDOC" T1 ON T0."DEFLT_REP"="DocCode"
     WHERE T0."CODE" = '%TypeDoc%'
 
   </GetRPTDoc>
 
   <GetRPTDocUser>
+    
     SELECT TOP 1 "DoumntDode" AS "TipoDoc",
            T0."DfltReport" AS "ID_Layout",
            T1."DocName" AS "NombreFormato",
            (SELECT TOP 1 A."U_BO_RutaCRL" FROM "%sNameDB%"."@BOEBILLINGP" A) AS "RutaPDFyXML",
-            CASE WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
+           
+           CASE WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
 			           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "ORIN" WHERE "DocEntry" = '%DocEntry%'))
     	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
     	           WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  IFNULL("U_BO_FORIMPMAS",'N')  FROM "%sNameDB%"."@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OPCH" WHERE "DocEntry" = '%DocEntry%'))
@@ -519,13 +524,14 @@
            
     FROM "%sNameDB%"."RDFL" T0 INNER JOIN "%sNameDB%"."RDOC" T1 ON T0."DfltReport" =  T1."DocCode"
     WHERE "DoumntDode" = '%TypeDoc%' AND T0."UserId" = '%UserId%'
+  
   </GetRPTDocUser>
 
   <GetCUFEInvoice>
     
        SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
               
-              CASE WHEN (SELECT TOP 1 "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT TOP 1 "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
+              CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y') = 'Y' THEN (  ( SELECT "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
     			    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
     			    END AS "consecutivoDocumento",
     		      
@@ -540,7 +546,7 @@
     
        SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
               
-              CASE WHEN (SELECT TOP 1 "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT TOP 1 "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
+              CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y') = 'Y' THEN (  ( SELECT "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
     			    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
     			    END AS "consecutivoDocumento",
     		      
@@ -555,7 +561,7 @@
     
        SELECT TOP 1 T0."U_BO_CUFE" AS "CUFE",
               
-              CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP") = 'Y' THEN (  ( SELECT "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
+              CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y') = 'Y' THEN (  ( SELECT "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" A WHERE A."Code" = T0."Series" ) || CAST(T0."DocNum" AS NVARCHAR(20)))
     			    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
     			    END AS "consecutivoDocumento",
     		      
@@ -625,9 +631,16 @@
   </SerachNextCode>
 
   <GetPrefijoSeries>
-    SELECT "U_BO_PREF" AS "Prefijo"
-    FROM "%sNameDB%"."@BOSERNUM"
-    WHERE "Code" = '%Code%'
+      SELECT CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y') = 'Y' THEN (T6."BeginStr"||T0."DocNum") 
+             ELSE CAST(T0."DocNum" AS NVARCHAR(20)) 
+             END AS "consecutivoDocumento"
+       
+      FROM "%sNameDB%"."%Table%" T0 LEFT JOIN "%sNameDB%"."INV12" T4 ON T0."DocEntry"=T4."DocEntry"
+                                       LEFT JOIN "%sNameDB%"."OCRD" T5 ON T0."CardCode" = T5."CardCode"
+                                       LEFT JOIN "%sNameDB%"."NNM1" T6 ON T0."Series"=T6."Series" AND T6."ObjectCode" = '%ObjectCode%'
+                                       LEFT JOIN "%sNameDB%"."@BOSERNUM" T8 ON T0."Series"=T8."Code"
+                                 
+      WHERE T0."DocNum" = '%DocNum%' AND T0."Series" = '%Series%' AND  T0."DocSubType" != 'DN'; 
   </GetPrefijoSeries>
 
   <GetLlaveAndPassword>
