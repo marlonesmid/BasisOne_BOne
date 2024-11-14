@@ -438,6 +438,16 @@
       WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
     
   </GetDocEntryAndParametersFBE>
+
+  <GetParametersSAPCCC>
+
+    SELECT TOP 1 "U_BO_SCCC" AS "IsSAPCCC",
+           "U_BO_CCCR" AS "CadenaCCR",
+           "U_BO_SCCR" AS "ServidorCCR"
+    FROM "%sNameDB%"."@BOEBILLINGP"
+
+  </GetParametersSAPCCC>
+  
   <GetDocNumAndSeries>
 
     SELECT "DocNum" AS "DocNum",

@@ -17143,6 +17143,7 @@ namespace eBilling
                 string _strConnection = null;
                 string _sArquitectura = null;
                 string sFormatoMaster = null;
+                string sRPTisSAPCCC = null;
 
                 if (__TipoDocumento == "FacturaDeClientes")
                 {
@@ -17162,7 +17163,18 @@ namespace eBilling
                 }
 
                 SAPbobsCOM.Recordset oRGetRPTDoc = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                SAPbobsCOM.Recordset oRsSearchSAPCCC = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                 //SAPbobsCOM.Recordset oGetRPTBusinessPartnerd = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                #endregion
+
+                #region Consulta si es SAP CLoud Control Center el Crystal Report 
+
+                string sRsSearchSAPCCC = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetParametersSAPCCC");
+
+                oRsSearchSAPCCC.DoQuery(sRsSearchSAPCCC);                
+
+                sRPTisSAPCCC = Convert.ToString(oRsSearchSAPCCC.Fields.Item("IsSAPCCC").Value.ToString());
 
                 #endregion
 
@@ -17228,167 +17240,160 @@ namespace eBilling
                     //64X
                     if (_sArquitectura == "8")
                     {
-                        #region MyRegion
-
-                        #region Genera el PDF con cliente SAP a 64X
-
-                        ReportDocument LayoutPDF = new ReportDocument();
-
-                        LayoutPDF.Load(sRutaLayout);
-
-                        LayoutPDF.DataSourceConnections.Clear();
-
-                        _sServer = Convert.ToString(_oCompany.SLDServer);
-                        _sServer = _sServer.Replace(":40000", ":30015");
-
-                        _sTenanDB = Convert.ToString(_oCompany.Server);
-
-                        int indexTenat = _sTenanDB.IndexOf("@");
-
-                        if (indexTenat == -1)
+                        if (sRPTisSAPCCC == "Y")
                         {
-                            _sTenanDB = "NDB";
+                            #region Genera el PDF con cliente SAP a 64X
+
+                            ReportDocument LayoutPDF = new ReportDocument();
+
+                            LayoutPDF.Load(sRutaLayout);
+
+                            LayoutPDF.DataSourceConnections.Clear();
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30015");
+
+                            _sTenanDB = Convert.ToString(_oCompany.Server);
+
+                            int indexTenat = _sTenanDB.IndexOf("@");
+
+                            if (indexTenat == -1)
+                            {
+                                _sTenanDB = "NDB";
+                            }
+                            else
+                            {
+                                _sTenanDB = _sTenanDB.Substring(0, indexTenat);
+                            }
+                            
+                            string sCadenaCCR = Convert.ToString(oRsSearchSAPCCC.Fields.Item("CadenaCCR").Value.ToString());
+                            _strConnection = sCadenaCCR;
+
+                            NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
+                            logonProps2.Set("Provider", "B1CRHPROXY");
+                            logonProps2.Set("Server Type", "B1CRHPROXY");
+                            logonProps2.Set("Connection String", _strConnection);
+
+                            LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30013");
+
+                            string sServidorCCR = Convert.ToString(oRsSearchSAPCCC.Fields.Item("ServidorCCR").Value.ToString());
+
+                            LayoutPDF.DataSourceConnections[0].SetConnection(sServidorCCR, _sNameDB, false);
+
+                            LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
+                            LayoutPDF.SetParameterValue("Schema@", _sNameDB);
+
+                            if (sFormatoMaster == "Y")
+                            {
+
+                                if (_sTipo == "INV2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "RIN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "14");
+                                }
+                                else if (_sTipo == "IDN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "PCH2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "18");
+                                }
+                            }
+
+                            LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
+
+                            LayoutPDF.Close();
+
+                            LayoutPDF.Dispose();
+
+                            GC.SuppressFinalize(LayoutPDF);
+
+                            #endregion                            
                         }
                         else
                         {
-                            _sTenanDB = _sTenanDB.Substring(0, indexTenat);
+                            #region Genera el PDF con cliente SAP a 64X
+
+                            ReportDocument LayoutPDF = new ReportDocument();
+
+                            LayoutPDF.Load(sRutaLayout);
+
+                            LayoutPDF.DataSourceConnections.Clear();
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30015");
+
+                            _sTenanDB = Convert.ToString(_oCompany.Server);
+
+                            int indexTenat = _sTenanDB.IndexOf("@");
+
+                            if (indexTenat == -1)
+                            {
+                                _sTenanDB = "NDB";
+                            }
+                            else
+                            {
+                                _sTenanDB = _sTenanDB.Substring(0, indexTenat);
+                            }
+
+                            _strConnection = string.Format("DRIVER={0};SERVERNODE={1};DATABASENAME={2};DATABASE={3};UID={4};PWD={5};", "{B1CRHPROXY}", _sServer, _sTenanDB, _sNameDB, _sUserDB, _sPassDB);
+                            
+                            NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
+                            logonProps2.Set("Provider", "B1CRHPROXY");
+                            logonProps2.Set("Server Type", "B1CRHPROXY");
+                            logonProps2.Set("Connection String", _strConnection);
+
+                            LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30013");
+
+                            LayoutPDF.DataSourceConnections[0].SetConnection(_sServer, _sNameDB, false);
+
+                            LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
+                            LayoutPDF.SetParameterValue("Schema@", _sNameDB);
+
+                            if (sFormatoMaster == "Y")
+                            {
+                                if (_sTipo == "INV2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "RIN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "14");
+                                }
+                                else if (_sTipo == "IDN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "PCH2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "18");
+                                }
+                            }
+
+                            LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
+
+                            LayoutPDF.Close();
+
+                            LayoutPDF.Dispose();
+
+                            GC.SuppressFinalize(LayoutPDF);
+
+                            #endregion
+                                                        
                         }
-
-
-                        //_strConnection = string.Format("DRIVER={0};SERVERNODE={1};DATABASENAME={2};DATABASE={3};UID={4};PWD={5};", "{B1CRHPROXY}", _sServer, _sTenanDB, _sNameDB, _sUserDB, _sPassDB);
-                        //_strConnection =               "DRIVER={B1CRHPROXY};SERVERNODE=192.168.0.202:30015;DATABASENAME=NDB;DATABASE=ESFERA_COLOR;UID=SYSTEM;PWD=Asdf1234$";                        
-                        _strConnection = "DRIVER={B1CRHPROXY};UID=SYSTEM;PWD=wiPN9vP7l6h5eLRh;SERVERNODE=hana-vm-03.cloudiax.com:30041;DATABASENAME=HV03C20170T01;CS=JH_CO_PROD";
-
-                        // DllFunciones.sendMessageBox(_sboapp, "Conexion: " + _strConnection);
-
-                        NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
-                        logonProps2.Set("Provider", "B1CRHPROXY");
-                        logonProps2.Set("Server Type", "B1CRHPROXY");
-                        logonProps2.Set("Connection String", _strConnection);
-
-                        LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
-
-                        _sServer = Convert.ToString(_oCompany.SLDServer);
-                        _sServer = _sServer.Replace(":40000", ":30013");
-
-                        LayoutPDF.DataSourceConnections[0].SetConnection("hana-vm-03.cloudiax.com:30041", _sNameDB, false);
-
-                        LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
-                        LayoutPDF.SetParameterValue("Schema@", _sNameDB);
-                        
-                        if (sFormatoMaster == "Y")
-                        {
-
-                            if (_sTipo == "INV2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "13");
-                            }
-                            else if (_sTipo == "RIN2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "14");
-                            }
-                            else if (_sTipo == "IDN2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "13");
-                            }
-                            else if (_sTipo == "PCH2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "18");
-                            }
-                        }
-
-                        LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
-
-                        LayoutPDF.Close();
-
-                        LayoutPDF.Dispose();
-
-                        GC.SuppressFinalize(LayoutPDF);
-
-                        #endregion
-
-                        #endregion
-
-                        #region MyRegion
-
-                        #region Genera el PDF con cliente SAP a 64X
-
-                        //ReportDocument LayoutPDF = new ReportDocument();
-
-                        //LayoutPDF.Load(sRutaLayout);
-
-                        //LayoutPDF.DataSourceConnections.Clear();
-
-                        //_sServer = Convert.ToString(_oCompany.SLDServer);
-                        //_sServer = _sServer.Replace(":40000", ":30015");
-
-                        //_sTenanDB = Convert.ToString(_oCompany.Server);
-
-                        //int indexTenat = _sTenanDB.IndexOf("@");
-
-                        //if (indexTenat == -1)
-                        //{
-                        //    _sTenanDB = "NDB";
-                        //}
-                        //else
-                        //{
-                        //    _sTenanDB = _sTenanDB.Substring(0, indexTenat);
-                        //}
-
-                        //_strConnection = string.Format("DRIVER={0};SERVERNODE={1};DATABASENAME={2};DATABASE={3};UID={4};PWD={5};", "{B1CRHPROXY}", _sServer, _sTenanDB, _sNameDB, _sUserDB, _sPassDB);
-                        ////_strConnection =               "DRIVER={B1CRHPROXY};SERVERNODE=192.168.0.202:30015;DATABASENAME=NDB;DATABASE=ESFERA_COLOR;UID=SYSTEM;PWD=Asdf1234$";                        
-
-                        //NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
-                        //logonProps2.Set("Provider", "B1CRHPROXY");
-                        //logonProps2.Set("Server Type", "B1CRHPROXY");
-                        //logonProps2.Set("Connection String", _strConnection);
-
-                        //LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
-
-                        //_sServer = Convert.ToString(_oCompany.SLDServer);
-                        //_sServer = _sServer.Replace(":40000", ":30013");
-
-                        //LayoutPDF.DataSourceConnections[0].SetConnection(_sServer, _sNameDB, false);
-
-                        //LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
-                        //LayoutPDF.SetParameterValue("Schema@", _sNameDB);
-
-                        //if (sFormatoMaster == "Y")
-                        //{
-                        //    if (_sTipo == "INV2")
-                        //    {
-                        //        LayoutPDF.SetParameterValue("ObjectId@", "13");
-                        //    }
-                        //    else if (_sTipo == "RIN2")
-                        //    {
-                        //        LayoutPDF.SetParameterValue("ObjectId@", "14");
-                        //    }
-                        //    else if (_sTipo == "IDN2")
-                        //    {
-                        //        LayoutPDF.SetParameterValue("ObjectId@", "13");
-                        //    }
-                        //    else if (_sTipo == "PCH2")
-                        //    {
-                        //        LayoutPDF.SetParameterValue("ObjectId@", "18");
-                        //    }
-                        //}
-
-                        //LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
-
-                        //LayoutPDF.Close();
-
-                        //LayoutPDF.Dispose();
-
-                        //GC.SuppressFinalize(LayoutPDF);
-
-                        #endregion
-
-                        #endregion
-
                     }
                     else if (_sArquitectura == "4")
                     {
-
                         #region Genera el PDF con cliente SAP a 32X
 
                         ReportDocument LayoutPDF = new ReportDocument();
