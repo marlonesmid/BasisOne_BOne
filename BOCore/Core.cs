@@ -574,11 +574,11 @@ namespace BOCore
 
         }
 
-        public string MessageSystem(string idMessage, SAPbobsCOM.Company oCompanyCore)
+        public string MessageSystem(string idMessage, Application sboAppCore)
         {
             if (idMessage == "00001")
             {
-                if (oCompanyCore.language == BoSuppLangs.ln_Spanish_La)
+                if (sboAppCore.Language == BoLanguages.ln_Spanish_La)
                 {
                     return idMessage + " - Cargando AddOn BOne ,  espere por favor....";
                 }
@@ -589,7 +589,7 @@ namespace BOCore
             }
             else if (idMessage == "00002")
             {
-                if (oCompanyCore.language == BoSuppLangs.ln_Spanish_La)
+                if (sboAppCore.Language == BoLanguages.ln_Spanish_La)
                 {
                     return idMessage + " - AddOn BOne cargado correctamente";
                 }
@@ -600,7 +600,7 @@ namespace BOCore
             }
             else if (idMessage == "00003")
             {
-                if (oCompanyCore.language == BoSuppLangs.ln_Spanish_La)
+                if (sboAppCore.Language == BoLanguages.ln_Spanish_La)
                 {
                     return idMessage + " - El archivo no existe el archivo \"Ultimas mejoras y actualizaciones\" ";
                 }
@@ -633,7 +633,7 @@ namespace BOCore
             }
             else
             {
-                DllFunciones.sendMessageBox(sboAppCore, MessageSystem("00003", oCompanyCore));                
+                DllFunciones.sendMessageBox(sboAppCore, MessageSystem("00003", sboAppCore));                
             }
         }
 
@@ -653,7 +653,7 @@ namespace BOCore
             }
             else
             {
-                DllFunciones.sendMessageBox(sboAppCore, MessageSystem("00003", oCompanyCore));
+                DllFunciones.sendMessageBox(sboAppCore, MessageSystem("00003", sboAppCore));
             }
         }
 

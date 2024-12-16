@@ -202,6 +202,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Formularios\FacturacionElectronica_EventosDIAN.srf" />
     <Content Include="Formularios\Send_Mail.srf" />
     <Content Include="Formularios\Unidades_Medida.srf" />
     <Content Include="Queries\eBillingHANA.xml">
@@ -216,6 +217,10 @@
     <Content Include="Queries\Procedures_eBillingSQL.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Resources\Img\imageMenu.bmp" />
+    <Content Include="Resources\Img\imagePDF.bmp" />
+    <Content Include="Resources\Img\imageSincronizar.bmp" />
+    <Content Include="Resources\Img\imageXML.bmp" />
     <None Include="Service References\ServicioCertificadoV4\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -422,19 +422,23 @@ namespace Funciones
                 FieldMD = (SAPbobsCOM.UserFieldsMD)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oUserFields);
                 try
                 {
-                    if (ValidValues[0] != "")
+                    if (ValidValues != null)
                     {
-                        int c = ValidValues.Count();
-                        if (c > 0)
+                        if (ValidValues[0] != "")
                         {
-                            Nro = ValidValues.Count();
+                            int c = ValidValues.Count();
+                            if (c > 0)
+                            {
+                                Nro = ValidValues.Count();
+                            }
+                        }
+
+                        else
+                        {
+                            Nro = 0;
                         }
                     }
-
-                    else
-                    {
-                        Nro = 0;
-                    }
+                    
                 }
                 catch (Exception)
                 {

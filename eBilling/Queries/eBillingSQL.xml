@@ -255,6 +255,10 @@
     WHERE "ObjectCode" = '13' AND "DocSubType" = 'DN'
   </GetSeriesNumberDebitMemo>
 
+  <GetEventsDIAN>
+    SELECT * FROM "%sNameDB%"."@HXFEEEL2" WHERE "U_HX_DocEntry" = '%U_HX_DocEntry%';
+  </GetEventsDIAN>
+
   <GetSeriesNumberActive>
     select
     Stuff((SELECT CAST(',' AS varchar(MAX)) + convert(varchar, Code) from [@BOSERNUM] WHERE U_BO_TD = 'FVC' FOR XML PATH('')), 1, 1, '') AS 'SNFV',
@@ -376,6 +380,10 @@
   <InsertUnidadMedidaDIAN>
     INSERT INTO "@BOUNIDMDIAN" ("Code","Name") VALUES ('%sCode%','%sName%')
   </InsertUnidadMedidaDIAN>
+
+  <InsertEventDIAN>
+    INSERT INTO "%sNameDB%"."@HXELDD" ("Code","Name", "U_HX_ObjecType", "U_HX_CODEVE", "U_HX_DESEVE", "U_HX_FECEVE", "U_HX_NUMEVE", "U_HX_CUDEVE", "U_HX_EMIEVE", "U_HX_TIPDOC", "U_HX_NITEMI") VALUES (  (SELECT CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100)) FROM "%sNameDB%"."@HXELDD") , (SELECT CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Name")+1)),10) AS NVARCHAR(100)) FROM "%sNameDB%"."@HXELDD") , '%U_HX_ObjecType%', '%U_HX_CODEVE%', '%U_HX_DESEVE%', '%U_HX_FECEVE%', '%U_HX_NUMEVE%', '%U_HX_CUDEVE%', '%U_HX_EMIEVE%', '%U_HX_TIPDOC%', '%U_HX_NITEMI%' )
+  </InsertEventDIAN>
 
   <GetTableBORESFISCAL>
     SELECT Code FROM [@BORESFISCAL]

@@ -35,10 +35,19 @@
           A."CreateDate" AS "FechaCreacion",         
           CASE WHEN LENGTH(A."DocTime") = 3 THEN (LEFT(A."DocTime",1) || ':' || RIGHT(A."DocTime",2)) ELSE (LEFT(A."DocTime",2) || ':' || RIGHT(A."DocTime",2)) END "Hora_Creacion",
           A."U_BO_FHAD" AS "FHAD",
-          'Ver XML' AS "XML",
-          'Ver PDF' AS "PDF",
+          ('%PathImage%'||'imageXML.bmp') AS "imageXML",
+          ('%PathImage%'||'imagePDF.bmp') AS "imagePDF",
+          ('%PathImage%'||'imageSincronizar.bmp') AS "imageSincronizar",
+          ('%PathImage%'||'imageMenu.bmp') AS "imageEventos",
           D."PymntGroup" AS "Condicion_Pago",
-          CASE WHEN A."isIns" = 'Y' THEN 'Factura Reserva' ELSE 'Factura deudores' END AS "DocSubType"
+          CASE WHEN A."isIns" = 'Y' THEN 'Factura Reserva' ELSE 'Factura deudores' END AS "DocSubType",
+          'N' AS "chkSeleccionar",
+          /*
+          CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y')= 'Y' THEN ( (SELECT "U_BO_PREF" FROM "%sNameDB%"."@BOSERNUM" WHERE "Code" = A."Series") || A."DocNum" ) 
+		        	 ELSE CAST(A."DocNum" AS NVARCHAR(20)) 
+               END AS "consecutivoDocumento",
+           */
+          'ESF1152975' AS "consecutivoDocumento"
 
     FROM "%sNameDB%"."OINV" A LEFT JOIN "%sNameDB%"."@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '13'
                               LEFT JOIN "%sNameDB%"."NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '13'
@@ -85,7 +94,8 @@
             A."U_BO_FHAD" AS "FHAD",
             'Ver XML' AS "XML",
             'Ver PDF' AS "PDF",
-            D."PymntGroup" AS "Condicion_Pago"
+            D."PymntGroup" AS "Condicion_Pago",
+            'N' AS "chkSeleccionar"
     
     FROM "%sNameDB%"."ORIN" A LEFT JOIN "%sNameDB%"."@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '14'
                               LEFT JOIN "%sNameDB%"."NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '14'
@@ -132,7 +142,8 @@
               A."U_BO_FHAD" AS "FHAD",
               'Ver XML' AS "XML",
               'Ver PDF' AS "PDF",
-              D."PymntGroup" AS "Condicion_Pago"
+              D."PymntGroup" AS "Condicion_Pago",
+              'N' AS "chkSeleccionar"
 
     FROM "%sNameDB%"."OINV" A LEFT JOIN "%sNameDB%"."@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '13'
                               LEFT JOIN "%sNameDB%"."NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '13'
@@ -178,7 +189,8 @@
             A."U_BO_FHAD" AS "FHAD",
             'Ver XML' AS "XML",
             'Ver PDF' AS "PDF",
-            D."PymntGroup" AS "Condicion_Pago"
+            D."PymntGroup" AS "Condicion_Pago",
+            'N' AS "chkSeleccionar"
     
     FROM "%sNameDB%"."OPCH" A LEFT JOIN "%sNameDB%"."@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '18'
                               LEFT JOIN "%sNameDB%"."NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '18'
@@ -225,7 +237,8 @@
             A."U_BO_FHAD" AS "FHAD",
             'Ver XML' AS "XML",
             'Ver PDF' AS "PDF",
-            D."PymntGroup" AS "Condicion_Pago"
+            D."PymntGroup" AS "Condicion_Pago",
+            'N' AS "chkSeleccionar"
     
     FROM "%sNameDB%"."ORPC" A LEFT JOIN "%sNameDB%"."@BOEE" B ON A."DocEntry"=B."U_BO_DocEntry" AND B."U_BO_ObjecType" = '19'
                               LEFT JOIN "%sNameDB%"."NNM1" C ON A."Series"=C."Series" AND C."ObjectCode" = '19'
@@ -253,6 +266,10 @@
     SELECT "Series" AS "Series", "SeriesName" AS "Nombre", "ObjectCode" AS "ObjectCode" FROM "%sNameDB%"."NNM1"
     WHERE "ObjectCode" = '13' AND "DocSubType" = 'DN'
   </GetSeriesNumberDebitMemo>
+
+  <GetEventsDIAN>
+    SELECT ROW_NUMBER() OVER(ORDER BY "Code" ASC) AS "#", * FROM "%sNameDB%"."@HXFEEEL2" WHERE "U_HX_DocEntry" = '%U_HX_DocEntry%';
+  </GetEventsDIAN>
 
   <GetSeriesNumberActive>
     SELECT (SELECT TOP 1 "U_BO_SN" FROM "%sNameDB%"."@BOSERNUM" WHERE "U_BO_TD" = 'FVC') AS "FVC",
@@ -385,6 +402,37 @@
     INSERT INTO "%sNameDB%"."@BOUNIDMDIAN" ("Code","Name") VALUES ('%sCode%','%sName%')
   </InsertUnidadMedidaDIAN>
 
+  <InsertInvoiceStatusDIAN>
+    INSERT INTO "%sNameDB%"."@HXFEEEL1" ("Code","Name", "U_HX_ObjecType", "U_HX_DocEntry", "U_HX_CEFD", "U_HX_ND", "U_HX_CE", "U_HX_EA", "U_HX_AT", "U_HX_ER", "U_HX_ETV", "U_HX_FC", "U_HX_FU" ) VALUES (  (SELECT CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100)) FROM "%sNameDB%"."@HXFEEEL1") , (SELECT CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Name")+1)),10) AS NVARCHAR(100)) FROM "%sNameDB%"."@HXFEEEL1") , '%U_HX_ObjecType%', '%U_HX_DocEntry%', '%U_HX_CEFD%', '%U_HX_ND%', '%U_HX_CE%', '%U_HX_EA%', '%U_HX_AT%', '%U_HX_ER%', '%U_HX_ETV%', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  )
+  </InsertInvoiceStatusDIAN>
+
+  <UpdateInvoiceStatusDIAN>
+    
+    UPDATE "%sNameDB%"."@HXFEEEL1" 
+    SET "U_HX_CEFD" = '%U_HX_CEFD%', 
+	      "U_HX_ND" = '%U_HX_ND%', 
+	      "U_HX_CE" = '%U_HX_CE%', 
+	      "U_HX_EA" = '%U_HX_EA%', 
+	      "U_HX_AT" = '%U_HX_AT%', 
+	      "U_HX_ER" = '%U_HX_ER%', 
+	      "U_HX_ETV" = '%U_HX_ETV%',
+        "U_HX_FU" = CURRENT_TIMESTAMP
+    WHERE "U_HX_DocEntry" = '%U_HX_DocEntry%'
+	
+  </UpdateInvoiceStatusDIAN>
+  
+  <ValidatingInvoiceStatusDIAN>
+    SELECT * FROM "%sNameDB%"."@HXFEEEL1" WHERE "U_HX_DocEntry" = '%DocEntry%'
+  </ValidatingInvoiceStatusDIAN>
+
+  <ValidatingEventStatusDIAN>
+    SELECT * FROM "%sNameDB%"."@HXFEEEL2" WHERE "U_HX_DocNum" = '%U_HX_DocNum%' AND "U_HX_CODEVE" = '%U_HX_CODEVE%'
+  </ValidatingEventStatusDIAN>
+  
+  <InsertEventDIAN>
+    INSERT INTO "%sNameDB%"."@HXFEEEL2" ("Code","Name", "U_HX_ObjecType", "U_HX_DocEntry", "U_HX_DocNum", "U_HX_CODEVE", "U_HX_DESEVE", "U_HX_FECEVE", "U_HX_NUMEVE", "U_HX_CUDEVE", "U_HX_EMIEVE", "U_HX_TIPDOC", "U_HX_NITEMI", "U_HX_FC", "U_HX_FU" ) VALUES (  (SELECT CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100)) FROM "%sNameDB%"."@HXFEEEL2") , (SELECT CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Name")+1)),10) AS NVARCHAR(100)) FROM "%sNameDB%"."@HXFEEEL2") , '%U_HX_ObjecType%', '%U_HX_DocEntry%', '%U_HX_DocNum%', '%U_HX_CODEVE%', '%U_HX_DESEVE%', '%U_HX_FECEVE%', '%U_HX_NUMEVE%', '%U_HX_CUDEVE%', '%U_HX_EMIEVE%', '%U_HX_TIPDOC%', '%U_HX_NITEMI%', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP )
+  </InsertEventDIAN>
+
   <GetTableBORESFISCAL>
     SELECT "Code" FROM "%sNameDB%"."@BORESFISCAL"
   </GetTableBORESFISCAL>
@@ -492,8 +540,13 @@
 
   <GetParameterstoSend>
     SELECT TOP 1 "XmlPath" AS "XmlPath",
-    (SELECT TOP 1 "U_BO_LlE" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y') AS "TokenEmpresa",
-    (SELECT TOP 1 "U_BO_PwdE" FROM "%sNameDB%"."@BOEBILLINGP"  WHERE "U_BO_Status" = 'Y') AS "TokenPassword"
+           (SELECT TOP 1 "U_BO_LlE" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y') AS "TokenEmpresa",
+           (SELECT TOP 1 "U_BO_PwdE" FROM "%sNameDB%"."@BOEBILLINGP"  WHERE "U_BO_Status" = 'Y') AS "TokenPassword",
+           (SELECT CASE WHEN "U_BO_Mdo" = 'PRU' THEN "U_BO_URLWSPRU" ELSE "U_BO_URLWSPRD" END FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y' ) AS "URLTFHKA",
+           (SELECT "U_BO_Mdo" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y' ) AS "Modo",
+           (SELECT "U_BO_MI" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y' ) AS "ModoIntegracion",
+           (SELECT "U_BO_PC" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y' ) AS "ProtocoloComunicacion",
+           "TaxIdNum" AS "NITEmpresa"
     FROM "%sNameDB%"."OADM"
   </GetParameterstoSend>
 

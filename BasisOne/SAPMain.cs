@@ -71,7 +71,7 @@ namespace BasisOne
 
             DllCore.TablasyCamposBaseBO(sboapp, _company, sNameDB);
 
-            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Warning, DllCore.MessageSystem("00001", _company));
+            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Warning, DllCore.MessageSystem("00001", sboapp));
 
             //Crear menus        
             setMenus();
@@ -83,7 +83,7 @@ namespace BasisOne
             setFilter();
 
             
-            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Success, DllCore.MessageSystem("00002", _company));
+            DllFunciones.StatusBar(sboapp, BoStatusBarMessageType.smt_Success, DllCore.MessageSystem("00002", sboapp));
 
         }
 
@@ -297,7 +297,7 @@ namespace BasisOne
                             }
                             #endregion
 
-                            #region Visor documentos eBilling
+                            #region Visor documentos Facturacion Electronica
 
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "MtxOINV" && pVal.Before_Action == true && pVal.Action_Success == false)
                             {
@@ -395,7 +395,6 @@ namespace BasisOne
 
                                 #endregion
                             }
-
 
                             #endregion
 
@@ -927,6 +926,7 @@ namespace BasisOne
                                 DllFunciones.CloseFormXML(sboapp, "BOVDEB");
 
                             }
+
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "btnFind" && pVal.BeforeAction == true)
                             {
                                 DlleBilling.InsertDataInMatrix(sboapp, _company);
@@ -935,6 +935,24 @@ namespace BasisOne
                             {
                                 SAPbouiCOM.Form oFormVisorDocs = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
                                 DlleBilling.ActualizarEstadoDocumentos(sboapp, _company, oFormVisorDocs);
+                            }
+                            else if (pVal.FormUID == "BOVDEB" && pVal.ColUID == "Col_26" && pVal.ItemUID == "MtxOINV" && pVal.BeforeAction == true)
+                            {
+                                DlleBilling.SincronizarEventosDIAN(sboapp, _company, pVal, pVal.ItemUID, pVal.ColUID);
+                            }
+                            else if (pVal.FormUID == "BOVDEB" && pVal.ColUID == "Col_28" && pVal.ItemUID == "MtxOINV" && pVal.BeforeAction == true)
+                            {
+                                DlleBilling.OpenFormEvent(_company, sboapp, pVal);
+                            }
+
+                            #endregion
+
+                            #region Visor eventos DIAN 
+
+                            else if (pVal.FormUID == "FormEvDI" && pVal.ItemUID == "btnClose" && pVal.BeforeAction == true)
+                            {
+                                DllFunciones.CloseFormXML(sboapp, "FormEvDI");
+
                             }
 
                             #endregion
@@ -1619,6 +1637,7 @@ namespace BasisOne
                             }
                             #endregion
                         }
+
                         if (TieneLicenciaElectronicRepception == true)
                         {
                             #region Eventos Recepcion Electronica
@@ -1822,7 +1841,7 @@ namespace BasisOne
                                 DlleBilling.LinkedButtonMatrixFormVDBO(sboapp, _company, oFormVDBO, pVal, "FacturaDeClientes", "Col_9");
 
                             }
-                            if (pVal.FormUID == "BOVDEB" && pVal.ColUID == "Col_2" && pVal.ItemUID == "MtxOINV" && pVal.BeforeAction == true)
+                            else if (pVal.FormUID == "BOVDEB" && pVal.ColUID == "Col_2" && pVal.ItemUID == "MtxOINV" && pVal.BeforeAction == true)
                             {
                                 SAPbouiCOM.Form oFormVDBO = sboapp.Forms.Item("BOVDEB");
 

@@ -2888,7 +2888,6 @@
   </HX_FacturaXML_HBT_v18_TFHKA>
 	
   <HX_FacturaXML_HBT_v19_TFHKA>
-
     
     CREATE PROCEDURE "%sNameDB%"."HX_GeneraXML_v19_TFHKA"
       (
@@ -2966,7 +2965,14 @@
 				
                           T8."U_BO_PREF" AS "Prefijo",
 
-                          TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
+                          CASE WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+						       WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+							      
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+								  
+							   ELSE TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   END AS "fechaEmision",
 				
 				          --TO_VARCHAR(('20230125'), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
 				
@@ -3566,7 +3572,14 @@
 						
 					      T8."U_BO_PREF" AS "Prefijo",
 		
-		                  TO_VARCHAR(T0."DocDate", 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
+		                  CASE WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+						       WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+							      
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+								  
+							   ELSE TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   END AS "fechaEmision",
 						
 					      TO_VARCHAR(T0."DocDueDate", 'YYYY-MM-DD') AS "fechaDeVencimiento",
 		
@@ -4130,7 +4143,14 @@
 				
                           T8."U_BO_PREF" AS "Prefijo",
 
-                          TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
+                          CASE WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+						       WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+							      
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+								  
+							   ELSE TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   END AS "fechaEmision",
 				
 				          --TO_VARCHAR(('20230125'), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
 				
@@ -4723,7 +4743,14 @@
 
 					      --TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
 						
-					      TO_VARCHAR(('20230327'), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
+						  CASE WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+							   WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+							      
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+								  
+							   ELSE TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   END AS "fechaEmision",
 						
 					      TO_VARCHAR(T0."DocDueDate", 'YYYY-MM-DD') AS "fechaDeVencimiento",
 
@@ -5316,28 +5343,22 @@
 						      ELSE REPLACE(TO_DECIMAL((T0."BaseAmntFC"),19,2),',','.') 
 						      END AS "totalSinImpuestos",
 
-					      /*	
-					      T0."U_BO_DESC" AS "Desc_Codigo",
-					      'Descuento Comercial' AS "Desc_descripcion",
-					      '0' AS "Desc_indicador",
-					      CASE WHEN LEFT(T0."DiscSum", 1) = '-'  THEN REPLACE(TO_DECIMAL((0),19,2),',','.')
-						      WHEN LEFT(T0."DiscSum", 1) != '-' THEN REPLACE(TO_DECIMAL((0),19,2),',','.')
-						      ELSE REPLACE(TO_DECIMAL((T0."DiscSum"),19,2),',','.')
-						      END  AS "Desc_monto",
-					      ((SELECT TOP 1 SUM(A."BaseSum") FROM "%sNameDB%"."PCH4" A WHERE A."DocEntry" = :DocEntry)+0) AS "Desc_montoBase",
-					      REPLACE(TO_DECIMAL((T0."DiscPrcnt"),19,2),',','.') AS "Desc_porcentaje",
-					      '0' AS "Desc_secuencia",
-					      */
-
 					      CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y') = 'Y' THEN (T8."U_BO_PREF"||(T0."DocNum"-50000)) 
 						      ELSE CAST(T0."DocNum" AS NVARCHAR(20)) 
 						      END AS "consecutivoDocumento",
 						
 					      T8."U_BO_PREF" AS "Prefijo",
 
-					      --TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
+						  CASE WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+							   WHEN LENGTH(T0."DocTime") = '3' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD') || ' 0' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,1) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),2,3) ) || ':00'
+							      
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') = TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((CURRENT_DATE), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   WHEN LENGTH(T0."DocTime") = '4' AND TO_VARCHAR(T0."DocDate", 'YYYY-MM') != TO_VARCHAR(CURRENT_DATE, 'YYYY-MM') THEN TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+								  
+							   ELSE TO_VARCHAR((T0."DocDate"), 'YYYY-MM-DD')  || ' ' || ( SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),1,2) || ':' || SUBSTRING (CAST(T0."DocTime" AS VARCHAR(6)),3,4)) || ':00' 
+							   END AS "fechaEmision",
 						
-					      TO_VARCHAR(('20230327'), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
+					      --TO_VARCHAR(('20230327'), 'YYYY-MM-DD') || ' 00:00:00' AS "fechaEmision",
 						
 					      TO_VARCHAR(T0."DocDueDate", 'YYYY-MM-DD') AS "fechaDeVencimiento",
 
