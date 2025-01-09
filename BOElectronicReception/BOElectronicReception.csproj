@@ -34,6 +34,10 @@
     <Reference Include="BOFunciones">
       <HintPath>..\Funciones\bin\x64\BOFunciones.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SAPBusinessOneSDK, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c7c3cb60e45d119f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\sap\SAP Business One SDK\Lib\SAPBusinessOneSDK.dll</HintPath>
@@ -61,6 +65,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Formularios\VisorDocumentsReceptionElectronic.srf" />
+    <None Include="Json\InboundDocumens.json" />
+    <None Include="packages.config" />
     <None Include="Service References\Recepcion21WS\BOElectronicReception.Recepcion21WS.ArchivoDocumentoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -128,6 +134,7 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

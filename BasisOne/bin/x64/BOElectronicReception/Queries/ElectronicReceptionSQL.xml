@@ -48,7 +48,8 @@
           		WHEN "U_BOTSDC" = '11' THEN 'Rechazado (DIAN)'
           		WHEN "U_BOTSDC" = '12' THEN 'Recibo del bien y/o prestación del servicio'
           		WHEN "U_BOTSDC" = '13' THEN 'Precargado'
-          		ELSE '' END AS "Estado",
+          		ELSE 'Cargado' 
+              END AS "Estado",
           
           '' AS "DocEntry",
           "U_BOTNF" AS "Num_Fac_Pro",
@@ -81,7 +82,7 @@
           
           
     FROM "@BOTREDRPT" A LEFT JOIN ( SELECT CASE WHEN CHARINDEX('-',T0."LicTradNum") = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,CHARINDEX('-',T0."LicTradNum")-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum" 
-    --WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' %Estado%
+    --WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' %Estado% AND A."U_BOTTD" = '01'
     
 
     
@@ -283,5 +284,23 @@
   <GetDV>
     SELECT [dbo].[CalculoDV]('%NIT%')
   </GetDV>
+
+  <GetQuantityDocumentsReceipt>
+    SELECT COUNT(*) FROM "@BOTREDRPT"
+  </GetQuantityDocumentsReceipt>
+
+        
+  <GetModoandURLFBE>
+    SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRU' THEN "U_BO_APIFBE" ELSE "U_BO_APIFBE" END AS "APIFBE",
+           "U_BO_Mdo" AS "Modo",
+           "U_BO_MI" AS "ModoIntegracion",
+           "U_BO_PC" AS "ProtocoloComunicacion",
+           "U_BO_xWHOFBE" AS "xWho",
+           "U_BO_UserFBE" AS "UserFBE",
+           "U_BO_PassFBE" AS "PassFBE",
+           "U_BO_xTenantIdFBE" AS "TenatIdFBE"
+    FROM "%sNameDB%"."@BOEBILLINGP"
+    WHERE %Estado% %DocEntry%
+  </GetModoandURLFBE>
 
 </Queries>

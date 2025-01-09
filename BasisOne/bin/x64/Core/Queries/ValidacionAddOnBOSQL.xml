@@ -68,6 +68,8 @@
       
   </SearchTables>
 
-
+  <NITCompany>
+    SELECT "TaxIdNum" FROM "OADM"
+  </NITCompany>
 
 </Queries>

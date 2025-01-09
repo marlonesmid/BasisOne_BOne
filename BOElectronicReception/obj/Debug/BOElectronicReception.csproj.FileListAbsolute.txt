@@ -89,3 +89,5 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOEl
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOElectronicReception\obj\Debug\BOElectronicReception.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOElectronicReception\obj\Debug\BOElectronicReception.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOElectronicReception\obj\Debug\BOElectronicReception.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOElectronicReception\bin\x64\Newtonsoft.Json.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BOElectronicReception\bin\x64\Newtonsoft.Json.xml

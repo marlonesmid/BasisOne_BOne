@@ -103,7 +103,7 @@
     </None>
     <None Include="CSV\Tiposresponsabilidades.csv" />
     <None Include="CSV\UnidadesdeMedidaDIAN.csv" />
-    <None Include="Formularios\Parametros_iniciales_eBilling.srf" />
+    <None Include="Formularios\FacturacionElectronica_ParametrosIniciales.srf" />
     <None Include="Formularios\Visor_Documentos_eBilling.srf" />
     <None Include="JSON\Authorization.json" />
     <None Include="packages.config" />

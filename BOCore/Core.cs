@@ -11,11 +11,15 @@ using SAPbouiCOM;
 using System.IO;
 using System.Diagnostics;
 using System.Drawing;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace BOCore
 {
     public class Core
     {
+        private static readonly HttpClient client = new HttpClient();
+
         #region Instanciacion Dll's
 
         Funciones.Comunes DllFunciones = new Funciones.Comunes();
@@ -185,15 +189,46 @@ namespace BOCore
                                 
                 olblDevelp.Item.TextStyle = 1;
 
-                olblEstado.Caption = "Su sistema se encuentra registrado";
-                olblEstado.Item.ForeColor = ColorTranslator.ToOle(Color.Green);
-                                
+                #region Obtiene si el sistema esta registrado
+
+                SAPbobsCOM.Recordset oRsNITCompany = ((SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
+
+                string sNITCompany = DllFunciones.GetStringXMLDocument(_oCompany, "Core", "ValidacionAddOnBO", "NITCompany");
+
+                oRsNITCompany.DoQuery(sNITCompany);
+
+                if (oRsNITCompany.RecordCount > 0)
+                {
+                    sNITCompany = Convert.ToString(oRsNITCompany.Fields.Item("TaxIdNum").Value.ToString());
+                    var responseRequestAPIHX = GetContractStatusAsync(sNITCompany).GetAwaiter().GetResult();
+
+                    if (responseRequestAPIHX == "Error: NotFound - Not Found")
+                    {
+                        olblEstado.Caption = MessageSystem("CO-00004", _sboapp);
+                        olblEstado.Item.ForeColor = ColorTranslator.ToOle(Color.Red);
+                    }
+                    else if (responseRequestAPIHX.Contains("Inactivo"))
+                    {
+                        olblEstado.Caption = responseRequestAPIHX.ToString();
+                        olblEstado.Item.ForeColor = ColorTranslator.ToOle(Color.Red);
+                    }
+                    else
+                    {
+                        olblEstado.Caption = responseRequestAPIHX.ToString();
+                        olblEstado.Item.ForeColor = ColorTranslator.ToOle(Color.Green);
+                    }
+                    
+                }
+
+                DllFunciones.liberarObjetos(oRsNITCompany);
+
+                #endregion
+
                 olblUpdFea.Item.ForeColor = ColorTranslator.ToOle(Color.Blue);
                 olblUpdFea.Item.TextStyle = 4;
 
                 olblHelp.Item.ForeColor = ColorTranslator.ToOle(Color.Blue);
                 olblHelp.Item.TextStyle = 4;
-
 
                 #endregion
 
@@ -215,10 +250,6 @@ namespace BOCore
 
                 DllFunciones.sendErrorMessage(_sboapp, e);
             }
-
-
-
-
 
         }
 
@@ -609,6 +640,17 @@ namespace BOCore
                     return idMessage + " - The file does not exist the file \"Latest improvements and updates\"";
                 }
             }
+            else if (idMessage == "CO-00004")
+            {
+                if (sboAppCore.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Su sistema NO se encuentra registrado";
+                }
+                else
+                {
+                    return idMessage + " - Your system is NOT registered";
+                }
+            }
             else
             {
                 return "";
@@ -656,6 +698,53 @@ namespace BOCore
                 DllFunciones.sendMessageBox(sboAppCore, MessageSystem("00003", sboAppCore));
             }
         }
+
+        private async Task<string> GetContractStatusAsync(string NITEmpresa)
+        {
+            try
+            {
+                // URL de tu API
+                string apiUrl = $"https://hexagramaconsulting.com/wp-json/hexagrama/v1/contracts/{NITEmpresa}";
+
+                // Realizar la solicitud GET
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                // Verificar si la respuesta es exitosa
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+
+                    var requestObject = JsonConvert.DeserializeObject<Contract>(responseData);
+
+                    return $"Contrato No. : {requestObject.ContractId}, Estado: {requestObject.Status}, Fecha Finalizacion: {requestObject.EndDate}" ;
+
+                }
+                else
+                {
+                    string responseData = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+
+                    return responseData;
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Error al consumir la API: {ex.Message}";                
+            }
+        }
+
+
+        #region Clases JSON
+
+        public class Contract
+        {
+            public string ContractId { get; set; }
+            public string ClientName { get; set; }
+            public string EndDate { get; set; }
+            public string Status { get; set; }
+
+        }
+
+        #endregion
 
         private string VersionAddOn()
         {

@@ -36,54 +36,52 @@
   </SyncAttachment>
 
   <GetInvoices>
-
-    SELECT ROW_NUMBER() OVER(ORDER BY A."Code" ASC) AS "#",
-
-    CASE WHEN "U_BOTSDC" = '00' THEN 'Cargado'
-    WHEN "U_BOTSDC" = '01' THEN 'Entregado'
-    WHEN "U_BOTSDC" = '02' THEN 'Aceptación expresa (DIAN)'
-    WHEN "U_BOTSDC" = '04' THEN 'Reclamo (DIAN)'
-    WHEN "U_BOTSDC" = '10' THEN 'Acuse de recibo (DIAN'
-    WHEN "U_BOTSDC" = '11' THEN 'Rechazado (DIAN)'
-    WHEN "U_BOTSDC" = '12' THEN 'Recibo del bien y/o prestación del servicio'
-    WHEN "U_BOTSDC" = '13' THEN 'Precargado'
-    ELSE '' END AS "Estado",
-
-    '' AS "DocEntry",
-    "U_BOTNF" AS "Num_Fac_Pro",
-    '' AS "Num_Fac_Preeli",
-    '' AS "Num_Fac_SAP",
-    '' AS "Serie_Numeracion",
-    B."LicTradNum" AS "Codigo_cliente",
-    "U_BOTNI" AS "NumeroIdentificacion",
-    "U_BOTNRS" AS "Nombre_del_Cliente",
-    '' AS "Fecha_Documento",
-    '' AS "Fecha_vencimiento",
-    '' AS "Condicion_de_Pago",
-    "U_BOTMT" AS "Total_Documento",
-    "U_BOTCUFE" AS "CUFE",
-    "U_BOTFE" AS "Fecha_emision",
-    "U_BOTFR" AS "Fecha_recepcion",
-    "U_BOTHE" AS "Hora_emision",
-    '' AS "Fecha_Hora_Apro_DIAN",
-
-    CASE WHEN "U_BOTNDP" IS NULL AND "U_BOTNDD" IS NULL THEN 'Sincronizado'
-    WHEN "U_BOTNDP" != NULL AND "U_BOTNDD" IS NULL THEN 'Preeliminar'
-    WHEN "U_BOTNDP" != NULL AND "U_BOTNDD" != NULL THEN 'Contabilizado'
-    ELSE '' END AS "Estado_SAP",
-    CASE WHEN "U_BOTPAXML" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaXML",
-    CASE WHEN "U_BOTPAPDF" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaPDF",
-    ('%PathImages%'||'Aceptar.bmp') as "ImageAceptar",
-    ('%PathImages%'||'Cancelar.bmp') as "ImageCancelar",
-    "U_BOTPAXML" AS "RutaXML",
-    "U_BOTPAPDF" AS "RutaPDF"
-
-
-    FROM "@BOTREDRPT" A LEFT JOIN ( SELECT DISTINCT CASE WHEN LOCATE(T0."LicTradNum",'-') = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,LOCATE(T0."LicTradNum",'-')-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum"
-    WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' %Estado%
     
+    SELECT ROW_NUMBER() OVER(ORDER BY A."Code" ASC) AS "#",
+           CASE WHEN "U_BOTSDC" = '00' THEN 'Cargado'
+                WHEN "U_BOTSDC" = '01' THEN 'Entregado'
+                WHEN "U_BOTSDC" = '02' THEN 'Aceptación expresa (DIAN)'
+                WHEN "U_BOTSDC" = '04' THEN 'Reclamo (DIAN)'
+                WHEN "U_BOTSDC" = '10' THEN 'Acuse de recibo (DIAN)'
+                WHEN "U_BOTSDC" = '11' THEN 'Rechazado (DIAN)'
+                WHEN "U_BOTSDC" = '12' THEN 'Recibo del bien y/o prestación del servicio'
+                WHEN "U_BOTSDC" = '13' THEN 'Precargado'
+                ELSE 'Cargado' 
+                END AS "Estado",
 
+            '' AS "DocEntry",
+            "U_BOTNF" AS "Num_Fac_Pro",
+            '' AS "Num_Fac_Preeli",
+            '' AS "Num_Fac_SAP",
+            '' AS "Serie_Numeracion",
+            B."LicTradNum" AS "Codigo_cliente",
+            "U_BOTNI" AS "NumeroIdentificacion",
+            "U_BOTNRS" AS "Nombre_del_Cliente",
+            '' AS "Fecha_Documento",
+            '' AS "Fecha_vencimiento",
+            '' AS "Condicion_de_Pago",
+            "U_BOTMT" AS "Total_Documento",
+            "U_BOTCUFE" AS "CUFE",
+            "U_BOTFE" AS "Fecha_emision",
+            "U_BOTFR" AS "Fecha_recepcion",
+            "U_BOTHE" AS "Hora_emision",
+            '' AS "Fecha_Hora_Apro_DIAN",
 
+            CASE WHEN "U_BOTNDP" IS NULL AND "U_BOTNDD" IS NULL THEN 'Sincronizado'
+                 WHEN "U_BOTNDP" != NULL AND "U_BOTNDD" IS NULL THEN 'Preeliminar'
+                 WHEN "U_BOTNDP" != NULL AND "U_BOTNDD" != NULL THEN 'Contabilizado'
+                 ELSE '' 
+                 END AS "Estado_SAP",
+            CASE WHEN "U_BOTPAXML" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaXML",
+            CASE WHEN "U_BOTPAPDF" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaPDF",
+            ('%PathImages%'||'Aceptar.bmp') as "ImageAceptar",
+            ('%PathImages%'||'Cancelar.bmp') as "ImageCancelar",
+            "U_BOTPAXML" AS "RutaXML",
+            "U_BOTPAPDF" AS "RutaPDF",
+            "U_BOTTI" AS "TipoIdentificacionEmisor"
+
+        FROM "@BOTREDRPT" A LEFT JOIN ( SELECT DISTINCT CASE WHEN LOCATE(T0."LicTradNum",'-') = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,LOCATE(T0."LicTradNum",'-')-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum"
+        WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' %Estado% AND A."U_BOTTD" = '01'
 
   </GetInvoices>
 
@@ -143,79 +141,81 @@
 
   <BOT_InsertDocuments>
     
-    CREATE PROCEDURE "BOT_InsertDocuments"
-      (
-		prmProveedorTechnologico NVARCHAR(50),
-		prmConsecutivoTFHKA NVARCHAR(50),
-		prmCUFE NVARCHAR(250),
-		prmStatusDIANCodigo NVARCHAR(50),
-		prmStatusDIANDescripcion NVARCHAR(50),
-		prmStatusDIANFecha NVARCHAR(50),
-		prmFechaEmision NVARCHAR(50),
-		prmFechaRecepcion NVARCHAR(50),
-		prmHoraEmision NVARCHAR(50),
-		prmMontoTotal NVARCHAR(50),
-		prmNumeroFactura NVARCHAR(50),
-		prmNumeroIdentificacion NVARCHAR(50),
-		prmRazonSocial NVARCHAR(250),
-		prmTipoDocumento NVARCHAR(50),
-		prmTipoEmisor NVARCHAR(50),
-		prmTipoIdentidad NVARCHAR(50),
-		prmCodEstatusDIAN NVARCHAR(50)
-		
-		)    
+        CREATE PROCEDURE "BOT_InsertDocuments"
+    (
+	    prmProveedorTechnologico NVARCHAR(50),
+	    prmConsecutivoTFHKA NVARCHAR(50),
+	    prmCUFE NVARCHAR(250),
+	    prmStatusDIANCodigo NVARCHAR(50),
+	    prmStatusDIANDescripcion NVARCHAR(50),
+	    prmStatusDIANFecha NVARCHAR(50),
+	    prmFechaEmision NVARCHAR(50),
+	    prmFechaRecepcion NVARCHAR(50),
+	    prmHoraEmision NVARCHAR(50),
+	    prmMontoTotal NVARCHAR(50),
+	    prmNumeroFactura NVARCHAR(50),
+	    prmNumeroIdentificacion NVARCHAR(50),
+	    prmRazonSocial NVARCHAR(250),
+	    prmTipoDocumento NVARCHAR(50),
+	    prmTipoEmisor NVARCHAR(50),
+	    prmTipoIdentidad NVARCHAR(50),
+	    prmCodEstatusDIAN NVARCHAR(50)
+    )    
 
     LANGUAGE SQLSCRIPT AS
     
-	    Validation  INT;
-	    Consecutivo NVARCHAR(20); 
+    Validation  INT;
+    Consecutivo NVARCHAR(20); 
 
     BEGIN
     
 	    SELECT COUNT(*) INTO  Validation
-	    FROM "@BOTREDRPT" WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;	    
+	    FROM "@BOTREDRPT" 
+	    WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;	    
 	    
 	    IF :Validation = 0
-	    
-	    THEN 
+		    THEN 
+	    	    SELECT (CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100))) INTO Consecutivo 
+	    	    FROM "@BOTREDRPT";
 	    	
-	    	SELECT (CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100))) INTO Consecutivo 
-	    	FROM "@BOTREDRPT";
-	    	
-	    	INSERT INTO "@BOTREDRPT" VALUES (
-	    										:Consecutivo,
-	    										:Consecutivo,--CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100)),
-	    										:prmProveedorTechnologico,
-	    										:prmConsecutivoTFHKA,
-	    										:prmCUFE,
-	    										:prmStatusDIANCodigo,
-	    										:prmStatusDIANDescripcion,
-	    										:prmStatusDIANFecha,
-	    										:prmFechaEmision,
-	    										:prmFechaRecepcion,
-	    										:prmHoraEmision,
-	    										:prmMontoTotal,
-	    										:prmNumeroFactura,
-	    										:prmNumeroIdentificacion,
-	    										:prmRazonSocial,
-	    										:prmTipoDocumento,
-	    										:prmTipoEmisor,
-	    										:prmTipoIdentidad,
-	    										:prmCodEstatusDIAN,
-	    										NULL,
-	    										NULL,
-	    										NULL,
-	    										NULL,
-	    										NULL,
-	    										NULL,
-	    										NULL
-	    									
-	    									);
-	    										  
-	    END IF;
-    
+	    	    INSERT INTO "@BOTREDRPT" VALUES (
+	    										    :Consecutivo,
+	    										    :Consecutivo,
+	    										    :prmProveedorTechnologico,
+	    										    :prmConsecutivoTFHKA,
+	    										    :prmCUFE,
+	    										    :prmStatusDIANCodigo,
+	    										    :prmStatusDIANDescripcion,
+	    										    :prmStatusDIANFecha,
+	    										    :prmFechaEmision,
+	    										    :prmFechaRecepcion,
+	    										    :prmHoraEmision,
+	    										    :prmMontoTotal,
+	    										    :prmNumeroFactura,
+	    										    :prmNumeroIdentificacion,
+	    										    :prmRazonSocial,
+	    										    :prmTipoDocumento,
+	    										    :prmTipoEmisor,
+	    										    :prmTipoIdentidad,
+	    										    :prmCodEstatusDIAN,
+	    										    NULL,
+	    										    NULL,
+	    										    NULL,
+	    										    NULL,
+	    										    NULL,
+	    										    NULL,
+	    										    NULL	    									
+	    									    );
+	    ELSE
+		    UPDATE "@BOTREDRPT" 
+		    SET "U_BOTSDC" = :prmStatusDIANCodigo,
+			    "U_BOTSDD" = :prmStatusDIANDescripcion,
+			    "U_BOTSDF" = :prmStatusDIANFecha
+		    WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion; 
 
-  END;
+		    END IF;
+      END;
+    
     
   </BOT_InsertDocuments>
 
@@ -380,7 +380,7 @@
 	         "jobTitle" AS "Cargo",
 	         "dept" AS "Departamento",
 	         "ExtEmpNo" AS "NIT",
-	         "BOTTD" AS "TipoDocumento",
+	         "U_BOTTD" AS "TipoDocumento",
 	         "userId" AS "IdUser"
 	  
     FROM OHEM
@@ -397,5 +397,26 @@
   <GetDV>
     CALL BOTDIGVER ('%NIT%')
   </GetDV>
-  
+
+  <GetQuantityDocumentsReceipt>
+    SELECT COUNT(*) FROM "%sNameDB%"."@BOTREDRPT"
+  </GetQuantityDocumentsReceipt>
+
+  <GetProveedorTecnologico>
+    SELECT "U_BO_PT" AS "ProveedorTecnologico" FROM "@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+  </GetProveedorTecnologico>
+      
+  <GetModoandURLFBE>
+    SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRU' THEN "U_BO_APIFBE" ELSE "U_BO_APIFBE" END AS "APIFBE",
+           "U_BO_Mdo" AS "Modo",
+           "U_BO_MI" AS "ModoIntegracion",
+           "U_BO_PC" AS "ProtocoloComunicacion",
+           "U_BO_xWHOFBE" AS "xWho",
+           "U_BO_UserFBE" AS "UserFBE",
+           "U_BO_PassFBE" AS "PassFBE",
+           "U_BO_xTenantIdFBE" AS "TenatIdFBE"
+    FROM "%sNameDB%"."@BOEBILLINGP"
+    WHERE %Estado% %DocEntry%
+  </GetModoandURLFBE>
+
 </Queries>

@@ -1,0 +1,11 @@
+﻿{
+    "PageNumber": 1,
+    "PageSize": 50,
+    "DocumentTypeCode": "",
+    "ReceiverStartingDate": "%FI%",
+    "ReceiverEndingDate": "%FF%",
+    "Lifecycle_Status": "",
+    "FormaPago": "",
+    "LDF": "",
+    "DocumentNumberFull": ""
+}

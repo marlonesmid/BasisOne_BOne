@@ -279,19 +279,15 @@ namespace BasisOne
                             {
                                 #region Valida informacion del formulario parametros iniciales eBilling 
 
-                                
-                                    //DlleBilling.CreacionTablasyCamposeBillingEntregaMercancia(sboapp, _company);                                   
+                                DlleBilling.EnableButtonCreacionCamposEntregaMercancia(sboapp, _company);
 
-                                
                                 #endregion
                             }
                             else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "chkCCC" && pVal.Before_Action == true && pVal.Action_Success == false)
                             {
                                 #region Valida informacion del formulario parametros iniciales eBilling 
 
-
-                                DlleBilling.CheckBoxCloudControlCenter(sboapp, _company);                                   
-
+                                DlleBilling.CheckBoxCloudControlCenterAndExportInvoice(sboapp, _company);
 
                                 #endregion
                             }
@@ -1137,9 +1133,9 @@ namespace BasisOne
 
                                 DlleBilling.ConsultaTokens(_company, sboapp, oFormParametros);
                             }
-                            else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "btnVCHE" && pVal.BeforeAction == true)
+                            else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "btnVeCam" && pVal.BeforeAction == true)
                             {
-                                DlleBilling.CreacionTablasyCamposeBillingEntregaMercancia(sboapp, _company);
+                                DlleBilling.CreateUserFieldInvoiceExport(sboapp, _company);
                             }
                             else if (pVal.FormUID == "BO_eBillingP" && pVal.ItemUID == "btnTestAPI" && pVal.BeforeAction == true)
                             {
@@ -1646,9 +1642,8 @@ namespace BasisOne
 
                             if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnDDPT" && pVal.BeforeAction == true)
                             {
-                                SAPbouiCOM.Form oFormVisorRecepcion = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-
-                                DllElectronicReception.DescargaDocumentosTFHKA(sboapp, _company, oFormVisorRecepcion);
+                                DllElectronicReception.DownloadDocumentElectronicReceipt(sboapp, _company);
+                                //DllElectronicReception.DescargaDocumentosTFHKA(sboapp, _company, oFormVisorRecepcion);
 
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnDAPT" && pVal.BeforeAction == true)
@@ -2498,7 +2493,6 @@ namespace BasisOne
 
             try
             {
-
                 switch (ByRef.EventType)
                 {
                     case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
@@ -2583,20 +2577,21 @@ namespace BasisOne
                                 #endregion
 
                             }
+
+                            #endregion
+
+                            #region Parametros Iniciales
+
                             else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "UDO_FT_BO_eBillingP")
                             {
                                 #region Actualiza Label Status DIAN
 
-                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
-
-                                DlleBilling.CheckBoxCloudControlCenter(sboapp, _company);
+                                DlleBilling.CheckBoxCloudControlCenterAndExportInvoice(sboapp, _company);
 
                                 #endregion
-
                             }
 
-                            #endregion                            
-
+                            #endregion
                         }
 
                         break;
@@ -2654,8 +2649,6 @@ namespace BasisOne
                             }
 
                             #endregion
-
-
 
                         }
 
@@ -2959,7 +2952,23 @@ namespace BasisOne
                         }
                         else
                         {
+                            _oMenuItem = sboapp.Menus.Item("mnuBO_eBil01");
+                            _oCreationPackage.Enabled = true;
+                            _oCreationPackage.Position = _oCreationPackage.Position + 1;
+                            _oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_STRING;
+                            _oCreationPackage.UniqueID = "smBO_eBil01";
+                            _oCreationPackage.String = "Parametros iniciales";
+                            _oCreationPackage.Image = "";
+                            _oMenuItem.SubMenus.AddEx(_oCreationPackage);
 
+                            _oMenuItem = sboapp.Menus.Item("mnuBO_eBil01");
+                            _oCreationPackage.Enabled = true;
+                            _oCreationPackage.Position = _oCreationPackage.Position + 1;
+                            _oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_STRING;
+                            _oCreationPackage.UniqueID = "smBO_eBil04";
+                            _oCreationPackage.String = "Visor de documentos - Recibidos";
+                            _oCreationPackage.Image = "";
+                            _oMenuItem.SubMenus.AddEx(_oCreationPackage);
                         }
 
                         TieneLicenciaElectronicRepception = true;
