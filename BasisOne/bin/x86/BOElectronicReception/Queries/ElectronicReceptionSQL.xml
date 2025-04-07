@@ -11,7 +11,8 @@
              (SELECT TOP 1 "U_BO_PwdE" FROM "@BOEBILLINGP"  WHERE "U_BO_Status" = 'Y') AS "TokenPassword",
              (SELECT COUNT(*) + 500 AS "Contador" FROM "@BOTREDRPT") AS "Consecutivo",
              "U_BO_RutaXML" AS "RutaXML", 
-             "U_BO_RutaPDF" AS "RutaPDF"
+             "U_BO_RutaPDF" AS "RutaPDF",
+             "U_HX_FRE" AS "FormaRecepcion"
              
       FROM "@BOEBILLINGP"      
   
@@ -271,7 +272,7 @@
 	         "userId" AS "IdUser"
 	  
     FROM OHEM
-    WHERE "userId" = '1'
+    WHERE "userId" = '%UserId%'
 
   </Getauthorizer>
   
@@ -303,4 +304,21 @@
     WHERE %Estado% %DocEntry%
   </GetModoandURLFBE>
 
+  <GetTiposOperacion>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion" FROM "%sNameDB%"."UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = '14'
+  </GetTiposOperacion>
+
+  <GetProveedorTecnologico>
+    SELECT "U_BO_PT" AS "ProveedorTecnologico" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+  </GetProveedorTecnologico>
+  
+    
+  <GetFormaRecepcion>
+    SELECT "FldValue" AS "Valor", 
+    	     "Descr" AS "Descripcion"  
+    FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'HX_FRE' )
+  </GetFormaRecepcion>
+  
 </Queries>

@@ -1367,18 +1367,6 @@ namespace Funciones
 
             switch (sMotor)
             {
-                case "dst_MSSQL2012":
-                case "dst_MSSQL2014":
-                case "dst_MSSQL2016":
-                case "dst_MSSQL2017":
-                case "dst_MSSQL2019":
-
-                    xmlDocument.Load(sPath + "\\" + DllName + "\\Queries\\" + FileNameXML + "SQL.xml");
-                    sFileXML = xmlDocument.SelectSingleNode("Queries/" + IDNodo + "").InnerText;
-
-
-                    break;
-
                 case "dst_HANADB":
 
                     xmlDocument.Load(sPath + "\\" + DllName + "\\Queries\\" + FileNameXML + "HANA.xml");
@@ -1388,8 +1376,13 @@ namespace Funciones
                     break;
 
                 default:
+
+                    xmlDocument.Load(sPath + "\\" + DllName + "\\Queries\\" + FileNameXML + "SQL.xml");
+                    sFileXML = xmlDocument.SelectSingleNode("Queries/" + IDNodo + "").InnerText;
+
                     break;
             }
+
             return sFileXML;
         }
 

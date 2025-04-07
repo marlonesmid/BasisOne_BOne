@@ -124,6 +124,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Formularios\RecepcionElectronica_ParametrosIniciales.srf" />
     <Content Include="Images\Aceptar.bmp" />
     <Content Include="Images\Cancelar.bmp" />
     <Content Include="Images\Download.bmp" />

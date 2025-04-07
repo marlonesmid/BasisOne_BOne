@@ -6,7 +6,7 @@
   </CheckUserDefineField>
   
   <ValidacionAddIn>
-    SELECT "U_Licencia" FROM "@BOAdminAddOn" WHERE "Code"='%AddIn%'
+    SELECT "U_Licencia" FROM "@BOAdminAddOn" WHERE "Code"='%AddIn%' AND "U_Status" != 'I'
   </ValidacionAddIn>
 
   <ValidationExistingAddins>

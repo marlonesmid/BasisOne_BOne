@@ -120,3 +120,11 @@ C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\
 C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\Funciones\obj\Debug\Funciones.csproj.CopyComplete
 C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\Funciones\obj\Debug\BOFunciones.dll
 C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\Funciones\obj\Debug\BOFunciones.pdb
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\bin\x64\BOFunciones.dll
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\bin\x64\BOFunciones.pdb
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\obj\Debug\Funciones.csproj.AssemblyReference.cache
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\obj\Debug\Funciones.csproj.CoreCompileInputs.cache
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\obj\Debug\Funciones.csproj.CopyComplete
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\obj\Debug\BOFunciones.dll
+C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\Funciones\obj\Debug\BOFunciones.pdb

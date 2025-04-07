@@ -522,7 +522,9 @@
     (SELECT TOP 1 "U_BO_RutaXML" FROM "@BOEBILLINGP") AS "RutaXML",
     (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A) AS "RutaCR",
     (SELECT TOP 1 A."U_BO_GXP" FROM "@BOEBILLINGP" A) AS "GeneraXMLP",
-    T1."U_BO_PREF" AS "PrefijoDes"
+    T1."U_BO_PREF" AS "PrefijoDes",
+    (SELECT TOP 1 A."U_BO_PT" FROM "@BOEBILLINGP" A) AS "ProveedorTecnologico",
+    (SELECT TOP 1 A."U_BO_AT" FROM "@BOEBILLINGP" A) AS "VersionAnexoTecnico"
 
     FROM "%Tabla%" T0 LEFT JOIN "@BOSERNUM" T1 ON T0."Series"=T1."Code"
     WHERE T0."DocEntry" = '%sDocEntry%'
@@ -548,7 +550,9 @@
     SELECT T0."CODE" AS "TipoDoc",
     T0."DEFLT_REP" AS "ID_Layout",
     T1."DocName" AS "NombreFormato",
-    (SELECT TOP 1 A.U_BO_RutaCRL FROM "@BOEBILLINGP" A) AS "RutaPDFyXML"
+    (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A) AS "RutaCRL",
+    (SELECT TOP 1 A.U_BO_RutaCRL FROM "@BOEBILLINGP" A) AS "RutaPDFyXML",
+    'N' AS "FormatoMaster"
     FROM "RTYP" T0 LEFT JOIN "RDOC" T1 ON T0."DEFLT_REP" ="DocCode"
     WHERE T0.CODE = '%TypeDoc%'
   </GetRPTDoc>
@@ -558,11 +562,13 @@
     T0.DfltReport AS "ID_Layout",
     T1.DocName AS "NombreFormato",
     (SELECT TOP 1 A.U_BO_RutaCRL FROM "@BOEBILLINGP" A) AS "RutaPDFyXML",
+
     CASE WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
     WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "ORIN" WHERE "DocEntry" = '%DocEntry%'))
     WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OINV" WHERE "DocEntry" = '%DocEntry%'))
     WHEN "DoumntDode" = '%TypeDoc%' THEN (SELECT  ISNULL("U_BO_FORIMPMAS",'N')  FROM "@BOSERNUM"  T0 WHERE "Code" = (SELECT "Series" FROM "OPCH" WHERE "DocEntry" = '%DocEntry%'))
     ELSE 'N' END "FormatoMaster"
+
     FROM "RDFL" T0 INNER JOIN "RDOC" T1 ON T0."DfltReport" =  T1.DocCode
     WHERE DoumntDode = '%TypeDoc%' AND T0.UserId = '%UserId%'
   </GetRPTDocUser>
@@ -681,13 +687,13 @@
 
   <GetPrefijoSeries>
     SELECT CASE WHEN (SELECT "U_BO_Pref" FROM "@BOEBILLINGP" WHERE "U_BO_Status"='Y') = 'Y' THEN CONCAT(T8."U_BO_PREF",T0."DocNum")
-           ELSE CAST(T0."DocNum" AS NVARCHAR(20))
-            END AS "consecutivoDocumento"
+    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
+    END AS "consecutivoDocumento"
 
     FROM "%Table%" T0 LEFT JOIN "INV12" T4 ON T0."DocEntry"=T4."DocEntry"
-                      LEFT JOIN "OCRD" T5 ON T0."CardCode" = T5."CardCode"
-                      LEFT JOIN "NNM1" T6 ON T0."Series"=T6."Series" AND T6."ObjectCode" = '%ObjectCode%'
-                      LEFT JOIN "@BOSERNUM" T8 ON T0."Series"=T8."Code"
+    LEFT JOIN "OCRD" T5 ON T0."CardCode" = T5."CardCode"
+    LEFT JOIN "NNM1" T6 ON T0."Series"=T6."Series" AND T6."ObjectCode" = '%ObjectCode%'
+    LEFT JOIN "@BOSERNUM" T8 ON T0."Series"=T8."Code"
 
     WHERE T0."DocNum" = '%DocNum%' AND T0."DocSubType" != 'DN'
   </GetPrefijoSeries>
@@ -842,4 +848,11 @@
   </GetTechnologyProvide>
 
 
+    <GetFormaRecepcion>
+    SELECT "FldValue" AS "Valor", 
+    	     "Descr" AS "Descripcion"  
+    FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'HX_FRE' )
+  </GetFormaRecepcion>
+  
 </Queries>

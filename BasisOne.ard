@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="BOne " SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="BOne10.25.1.9" ExtVersion="10.25.1.9" Contdata="" Partner="BOne " DBType="Both" ClientType="A">
+<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="BOne " SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="BOne10.25.4.2" ExtVersion="10.25.4.2" Contdata="" Partner="BOne " DBType="Both" ClientType="A">
   <Validity>
     <SBOCompatibility>
       <Version From="100.000.00" To="100.999.99" />
@@ -502,9 +502,6 @@
             <File FileName="BasisOne.vshost.exe.config">
               <Actions />
             </File>
-            <File FileName="BasisOne.vshost.exe.manifest">
-              <Actions />
-            </File>
             <File FileName="BOCore.dll">
               <Actions />
             </File>
@@ -518,6 +515,9 @@
               <Actions />
             </File>
             <File FileName="BOElectronicReception.dll.config">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception.pdb">
               <Actions />
             </File>
             <File FileName="BOFunciones.dll">
@@ -683,9 +683,6 @@
             <File FileName="BasisOne.vshost.exe.config">
               <Actions />
             </File>
-            <File FileName="BasisOne.vshost.exe.manifest">
-              <Actions />
-            </File>
             <File FileName="BOCore.dll">
               <Actions />
             </File>
@@ -699,6 +696,9 @@
               <Actions />
             </File>
             <File FileName="BOElectronicReception.dll.config">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception.pdb">
               <Actions />
             </File>
             <File FileName="BOFunciones.dll">

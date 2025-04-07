@@ -698,14 +698,14 @@
   </SerachNextCode>
 
   <GetPrefijoSeries>
-    SELECT CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y') = 'Y' THEN (T6."BeginStr"||T0."DocNum")
-    ELSE CAST(T0."DocNum" AS NVARCHAR(20))
-    END AS "consecutivoDocumento"
+    SELECT CASE WHEN (SELECT "U_BO_Pref" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status"='Y') = 'Y' THEN (T8."U_BO_PREF"||T0."DocNum")
+		   ELSE CAST(T0."DocNum" AS NVARCHAR(20))
+           END AS "consecutivoDocumento"
 
     FROM "%sNameDB%"."%Table%" T0 LEFT JOIN "%sNameDB%"."INV12" T4 ON T0."DocEntry"=T4."DocEntry"
-    LEFT JOIN "%sNameDB%"."OCRD" T5 ON T0."CardCode" = T5."CardCode"
-    LEFT JOIN "%sNameDB%"."NNM1" T6 ON T0."Series"=T6."Series" AND T6."ObjectCode" = '%ObjectCode%'
-    LEFT JOIN "%sNameDB%"."@BOSERNUM" T8 ON T0."Series"=T8."Code"
+    							  LEFT JOIN "%sNameDB%"."OCRD" T5 ON T0."CardCode" = T5."CardCode"
+								  LEFT JOIN "%sNameDB%"."NNM1" T6 ON T0."Series"=T6."Series" AND T6."ObjectCode" = '%ObjectCode%'
+								  LEFT JOIN "%sNameDB%"."@BOSERNUM" T8 ON T0."Series"=T8."Code"
 
     WHERE T0."DocNum" = '%DocNum%' AND T0."Series" = '%Series%' AND  T0."DocSubType" != 'DN';
   </GetPrefijoSeries>
@@ -882,4 +882,15 @@
 
   </GetTechnologyProvide>
 
+  <ValidacionAddInElectronicRecepcion>
+    SELECT * FROM "%sNameDB%"."@BOADMINADDON" WHERE "Code"='AddInElectronicReception' AND "U_Status" != 'I'
+  </ValidacionAddInElectronicRecepcion>
+  
+  <GetFormaRecepcion>
+    SELECT "FldValue" AS "Valor", 
+    	     "Descr" AS "Descripcion"  
+    FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'HX_FRE' )
+  </GetFormaRecepcion>
+  
 </Queries>

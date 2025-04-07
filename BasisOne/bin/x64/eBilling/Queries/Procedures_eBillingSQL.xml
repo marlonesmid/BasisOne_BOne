@@ -2572,7 +2572,7 @@
 					             LEFT JOIN "OCTG" T11 ON T0."GroupNum"=T11."GroupNum"
 					             LEFT JOIN "OSHP" T12 ON T0."TrnspCode" = T12."TrnspCode"
 					             left join "CRD1" T14 on T0."PayToCode" = T14."Address" and T14.CardCode = T0.CardCode
-						         LEFT JOIN "OCST" T13 ON T14."State" = T13."Code" AND T13."Country" ='CO'
+						           LEFT JOIN "OCST" T13 ON T14."State" = T13."Code" AND T13."Country" ='CO'
 
 		          WHERE T0."DocEntry" = @DocEntryLayout AND T0."DocSubType" != 'DN'
     

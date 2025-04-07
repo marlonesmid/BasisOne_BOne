@@ -107,7 +107,7 @@ namespace BasisOne
                 oMenuItem = sboapp.Menus.Item("43520");
                 oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_POPUP;
                 oCreationPackage.UniqueID = "mnuBasisOne";
-                oCreationPackage.String = "B-One";
+                oCreationPackage.String = "BOne";
                 oCreationPackage.Enabled = true;
                 oCreationPackage.Position = -1;
                 oMenus = oMenuItem.SubMenus;
@@ -920,7 +920,6 @@ namespace BasisOne
                             if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "btnCan" && pVal.BeforeAction == true)
                             {
                                 DllFunciones.CloseFormXML(sboapp, "BOVDEB");
-
                             }
 
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "btnFind" && pVal.BeforeAction == true)
@@ -1642,8 +1641,7 @@ namespace BasisOne
 
                             if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnDDPT" && pVal.BeforeAction == true)
                             {
-                                DllElectronicReception.DownloadDocumentElectronicReceipt(sboapp, _company);
-                                //DllElectronicReception.DescargaDocumentosTFHKA(sboapp, _company, oFormVisorRecepcion);
+                                DllElectronicReception.DownloadDocumentElectronicReceipt(sboapp, _company);                                
 
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnDAPT" && pVal.BeforeAction == true)
@@ -2191,6 +2189,31 @@ namespace BasisOne
 
                     break;
 
+                case "smHXRE01":
+
+                    #region Eventos en el Menu eBilling 
+
+                    if (TieneLicenciaElectronicRepception == true)
+                    {
+                        #region Abre fomrulario parametros Facturacion Electronica 
+
+                        try
+                        {
+                            DllElectronicReception.OpenFormParametrosIniciales(sboapp, _company, sMotor);
+                        }
+                        catch (Exception e)
+                        {
+
+                            DllFunciones.sendErrorMessage(sboapp, e);
+
+                        }
+
+                        #endregion
+                    }
+
+                    #endregion
+
+                    break;
                 case "smBO_eBil02":
 
                     #region Abre formulario unidades de medida 
@@ -2893,7 +2916,7 @@ namespace BasisOne
                     }
                     else if (LicenciaAddIn == LicenciaValida && AddIn == "AddIneBillingBO")
                     {
-                        #region Menu eBillingBO
+                        #region Menu Facturacion Electronica - Emision
 
                         _oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_POPUP;
                         _oCreationPackage.UniqueID = "mnuBO_eBil01";
@@ -2937,7 +2960,7 @@ namespace BasisOne
                     }
                     else if (LicenciaAddIn == LicenciaValida && AddIn == "AddInElectronicReception")
                     {
-                        #region Menu eBillingBO
+                        #region Menu Facturacion Electronica - Recepcion
 
                         if (sboapp.Menus.Exists("mnuBO_eBil01"))
                         {
@@ -2952,11 +2975,20 @@ namespace BasisOne
                         }
                         else
                         {
+                            _oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_POPUP;
+                            _oCreationPackage.UniqueID = "mnuBO_eBil01";
+                            _oCreationPackage.Enabled = true;
+                            _oCreationPackage.String = "Facturación Electronica";
+                            _oCreationPackage.Image = "";
+                            _oCreationPackage.Position = _oCreationPackage.Position + 1;
+                            _oMenus = _oMenuItem.SubMenus;
+                            _oMenus.AddEx(_oCreationPackage);
+
                             _oMenuItem = sboapp.Menus.Item("mnuBO_eBil01");
                             _oCreationPackage.Enabled = true;
                             _oCreationPackage.Position = _oCreationPackage.Position + 1;
                             _oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_STRING;
-                            _oCreationPackage.UniqueID = "smBO_eBil01";
+                            _oCreationPackage.UniqueID = "smHXRE01"; 
                             _oCreationPackage.String = "Parametros iniciales";
                             _oCreationPackage.Image = "";
                             _oMenuItem.SubMenus.AddEx(_oCreationPackage);
@@ -2975,8 +3007,6 @@ namespace BasisOne
 
                         #endregion
                     }
-
-
                     else if (LicenciaAddIn == LicenciaValida && AddIn == "AddInProduccion")
                     {
                         #region Menu Produccion Avanzada

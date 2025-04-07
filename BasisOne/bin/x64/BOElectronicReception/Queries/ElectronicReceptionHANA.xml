@@ -11,7 +11,8 @@
              (SELECT TOP 1 "U_BO_PwdE" FROM "%sNameDB%"."@BOEBILLINGP"  WHERE "U_BO_Status" = 'Y') AS "TokenPassword",
              (SELECT COUNT(*) + 500 AS "Contador" FROM "@BOTREDRPT") AS "Consecutivo",
              "U_BO_RutaXML" AS "RutaXML", 
-             "U_BO_RutaPDF" AS "RutaPDF"
+             "U_BO_RutaPDF" AS "RutaPDF",
+             "U_HX_FRE" AS "FormaRecepcion"
              
       FROM "%sNameDB%"."@BOEBILLINGP"      
   
@@ -19,7 +20,7 @@
 
   <SyncDocsRecep>
 
-    CALL "BOT_InsertDocuments" ('%ProveedorTechnologico%','%ConsecutivoTFHKA%','%CUFE%', '%StatusDIANCodigo%', '%StatusDIANDescripcion%', '%StatusDIANFecha%', '%FechaEmision%', '%FechaRecepcion%', '%HoraEmision%', '%MontoTotal%', '%NumeroFactura%', '%NumeroIdentificacion%', '%RazonSocial%', '%TipoDocumento%', '%TipoEmisor%', '%TipoIdentidad%', '%prmCodEstatusDIAN%');
+    CALL "BOT_InsertDocuments" ('%ProveedorTechnologico%','%ConsecutivoTFHKA%','%CUFE%', '%StatusDIANCodigo%', '%StatusDIANDescripcion%', '%StatusDIANFecha%', '%FechaEmision%', '%FechaRecepcion%', '%HoraEmision%', '%MontoTotal%', '%NumeroFactura%', '%NumeroIdentificacion%', '%RazonSocial%', '%TipoDocumento%', '%TipoEmisor%', '%TipoIdentidad%', '%prmCodEstatusDIAN%', '%PO%', '%PathXML%', '%PathPDF%');
 
   </SyncDocsRecep>
 
@@ -81,7 +82,10 @@
             "U_BOTTI" AS "TipoIdentificacionEmisor"
 
         FROM "@BOTREDRPT" A LEFT JOIN ( SELECT DISTINCT CASE WHEN LOCATE(T0."LicTradNum",'-') = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,LOCATE(T0."LicTradNum",'-')-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum"
-        WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' %Estado% AND A."U_BOTTD" = '01'
+        WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' 
+              AND A."U_BOTTD" = '01' 
+              %Estado%
+              %NumeroDocumento%
 
   </GetInvoices>
 
@@ -159,7 +163,10 @@
 	    prmTipoDocumento NVARCHAR(50),
 	    prmTipoEmisor NVARCHAR(50),
 	    prmTipoIdentidad NVARCHAR(50),
-	    prmCodEstatusDIAN NVARCHAR(50)
+	    prmCodEstatusDIAN NVARCHAR(50),
+		prmPO NVARCHAR(30),
+        prmPathXML NVARCHAR(200),
+        prmPathPDF NVARCHAR(200)
     )    
 
     LANGUAGE SQLSCRIPT AS
@@ -201,21 +208,35 @@
 	    										    NULL,
 	    										    NULL,
 	    										    NULL,
+	    										    :prmPathXML,
 	    										    NULL,
+	    										    :prmPathPDF,
 	    										    NULL,
-	    										    NULL,
-	    										    NULL	    									
+													    :prmPO	    									
 	    									    );
 	    ELSE
-		    UPDATE "@BOTREDRPT" 
-		    SET "U_BOTSDC" = :prmStatusDIANCodigo,
-			    "U_BOTSDD" = :prmStatusDIANDescripcion,
-			    "U_BOTSDF" = :prmStatusDIANFecha
-		    WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion; 
+	    	IF (SELECT CASE WHEN :prmPathXML = '%PathXML%' THEN '1' ELSE '2' END FROM DUMMY) = '1'
+	    		THEN
+	    			    	
+				    UPDATE "@BOTREDRPT" 
+				    SET "U_BOTSDC" = :prmStatusDIANCodigo,
+					    "U_BOTSDD" = :prmStatusDIANDescripcion,
+					    "U_BOTSDF" = :prmStatusDIANFecha
+				    WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;
 
+				ELSE
+
+					 UPDATE "@BOTREDRPT" 
+				     SET "U_BOTSDC" = :prmStatusDIANCodigo,
+					     "U_BOTSDD" = :prmStatusDIANDescripcion,
+					     "U_BOTSDF" = :prmStatusDIANFecha,
+			             "U_BOTPAXML" = (SELECT CASE WHEN :prmPathXML = '%PathXML%' THEN NULL ELSE :prmPathXML END FROM DUMMY),
+			             "U_BOTPAPDF" = (SELECT CASE WHEN :prmPathPDF = '%PathPDF%' THEN NULL ELSE :prmPathPDF END FROM DUMMY) 
+				     WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;
+			     END IF;
 		    END IF;
       END;
-    
+
     
   </BOT_InsertDocuments>
 
@@ -384,13 +405,13 @@
 	         "userId" AS "IdUser"
 	  
     FROM OHEM
-    WHERE "userId" = '1'
+    WHERE "userId" = '%UserId%'
 
   </Getauthorizer>
   
   <PostUpdateStatusDocument>
     UPDATE "@BOTREDRPT"
-    SET "U_BOTSDC" = '02'
+    SET "U_BOTSDC" = '%CodigoEventoDIANPT%'
     WHERE "U_BOTNF" = '%NumeroFactura%' AND "U_BOTNI" = '%NumeroIdentificacion%'
   </PostUpdateStatusDocument>
 
@@ -418,5 +439,21 @@
     FROM "%sNameDB%"."@BOEBILLINGP"
     WHERE %Estado% %DocEntry%
   </GetModoandURLFBE>
+
+  <GetTiposOperacion>
+    SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion" FROM "%sNameDB%"."UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = '14'
+  </GetTiposOperacion>
+
+  <GetProveedorTecnologico>
+    SELECT "U_BO_PT" AS "ProveedorTecnologico" FROM "%sNameDB%"."@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+  </GetProveedorTecnologico>
+
+  <GetFormaRecepcion>
+    SELECT "FldValue" AS "Valor", 
+    	     "Descr" AS "Descripcion"  
+    FROM "UFD1"
+    WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'HX_FRE' )
+  </GetFormaRecepcion>
 
 </Queries>

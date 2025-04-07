@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="BOne" SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="BOne10.25.12.0" ExtVersion="10.25.12.1" Contdata="" Partner="BOne" DBType="Both" ClientType="A">
+  <Validity>
+    <SBOCompatibility>
+      <Version From="100.000.00" To="100.999.99" />
+    </SBOCompatibility>
+  </Validity>
+  <Configuration>
+    <Repository>
+      <Properties />
+    </Repository>
+    <Deployment>
+      <Properties />
+    </Deployment>
+    <Assignment>
+      <Properties />
+    </Assignment>
+  </Configuration>
+  <Addons>
+    <Addon Name="" Group="" ForceFlag="" Visible="" AutoAssign="" SelfUpgrd="">
+      <x86 AddonExe="" AddonSig="">
+        <Installation>
+          <Files />
+        </Installation>
+        <Uninstallation>
+          <Files />
+        </Uninstallation>
+      </x86>
+      <x64 AddonExe="C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe" AddonSig="">
+        <Installation>
+          <Files>
+            <File FileName="BasisOne.b1s">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.exe">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.exe.config">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.vshost.exe">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.vshost.exe.config">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.vshost.exe.manifest">
+              <Actions />
+            </File>
+            <File FileName="BOCore.dll">
+              <Actions />
+            </File>
+            <File FileName="BOeBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="BOeBilling.dll.config">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception.dll">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception.dll.config">
+              <Actions />
+            </File>
+            <File FileName="BOFunciones.dll">
+              <Actions />
+            </File>
+            <File FileName="BOIntercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="BOPresupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="BOProduccion.dll">
+              <Actions />
+            </File>
+            <File FileName="CrystalDecisions.ReportSource.dll">
+              <Actions />
+            </File>
+            <File FileName="CrystalDecisions.Windows.Forms.dll">
+              <Actions />
+            </File>
+            <File FileName="FlashControlV71.dll">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.xml">
+              <Actions />
+            </File>
+            <File FileName="SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="ShockwaveFlashObjects.dll">
+              <Actions />
+            </File>
+            <File FileName="stdole.dll">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Formularios\RecepcionElectronica_ParametrosIniciales.srf">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Formularios\VisorDocumentsReceptionElectronic.srf">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Aceptar.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Cancelar.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Json\InboundDocumens.json">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Queries\ElectronicReceptionHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Queries\ElectronicReceptionSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Index.html">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Images\fe_invoice.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Images\production_machine.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates and improvements.html">
+              <Actions />
+            </File>
+            <File FileName="Core\Formularios\Gestion_AddOn.srf">
+              <Actions />
+            </File>
+            <File FileName="Core\Images\LogoBO20x20.bmp">
+              <Actions />
+            </File>
+            <File FileName="Core\Queries\ValidacionAddOnBOHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="Core\Queries\ValidacionAddOnBOSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\App.config">
+              <Actions />
+            </File>
+            <File FileName="eBilling\CSV\Tiposresponsabilidades.csv">
+              <Actions />
+            </File>
+            <File FileName="eBilling\CSV\UnidadesdeMedidaDIAN.csv">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\FacturacionElectronica_EventosDIAN.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\FacturacionElectronica_ParametrosIniciales.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\Send_Mail.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\Unidades_Medida.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\Visor_Documentos_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\JSON\Authorization.json">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\Procedures_eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\Procedures_eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Reports\Layouts\Factura Venta - Articulos Esfera Color.rpt">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Reports\Layouts\Formato FV H.rpt">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imageMenu.bmp">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imagePDF.bmp">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imageSincronizar.bmp">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imageXML.bmp">
+              <Actions />
+            </File>
+          </Files>
+        </Installation>
+        <Uninstallation>
+          <Files>
+            <File FileName="BasisOne.b1s">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.exe">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.exe.config">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.vshost.exe">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.vshost.exe.config">
+              <Actions />
+            </File>
+            <File FileName="BasisOne.vshost.exe.manifest">
+              <Actions />
+            </File>
+            <File FileName="BOCore.dll">
+              <Actions />
+            </File>
+            <File FileName="BOeBilling.dll">
+              <Actions />
+            </File>
+            <File FileName="BOeBilling.dll.config">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception.dll">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception.dll.config">
+              <Actions />
+            </File>
+            <File FileName="BOFunciones.dll">
+              <Actions />
+            </File>
+            <File FileName="BOIntercompany.dll">
+              <Actions />
+            </File>
+            <File FileName="BOPresupuesto.dll">
+              <Actions />
+            </File>
+            <File FileName="BOProduccion.dll">
+              <Actions />
+            </File>
+            <File FileName="CrystalDecisions.ReportSource.dll">
+              <Actions />
+            </File>
+            <File FileName="CrystalDecisions.Windows.Forms.dll">
+              <Actions />
+            </File>
+            <File FileName="FlashControlV71.dll">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.xml">
+              <Actions />
+            </File>
+            <File FileName="SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="ShockwaveFlashObjects.dll">
+              <Actions />
+            </File>
+            <File FileName="stdole.dll">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Formularios\RecepcionElectronica_ParametrosIniciales.srf">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Formularios\VisorDocumentsReceptionElectronic.srf">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Aceptar.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Cancelar.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Json\InboundDocumens.json">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Queries\ElectronicReceptionHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Queries\ElectronicReceptionSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Index.html">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Images\fe_invoice.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Images\production_machine.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates and improvements.html">
+              <Actions />
+            </File>
+            <File FileName="Core\Formularios\Gestion_AddOn.srf">
+              <Actions />
+            </File>
+            <File FileName="Core\Images\LogoBO20x20.bmp">
+              <Actions />
+            </File>
+            <File FileName="Core\Queries\ValidacionAddOnBOHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="Core\Queries\ValidacionAddOnBOSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\App.config">
+              <Actions />
+            </File>
+            <File FileName="eBilling\CSV\Tiposresponsabilidades.csv">
+              <Actions />
+            </File>
+            <File FileName="eBilling\CSV\UnidadesdeMedidaDIAN.csv">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\FacturacionElectronica_EventosDIAN.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\FacturacionElectronica_ParametrosIniciales.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\Send_Mail.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\Unidades_Medida.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Formularios\Visor_Documentos_eBilling.srf">
+              <Actions />
+            </File>
+            <File FileName="eBilling\JSON\Authorization.json">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\Procedures_eBillingHANA.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Queries\Procedures_eBillingSQL.xml">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Reports\Layouts\Factura Venta - Articulos Esfera Color.rpt">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Reports\Layouts\Formato FV H.rpt">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imageMenu.bmp">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imagePDF.bmp">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imageSincronizar.bmp">
+              <Actions />
+            </File>
+            <File FileName="eBilling\Resources\Img\imageXML.bmp">
+              <Actions />
+            </File>
+          </Files>
+        </Uninstallation>
+      </x64>
+    </Addon>
+  </Addons>
+  <XApps>
+    <XApp Name="" Path="" FileName="" />
+  </XApps>
+  <UDQs>
+    <UDQ udqname="">
+      <Hana FileName="" />
+    </UDQ>
+  </UDQs>
+</AddOnRegData>
