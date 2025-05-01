@@ -7,7 +7,6 @@ using SAPbobsCOM;
 using System.Xml;
 using System.Windows.Forms;
 
-
 namespace Presupuesto
 {
     public class Core
@@ -17,8 +16,7 @@ namespace Presupuesto
        
         public Core(SAPbouiCOM.Application psboapp, SAPbobsCOM.Company _company)
         {
-            this.sboapp = psboapp;
-            this.oCompany = _company;
+
         }
 
         public void showForm(String menu)

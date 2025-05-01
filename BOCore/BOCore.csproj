@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BOBillingConsolidator">
+      <HintPath>..\BOBillingConsolidator\bin\x64\BOBillingConsolidator.dll</HintPath>
+    </Reference>
     <Reference Include="BOeBilling">
       <HintPath>..\eBilling\bin\x64\BOeBilling.dll</HintPath>
     </Reference>
@@ -39,6 +42,13 @@
     </Reference>
     <Reference Include="BOFunciones">
       <HintPath>..\Funciones\bin\x64\BOFunciones.dll</HintPath>
+    </Reference>
+    <Reference Include="BOIntercompany, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Intercompany\bin\x64\BOIntercompany.dll</HintPath>
+    </Reference>
+    <Reference Include="BOProduccion">
+      <HintPath>..\BOProduccion\bin\x64\BOProduccion.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -78,7 +88,12 @@
     </Content>
     <Content Include="Core\Queries\ValidacionAddOnBOSQL.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Presupuesto\Presupuesto.csproj">
+      <Project>{205168fb-37a0-4db8-9790-c88bbb40e225}</Project>
+      <Name>Presupuesto</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

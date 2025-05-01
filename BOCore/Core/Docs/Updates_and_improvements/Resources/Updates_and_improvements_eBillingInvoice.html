@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Liberaciones AddOn Facturacion Electronica</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #0f172a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #1e293b;
+      padding: 1rem;
+      border-right: 1px solid #334155;
+      overflow-y: auto;
+    }
+
+    .sidebar h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-header {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: #94a3b8;
+      font-weight: bold;
+      margin-top: 1rem;
+      user-select: none;
+    }
+
+    .toggle-icon {
+      margin-right: 6px;
+      transition: transform 0.3s ease;
+    }
+
+    .toggle-icon.rotated {
+      transform: rotate(90deg);
+    }
+
+    .release-list {
+      list-style: none;
+      padding-left: 1rem;
+      margin: 0.5rem 0;
+      display: none;
+    }
+
+    .release-list li {
+      margin: 4px 0;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .sidebar a:hover {
+      color: #38bdf8;
+    }
+
+    .content {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    h1, h2 {
+      color: #f8fafc;
+    }
+
+    .date {
+      color: #cbd5e1;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      border-left: 4px solid #38bdf8;
+      padding-left: 0.5rem;
+      margin-left: 1rem;
+    }
+
+    /* Estilo específico para la sección de correcciones */
+    .section-title:has(+ div h4) {
+      border-left-color: #f87171;
+    }
+
+    /* Color rojo para el contenido de correcciones */
+    .fixes {
+      color: #f87171 !important;
+    }
+
+    .fixes li.indented-text {
+      color: #f87171 !important;
+    }
+
+    h4 {
+      margin-top: 1rem;
+      margin-left: 2rem;
+      font-weight: bold;
+      color: #94a3b8;
+    }
+
+    ul.release-notes {
+      list-style-type: none !important; /* Asegurarse de eliminar los puntos por defecto */
+      padding-left: 3rem;
+      margin: 0.5rem 0;
+      text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
+    }
+
+    ul.release-notes li {
+      padding-left: 0 !important; /* Ajustar el padding del item */
+      margin-bottom: 0.5rem;
+      text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
+    }
+
+    .indented-text {
+      padding-left: 3rem !important;
+      text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
+    }
+
+    .indented-image {
+      padding-left: 3rem !important;
+    }
+
+    ul.release-notes li::before {
+      display: none !important; /* Asegurarse de ocultar los puntos personalizados */
+    }
+
+    .fixes li::before {
+      display: none !important; /* Asegurarse de ocultar los puntos personalizados */
+    }
+
+    .fixes li {
+      color: #f87171 !important; /* Color rojo para el texto de correcciones */
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <h3>📄 Notas de Liberaciones</h3>
+  </aside>
+  <main class="content">
+    <h1>Liberaciones AddOn Facturacion Electronica</h1>
+    <div id="release-content"></div>
+  </main>
+
+  <script>
+    const releasesData = {
+      "releases": {
+        "2025": [
+          {
+            "version": "10.25.12.0",
+            "link": "#",
+            "date": "Marzo 17, 2025",
+            "improvements": {
+              "Mejoras": {
+                "Factura de venta, nota debito, nota credito y documento soporte ": [
+                  "Al momento de enviar el documento electronico a la DIAN, se valida que el socio de negocios tenga diligenciado el regimen fiscal y la responsabilidad fiscal.",
+                  "<img src='./Images/10.25.12.0 - Images 1.png' alt='10.25.12.0 - Images 1.png' style='width:100%; max-width:500px; margin-top: 10px;'>"
+                ],                
+              }
+            },
+          },
+          {
+            "version": "10.25.4.1",
+            "link": "#",
+            "date": "Enero 01, 2025",
+            "improvements": {
+              "Emisión": {
+                "Socios de Negocios ": [
+                  "Al momento de crear socios de negocio exigia los campos Correo Electronico, Regimen Fiscal y Responsabilidad Fiscal, por lo cual creamos mejora para que solo solo solicite a socios de negocios tipo clientes y proveedores, cualquier otro tipo de socio de negocio no requerira esta informacion "                  
+                ],
+                "Emisión de correos": [
+                  "Se realiza mejora al momento de enviar los correos electronicos, se actualiza la consulta que se encarga de generar la informacion del documento electronico para que tome correctamente la información"
+                ]
+              }
+            },           
+          },
+          {
+            "version": "10.25.1.9",
+            "link": "#",
+            "date": "Enero 01, 2025",
+            "fixes": {
+              "Correcciones": {
+                "Factura de venta, nota debito, nota credito y documento soporte": [
+                  "Al momento de enviar el documento electronico a la DIAN, se valida que el socio de negocios tenga diligenciado el regimen fiscal y la responsabilidad fiscal. ",
+                  "<img src='./Images/10.25.12.0 - Images 1.png' alt='Corrección'   style='width:100%; max-width:500px; margin-top: 10px;'>"
+                ],
+                "Autenticación": [
+                  "Fixed credential selection not loading properly in RD Gateway"
+                ]
+              }
+            }
+          },
+          {
+            "version": "10.25.1.8",
+            "link": "#",
+            "date": "Enero 01, 2025",
+            "improvements": {
+              "Mejoras": {
+                "Gestor de addon": [
+                  "Se adiciona funcionalidad para validar el estado del contrato directamente en el sistema de Hexagrama Consulting, por lo cual el sistema indicara el estado del contrato, Fecha de finalizacion y numero de contrato "                  
+                ]                
+              }
+            },
+          },
+        ],
+        "2024": [
+        {
+            "version": "10.23.50.1",
+            "link": "#",
+            "date": "Noviembre 13, 2024",
+            "improvements": {
+              "Correcciones": {
+                "Gestor de addon": [
+                  "Al momento se crear las busquedas formateadas el sistema arroja error, ya que no encontraba el grupo 'Facturacion Electronica BO', por lo cual se corrige el error"                  
+                ],                
+              }
+            },
+          },          
+        {
+            "version": "10.23.46.1",
+            "link": "#",
+            "date": "Noviembre 13, 2024",
+            "fixes": {
+              "Correcciones": {
+                "Parametros Generales": [
+                  "Se adiciona corrección para los clientes con SAP Cloud Control Center , se adicionan 2 nuevos parametros que son Cadena de conexion Crystal Report y Servidor Crystal Report, con esto se podran generar correctamente los Layouts CR."
+                ]
+              }
+            }
+          },
+        {
+            "version": "10.23.46.0",
+            "link": "#",
+            "date": "Noviembre 12, 2024",
+            "improvements": {
+              "Mejoras": {
+                "Parametros Generales ": [
+                  "Se adiciona mejora para integrarse con el proveedor tecnologico 'Facture By Estela' para emision de documentos."
+                ],
+                "Socios de Negocios": [
+                  "En la pestaña de 'Facturacion Electronica' en el modulo Socio de negocios en el campo 'Tipo de Regimen' se actualiza listado de acuerdo a la resolución 000165 de 01-11-2023 anexo técnico v1.9",
+                  "En la pestaña de 'Facturacion Electronica' en el modulo Socio de negocios en el campo 'Responsabilidad Fiscal' se actualiza listado de acuerdo a la resolución 000165 de 01-11-2023 anexo técnico v1.9"
+                ],
+                "Visor de documentos ": [
+                  "Se realizar mejora para para que se muestre correctamente el 'Row Number' en los matrices de Facturas de venta, notas credito, notas debito, documento soporte y nota de ajsute documento soporte.",
+                  "Se adiciona la pestaña 'Nota de ajuste documento soporte', donde se mostraran todas las notas credito de compra."                  
+                ],
+                "Gestor de addon": [
+                  "Se adiciona mejora donde para que los usuarios puedan descargar un archivo con los principales cambios realizados en el modulo."                      
+                ]
+              }
+            },
+            "fixes": {
+              "Correcciones": {
+                "Visor de documentos ": [
+                  "Se adiciona corrección para que cargue correctamente el logo en el formulario 'Visor de documentos'."
+                ],
+                "Factura de venta ": [
+                  "Se realiza corrección para poder reenviar el E-mail a mas de un correo electronico.",
+                  "Se realiza corrección al mensaje que aparecía: 'Referencia no establecida a objeto', ahora arroja el mensaje correcto.",
+                  "Se realiza corrección al mensaje que aparecía: 'Referencia no establecida a objeto', ahora arroja el mensaje correcto."
+                ],
+                "Nota credito de clientes ": [
+                  "Se realiza corrección para poder reenviar el E-mail a mas de un correo electronico.",
+                  "Se realiza corrección al mensaje que aparecía: 'Referencia no establecida a objeto', ahora arroja el mensaje correcto",
+                  "Se realiza corrección para que cargue correctamente los ComboBox de los campos Estado del documento, Enviado por, 'Enviar por correo"
+                ],
+                "Nota debito de clientes  ": [
+                  "Se realiza corrección para poder reenviar el E-mail a mas de un correo electronico.",
+                  "Se realiza corrección al mensaje que aparecía: 'Referencia no establecida a objeto', ahora arroja el mensaje correcto",
+                  "Se realiza corrección para que cargue correctamente los ComboBox de los campos Estado del documento, Enviado por, 'Enviar por correo"
+                ],
+                "Factura de Proveedores: ": [
+                  "Se realiza corrección para que cargue correctamente los ComboBox de los campos Estado del documento, Enviado por, Enviar por correo"
+                ],
+                "Nota credito proveedor ": [
+                  "Se realiza corrección para que cargue correctamente los ComboBox de los campos Estado del documento, Enviado por, Enviar por correo"                  
+                ],
+                "Gestor de AddOns ": [
+                  "Se adiciona corrección para que cargue correctamente el logo en el formulario Gestor AddOn."
+                ]
+              }
+            }
+          }
+        ]
+      }
+    };
+
+    function toggleList(listId, headerElement) {
+      const list = document.getElementById(listId);
+      const icon = headerElement.querySelector('.toggle-icon');
+      const isVisible = list.style.display === 'block';
+      list.style.display = isVisible ? 'none' : 'block';
+      icon.classList.toggle('rotated', !isVisible);
+    }
+
+    function createSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const years = Object.keys(releasesData.releases).sort((a, b) => b - a);
+
+      years.forEach(year => {
+        const header = document.createElement('div');
+        header.className = 'toggle-header';
+        header.setAttribute('onclick', `toggleList('list${year}', this)`);
+        header.innerHTML = `<span class="toggle-icon">▶</span> ${year}`;
+        sidebar.appendChild(header);
+
+        const ul = document.createElement('ul');
+        ul.id = `list${year}`;
+        ul.className = 'release-list';
+
+        releasesData.releases[year].forEach(release => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="#" onclick="renderRelease('${year}', '${release.version}')">Version ${release.version}</a>`;
+          ul.appendChild(li);
+        });
+
+        sidebar.appendChild(ul);
+      });
+    }
+
+    function renderRelease(year, version) {
+      const container = document.getElementById('release-content');
+      const release = releasesData.releases[year].find(r => r.version === version);
+
+      container.innerHTML = `
+        <p class="date">${release.date}</p>
+        <h2>Version ${release.version}</h2>
+      `;
+
+      if (release.improvements) {
+        for (const section in release.improvements) {
+          container.innerHTML += `<div class="section-title" style="border-left-color: #38bdf8; color: #38bdf8;">${section} 📢</div>`;
+          for (const subsection in release.improvements[section]) {
+            container.innerHTML += `<h4>${subsection}</h4><ul class="release-notes">`;
+            release.improvements[section][subsection].forEach(note => {
+              let listItem;
+              if (!note.includes('<img')) {
+                listItem = `<li class="indented-text">${note}</li>`;
+              } else {
+                listItem = `<li class="indented-image">${note}</li>`;
+              }
+              container.innerHTML += listItem;
+            });
+            container.innerHTML += `</ul>`;
+          }
+        }
+      }
+
+      if (release.fixes) {
+        for (const section in release.fixes) {
+          container.innerHTML += `<div class="section-title" style="border-left-color: #f87171; color: #f87171;">${section} 🛠️</div>`;
+          for (const subsection in release.fixes[section]) {
+            container.innerHTML += `<h4>${subsection}</h4><ul class="release-notes fixes">`;
+            release.fixes[section][subsection].forEach(note => {
+              let listItem;
+              if (!note.includes('<img')) {
+                listItem = `<li class="indented-text">${note}</li>`;
+              } else {
+                listItem = `<li class="indented-image">${note}</li>`;
+              }
+              container.innerHTML += listItem;
+            });
+            container.innerHTML += `</ul>`;
+          }
+        }
+      }
+    }
+
+    createSidebar();
+    const latestYear = Object.keys(releasesData.releases).sort((a, b) => b - a)[0];
+    const latestVersion = releasesData.releases[latestYear][0].version;
+    renderRelease(latestYear, latestVersion);
+  </script>
+</body>
+</html>

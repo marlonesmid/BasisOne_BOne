@@ -13,6 +13,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Presupuesto;
+using Intercompany;
+using BOProduccion;
+using System.Security.Cryptography;
 
 namespace BOCore
 {
@@ -329,31 +333,35 @@ namespace BOCore
             {
                 #region Variables y Objetos 
 
-                string sQuerieValidacion = null;
-                string sQuerieValidacionCopia = null;
+                string sQuerieValidacion = null;                
                 string sVersionAddInPresupuesto;
                 string sVersionAddInIntercompany;
                 string sVersionAddIneBillingBO;
                 string sVersionAddInElectronicReception;
                 string sVersionAddInProductionBO;
-                string sVersionInstalador;
+                string sVersionBillingConsolidator;
 
                 #endregion
 
                 #region Instanciacion Dlls
-                                
-                eBilling.eBillingBO DlleBilling = new eBilling.eBillingBO(sboapp, _company);                                
-                BOElectronicReception.ElectronicReception DllElectronicReception = new ElectronicReception();                
+
+                eBilling.eBillingBO DlleBilling = new eBilling.eBillingBO(sboapp, _company);
+                BOElectronicReception.ElectronicReception DllElectronicReception = new ElectronicReception();
+                Presupuesto.Core DllPresupuesto = new Presupuesto.Core(sboapp, _company);
+                Intercompany.Intercompany DllIntercompany = new Intercompany.Intercompany(sboapp, _company);
+                BOProduccion.Production DllProduction = new Production();
+                BOBillingConsolidator.BillingConsolidator DllBillingConsolidator = new BOBillingConsolidator.BillingConsolidator();
 
                 #endregion
 
                 #region Version Dll's
 
-                sVersionAddInPresupuesto = "2.0.0.0";
-                sVersionAddInIntercompany = "2.0.0.0";                
-                sVersionAddInProductionBO = "2.0.0.0";
+                sVersionAddInPresupuesto = DllPresupuesto.VersionDll();
+                sVersionAddInIntercompany = DllIntercompany.VersionDll();
+                sVersionAddInProductionBO = DllProduction.VersionDll();
                 sVersionAddIneBillingBO = DlleBilling.VersionDll();
                 sVersionAddInElectronicReception = DllElectronicReception.VersionDll();
+                sVersionBillingConsolidator = DllBillingConsolidator.VersionAddOn();
 
                 #endregion
 
@@ -377,155 +385,80 @@ namespace BOCore
 
                 sQuerieValidacion = DllFunciones.GetStringXMLDocument(_company, "Core", "ValidacionAddOnBO", "ValidationExistingAddins");
 
-                #region AddIn AddInPresupuesto
+                #region AddIn Presupuesto
 
-                SAPbobsCOM.Recordset oValidacionAddInPresupuesto = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInPresupuesto");
-
-                oValidacionAddInPresupuesto.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddInPresupuesto.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddInPresupuesto.Fields.Item("Version").Value.ToString()), sVersionAddInPresupuesto);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInPresupuesto", sVersionAddInPresupuesto);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInPresupuesto", "AddInPresupuesto", sVersionAddInIntercompany, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddInPresupuesto);
+                ValidationAddIn(_company, sboapp, "AddInPresupuesto", sVersionAddInPresupuesto, _sNameDB);
 
                 #endregion
 
-                #region AddIn AddInIntercompany
+                #region AddIn Intercompany
 
-                SAPbobsCOM.Recordset oValidacionAddInIntercompany = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInIntercompany");
-
-                oValidacionAddInIntercompany.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddInIntercompany.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddInIntercompany.Fields.Item("Version").Value.ToString()), sVersionAddInIntercompany);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInIntercompany", sVersionAddInIntercompany);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInIntercompany", "AddInIntercompany", sVersionAddInIntercompany, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddInIntercompany);
+                ValidationAddIn(_company, sboapp, "AddInIntercompany", sVersionAddInIntercompany, _sNameDB);
 
                 #endregion
 
                 #region AddIn Facturacion Electronica
 
-                SAPbobsCOM.Recordset oValidacionAddIneBillingBO = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddIneBillingBO");
-
-                oValidacionAddIneBillingBO.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddIneBillingBO.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddIneBillingBO.Fields.Item("Version").Value.ToString()), sVersionAddIneBillingBO);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddIneBillingBO", sVersionAddIneBillingBO);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddIneBillingBO", "AddIneBillingBO", sVersionAddInIntercompany, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddIneBillingBO);
+                ValidationAddIn(_company, sboapp, "AddIneBillingBO", sVersionAddIneBillingBO, _sNameDB);
 
                 #endregion
 
-                #region AddIn AddIneProductionBO
+                #region AddIn Produccion Avanzada
 
-                SAPbobsCOM.Recordset oValidacionAddIneProductionBO = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
-
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInProduccion");
-
-                oValidacionAddIneProductionBO.DoQuery(sQuerieValidacionCopia);
-
-                if (oValidacionAddIneProductionBO.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddIneProductionBO.Fields.Item("Version").Value.ToString()), sVersionAddInProductionBO);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInProduccion", sVersionAddInProductionBO);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInProduccion", "Produccion Avanzada", sVersionAddInProductionBO, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddIneProductionBO);
+                ValidationAddIn(_company, sboapp, "AddInProduccion", sVersionAddInProductionBO, _sNameDB);
 
                 #endregion
 
-                #region AddIn AddInElectronicReception
+                #region AddIn Recepcion Electronica
 
-                SAPbobsCOM.Recordset oValidacionAddInElectronicReception = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
+                ValidationAddIn(_company, sboapp, "AddInElectronicReception", sVersionAddInElectronicReception, _sNameDB);
 
-                sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", "AddInElectronicReception");
+                #endregion
 
-                oValidacionAddInElectronicReception.DoQuery(sQuerieValidacionCopia);
+                #region AddIn Consolidador de Facturación
 
-                if (oValidacionAddInElectronicReception.RecordCount > 0)
-                {
-                    int sVersionAddInIgual;
-
-                    sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddInElectronicReception.Fields.Item("Version").Value.ToString()), sVersionAddInElectronicReception);
-
-                    if (sVersionAddInIgual != 0)
-                    {
-                        DllFunciones.UpdateAddIn(sboapp, _company, "AddInElectronicReception", sVersionAddIneBillingBO);
-                    }
-                }
-                else
-                {
-                    DllFunciones.InsertAddIn(sboapp, _company, "AddInElectronicReception", "Recepcion Electronica", sVersionAddInElectronicReception, _sNameDB);
-                }
-
-                DllFunciones.liberarObjetos(oValidacionAddInElectronicReception);
+                ValidationAddIn(_company, sboapp, "AddInBillingConsolidator", sVersionBillingConsolidator, _sNameDB);
 
                 #endregion
 
                 #endregion
                 
-
             }
             catch (Exception e)
             {
 
                 DllFunciones.sendErrorMessage(sboapp, e);
             }
+        }
+
+        public void ValidationAddIn(SAPbobsCOM.Company _company, SAPbouiCOM.Application sboapp, string sNombreAddIn, string sVersionAddIn, string _sNameDB)
+        {
+            string sQuerieValidacion = DllFunciones.GetStringXMLDocument(_company, "Core", "ValidacionAddOnBO", "ValidationExistingAddins");
+
+            SAPbobsCOM.Recordset oValidacionAddIn = ((SAPbobsCOM.Recordset)_company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset));
+
+            string sQuerieValidacionCopia = sQuerieValidacion.Replace("%AddIn%", sNombreAddIn);
+
+            oValidacionAddIn.DoQuery(sQuerieValidacionCopia);
+
+            if (oValidacionAddIn.RecordCount > 0)
+            {
+                int sVersionAddInIgual;
+
+                sVersionAddInIgual = string.Compare(Convert.ToString(oValidacionAddIn.Fields.Item("Version").Value.ToString()), sVersionAddIn);
+
+                if (sVersionAddInIgual != 0)
+                {
+                    DllFunciones.UpdateAddIn(sboapp, _company, sNombreAddIn, sVersionAddIn);
+                }
+            }
+            else
+            {
+                DllFunciones.InsertAddIn(sboapp, _company, sNombreAddIn, sNombreAddIn, sVersionAddIn, _sNameDB);
+            }
+
+            DllFunciones.liberarObjetos(oValidacionAddIn);
+
         }
 
         public void ValidacionEstructuraAddInsActivos(SAPbouiCOM.Application sboapp, SAPbobsCOM.Company _company, string _sNameDB)
@@ -699,6 +632,46 @@ namespace BOCore
             }
         }
 
+        public string Encriptar(string texto, string Llave)
+        {
+            try
+            {
+                byte[] keyArray;
+
+                byte[] Arreglo_a_Cifrar = UTF8Encoding.UTF8.GetBytes(texto);
+
+                //Se utilizan las clases de encriptación MD5
+
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(Llave));
+
+                hashmd5.Clear();
+
+                //Algoritmo TripleDES
+                TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+
+                tdes.Key = keyArray;
+                tdes.Mode = CipherMode.ECB;
+                tdes.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform cTransform = tdes.CreateEncryptor();
+
+                byte[] ArrayResultado = cTransform.TransformFinalBlock(Arreglo_a_Cifrar, 0, Arreglo_a_Cifrar.Length);
+
+                tdes.Clear();
+
+                //se regresa el resultado en forma de una cadena
+                texto = Convert.ToBase64String(ArrayResultado, 0, ArrayResultado.Length);
+
+            }
+            catch (Exception)
+            {
+
+            }
+            return texto;
+        }
+
         private async Task<string> GetContractStatusAsync(string NITEmpresa)
         {
             try
@@ -731,8 +704,7 @@ namespace BOCore
                 return $"Error al consumir la API: {ex.Message}";                
             }
         }
-
-
+        
         #region Clases JSON
 
         public class Contract

@@ -101,6 +101,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BOBillingConsolidator, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BOBillingConsolidator\bin\x64\BOBillingConsolidator.dll</HintPath>
+    </Reference>
     <Reference Include="BOCore">
       <HintPath>..\BOCore\bin\x64\BOCore.dll</HintPath>
     </Reference>

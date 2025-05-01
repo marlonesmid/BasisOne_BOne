@@ -107,3 +107,14 @@ C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BOCore\obj\Debug\BOCore.dll
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BOCore\obj\Debug\BOCore.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\Newtonsoft.Json.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\Newtonsoft.Json.xml
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\Formularios\ConfPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\Formularios\PerfilPresup.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\Formularios\PresupCuenta.srf
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOBillingConsolidator.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOCore\bin\x64\BOBillingConsolidator.pdb

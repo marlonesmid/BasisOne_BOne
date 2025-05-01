@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using SAPbobsCOM;
 using SAPbouiCOM;
 using System.IO;
@@ -12,6 +11,7 @@ using System.Text;
 using BOProduccion;
 using BOElectronicReception;
 using BOCore;
+using BOBillingConsolidator;
 
 namespace BasisOne
 {
@@ -31,17 +31,16 @@ namespace BasisOne
         public bool TieneLicenciaeBilling = false;
         public bool TieneLicenciaProduction = false;
         public bool TieneLicenciaElectronicRepception = false;
+        public bool TieneLicenciaConsolidadorFacturacion = false;
         public int IdLanguage = 0;
         
         string Llave = "B4s1s0neS4S";
         string sMotor = null;
         string sNameDB = null;
         string sPath = null;
-        string sQuerieValidacion = null;
-        string sQuerieValidacionCopia = null;
         string sCurrentUser;
         string sPrefijoDocNumSM = null;
-        string sProveedorTecnologico = null;
+        
 
         #endregion
 
@@ -148,6 +147,8 @@ namespace BasisOne
                     AdicionSubmenu(oCreationPackage, oMenus, oMenuItem, sboapp, "AddInProduccion", sNameDB);
 
                     AdicionSubmenu(oCreationPackage, oMenus, oMenuItem, sboapp, "AddInElectronicReception", sNameDB);
+
+                    AdicionSubmenu(oCreationPackage, oMenus, oMenuItem, sboapp, "AddInBillingConsolidator", sNameDB);
 
                 }
                 catch (Exception e)
@@ -2721,6 +2722,12 @@ namespace BasisOne
 
                 #endregion
 
+                #region Instanciacion Dll
+
+                BOBillingConsolidator.BillingConsolidator DllBillingConsolidator = new BillingConsolidator();
+
+                #endregion
+
                 sQuerieValidacion = DllFunciones.GetStringXMLDocument(_company, "Core", "ValidacionAddOnBO", "ValidacionAddIn");
                 sQuerieValidacion = sQuerieValidacion.Replace("%AddIn%", AddIn);
 
@@ -2755,11 +2762,16 @@ namespace BasisOne
                         TieneLicenciaElectronicRepception = false;
                     }
 
+                    if (AddIn == "AddInBillingConsolidator")
+                    {
+                        TieneLicenciaConsolidadorFacturacion = false;
+                    }
+
                 }
                 else
                 {
                     ParametrosLicencia = _sboapp.Company.InstallationId + "_" + _sboapp.Company.ServerName + "_" + AddIn;
-                    LicenciaValida = Encriptar(ParametrosLicencia, Llave);
+                    LicenciaValida = DllCore.Encriptar(ParametrosLicencia, Llave);
 
                     if (LicenciaAddIn == LicenciaValida && AddIn == "AddInPresupuesto")
                     {
@@ -3060,6 +3072,16 @@ namespace BasisOne
 
                         #endregion
                     }
+                    else if (LicenciaAddIn == LicenciaValida && AddIn == "AddInBillingConsolidator")
+                    {
+                        #region Menu Produccion Avanzada
+
+                        DllBillingConsolidator.AddMenu_BillingConsolidator(_oCreationPackage, _oMenus, _oMenuItem, _sboapp, _company, AddIn, _sNameDB);
+
+                        TieneLicenciaConsolidadorFacturacion = true;
+
+                        #endregion
+                    }
                     else
                     {
                         DllFunciones.sendMessageBox(sboapp, "El " + AddIn + " no tiene una licencia valida para el AddOn, por favor comunicarse con el administrador del sistema - B-One Tech..");
@@ -3210,9 +3232,10 @@ namespace BasisOne
                             }
                             else if (AddInSeleccionado == "AddInElectronicReception")
                             {
-
                                 DllElectronicReception.CreacionTablasyCamposeBillingBO(sboapp, _company);
-
+                            }
+                            else if (AddInSeleccionado == "AddInElectronicReception")
+                            {                                
 
                             }
 

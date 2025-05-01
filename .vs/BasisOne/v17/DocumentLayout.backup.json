@@ -1,7 +1,24 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2DF3343D-EC97-40D9-B9B7-13DB9F550B68}|BOElectronicReception\\BOElectronicReception.csproj|c:\\github\\basisone\\basisone_bone\\boelectronicreception\\electronicreception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DF3343D-EC97-40D9-B9B7-13DB9F550B68}|BOElectronicReception\\BOElectronicReception.csproj|solutionrelative:boelectronicreception\\electronicreception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|C:\\GitHub\\BasisOne\\BasisOne_BOne\\ebilling\\queries\\ebillinghana.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|solutionrelative:ebilling\\queries\\ebillinghana.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|C:\\GitHub\\BasisOne\\BasisOne_BOne\\ebilling\\queries\\procedures_ebillinghana.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|solutionrelative:ebilling\\queries\\procedures_ebillinghana.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|C:\\GitHub\\BasisOne\\BasisOne_BOne\\ebilling\\queries\\ebillingsql.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|solutionrelative:ebilling\\queries\\ebillingsql.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,6 +43,55 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ElectronicReception.cs",
+              "DocumentMoniker": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\BOElectronicReception\\ElectronicReception.cs",
+              "RelativeDocumentMoniker": "BOElectronicReception\\ElectronicReception.cs",
+              "ToolTip": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\BOElectronicReception\\ElectronicReception.cs",
+              "RelativeToolTip": "BOElectronicReception\\ElectronicReception.cs",
+              "ViewState": "AgIAAFMFAAAAAAAAAAAowHEFAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-22T03:33:49.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "eBillingSQL.xml",
+              "DocumentMoniker": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\Queries\\eBillingSQL.xml",
+              "RelativeDocumentMoniker": "eBilling\\Queries\\eBillingSQL.xml",
+              "ToolTip": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\Queries\\eBillingSQL.xml",
+              "RelativeToolTip": "eBilling\\Queries\\eBillingSQL.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-04-10T16:29:31.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "eBillingHANA.xml",
+              "DocumentMoniker": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\Queries\\eBillingHANA.xml",
+              "RelativeDocumentMoniker": "eBilling\\Queries\\eBillingHANA.xml",
+              "ToolTip": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\Queries\\eBillingHANA.xml",
+              "RelativeToolTip": "eBilling\\Queries\\eBillingHANA.xml",
+              "ViewState": "AgIAABMBAAAAAAAAAAAEwCUBAAB0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-04-10T16:29:19.361Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Procedures_eBillingHANA.xml",
+              "DocumentMoniker": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\Queries\\Procedures_eBillingHANA.xml",
+              "RelativeDocumentMoniker": "eBilling\\Queries\\Procedures_eBillingHANA.xml",
+              "ToolTip": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\Queries\\Procedures_eBillingHANA.xml",
+              "RelativeToolTip": "eBilling\\Queries\\Procedures_eBillingHANA.xml",
+              "ViewState": "AgIAAOhMAAAAAAAAAAAEwHtMAABuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-03-31T11:55:05.883Z"
             }
           ]
         }

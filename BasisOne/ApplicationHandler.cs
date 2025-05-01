@@ -38,7 +38,7 @@ namespace BasisOne
                     borraMenu();
                     break;
             }
-         
+                     
         }
 
         private void borraMenu()
