@@ -79,8 +79,11 @@
        CONCAT('%PathImages%','Aceptar.bmp') as "ImageAceptar",
        CONCAT('%PathImages%','Cancelar.bmp') as "ImageCancelar",
        "U_BOTPAXML" AS "RutaXML",
-       "U_BOTPAPDF" AS "RutaPDF"
-          
+       "U_BOTPAPDF" AS "RutaPDF",
+       "U_BOTTI" AS "TipoIdentificacionEmisor",
+       ('%PathImages%'||'Acusar.bmp') as "ImageAcusar",
+       ('%PathImages%'||'Recibir.bmp') as "ImageRecibir",
+       'N' AS "Chk"
           
     FROM "@BOTREDRPT" A LEFT JOIN ( SELECT CASE WHEN CHARINDEX('-',T0."LicTradNum") = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,CHARINDEX('-',T0."LicTradNum")-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum" 
     --WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' %Estado% AND A."U_BOTTD" = '01'
@@ -163,7 +166,8 @@
           @prmTipoDocumento NVARCHAR(50),
           @prmTipoEmisor NVARCHAR(50),
           @prmTipoIdentidad NVARCHAR(50),
-          @prmCodEstatusDIAN NVARCHAR(50)
+          @prmCodEstatusDIAN NVARCHAR(50),
+          @prmPayMead NVARCHAR(2)
 
           AS 
   
@@ -199,6 +203,7 @@
                           @prmTipoEmisor,
                           @prmTipoIdentidad,
                           @prmCodEstatusDIAN,
+                          NULL,
                           NULL,
                           NULL,
                           NULL,

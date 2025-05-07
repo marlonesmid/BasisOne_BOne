@@ -81,7 +81,9 @@
     <Content Include="Core\Docs\Updates_and_improvements\Images\production_machine.png" />
     <Content Include="Core\Docs\Updates_and_improvements\Index.html" />
     <Content Include="Core\Docs\Updates_and_improvements\Resources\Images\10.25.12.0 - Images 1.png" />
-    <Content Include="Core\Docs\Updates_and_improvements\Resources\Updates and improvements.html" />
+    <Content Include="Core\Docs\Updates_and_improvements\Resources\Images\10.25.19.0 - Images 1.png" />
+    <Content Include="Core\Docs\Updates_and_improvements\Resources\Images\10.25.19.0 - Images 2.png" />
+    <Content Include="Core\Docs\Updates_and_improvements\Resources\Updates_and_improvements_eBillingInvoice.html" />
     <Content Include="Core\Images\LogoBO20x20.bmp" />
     <Content Include="Core\Queries\ValidacionAddOnBOHANA.xml">
       <SubType>Designer</SubType>
@@ -94,6 +96,7 @@
       <Name>Presupuesto</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1642,49 +1642,60 @@ namespace BasisOne
 
                             if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnDDPT" && pVal.BeforeAction == true)
                             {
-                                DllElectronicReception.DownloadDocumentElectronicReceipt(sboapp, _company);                                
-
+                                DllElectronicReception.DownloadDocumentElectronicReceipt(sboapp, _company);
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnDAPT" && pVal.BeforeAction == true)
                             {
-                                SAPbouiCOM.Form oFormVisorRecepcion = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
-
-                                DllElectronicReception.DescargaXML_PDF(sboapp, _company, oFormVisorRecepcion);
+                                DllElectronicReception.DownloadDocumentXML_PDF(sboapp, _company);
+                            }
+                            else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "cboEvMa" && pVal.BeforeAction == true)
+                            {
+                                DllElectronicReception.ChagueDocumentStatusBulk(sboapp, _company, pVal, pVal.ColUID);
+                            }
+                            else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_17" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
+                            {
+                                DllElectronicReception.DocumentSearchDIAN(sboapp, _company, pVal, pVal.ColUID);
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_20" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
                             {
-                                SAPbouiCOM.Form oFormVDR = sboapp.Forms.Item("BOTVDR");
-
-                                DllElectronicReception.MatrixOpenFile(sboapp, _company, oFormVDR, pVal, "XML", "Col_20");
+                                DllElectronicReception.MatrixOpenFile(sboapp, _company, pVal, pVal.ColUID);                                
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_21" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
                             {
-                                SAPbouiCOM.Form oFormVDR = sboapp.Forms.Item("BOTVDR");
-
-                                DllElectronicReception.MatrixOpenFile(sboapp, _company, oFormVDR, pVal, "PDF", "Col_21");
+                                DllElectronicReception.MatrixOpenFile(sboapp, _company, pVal, pVal.ColUID);
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_22" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
                             {
-                                SAPbouiCOM.Form oFormVDR = sboapp.Forms.Item("BOTVDR");
-
-                                DllElectronicReception.ChagueStatusDocument(sboapp, _company, oFormVDR, pVal, "Aceptar", "Col_22");
+                                DllElectronicReception.ChagueStatusDocument(sboapp, _company, pVal, pVal.ColUID);
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_7" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
                             {
-                                SAPbouiCOM.Form oFormVDR = sboapp.Forms.Item("BOTVDR");
-
-                                DllElectronicReception.ChagueStatusDocument(sboapp, _company, oFormVDR, pVal, "Cancelar", "Col_7");
-                            } 
+                                DllElectronicReception.ChagueStatusDocument(sboapp, _company, pVal, pVal.ColUID);
+                            }
+                            else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_15" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
+                            {
+                                DllElectronicReception.ChagueStatusDocument(sboapp, _company, pVal, pVal.ColUID);
+                            }
+                            else if (pVal.FormUID == "BOTVDR" && pVal.ColUID == "Col_27" && pVal.ItemUID == "MtxOPCH" && pVal.BeforeAction == true)
+                            {
+                                DllElectronicReception.ChagueStatusDocument(sboapp, _company, pVal, pVal.ColUID);
+                            }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnCan" && pVal.BeforeAction == true)
                             {
                                 DllFunciones.CloseFormXML(sboapp, "BOTVDR");
-
                             }
                             else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnFind" && pVal.BeforeAction == true)
                             {
                                 SAPbouiCOM.Form oFormVisorDocs = sboapp.Forms.GetFormByTypeAndCount(pVal.FormType, pVal.FormTypeCount);
                                 DllElectronicReception.LoadMatrixReception(sboapp, _company, oFormVisorDocs);
-
+                            }
+                            else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "cbEvMa" && pVal.BeforeAction == true)
+                            {                                
+                                DllElectronicReception.ChagueDocumentStatusBulk(sboapp, _company, pVal, pVal.ColUID);
+                            }
+                            else if (pVal.FormUID == "BOTVDR" && pVal.ItemUID == "btnXLS" && pVal.BeforeAction == true)
+                            {
+                                DllElectronicReception.ExportToExcel(sboapp, _company);
                             }
 
                             #endregion

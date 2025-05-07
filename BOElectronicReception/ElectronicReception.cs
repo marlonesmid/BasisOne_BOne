@@ -17,6 +17,10 @@ using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Xml;
+using System.Diagnostics;
+using ExcelHX = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+
 
 namespace BOElectronicReception
 {
@@ -92,98 +96,101 @@ namespace BOElectronicReception
                 #region Creacion de tablas
 
                 //1
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Tabla - Recepcion Electronica - Documentos recibidos PT, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Tabla - Recepcion Electronica - Documentos recibidos PT, por favor espere...");
                 DllFunciones.crearTabla(oCompany, sboapp, "BOTREDRPT", "BO Doc. Rec. Prov", SAPbobsCOM.BoUTBTableType.bott_NoObject);
 
                 #endregion
 
-                #region Creacion Campos Tabal recepcion electronica documentos recibidos por proveedor tecnologico
+                #region Creacion Campos Tabla recepcion electronica documentos recibidos por proveedor tecnologico
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - PT, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - PT, por favor espere...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTPT", "Proveedor Technologico");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Numero Documento PT, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Numero Documento PT, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNDPT", "Numero Documento PT");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - CUFE, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - CUFE, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTCUFE", "CUFE");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Status DIAN Codigo, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Status DIAN Codigo, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTSDC", "Status DIAN Codi.");
                 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Status DIAN Descripc., por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Status DIAN Descripc., por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTSDD", "Status DIAN Desc.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Status DIAN Fecha., por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Status DIAN Fecha., por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 25, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTSDF", "Status DIAN Fech.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Fecha Emision, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Fecha Emision, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 25, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTFE", "Fecha Emision.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Fecha Recepcion, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Fecha Recepcion, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 25, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTFR", "Fecha Recep.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Hora Emision, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Hora Emision, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 25, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTHE", "Hora Emision.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Monto Total, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Monto Total, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Float, BoFldSubTypes.st_Price, 11, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTMT", "Monto Total");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Numero Factura, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Numero Factura, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 50, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNF", "Numero Factura");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Numero Identificacion, por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 20, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNI", "Numero Identificacion");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Numero Identificacion, por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 20, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNI", "(HX)Numero Identificacion");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Razon Social, por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNRS", "Razon Social");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Razon Social, por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNRS", "(HX)Razon Social");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Tipo Documento, por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTTD", "Tipo Documento");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Tipo Documento, por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTTD", "(HX)Tipo Documento");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Tipo Emisor, por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTTE", "Tipo Emisor");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Tipo Emisor, por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTTE", "(HX)Tipo Emisor");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Recep. Electro. - Tipo Identidad, por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTTI", "Tipo Identidad");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Recep. Electro. - Tipo Identidad, por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTTI", "(HX)Tipo Identidad");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Estado Documento DIAN - Tipo Identidad, por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTEDD", "Est. Doc. DIAN");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Estado Documento DIAN - Tipo Identidad, por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTEDD", "(HX)Est. Doc. DIAN");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Numero Documento Preeliminar , por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNDP", "Num. Doc. Preel");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Numero Documento Preeliminar , por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNDP", "(HX)Num. Doc. Preel");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Numero Documento Definitivo , por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNDD", "Num. Doc. Def.");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Numero Documento Definitivo , por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTNDD", "(HX)Num. Doc. Def.");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Estado Evento DIAN , por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTEED", "Est. Even. DIAN");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Estado Evento DIAN , por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 3, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTEED", "(HX)Est. Even. DIAN");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Path Adjunto XML , por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Memo, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTPAXML", "Path. Adju. XML");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Path Adjunto XML , por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Memo, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTPAXML", " (HX)Path. Adju. XML");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Codigo Respuesta WS XML , por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTCWSXML", "Cod. Resp. WS XML");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Codigo Respuesta WS XML , por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTCWSXML", " (HX)Cod. Resp. WS XML");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Path Adjunto PDF , por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Memo, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTPAPDF", "Path. Adju. PDF");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Path Adjunto PDF , por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Memo, BoFldSubTypes.st_None, 254, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTPAPDF", " (HX)Path. Adju. PDF");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Codigo Respuesta WS PDF , por favor espere ...");
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTCWSPDF", "Cod. Resp. WS PDF");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Codigo Respuesta WS PDF , por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "BOTCWSPDF", "(HX) Cod. Resp. WS PDF");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Tipo de documento , por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Tipo de documento , por favor espere ...");
                 string[] ValidValuesFields1 = { "13", "Cedula Ciudadania", "31", "NIT" };
-                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, ValidValuesFields1, "OHEM", "BOTTD", "Tipo documento");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 10, "", BoYesNoEnum.tNO, ValidValuesFields1, "OHEM", "BOTTD", "(HX) Tipo documento");
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Numero de Orden de Compra, por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Numero de Orden de Compra, por favor espere ...");
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 30, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "HXPO", "(HX) Orden Compra");
+
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Numero de Orden de Compra, por favor espere ...");
+                DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 30, "", BoYesNoEnum.tNO, null, "@BOTREDRPT", "HXPAYME", "(HX) Condicion Pago ");
 
 
                 #endregion
 
                 #region Creacion campos tabla parametros generales 
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Campo - Forma de Recepción, por favor espere...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Campo - Forma de Recepción, por favor espere...");
                 string[] ValidValuesFormaRecepcion = { "A", "Documentos", "B", "Documentos y XML", "C", "Documentos, XML y PDF" };
                 DllFunciones.CreaCamposUsr(oCompany, sboapp, BoFieldTypes.db_Alpha, BoFldSubTypes.st_None, 2, "", BoYesNoEnum.tNO, ValidValuesFormaRecepcion, "@BOEBILLINGP", "HX_FRE", "(HX) Forma Recep. Elec.");
 
@@ -191,7 +198,7 @@ namespace BOElectronicReception
 
                 #region Crea procedimientos almacenados
 
-                DllFunciones.ProgressBar(oCompany, sboapp, 29, 1, "Creando Procedimientos Almacenados Por favor espere ...");
+                DllFunciones.ProgressBar(oCompany, sboapp, 30, 1, "Creando Procedimientos Almacenados Por favor espere ...");
 
                 SAPbobsCOM.Recordset oProcedures = (SAPbobsCOM.Recordset)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -368,6 +375,8 @@ namespace BOElectronicReception
 
                 SAPbouiCOM.Folder oFolder1 = (SAPbouiCOM.Folder)oFormReception.Items.Item("Folder1").Specific;
 
+                SAPbouiCOM.ButtonCombo cbEvMa = (SAPbouiCOM.ButtonCombo)oFormReception.Items.Item("cbEvMa").Specific;
+
                 #endregion
 
                 #region Centra en pantalla formulario
@@ -376,7 +385,15 @@ namespace BOElectronicReception
                 oFormReception.Top = (sboapp.Desktop.Height - oFormReception.Height) / 4;
 
                 #endregion
-                
+
+                #region Combo Masivamente
+
+                cbEvMa.ValidValues.Add("10", "Acuse de recibo (DIAN)");
+                cbEvMa.ValidValues.Add("12", "Recibo del bien y/o prestación del servicio");
+                cbEvMa.ValidValues.Add("02", "Aceptación expresa (DIAN)");
+
+                #endregion
+
                 oFormReception.Visible = true;
                 oFormReception.Refresh();
                 oFolder1.Select();
@@ -389,7 +406,7 @@ namespace BOElectronicReception
             }
         }     
 
-        public void DescargaXML_PDF(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion)
+        public void DescargaXML_PDF_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion)
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
 
@@ -790,7 +807,7 @@ namespace BOElectronicReception
 
         }
 
-        public string GetElementXML_DIAN(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string Elemento_XML_DIAN, string sRutaXML, string U_BOTNI, string U_BOTNF)
+        public string GetElementXML_DIAN(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string Elemento_XML_DIAN, string sRutaXML, string U_BOTNI, string U_BOTNF )
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
 
@@ -800,26 +817,85 @@ namespace BOElectronicReception
 
                 if (File.Exists(sRutaArchivoXML))
                 {
-
                     XmlDocument xmlDoc = new XmlDocument();
                     xmlDoc.Load(sRutaArchivoXML);
 
-                    XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
-                    ns.AddNamespace("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
-                    ns.AddNamespace("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
-
+                    XmlNamespaceManager nsMain = new XmlNamespaceManager(xmlDoc.NameTable);
+                    nsMain.AddNamespace("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
+                    nsMain.AddNamespace("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
+                    
                     if (Elemento_XML_DIAN == "OrderReference")
                     {
                         #region Retorna el Elemento OrderReference
-                    
-                        XmlNode XML_OrderReference = xmlDoc.SelectSingleNode("//cac:OrderReference/cbc:ID", ns);
 
-                        if (XML_OrderReference != null)
+                        // Paso 1: obtener el contenido del CDATA
+                        XmlNode cdataNode = xmlDoc.SelectSingleNode("//cac:Attachment/cac:ExternalReference/cbc:Description", nsMain);
+                        if (cdataNode != null)
                         {
-                            return XML_OrderReference.InnerText;
+                            string embeddedXml = cdataNode.InnerText;
+
+                            // Paso 2: cargar el XML embebido
+                            XmlDocument embeddedDoc = new XmlDocument();
+                            embeddedDoc.LoadXml(embeddedXml);
+
+                            XmlNamespaceManager ns = new XmlNamespaceManager(embeddedDoc.NameTable);
+                            ns.AddNamespace("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
+                            ns.AddNamespace("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
+
+                            // Paso 3: extraer el ID dentro de PaymentMeans
+                            XmlNode idNode = embeddedDoc.SelectSingleNode("//cac:OrderReference/cbc:ID", ns);
+                            if (idNode != null)
+                            {
+                                return idNode.InnerText;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nodo <cbc:ID> dentro de <cac:PaymentMeans> no encontrado.");
+                                return "";
+                            }
                         }
                         else
                         {
+                            Console.WriteLine("Nodo <cbc:Description> con XML embebido no encontrado.");
+                            return "";
+                        }
+
+                        #endregion
+                    }
+
+                    if (Elemento_XML_DIAN == "PaymentMeans_ID")
+                    {
+                        #region Retorna el Elemento OrderReference
+
+                        // Paso 1: obtener el contenido del CDATA
+                        XmlNode cdataNode = xmlDoc.SelectSingleNode("//cac:Attachment/cac:ExternalReference/cbc:Description", nsMain);
+                        if (cdataNode != null)
+                        {
+                            string embeddedXml = cdataNode.InnerText;
+
+                            // Paso 2: cargar el XML embebido
+                            XmlDocument embeddedDoc = new XmlDocument();
+                            embeddedDoc.LoadXml(embeddedXml);
+
+                            XmlNamespaceManager ns = new XmlNamespaceManager(embeddedDoc.NameTable);
+                            ns.AddNamespace("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
+                            ns.AddNamespace("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
+
+                            // Paso 3: extraer el ID dentro de PaymentMeans
+                            XmlNode idNode = embeddedDoc.SelectSingleNode("//cac:PaymentMeans/cbc:ID", ns);
+                            if (idNode != null)
+                            {                                
+                                return idNode.InnerText;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nodo <cbc:ID> dentro de <cac:PaymentMeans> no encontrado.");
+                                return "";
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nodo <cbc:Description> con XML embebido no encontrado.");
                             return "";
                         }
 
@@ -843,641 +919,159 @@ namespace BOElectronicReception
             }
 
         }
-
-        public void MatrixOpenFile(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVDR, ItemEvent pVal, string _TipoDocumento, string _ColUID)
+        
+        public void MatrixOpenFile(SAPbouiCOM.Application sboappElectronicReception, SAPbobsCOM.Company oCompanyElectronicReception, ItemEvent pVal,string ColID)
         {
-            if (_TipoDocumento == "XML" && _ColUID == "Col_20")
+            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
+            try
             {
-                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVDR.Items.Item("MtxOPCH").Specific;
+                SAPbouiCOM.Form oForm = null;
+                bool ExistForm = false;
 
-                string sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_12").Cells.Item(pVal.Row).Specific)).Value;
-
-                if (string.IsNullOrEmpty(sPath))
+                for (int i = 0; i < sboappElectronicReception.Forms.Count; i++)
                 {
+                    if (sboappElectronicReception.Forms.Item(i).UniqueID == "BOTVDR")
+                    {
+                        oForm = sboappElectronicReception.Forms.Item("BOTVDR");
+                        ExistForm = true;
+                    }
+                }
 
+
+                if (ExistForm)
+                {
+                    SAPbobsCOM.Recordset oRsProveedorTecnologico = (SAPbobsCOM.Recordset)oCompanyElectronicReception.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    string sGetProveedorTecnologico = null;
+
+                    sGetProveedorTecnologico = DLLFunciones.GetStringXMLDocument(oCompanyElectronicReception, "eBilling", "eBilling", "GetProveedorTecnologico");
+                    oRsProveedorTecnologico.DoQuery(sGetProveedorTecnologico);
+
+                    if (oRsProveedorTecnologico.RecordCount > 0)
+                    {
+                        if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "TFHKA")
+                        {
+                            MatrixOpenFile_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm, pVal, ColID);
+
+                        }
+                        else if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "FBE")
+                        {
+                            MatrixOpenFile_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm, pVal, ColID);
+                        }
+                    }
                 }
                 else
                 {
-                    if (pVal.Row == 0)
-                    {
 
-                    }
-                    else
-                    {
-                        sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_12").Cells.Item(pVal.Row).Specific)).Value;
-
-                        System.Diagnostics.Process.Start(sPath);
-                    }
-                }                
+                }
             }
-
-            if (_TipoDocumento == "PDF" && _ColUID == "Col_21")
+            catch (Exception)
             {
-                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVDR.Items.Item("MtxOPCH").Specific;
 
-                string sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_13").Cells.Item(pVal.Row).Specific)).Value;
-
-                if (string.IsNullOrEmpty(sPath))
-                {
-
-                }
-                else
-                {
-                    if (pVal.Row == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_13").Cells.Item(pVal.Row).Specific)).Value;
-
-                        System.Diagnostics.Process.Start(sPath);
-                    }
-                }
-
-                
+                throw;
             }
         }
 
-        public void ChagueStatusDocument(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion, ItemEvent pVal, string _TipoEventoDIAN, string _ColUID)
+        public void ChagueStatusDocument(SAPbouiCOM.Application sboappElectronicReception, SAPbobsCOM.Company oCompanyElectronicReception, ItemEvent pVal, string ColID)
         {
-            if (_ColUID == "Col_22")
+            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
+            try
             {
-                #region Aceptacion documento
-              
-                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+                SAPbouiCOM.Form oForm = null;
+                bool ExistForm = false;
 
-                if (pVal.Row == 0)
+                for (int i = 0; i < sboappElectronicReception.Forms.Count; i++)
                 {
+                    if (sboappElectronicReception.Forms.Item(i).UniqueID == "BOTVDR")
+                    {
+                        oForm = sboappElectronicReception.Forms.Item("BOTVDR");
+                        ExistForm = true;
+                    }
+                }
 
+
+                if (ExistForm)
+                {
+                    SAPbobsCOM.Recordset oRsProveedorTecnologico = (SAPbobsCOM.Recordset)oCompanyElectronicReception.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    string sGetProveedorTecnologico = null;
+
+                    sGetProveedorTecnologico = DLLFunciones.GetStringXMLDocument(oCompanyElectronicReception, "eBilling", "eBilling", "GetProveedorTecnologico");
+                    oRsProveedorTecnologico.DoQuery(sGetProveedorTecnologico);
+
+                    if (oRsProveedorTecnologico.RecordCount > 0)
+                    {
+                        if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "TFHKA")
+                        {
+                            ChagueStatusDocument_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm, pVal, ColID);
+
+                        }
+                        else if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "FBE")
+                        {
+                            ChagueStatusDocument_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm, pVal, ColID);
+                        }
+                    }
                 }
                 else
                 {
-                    #region Variables y Objetos
-
-                    string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(pVal.Row).Specific)).Value;
-                    string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(pVal.Row).Specific)).Value;
-                    string sTipoIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_14").Cells.Item(pVal.Row).Specific)).Value;
-                    string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(pVal.Row).Specific)).Value;
-                    string sEstadoDIAN = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(pVal.Row).Specific)).Value;
-
-                    int iProcesar = 0;
-                    string sCodigoEstadoDIAN = null;
-
-                    #endregion
-
-
-                    if (sEstadoDIAN == "Cargado")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "10";
-                    }
-                    else if (sEstadoDIAN == "Entregado")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "10";
-                    }
-                    else if (sEstadoDIAN == "Precargado")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "10";
-                    }
-                    else if (sEstadoDIAN == "Acuse de recibo (DIAN)")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Recibo del bien y/o prestación del servicio en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "12";
-                    }
-                    else if (sEstadoDIAN == "Recibo del bien y/o prestación del servicio")                        
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara la Aceptación expresa (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "02";
-                    }
-                    else if (sEstadoDIAN == "Aceptación expresa (DIAN)")
-                    {
-                        DllFunciones.sendMessageBox(_sboapp, "El documento ya se encuentra con Aceptación expresa (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . No se puede cambiar el estado");
-
-                        iProcesar = 0;
-                    }
-                    
-                    if (iProcesar == 1)
-                    {
-                        #region Variables y Objetos 
-
-                        string sNombreAceptador = string.Empty;
-                        string sApellidoAceptador = string.Empty;
-                        string sCargoAceptador = string.Empty;
-                        string sDepartamentoAceptador = string.Empty;
-                        string sNITAceptador = string.Empty;
-                        string sTipoDocumentoAceptador = string.Empty;
-                        string sDigitoVerificacionAceptador = string.Empty;
-                        string UsuarioSAPActual = string.Empty;
-                        string sGetauthorizer = string.Empty;
-
-                        UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
-
-                        #endregion
-
-                        #region Valida si esta configurado el usuario                   
-
-                        SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                        sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
-
-                        sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
-
-                        oGetauthorizer.DoQuery(sGetauthorizer);
-
-                        #endregion
-
-                        if (oGetauthorizer.RecordCount > 0)
-                        {
-                            sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
-                            sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
-                            sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
-                            sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
-                            sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
-                            sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
-
-                            #region Valida campos obligatorios 
-
-                            if (string.IsNullOrEmpty(sNombreAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10028", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sApellidoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10029", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sCargoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10030", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sDepartamentoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10031", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sNITAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10032", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10033", _sboapp, null));
-                            }
-                            else
-                            {
-
-                                #region Consulta URL
-
-                                string sGetModo = null;
-                                string sURLRecepcion = null;
-                                string sModo = null;
-                                string sRutaXML = null;
-                                string sRutaPDF = null;
-                                string sProtocoloComunicacion = null;
-                                string sTokenEmpresa = null;
-                                string sTokenPassword = null;
-                                string sGetDV = string.Empty;
-
-
-                                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
-
-                                sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
-
-                                oConsultarGetModo.DoQuery(sGetModo);
-
-                                sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
-                                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
-
-                                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
-                                sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
-                                sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
-                                sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
-                                sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
-
-                                DllFunciones.liberarObjetos(oConsultarGetModo);
-
-                                #endregion
-
-                                #region Instanciacion parametros TFHKA
-
-                                if (sProtocoloComunicacion == "HTTP")
-                                {
-                                    BasicHttpBinding port = new BasicHttpBinding();
-                                }
-                                else if (sProtocoloComunicacion == "HTTPS")
-                                {
-                                    BasicHttpsBinding port = new BasicHttpsBinding();
-                                }
-
-                                port.MaxBufferPoolSize = Int32.MaxValue;
-                                port.MaxBufferSize = Int32.MaxValue;
-                                port.MaxReceivedMessageSize = Int32.MaxValue;
-                                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
-                                port.SendTimeout = TimeSpan.FromMinutes(2);
-                                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
-
-                                if (sProtocoloComunicacion == "HTTPS")
-                                {
-                                    port.Security.Mode = BasicHttpSecurityMode.Transport;
-                                }
-
-                                EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion); //URL
-
-                                Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
-                                serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
-
-                                #endregion
-
-                                #region Parametros generales Reporte
-
-                                ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
-
-                                ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
-                                ParametrosCambioEstatus.tokenPassword = sTokenPassword;
-
-                                ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
-                                ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoIdentificacionEmisor;
-                                ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
-
-                                ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
-
-                                UsuarioAceptador.Nombre = sNombreAceptador;
-                                UsuarioAceptador.Apellido = sApellidoAceptador;
-                                UsuarioAceptador.Cargo = sCargoAceptador;
-                                UsuarioAceptador.Departamento = sDepartamentoAceptador;                                
-
-                                ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
-
-                                ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
-
-                                NITAceptador.NumeroIdentificacion = sNITAceptador;
-                                NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
-
-                                #region Consulta Digito Verificacion                   
-
-                                SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
-
-                                sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
-
-                                oGetDV.DoQuery(sGetDV);
-
-                                if (oGetDV.RecordCount > 0)
-                                {
-                                    sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
-                                }
-
-                                #endregion
-
-                                NITAceptador.Dv = sDigitoVerificacionAceptador;
-
-                                ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
-
-                                ParametrosCambioEstatus.status = sCodigoEstadoDIAN;
-                                ParametrosCambioEstatus.codigoRechazo = "02";
-
-                                #endregion
-
-                                #region Cambia estado en DIAN                            
-
-                                Recepcion21WS.ResponseGeneral wsCambiarEstado;
-
-                                wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
-
-                                if (wsCambiarEstado.codigo == 200)
-                                {
-                                    #region Actualiza estado documento en SAP
-
-                                    SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                    string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
-
-                                    sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor).Replace("%CodigoEventoDIANPT%", sCodigoEstadoDIAN);
-
-                                    oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
-
-                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10034", _sboapp, null));
-
-                                    #endregion
-                                }
-                                else
-                                {
-                                    DllFunciones.sendMessageBox(_sboapp, "RE007 - No se pudo cambiar el estaodo" + wsCambiarEstado.mensaje.ToString());
-                                }
-
-                                #endregion
-                                
-                            }
-
-                            #endregion
-
-                        }
-                        else
-                        {
-                            DllFunciones.sendMessageBox(_sboapp, "El usuario en SAP no esta autorizado para generar eventos en las facturas de proveedor ");
-                        }
-                    }
-
-
 
                 }
-
-                #endregion
             }
-            else if (_ColUID == "Col_7")
+            catch (Exception)
             {
-                #region Rechazo del  documento
 
-                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+                throw;
+            }
+        }
 
-                if (pVal.Row == 0)
+        public void ChagueDocumentStatusBulk(SAPbouiCOM.Application sboappElectronicReception, SAPbobsCOM.Company oCompanyElectronicReception, ItemEvent pVal, string ColID)
+        {
+            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
+            try
+            {
+                SAPbouiCOM.Form oForm = null;
+                bool ExistForm = false;
+
+                for (int i = 0; i < sboappElectronicReception.Forms.Count; i++)
                 {
+                    if (sboappElectronicReception.Forms.Item(i).UniqueID == "BOTVDR")
+                    {
+                        oForm = sboappElectronicReception.Forms.Item("BOTVDR");
+                        ExistForm = true;
+                    }
+                }
 
+
+                if (ExistForm)
+                {
+                    SAPbobsCOM.Recordset oRsProveedorTecnologico = (SAPbobsCOM.Recordset)oCompanyElectronicReception.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    string sGetProveedorTecnologico = null;
+
+                    sGetProveedorTecnologico = DLLFunciones.GetStringXMLDocument(oCompanyElectronicReception, "eBilling", "eBilling", "GetProveedorTecnologico");
+                    oRsProveedorTecnologico.DoQuery(sGetProveedorTecnologico);
+
+                    if (oRsProveedorTecnologico.RecordCount > 0)
+                    {
+                        if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "TFHKA")
+                        {
+                            ChagueDocumentStatusBulk_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm, pVal, ColID);
+                        }
+                        else if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "FBE")
+                        {
+                            ChagueDocumentStatusBulk_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm, pVal, ColID);
+                        }
+                    }
                 }
                 else
                 {
-                    #region Variables y Objetos
-
-                    string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(pVal.Row).Specific)).Value;
-                    string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(pVal.Row).Specific)).Value;
-                    string sTipoIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_14").Cells.Item(pVal.Row).Specific)).Value;
-                    string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(pVal.Row).Specific)).Value;
-                    string sEstadoDIAN = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(pVal.Row).Specific)).Value;
-
-                    int iProcesar = 0;
-                    string sCodigoEstadoDIAN = null;
-
-                    #endregion
-                                        
-
-                    if (sEstadoDIAN == "Cargado")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "10";
-                    }
-                    else if (sEstadoDIAN == "Entregado")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "10";
-                    }
-                    else if (sEstadoDIAN == "Precargado")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea Continuar ? ");
-                        sCodigoEstadoDIAN = "01";
-                    }
-                    else if (sEstadoDIAN == "Acuse de recibo (DIAN)")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Recibo del bien y/o prestación del servicio en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea continuar ?");                        
-                        sCodigoEstadoDIAN = "12";
-                    }
-                    else if (sEstadoDIAN == "Recibo del bien y/o prestación del servicio")
-                    {
-                        iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se rechazara el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea continuar ?");
-                        //DllFunciones.sendMessageBox(_sboapp, "No se puede rechazar el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . Ya se le genero - Recibo del bien y/o prestación del servicio. ");
-                        sCodigoEstadoDIAN = "04";
-                    }
-                    else if (sEstadoDIAN == "Aceptación expresa (DIAN)")
-                    {
-                        DllFunciones.sendMessageBox(_sboapp, "El documento ya se encuentra con Aceptación expresa (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . No se puede cambiar el estado");
-                        iProcesar = 0;
-                    }
-                    
-                    if (iProcesar == 1)
-                    {
-                        #region Variables y Objetos 
-
-                        string sNombreAceptador = string.Empty;
-                        string sApellidoAceptador = string.Empty;
-                        string sCargoAceptador = string.Empty;
-                        string sDepartamentoAceptador = string.Empty;
-                        string sNITAceptador = string.Empty;
-                        string sTipoDocumentoAceptador = string.Empty;
-                        string sDigitoVerificacionAceptador = string.Empty;
-                        string UsuarioSAPActual = string.Empty;
-                        string sGetauthorizer = string.Empty;
-
-                        UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
-
-                        #endregion
-
-                        #region Valida si esta configurado el usuario                   
-
-                        SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                        sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
-
-                        sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
-
-                        oGetauthorizer.DoQuery(sGetauthorizer);
-
-                        #endregion
-
-                        if (oGetauthorizer.RecordCount > 0)
-                        {
-                            sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
-                            sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
-                            sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
-                            sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
-                            sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
-                            sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
-
-                            #region Valida campos obligatorios 
-
-                            if (string.IsNullOrEmpty(sNombreAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10028", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sApellidoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER100289", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sCargoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10029", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sDepartamentoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10030", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sNITAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10031", _sboapp, null));
-                            }
-                            else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
-                            {
-                                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10032", _sboapp, null));
-                            }
-                            else
-                            {
-
-                                #region Consulta URL
-
-                                string sGetModo = null;
-                                string sURLRecepcion = null;
-                                string sModo = null;
-                                string sRutaXML = null;
-                                string sRutaPDF = null;
-                                string sProtocoloComunicacion = null;
-                                string sTokenEmpresa = null;
-                                string sTokenPassword = null;
-                                string sGetDV = string.Empty;
-
-                                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
-
-                                sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
-
-                                oConsultarGetModo.DoQuery(sGetModo);
-
-                                sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
-                                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
-
-                                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
-                                sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
-                                sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
-                                sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
-                                sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
-
-                                DllFunciones.liberarObjetos(oConsultarGetModo);
-
-                                #endregion
-
-                                #region Instanciacion parametros TFHKA
-
-                                if (sProtocoloComunicacion == "HTTP")
-                                {
-                                    BasicHttpBinding port = new BasicHttpBinding();
-                                }
-                                else if (sProtocoloComunicacion == "HTTPS")
-                                {
-                                    BasicHttpsBinding port = new BasicHttpsBinding();
-                                }
-
-                                port.MaxBufferPoolSize = Int32.MaxValue;
-                                port.MaxBufferSize = Int32.MaxValue;
-                                port.MaxReceivedMessageSize = Int32.MaxValue;
-                                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
-                                port.SendTimeout = TimeSpan.FromMinutes(2);
-                                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
-
-                                if (sProtocoloComunicacion == "HTTPS")
-                                {
-                                    port.Security.Mode = BasicHttpSecurityMode.Transport;
-                                }
-
-                                EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion); //URL
-
-                                Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
-                                serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
-
-                                #endregion
-
-                                #region Parametros generales Reporte
-
-                                ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
-
-                                ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
-                                ParametrosCambioEstatus.tokenPassword = sTokenPassword;
-
-                                ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
-                                ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoIdentificacionEmisor;
-                                ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
-
-                                ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
-
-                                UsuarioAceptador.Nombre = sNombreAceptador;
-                                UsuarioAceptador.Apellido = sApellidoAceptador;
-                                UsuarioAceptador.Cargo = sCargoAceptador;
-                                UsuarioAceptador.Departamento = sDepartamentoAceptador;
-                                
-                                ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
-
-                                ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
-
-                                NITAceptador.NumeroIdentificacion = sNITAceptador;
-                                NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
-
-                                #region Consulta Digito Verificacion                   
-
-                                SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
-
-                                sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
-
-                                oGetDV.DoQuery(sGetDV);
-
-                                if (oGetDV.RecordCount > 0)
-                                {
-                                    sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
-                                }
-
-                                #endregion
-
-                                NITAceptador.Dv = sDigitoVerificacionAceptador;
-
-                                ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
-
-                                ParametrosCambioEstatus.status = sCodigoEstadoDIAN;
-                                ParametrosCambioEstatus.codigoRechazo = "02";
-
-                                #endregion
-
-                                #region Cambia estado en DIAN                            
-
-                                Recepcion21WS.ResponseGeneral wsCambiarEstado;
-
-                                wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
-
-                                if (wsCambiarEstado.codigo == 200)
-                                {
-                                    #region Actualiza estado documento en SAP
-
-                                    SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                                    string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
-
-                                    sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor).Replace("%CodigoEventoDIANPT%", sCodigoEstadoDIAN);
-
-                                    oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
-
-                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10034", _sboapp, null));
-
-                                    #endregion
-                                }
-                                else
-                                {
-                                    DllFunciones.sendMessageBox(_sboapp, "RE007 - No se pudo cambiar el estado - " + wsCambiarEstado.mensaje.ToString());
-                                }
-
-                                #endregion
-                                
-                            }
-
-                            #endregion
-
-                        }
-                        else
-                        {
-
-
-                        }
-                    }
-
-
 
                 }
-
-                #endregion
             }
-            else
+            catch (Exception)
             {
-                DllFunciones.sendMessageBox(_sboapp, "Por favor parametrizar el empleado de ventas en el modulo de usuarios");
+
+                throw;
             }
         }
 
@@ -1500,7 +1094,7 @@ namespace BOElectronicReception
             }
             else
             {
-                #region Carga Infortmacion en la Matrix
+                #region Carga informacion en la Matrix
 
                 #region Variables y Objetos
 
@@ -1573,6 +1167,10 @@ namespace BOElectronicReception
 
                 if (CantidadRegistos != 0)
                 {
+                    DllFunciones.StatusBar(_sboapp,BoStatusBarMessageType.smt_Warning, MessageSystemAddOn("FER10036", _sboapp, null ));
+
+                    _oFormVisorRepcecion.Freeze(true);
+
                     #region Carga datos Matrix Facturas
 
                     if (oRecorsetInvoices.RecordCount > 0)
@@ -1607,10 +1205,44 @@ namespace BOElectronicReception
                         oMatrixInvoice.Columns.Item("Col_7").DataBind.Bind("DT_Invoices", "ImageCancelar");
                         oMatrixInvoice.Columns.Item("Col_14").DataBind.Bind("DT_Invoices", "TipoIdentificacionEmisor");
                         oMatrixInvoice.Columns.Item("Col_14").Visible = false;
+                        oMatrixInvoice.Columns.Item("Col_15").DataBind.Bind("DT_Invoices", "ImageAcusar");
+                        oMatrixInvoice.Columns.Item("Col_27").DataBind.Bind("DT_Invoices", "ImageRecibir");
+                        oMatrixInvoice.Columns.Item("Col_28").DataBind.Bind("DT_Invoices", "Chk");
+                        oMatrixInvoice.Columns.Item("Col_28").Editable = true;
 
                         oMatrixInvoice.LoadFromDataSource();
 
                         oMatrixInvoice.AutoResizeColumns();
+
+
+                        #region Valida si se activa el campo "Seleccionar"
+
+                        int rowCount = oMatrixInvoice.RowCount;
+
+                        for (int i = 1; i <= rowCount; i++)
+                        {
+                            // Obtener el valor de la columna de control (por ejemplo, "ColYN")
+                            //string habilitado = oMatrixInvoice.Columns.Item("Col_24").Cells.Item(i).Specific.Value;
+                            string sMedioPagoDIAN = ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_24").Cells.Item(i).Specific)).Value;
+
+                            // Obtener la celda a habilitar/deshabilitar (por ejemplo, columna "ColCheck")
+                            SAPbouiCOM.CheckBox txtSeleccionar = (SAPbouiCOM.CheckBox)oMatrixInvoice.Columns.Item("Col_28").Cells.Item(i).Specific;
+
+                            if ( sMedioPagoDIAN == "Contado" )
+                            {
+                                txtSeleccionar.Item.Enabled = false;  // habilita la celda
+                                oMatrixInvoice.CommonSetting.SetCellEditable(i, 1, false);
+                            }
+                            else
+                            {
+                                txtSeleccionar.Item.Enabled = true; // deshabilita la celda
+                            }
+                        }
+
+                        
+
+                        #endregion
+
 
                     }
 
@@ -1678,6 +1310,8 @@ namespace BOElectronicReception
                     }
                     #endregion
 
+                    _oFormVisorRepcecion.Freeze(false);
+
                 }
                 else
                 {
@@ -1733,13 +1367,60 @@ namespace BOElectronicReception
                         }
                         else if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "FBE")
                         {
-
                             DescargaDocumentosFBE(sboappElectronicReception, oCompanyElectronicReception, oForm);
-                        }
-                        else
+                        }                        
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void DownloadDocumentXML_PDF(SAPbouiCOM.Application sboappElectronicReception, SAPbobsCOM.Company oCompanyElectronicReception)
+        {
+            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
+
+            try
+            {
+                SAPbouiCOM.Form oForm = null;
+                bool ExistForm = false;
+
+                for (int i = 0; i < sboappElectronicReception.Forms.Count; i++)
+                {
+                    if (sboappElectronicReception.Forms.Item(i).UniqueID == "BOTVDR")
+                    {
+                        oForm = sboappElectronicReception.Forms.Item("BOTVDR");
+                        ExistForm = true;
+                    }
+                }
+
+
+                if (ExistForm)
+                {
+                    SAPbobsCOM.Recordset oRsProveedorTecnologico = (SAPbobsCOM.Recordset)oCompanyElectronicReception.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    string sGetProveedorTecnologico = null;
+
+                    sGetProveedorTecnologico = DLLFunciones.GetStringXMLDocument(oCompanyElectronicReception, "eBilling", "eBilling", "GetProveedorTecnologico");
+                    oRsProveedorTecnologico.DoQuery(sGetProveedorTecnologico);
+
+                    if (oRsProveedorTecnologico.RecordCount > 0)
+                    {
+                        if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "TFHKA")
                         {
-
-
+                            DescargaXML_PDF_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm);
+                            
+                        }
+                        else if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "FBE")
+                        {
+                            DescargaXML_PDF_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm);
                         }
                     }
                 }
@@ -1804,6 +1485,7 @@ namespace BOElectronicReception
 
                 SAPbouiCOM.ComboBox _cboPT = (SAPbouiCOM.ComboBox)oFormVDBO.Items.Item("Item_34").Specific;
                 SAPbouiCOM.ComboBox cboFRE = (SAPbouiCOM.ComboBox)oFormVDBO.Items.Item("cboFRE").Specific;
+                
 
                 SAPbouiCOM.Folder oFolder1 = (SAPbouiCOM.Folder)oFormVDBO.Items.Item("Folder1").Specific;
                 SAPbouiCOM.Folder oFolderTFHKA = (SAPbouiCOM.Folder)oFormVDBO.Items.Item("Folder3").Specific;
@@ -1872,7 +1554,7 @@ namespace BOElectronicReception
                 DLLFunciones.liberarObjetos(oGetFormaRecepcion);
 
                 #endregion
-
+                
                 oFormVDBO.DataBrowser.BrowseBy = "txtCode";
 
                 oFormVDBO.Visible = true;
@@ -1888,7 +1570,213 @@ namespace BOElectronicReception
             }
         }
 
+        public void DocumentSearchDIAN(SAPbouiCOM.Application sboappElectronicReception, SAPbobsCOM.Company oCompanyElectronicReception, ItemEvent pVal, string ColID)
+        {
+            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
+
+            try
+            {
+                SAPbouiCOM.Form oForm = null;
+                bool ExistForm = false;
+
+                for (int i = 0; i < sboappElectronicReception.Forms.Count; i++)
+                {
+                    if (sboappElectronicReception.Forms.Item(i).UniqueID == "BOTVDR")
+                    {
+                        oForm = sboappElectronicReception.Forms.Item("BOTVDR");
+                        ExistForm = true;
+                    }
+                }
+
+
+                if (ExistForm)
+                {
+                    SAPbobsCOM.Recordset oRsProveedorTecnologico = (SAPbobsCOM.Recordset)oCompanyElectronicReception.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    string sGetProveedorTecnologico = null;
+
+                    sGetProveedorTecnologico = DLLFunciones.GetStringXMLDocument(oCompanyElectronicReception, "eBilling", "eBilling", "GetProveedorTecnologico");
+                    oRsProveedorTecnologico.DoQuery(sGetProveedorTecnologico);
+
+                    if (oRsProveedorTecnologico.RecordCount > 0)
+                    {
+                        if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "TFHKA")
+                        {
+
+                            SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)oForm.Items.Item("MtxOPCH").Specific;
+
+                            string sCUFE = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_17").Cells.Item(pVal.Row).Specific)).Value;
+
+                            if (string.IsNullOrEmpty(sCUFE))
+                            {
+
+                            }
+                            else
+                            {
+
+                                string URLDIAN = "https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=" + sCUFE;
+                                Process.Start(URLDIAN);
+                                URLDIAN = null;
+
+                                
+                            }
+
+                        }
+                        else if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "FBE")
+                        {
+                            DescargaXML_PDF_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm);
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        public void ExportToExcel(SAPbouiCOM.Application sboappElectronicReception, SAPbobsCOM.Company oCompanyElectronicReception)
+        {
+            Funciones.Comunes DLLFunciones = new Funciones.Comunes();
+
+            try
+            {
+                SAPbouiCOM.Form oForm = null;
+                bool ExistForm = false;
+
+                for (int i = 0; i < sboappElectronicReception.Forms.Count; i++)
+                {
+                    if (sboappElectronicReception.Forms.Item(i).UniqueID == "BOTVDR")
+                    {
+                        oForm = sboappElectronicReception.Forms.Item("BOTVDR");
+                        ExistForm = true;
+                    }
+                }
+
+
+                if (ExistForm)
+                {
+                    SAPbobsCOM.Recordset oRsProveedorTecnologico = (SAPbobsCOM.Recordset)oCompanyElectronicReception.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    string sGetProveedorTecnologico = null;
+
+                    sGetProveedorTecnologico = DLLFunciones.GetStringXMLDocument(oCompanyElectronicReception, "eBilling", "eBilling", "GetProveedorTecnologico");
+                    oRsProveedorTecnologico.DoQuery(sGetProveedorTecnologico);
+
+                    if (oRsProveedorTecnologico.RecordCount > 0)
+                    {
+                        if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "TFHKA")
+                        {
+                            ExportToExcel_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm);
+
+                        }
+                        else if (oRsProveedorTecnologico.Fields.Item("ProveedorTecnologico").Value.ToString() == "FBE")
+                        {
+                            ExportToExcel_TFHKA(sboappElectronicReception, oCompanyElectronicReception, oForm);
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        
         #region Proveedor Tecnologico TFHKA
+
+        public void MatrixOpenFile_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVDR, ItemEvent pVal, string _ColUID)
+        {
+            if (_ColUID == "Col_20")
+            {
+                #region Open XML
+
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVDR.Items.Item("MtxOPCH").Specific;
+
+                string sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_12").Cells.Item(pVal.Row).Specific)).Value;
+
+                if (string.IsNullOrEmpty(sPath))
+                {
+
+                }
+                else
+                {
+                    if (pVal.Row == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_12").Cells.Item(pVal.Row).Specific)).Value;
+
+                        System.Diagnostics.Process.Start(sPath);
+                    }
+                }
+
+                #endregion
+            }
+
+            if (_ColUID == "Col_21")
+            {
+                #region Open PDF
+
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVDR.Items.Item("MtxOPCH").Specific;
+
+                string sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_13").Cells.Item(pVal.Row).Specific)).Value;
+
+                if (string.IsNullOrEmpty(sPath))
+                {
+
+                }
+                else
+                {
+                    if (pVal.Row == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        sPath = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_13").Cells.Item(pVal.Row).Specific)).Value;
+
+                        System.Diagnostics.Process.Start(sPath);
+                    }
+                }
+
+                #endregion
+            }
+        }
 
         private void DescargaDocumentosTFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion)
         {
@@ -2500,15 +2388,30 @@ namespace BOElectronicReception
 
                         #region Obtiene Elemento "OrderReference"                        
 
-                        var sPO = GetElementXML_DIAN(sboapp, _oCompany, "OrderReference",sRutaXML, ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString());
+                        var sResponsePO = GetElementXML_DIAN(sboapp, _oCompany, "OrderReference", sRutaXML, ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString());
 
-                        if (string.IsNullOrEmpty(sPO))
+                        if (string.IsNullOrEmpty(sResponsePO))
                         {
                             sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PO%'", "NULL");
                         }
                         else
                         {
-                            sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%TipoIdentidad%", ResponsiveDocumentsReceptor.documentoselectronicos[i].tipoidentidad.ToString());
+                            sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%PO%", sResponsePO.ToString());
+                        }
+
+                        #endregion
+
+                        #region Obtiene Elemento "PaymentMeans_ID"                        
+
+                        var sResponsePaymentMeans_ID = GetElementXML_DIAN(sboapp, _oCompany, "PaymentMeans_ID", sRutaXML, ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString());
+
+                        if (string.IsNullOrEmpty(sResponsePaymentMeans_ID))
+                        {
+                            sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%MedioPago%'", "NULL");
+                        }
+                        else
+                        {
+                            sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%MedioPago%", sResponsePaymentMeans_ID.ToString());
                         }
 
                         #endregion
@@ -2955,6 +2858,18 @@ namespace BOElectronicReception
 
                     #endregion
 
+                    #region Order Reference
+
+                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PO%'", "NULL");
+
+                    #endregion
+
+                    #region Medio Pago
+
+                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%MedioPago%'", "NULL");
+
+                    #endregion
+
                     oSyncDocsRecep.DoQuery(sSyncDocsRecepCopia);
 
                 }
@@ -2964,7 +2879,7 @@ namespace BOElectronicReception
 
         }
 
-        public void DescargaXML_PDF_WS_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string sFormaRecepcion, string U_BOTNI, string U_BOTNF, string U_BOTTI)
+        private void DescargaXML_PDF_WS_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string sFormaRecepcion, string U_BOTNI, string U_BOTNF, string U_BOTTI)
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
 
@@ -3151,6 +3066,1604 @@ namespace BOElectronicReception
             }
             catch (Exception)
             {
+                throw;
+            }
+
+        }
+
+        private void ChagueStatusDocument_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion, ItemEvent pVal, string _ColUID)
+        {
+
+            if (_ColUID == "Col_15")
+            {
+                #region Acuse de Recibo
+
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+
+                if (pVal.Row == 0)
+                {
+
+                }
+                else
+                {
+                    #region Variables y Objetos
+
+                    string sCondicionPago = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_24").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(pVal.Row).Specific)).Value;
+                    string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(pVal.Row).Specific)).Value;
+                    string sTipoIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_14").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(pVal.Row).Specific)).Value;
+                    string sEstadoDIAN = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(pVal.Row).Specific)).Value;
+
+                    int iProcesar = 0;
+
+                    string sCodigoEstadoDIAN = null;
+
+                    #endregion
+
+                    if (sCondicionPago == "Contado" || string.IsNullOrEmpty(sCondicionPago))
+                    {
+
+                    }
+                    else if (sEstadoDIAN == "Recibo del bien y/o prestación del servicio")
+                    {
+
+                    }
+                    else
+                    {
+                        #region Validacion estado documentos                        
+
+                        if (sEstadoDIAN == "Cargado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Entregado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Precargado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Acuse de recibo (DIAN)")
+                        {
+                            iProcesar = 0;
+                        }
+                        else
+                        {
+                            DllFunciones.sendMessageBox(_sboapp, "No se puede generar el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . Por favor validar con su administrador.");
+
+                            iProcesar = 0;
+                        }
+
+                        #endregion
+
+                        if (iProcesar == 1)
+                        {
+                            #region Procesa Evento DIAN
+
+                            #region Variables y Objetos 
+
+                            string sNombreAceptador = string.Empty;
+                            string sApellidoAceptador = string.Empty;
+                            string sCargoAceptador = string.Empty;
+                            string sDepartamentoAceptador = string.Empty;
+                            string sNITAceptador = string.Empty;
+                            string sTipoDocumentoAceptador = string.Empty;
+                            string sDigitoVerificacionAceptador = string.Empty;
+                            string UsuarioSAPActual = string.Empty;
+                            string sGetauthorizer = string.Empty;
+
+                            UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
+
+                            #endregion
+
+                            #region Valida si esta configurado el usuario                   
+
+                            SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                            sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
+
+                            sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
+
+                            oGetauthorizer.DoQuery(sGetauthorizer);
+
+                            #endregion
+
+                            if (oGetauthorizer.RecordCount > 0)
+                            {
+                                sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
+                                sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
+                                sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
+                                sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
+                                sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
+                                sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
+
+                                #region Valida campos obligatorios 
+
+                                if (string.IsNullOrEmpty(sNombreAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10028", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sApellidoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10029", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sCargoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10030", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sDepartamentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10031", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sNITAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10032", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10033", _sboapp, null));
+                                }
+                                else
+                                {
+
+                                    #region Consulta URL
+
+                                    string sGetModo = null;
+                                    string sURLRecepcion = null;
+                                    string sModo = null;
+                                    string sRutaXML = null;
+                                    string sRutaPDF = null;
+                                    string sProtocoloComunicacion = null;
+                                    string sTokenEmpresa = null;
+                                    string sTokenPassword = null;
+                                    string sGetDV = string.Empty;
+
+
+                                    SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
+
+                                    sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
+
+                                    oConsultarGetModo.DoQuery(sGetModo);
+
+                                    sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
+                                    sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+
+                                    sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+                                    sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
+                                    sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
+                                    sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
+                                    sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
+
+                                    DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                                    #endregion
+
+                                    #region Instanciacion parametros TFHKA
+
+                                    if (sProtocoloComunicacion == "HTTP")
+                                    {
+                                        BasicHttpBinding port = new BasicHttpBinding();
+                                    }
+                                    else if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        BasicHttpsBinding port = new BasicHttpsBinding();
+                                    }
+
+                                    port.MaxBufferPoolSize = Int32.MaxValue;
+                                    port.MaxBufferSize = Int32.MaxValue;
+                                    port.MaxReceivedMessageSize = Int32.MaxValue;
+                                    port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                                    port.SendTimeout = TimeSpan.FromMinutes(2);
+                                    port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                                    if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        port.Security.Mode = BasicHttpSecurityMode.Transport;
+                                    }
+
+                                    EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion); //URL
+
+                                    Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
+                                    serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
+
+                                    #endregion
+
+                                    #region Parametros generales Reporte
+
+                                    ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
+
+                                    ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
+                                    ParametrosCambioEstatus.tokenPassword = sTokenPassword;
+
+                                    ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
+                                    ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoIdentificacionEmisor;
+                                    ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
+
+                                    UsuarioAceptador.Nombre = sNombreAceptador;
+                                    UsuarioAceptador.Apellido = sApellidoAceptador;
+                                    UsuarioAceptador.Cargo = sCargoAceptador;
+                                    UsuarioAceptador.Departamento = sDepartamentoAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
+
+                                    NITAceptador.NumeroIdentificacion = sNITAceptador;
+                                    NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
+
+                                    #region Consulta Digito Verificacion                   
+
+                                    SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
+
+                                    sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
+
+                                    oGetDV.DoQuery(sGetDV);
+
+                                    if (oGetDV.RecordCount > 0)
+                                    {
+                                        sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
+                                    }
+
+                                    #endregion
+
+                                    NITAceptador.Dv = sDigitoVerificacionAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
+
+                                    ParametrosCambioEstatus.status = sCodigoEstadoDIAN;
+                                    ParametrosCambioEstatus.codigoRechazo = "02";
+
+                                    #endregion
+
+                                    #region Cambia estado en DIAN                            
+
+                                    Recepcion21WS.ResponseGeneral wsCambiarEstado;
+
+                                    wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
+
+                                    if (wsCambiarEstado.codigo == 200)
+                                    {
+                                        #region Actualiza estado documento en SAP
+
+                                        SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                        string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
+
+                                        sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor).Replace("%CodigoEventoDIANPT%", sCodigoEstadoDIAN);
+
+                                        oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
+
+                                        DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10034", _sboapp, null));
+
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        DllFunciones.sendMessageBox(_sboapp, "RE007 - No se pudo cambiar el estaodo" + wsCambiarEstado.mensaje.ToString());
+                                    }
+
+                                    #endregion
+
+                                }
+
+                                #endregion
+
+
+                            }
+                            else
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "El usuario en SAP no esta autorizado para generar eventos en las facturas de proveedor ");
+                            }
+
+                            #endregion
+                        }
+                    }
+                }
+
+                #endregion
+            }
+            if (_ColUID == "Col_27")
+            {
+                #region Recibo del bien o servicio
+
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+
+                if (pVal.Row == 0)
+                {
+
+                }
+                else
+                {
+                    #region Variables y Objetos
+
+                    string sCondicionPago = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_24").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(pVal.Row).Specific)).Value;
+                    string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(pVal.Row).Specific)).Value;
+                    string sTipoIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_14").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(pVal.Row).Specific)).Value;
+                    string sEstadoDIAN = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(pVal.Row).Specific)).Value;
+
+                    int iProcesar = 0;
+
+                    string sCodigoEstadoDIAN = null;
+
+                    #endregion
+
+                    if (sCondicionPago == "Contado" || string.IsNullOrEmpty(sCondicionPago))
+                    {
+
+                    }
+                    else
+                    {
+                        #region Validacion estado documentos                        
+
+                        if (sEstadoDIAN == "Acuse de recibo (DIAN)")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Recibo del bien y/o prestación del servicio en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "12";
+                        }
+                        else 
+                        {
+                            iProcesar = 0;
+                        }
+
+                        #endregion
+
+                        if (iProcesar == 1)
+                        {
+                            #region Procesa Evento DIAN
+
+                            #region Variables y Objetos 
+
+                            string sNombreAceptador = string.Empty;
+                            string sApellidoAceptador = string.Empty;
+                            string sCargoAceptador = string.Empty;
+                            string sDepartamentoAceptador = string.Empty;
+                            string sNITAceptador = string.Empty;
+                            string sTipoDocumentoAceptador = string.Empty;
+                            string sDigitoVerificacionAceptador = string.Empty;
+                            string UsuarioSAPActual = string.Empty;
+                            string sGetauthorizer = string.Empty;
+
+                            UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
+
+                            #endregion
+
+                            #region Valida si esta configurado el usuario                   
+
+                            SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                            sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
+
+                            sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
+
+                            oGetauthorizer.DoQuery(sGetauthorizer);
+
+                            #endregion
+
+                            if (oGetauthorizer.RecordCount > 0)
+                            {
+                                sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
+                                sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
+                                sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
+                                sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
+                                sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
+                                sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
+
+                                #region Valida campos obligatorios 
+
+                                if (string.IsNullOrEmpty(sNombreAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10028", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sApellidoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10029", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sCargoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10030", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sDepartamentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10031", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sNITAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10032", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10033", _sboapp, null));
+                                }
+                                else
+                                {
+
+                                    #region Consulta URL
+
+                                    string sGetModo = null;
+                                    string sURLRecepcion = null;
+                                    string sModo = null;
+                                    string sRutaXML = null;
+                                    string sRutaPDF = null;
+                                    string sProtocoloComunicacion = null;
+                                    string sTokenEmpresa = null;
+                                    string sTokenPassword = null;
+                                    string sGetDV = string.Empty;
+
+
+                                    SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
+
+                                    sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
+
+                                    oConsultarGetModo.DoQuery(sGetModo);
+
+                                    sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
+                                    sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+
+                                    sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+                                    sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
+                                    sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
+                                    sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
+                                    sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
+
+                                    DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                                    #endregion
+
+                                    #region Instanciacion parametros TFHKA
+
+                                    if (sProtocoloComunicacion == "HTTP")
+                                    {
+                                        BasicHttpBinding port = new BasicHttpBinding();
+                                    }
+                                    else if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        BasicHttpsBinding port = new BasicHttpsBinding();
+                                    }
+
+                                    port.MaxBufferPoolSize = Int32.MaxValue;
+                                    port.MaxBufferSize = Int32.MaxValue;
+                                    port.MaxReceivedMessageSize = Int32.MaxValue;
+                                    port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                                    port.SendTimeout = TimeSpan.FromMinutes(2);
+                                    port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                                    if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        port.Security.Mode = BasicHttpSecurityMode.Transport;
+                                    }
+
+                                    EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion); //URL
+
+                                    Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
+                                    serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
+
+                                    #endregion
+
+                                    #region Parametros generales Reporte
+
+                                    ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
+
+                                    ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
+                                    ParametrosCambioEstatus.tokenPassword = sTokenPassword;
+
+                                    ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
+                                    ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoIdentificacionEmisor;
+                                    ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
+
+                                    UsuarioAceptador.Nombre = sNombreAceptador;
+                                    UsuarioAceptador.Apellido = sApellidoAceptador;
+                                    UsuarioAceptador.Cargo = sCargoAceptador;
+                                    UsuarioAceptador.Departamento = sDepartamentoAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
+
+                                    NITAceptador.NumeroIdentificacion = sNITAceptador;
+                                    NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
+
+                                    #region Consulta Digito Verificacion                   
+
+                                    SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
+
+                                    sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
+
+                                    oGetDV.DoQuery(sGetDV);
+
+                                    if (oGetDV.RecordCount > 0)
+                                    {
+                                        sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
+                                    }
+
+                                    #endregion
+
+                                    NITAceptador.Dv = sDigitoVerificacionAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
+
+                                    ParametrosCambioEstatus.status = sCodigoEstadoDIAN;
+                                    ParametrosCambioEstatus.codigoRechazo = "02";
+
+                                    #endregion
+
+                                    #region Cambia estado en DIAN                            
+
+                                    Recepcion21WS.ResponseGeneral wsCambiarEstado;
+
+                                    wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
+
+                                    if (wsCambiarEstado.codigo == 200)
+                                    {
+                                        #region Actualiza estado documento en SAP
+
+                                        SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                        string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
+
+                                        sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor).Replace("%CodigoEventoDIANPT%", sCodigoEstadoDIAN);
+
+                                        oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
+
+                                        DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10034", _sboapp, null));
+
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        DllFunciones.sendMessageBox(_sboapp, "RE007 - No se pudo cambiar el estaodo" + wsCambiarEstado.mensaje.ToString());
+                                    }
+
+                                    #endregion
+
+                                }
+
+                                #endregion
+
+
+                            }
+                            else
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "El usuario en SAP no esta autorizado para generar eventos en las facturas de proveedor ");
+                            }
+
+                            #endregion
+                        }
+                    }
+                }
+
+                #endregion
+            }
+            else if (_ColUID == "Col_22")
+            {
+                #region Aceptacion documento
+
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+
+                if (pVal.Row == 0)
+                {
+
+                }
+                else
+                {
+                    #region Variables y Objetos
+
+                    string sCondicionPago = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_24").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(pVal.Row).Specific)).Value;
+                    string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(pVal.Row).Specific)).Value;
+                    string sTipoIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_14").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(pVal.Row).Specific)).Value;
+                    string sEstadoDIAN = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(pVal.Row).Specific)).Value;
+
+                    int iProcesar = 0;
+                    string sCodigoEstadoDIAN = null;
+
+                    #endregion
+
+                    if (sCondicionPago == "Contado" || string.IsNullOrEmpty(sCondicionPago))
+                    {
+
+                    }
+                    else
+                    {
+                        #region Validacion estado documentos                        
+
+                        if (sEstadoDIAN == "Cargado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Entregado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Precargado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Acuse de recibo (DIAN)")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Recibo del bien y/o prestación del servicio en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "12";
+                        }
+                        else if (sEstadoDIAN == "Recibo del bien y/o prestación del servicio")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara la Aceptación expresa (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "02";
+                        }
+                        else if (sEstadoDIAN == "Aceptación expresa (DIAN)")
+                        {
+                            DllFunciones.sendMessageBox(_sboapp, "El documento ya se encuentra con Aceptación expresa (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . No se puede cambiar el estado");
+
+                            iProcesar = 0;
+                        }
+
+                        #endregion
+
+                        if (iProcesar == 1)
+                        {
+                            #region Procesa Evento DIAN
+
+                            #region Variables y Objetos 
+
+                            string sNombreAceptador = string.Empty;
+                            string sApellidoAceptador = string.Empty;
+                            string sCargoAceptador = string.Empty;
+                            string sDepartamentoAceptador = string.Empty;
+                            string sNITAceptador = string.Empty;
+                            string sTipoDocumentoAceptador = string.Empty;
+                            string sDigitoVerificacionAceptador = string.Empty;
+                            string UsuarioSAPActual = string.Empty;
+                            string sGetauthorizer = string.Empty;
+
+                            UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
+
+                            #endregion
+
+                            #region Valida si esta configurado el usuario                   
+
+                            SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                            sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
+
+                            sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
+
+                            oGetauthorizer.DoQuery(sGetauthorizer);
+
+                            #endregion
+
+                            if (oGetauthorizer.RecordCount > 0)
+                            {
+                                sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
+                                sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
+                                sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
+                                sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
+                                sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
+                                sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
+
+                                #region Valida campos obligatorios 
+
+                                if (string.IsNullOrEmpty(sNombreAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10028", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sApellidoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10029", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sCargoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10030", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sDepartamentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10031", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sNITAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10032", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10033", _sboapp, null));
+                                }
+                                else
+                                {
+
+                                    #region Consulta URL
+
+                                    string sGetModo = null;
+                                    string sURLRecepcion = null;
+                                    string sModo = null;
+                                    string sRutaXML = null;
+                                    string sRutaPDF = null;
+                                    string sProtocoloComunicacion = null;
+                                    string sTokenEmpresa = null;
+                                    string sTokenPassword = null;
+                                    string sGetDV = string.Empty;
+
+
+                                    SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
+
+                                    sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
+
+                                    oConsultarGetModo.DoQuery(sGetModo);
+
+                                    sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
+                                    sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+
+                                    sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+                                    sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
+                                    sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
+                                    sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
+                                    sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
+
+                                    DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                                    #endregion
+
+                                    #region Instanciacion parametros TFHKA
+
+                                    if (sProtocoloComunicacion == "HTTP")
+                                    {
+                                        BasicHttpBinding port = new BasicHttpBinding();
+                                    }
+                                    else if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        BasicHttpsBinding port = new BasicHttpsBinding();
+                                    }
+
+                                    port.MaxBufferPoolSize = Int32.MaxValue;
+                                    port.MaxBufferSize = Int32.MaxValue;
+                                    port.MaxReceivedMessageSize = Int32.MaxValue;
+                                    port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                                    port.SendTimeout = TimeSpan.FromMinutes(2);
+                                    port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                                    if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        port.Security.Mode = BasicHttpSecurityMode.Transport;
+                                    }
+
+                                    EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion); //URL
+
+                                    Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
+                                    serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
+
+                                    #endregion
+
+                                    #region Parametros generales Reporte
+
+                                    ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
+
+                                    ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
+                                    ParametrosCambioEstatus.tokenPassword = sTokenPassword;
+
+                                    ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
+                                    ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoIdentificacionEmisor;
+                                    ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
+
+                                    UsuarioAceptador.Nombre = sNombreAceptador;
+                                    UsuarioAceptador.Apellido = sApellidoAceptador;
+                                    UsuarioAceptador.Cargo = sCargoAceptador;
+                                    UsuarioAceptador.Departamento = sDepartamentoAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
+
+                                    NITAceptador.NumeroIdentificacion = sNITAceptador;
+                                    NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
+
+                                    #region Consulta Digito Verificacion                   
+
+                                    SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
+
+                                    sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
+
+                                    oGetDV.DoQuery(sGetDV);
+
+                                    if (oGetDV.RecordCount > 0)
+                                    {
+                                        sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
+                                    }
+
+                                    #endregion
+
+                                    NITAceptador.Dv = sDigitoVerificacionAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
+
+                                    ParametrosCambioEstatus.status = sCodigoEstadoDIAN;
+                                    ParametrosCambioEstatus.codigoRechazo = "02";
+
+                                    #endregion
+
+                                    #region Cambia estado en DIAN                            
+
+                                    Recepcion21WS.ResponseGeneral wsCambiarEstado;
+
+                                    wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
+
+                                    if (wsCambiarEstado.codigo == 200)
+                                    {
+                                        #region Actualiza estado documento en SAP
+
+                                        SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                        string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
+
+                                        sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor).Replace("%CodigoEventoDIANPT%", sCodigoEstadoDIAN);
+
+                                        oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
+
+                                        DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10034", _sboapp, null));
+
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        DllFunciones.sendMessageBox(_sboapp, "RE007 - No se pudo cambiar el estaodo" + wsCambiarEstado.mensaje.ToString());
+                                    }
+
+                                    #endregion
+
+                                }
+
+                                #endregion
+
+
+                            }
+                            else
+                            {
+                                DllFunciones.sendMessageBox(_sboapp, "El usuario en SAP no esta autorizado para generar eventos en las facturas de proveedor ");
+                            }
+
+                            #endregion
+                        }
+                    }
+                }
+
+                #endregion
+            }
+            else if (_ColUID == "Col_7")
+            {
+                #region Rechazo del  documento
+
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+
+                if (pVal.Row == 0)
+                {
+
+                }
+                else
+                {
+                    #region Variables y Objetos
+
+                    string sCondicionPago = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_24").Cells.Item(pVal.Row).Specific)).Value;                    
+                    string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(pVal.Row).Specific)).Value;
+                    string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(pVal.Row).Specific)).Value;
+                    string sTipoIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_14").Cells.Item(pVal.Row).Specific)).Value;
+                    string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(pVal.Row).Specific)).Value;
+                    string sEstadoDIAN = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(pVal.Row).Specific)).Value;
+
+                    int iProcesar = 0;
+                    string sCodigoEstadoDIAN = null;
+
+                    #endregion
+
+                    if (sCondicionPago == "Contado" || string.IsNullOrEmpty(sCondicionPago))
+                    {
+
+                    }
+                    else if (sEstadoDIAN == "Aceptación expresa (DIAN)")
+                    {
+
+                    }
+                    else
+                    {
+                        #region Validacion estados del documento
+
+                        if (sEstadoDIAN == "Cargado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Entregado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "10";
+                        }
+                        else if (sEstadoDIAN == "Precargado")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Acuse de recibo (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea Continuar ? ");
+                            sCodigoEstadoDIAN = "01";
+                        }
+                        else if (sEstadoDIAN == "Acuse de recibo (DIAN)")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se generara el Recibo del bien y/o prestación del servicio en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " para poder realizar el rechazo. ¿ Desea continuar ?");
+                            sCodigoEstadoDIAN = "12";
+                        }
+                        else if (sEstadoDIAN == "Recibo del bien y/o prestación del servicio")
+                        {
+                            iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se rechazara el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . ¿ Desea continuar ?");
+                            //DllFunciones.sendMessageBox(_sboapp, "No se puede rechazar el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . Ya se le genero - Recibo del bien y/o prestación del servicio. ");
+                            sCodigoEstadoDIAN = "04";
+                        }
+                        else if (sEstadoDIAN == "Aceptación expresa (DIAN)")
+                        {
+                            DllFunciones.sendMessageBox(_sboapp, "El documento ya se encuentra con Aceptación expresa (DIAN) en el documento " + sNumeroDocumentoFacturaProveedor + " del proveedor " + sNombreProveedor + " . No se puede cambiar el estado");
+                            iProcesar = 0;
+                        }
+
+                        #endregion
+
+                        if (iProcesar == 1)
+                        {
+                            #region Variables y Objetos 
+
+                            string sNombreAceptador = string.Empty;
+                            string sApellidoAceptador = string.Empty;
+                            string sCargoAceptador = string.Empty;
+                            string sDepartamentoAceptador = string.Empty;
+                            string sNITAceptador = string.Empty;
+                            string sTipoDocumentoAceptador = string.Empty;
+                            string sDigitoVerificacionAceptador = string.Empty;
+                            string UsuarioSAPActual = string.Empty;
+                            string sGetauthorizer = string.Empty;
+
+                            UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
+
+                            #endregion
+
+                            #region Valida si esta configurado el usuario                   
+
+                            SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                            sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
+
+                            sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
+
+                            oGetauthorizer.DoQuery(sGetauthorizer);
+
+                            #endregion
+
+                            if (oGetauthorizer.RecordCount > 0)
+                            {
+                                sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
+                                sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
+                                sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
+                                sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
+                                sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
+                                sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
+
+                                #region Valida campos obligatorios 
+
+                                if (string.IsNullOrEmpty(sNombreAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10028", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sApellidoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER100289", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sCargoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10029", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sDepartamentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10030", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sNITAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10031", _sboapp, null));
+                                }
+                                else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10032", _sboapp, null));
+                                }
+                                else
+                                {
+
+                                    #region Consulta URL
+
+                                    string sGetModo = null;
+                                    string sURLRecepcion = null;
+                                    string sModo = null;
+                                    string sRutaXML = null;
+                                    string sRutaPDF = null;
+                                    string sProtocoloComunicacion = null;
+                                    string sTokenEmpresa = null;
+                                    string sTokenPassword = null;
+                                    string sGetDV = string.Empty;
+
+                                    SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
+
+                                    sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
+
+                                    oConsultarGetModo.DoQuery(sGetModo);
+
+                                    sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
+                                    sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+
+                                    sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+                                    sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
+                                    sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
+                                    sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
+                                    sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
+
+                                    DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                                    #endregion
+
+                                    #region Instanciacion parametros TFHKA
+
+                                    if (sProtocoloComunicacion == "HTTP")
+                                    {
+                                        BasicHttpBinding port = new BasicHttpBinding();
+                                    }
+                                    else if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        BasicHttpsBinding port = new BasicHttpsBinding();
+                                    }
+
+                                    port.MaxBufferPoolSize = Int32.MaxValue;
+                                    port.MaxBufferSize = Int32.MaxValue;
+                                    port.MaxReceivedMessageSize = Int32.MaxValue;
+                                    port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                                    port.SendTimeout = TimeSpan.FromMinutes(2);
+                                    port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                                    if (sProtocoloComunicacion == "HTTPS")
+                                    {
+                                        port.Security.Mode = BasicHttpSecurityMode.Transport;
+                                    }
+
+                                    EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion); //URL
+
+                                    Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
+                                    serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
+
+                                    #endregion
+
+                                    #region Parametros generales Reporte
+
+                                    ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
+
+                                    ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
+                                    ParametrosCambioEstatus.tokenPassword = sTokenPassword;
+
+                                    ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
+                                    ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoIdentificacionEmisor;
+                                    ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
+
+                                    UsuarioAceptador.Nombre = sNombreAceptador;
+                                    UsuarioAceptador.Apellido = sApellidoAceptador;
+                                    UsuarioAceptador.Cargo = sCargoAceptador;
+                                    UsuarioAceptador.Departamento = sDepartamentoAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
+
+                                    ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
+
+                                    NITAceptador.NumeroIdentificacion = sNITAceptador;
+                                    NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
+
+                                    #region Consulta Digito Verificacion                   
+
+                                    SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                    sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
+
+                                    sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
+
+                                    oGetDV.DoQuery(sGetDV);
+
+                                    if (oGetDV.RecordCount > 0)
+                                    {
+                                        sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
+                                    }
+
+                                    #endregion
+
+                                    NITAceptador.Dv = sDigitoVerificacionAceptador;
+
+                                    ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
+
+                                    ParametrosCambioEstatus.status = sCodigoEstadoDIAN;
+                                    ParametrosCambioEstatus.codigoRechazo = "02";
+
+                                    #endregion
+
+                                    #region Cambia estado en DIAN                            
+
+                                    Recepcion21WS.ResponseGeneral wsCambiarEstado;
+
+                                    wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
+
+                                    if (wsCambiarEstado.codigo == 200)
+                                    {
+                                        #region Actualiza estado documento en SAP
+
+                                        SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                        string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
+
+                                        sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor).Replace("%CodigoEventoDIANPT%", sCodigoEstadoDIAN);
+
+                                        oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
+
+                                        DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10034", _sboapp, null));
+
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        DllFunciones.sendMessageBox(_sboapp, "RE007 - No se pudo cambiar el estado - " + wsCambiarEstado.mensaje.ToString());
+                                    }
+
+                                    #endregion
+
+                                }
+
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+            }
+
+        }
+
+        private void ChagueDocumentStatusBulk_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion, ItemEvent pVal, string _ColUID)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            #region Valida si esta configurado el usuario     
+              
+            string sGetauthorizer = string.Empty;
+            string UsuarioSAPActual = string.Empty;
+            string sCodigoEstadoDIAN = string.Empty;
+
+            UsuarioSAPActual = Convert.ToString(_oCompany.UserSignature);
+
+            SAPbobsCOM.Recordset oGetauthorizer = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            sGetauthorizer = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "Getauthorizer");
+
+            sGetauthorizer = sGetauthorizer.Replace("%UserId%", UsuarioSAPActual);
+
+            oGetauthorizer.DoQuery(sGetauthorizer);
+
+            #endregion
+
+            if (oGetauthorizer.RecordCount > 0)
+            {
+                #region Validacion campos obligatorios y genera evento
+
+                string sNombreAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Nombre").Value.ToString());
+                string sApellidoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Apellido").Value.ToString());
+                string sCargoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Cargo").Value.ToString());
+                string sDepartamentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("Departamento").Value.ToString());
+                string sNITAceptador = Convert.ToString(oGetauthorizer.Fields.Item("NIT").Value.ToString());
+                string sTipoDocumentoAceptador = Convert.ToString(oGetauthorizer.Fields.Item("TipoDocumento").Value.ToString());
+
+                if (string.IsNullOrEmpty(sNombreAceptador))
+                {
+                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10028", _sboapp, null));
+                }
+                else if (string.IsNullOrEmpty(sApellidoAceptador))
+                {
+                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10029", _sboapp, null));
+                }
+                else if (string.IsNullOrEmpty(sCargoAceptador))
+                {
+                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10030", _sboapp, null));
+                }
+                else if (string.IsNullOrEmpty(sDepartamentoAceptador))
+                {
+                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10031", _sboapp, null));
+                }
+                else if (string.IsNullOrEmpty(sNITAceptador))
+                {
+                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10032", _sboapp, null));
+                }
+                else if (string.IsNullOrEmpty(sTipoDocumentoAceptador))
+                {
+                    DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10033", _sboapp, null));
+                }
+                else
+                {
+                    #region Genera Eventos Masivamente 
+
+                    #region Variables y Objetos
+
+                    SAPbouiCOM.ButtonCombo cbEvMa = (ButtonCombo)_oFormVisorRepcecion.Items.Item("cbEvMa").Specific;
+                    SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+                    SAPbouiCOM.ComboBox cboStado = (ComboBox)_oFormVisorRepcecion.Items.Item("cboStado").Specific;
+
+                    var EstadosPermitidosAcuse = new[] { "00", "01", "13" };
+                    var EstadosPermitidosRecibo = new[] { "10" };
+                    var EstadosPermitidosAceptacion = new[] { "12" };
+
+                    #endregion
+
+                    int selectedCount = 0;
+
+                    DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Warning, MessageSystemAddOn("FER10037", _sboapp, null));
+
+                    #region Valida lineas marcadas a procesar
+
+                    for (int i = 1; i <= oMatrixOPCH.RowCount; i++)
+                    {
+                        SAPbouiCOM.CheckBox oCheckBox = (SAPbouiCOM.CheckBox)oMatrixOPCH.Columns.Item("Col_28").Cells.Item(i).Specific;
+
+                        if (oCheckBox.Checked)
+                        {
+                            selectedCount++;
+                        }
+                    }
+
+                    #endregion
+
+                    if (cbEvMa.Selected == null)
+                    {
+                        DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10038", _sboapp, null));
+                    }
+                    else if (selectedCount == 0)
+                    {
+                        DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10039", _sboapp, null));
+                    }
+                    else if (string.IsNullOrEmpty(cboStado.Value) || cboStado.Value == "-")
+                    {
+                        DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10040", _sboapp, null));
+                    }
+                    else
+                    {
+                        int continuar = DllFunciones.sendMessageBoxY_N(_sboapp, $"Se generara eventos a {selectedCount.ToString()} documentos, ¿ Desea Continuar ?.");
+                        bool EjecutaProceso = false;
+
+                        if (continuar == 1)
+                        {
+                            #region Validacion de reglas
+
+                            if (cbEvMa.Selected.Value == "10")
+                            {
+                                if (EstadosPermitidosAcuse.Contains(cboStado.Value))
+                                {
+                                    EjecutaProceso = true;
+                                    sCodigoEstadoDIAN = "10";
+                                }
+                                else
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, "No se puede generar el evento Acuse de recibo, los documentos seleccionados no estan en estado Cargado, Precargado o Entregado, por favor validar.  ");
+                                }
+                            }
+                            else if (cbEvMa.Selected.Value == "12")
+                            {
+                                if (EstadosPermitidosRecibo.Contains(cboStado.Value))
+                                {
+                                    EjecutaProceso = true;
+                                    sCodigoEstadoDIAN = "12";
+                                }
+                                else
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, "No se puede generar el Recibo del bien y/o prestacion del servicio, los documentos seleccionados no estan en estado Acuse de recibo (DIAN), por favor validar.  ");
+                                }
+                            }
+                            else if (cbEvMa.Selected.Value == "02")
+                            {
+                                if (EstadosPermitidosAceptacion.Contains(cboStado.Value))
+                                {
+                                    EjecutaProceso = true;
+                                    sCodigoEstadoDIAN = "02";
+                                }
+                                else
+                                {
+                                    DllFunciones.sendMessageBox(_sboapp, "No se puede generar La Aceptacion Expresa de la DIAN, los documentos seleccionados no estan en estado Recibo del bien y/o prestacion del servicio, por favor validar.");
+                                }
+                            }
+
+                            #endregion
+
+                            if (EjecutaProceso)
+                            {
+                                #region Variable y objetos
+
+                                string sGetModo = null;
+                                string sURLRecepcion = null;
+                                string sModo = null;
+                                string sRutaXML = null;
+                                string sRutaPDF = null;
+                                string sProtocoloComunicacion = null;
+                                string sTokenEmpresa = null;
+                                string sTokenPassword = null;
+                                string sGetDV = string.Empty;
+
+                                #endregion
+
+                                #region Consulta URL
+
+                                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetModoandURL");
+
+                                sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
+
+                                oConsultarGetModo.DoQuery(sGetModo);
+
+                                sURLRecepcion = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ReceptorWS.svc?wsdl";
+                                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+
+                                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+                                sTokenEmpresa = Convert.ToString(oConsultarGetModo.Fields.Item("TokenEmpresa").Value.ToString());
+                                sTokenPassword = Convert.ToString(oConsultarGetModo.Fields.Item("TokenPassword").Value.ToString());
+                                sRutaXML = Convert.ToString(oConsultarGetModo.Fields.Item("RutaXML").Value.ToString());
+                                sRutaPDF = Convert.ToString(oConsultarGetModo.Fields.Item("RutaPDF").Value.ToString());
+
+                                DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                                #endregion
+
+                                #region Instanciacion parametros TFHKA
+
+                                if (sProtocoloComunicacion == "HTTP")
+                                {
+                                    BasicHttpBinding port = new BasicHttpBinding();
+                                }
+                                else if (sProtocoloComunicacion == "HTTPS")
+                                {
+                                    BasicHttpsBinding port = new BasicHttpsBinding();
+                                }
+
+                                port.MaxBufferPoolSize = Int32.MaxValue;
+                                port.MaxBufferSize = Int32.MaxValue;
+                                port.MaxReceivedMessageSize = Int32.MaxValue;
+                                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                                port.SendTimeout = TimeSpan.FromMinutes(2);
+                                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                                if (sProtocoloComunicacion == "HTTPS")
+                                {
+                                    port.Security.Mode = BasicHttpSecurityMode.Transport;
+                                }
+
+                                EndpointAddress endPointEmision = new EndpointAddress(sURLRecepcion);
+
+                                Recepcion21WS.ReceptorWSClient serviceClienTFHKAReception;
+                                serviceClienTFHKAReception = new Recepcion21WS.ReceptorWSClient(port, endPointEmision);
+
+                                #endregion
+
+                                DllFunciones.ProgressBar(_oCompany, _sboapp, 3, 1, MessageSystemAddOn("FER10041", _sboapp, null));
+                                DllFunciones.ProgressBar(_oCompany, _sboapp, 3, 1, MessageSystemAddOn("FER10041", _sboapp, null));
+
+                                for (int i = 1; i <= oMatrixOPCH.RowCount; i++)
+                                {
+                                    SAPbouiCOM.CheckBox oCheckBox = (SAPbouiCOM.CheckBox)oMatrixOPCH.Columns.Item("Col_28").Cells.Item(i).Specific;
+
+                                    if (oCheckBox.Checked)
+                                    {
+                                        selectedCount++;
+
+                                        #region Variables y Objetos
+
+                                        string sCondicionPago = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_24").Cells.Item(i).Specific)).Value;
+                                        string sNumeroDocumentoFacturaProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(i).Specific)).Value;
+                                        string sIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(i).Specific)).Value;
+                                        string sTipoIdentificacionEmisor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_14").Cells.Item(i).Specific)).Value;
+                                        string sNombreProveedor = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(i).Specific)).Value;
+                                        string sEstadoDIAN = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(i).Specific)).Value;
+                                        string sDigitoVerificacionAceptador = string.Empty;
+
+                                        #endregion
+
+                                        #region Procesa evento DIAN
+
+                                        #region Parametros generales Reporte
+
+                                        ReceptorCambioEstatusRequest ParametrosCambioEstatus = new ReceptorCambioEstatusRequest();
+
+                                        ParametrosCambioEstatus.tokenEmpresa = sTokenEmpresa;
+                                        ParametrosCambioEstatus.tokenPassword = sTokenPassword;
+
+                                        ParametrosCambioEstatus.identificadorEmisor = sIdentificacionEmisor;
+                                        ParametrosCambioEstatus.tipoIdentificacionemisor = sTipoIdentificacionEmisor;
+                                        ParametrosCambioEstatus.numeroDocumento = sNumeroDocumentoFacturaProveedor;
+
+                                        ReceptorCambioEstatusRequest.EjecutadoPorRequest UsuarioAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest();
+
+                                        UsuarioAceptador.Nombre = sNombreAceptador;
+                                        UsuarioAceptador.Apellido = sApellidoAceptador;
+                                        UsuarioAceptador.Cargo = sCargoAceptador;
+                                        UsuarioAceptador.Departamento = sDepartamentoAceptador;
+
+                                        ParametrosCambioEstatus.EjecutadoPor = UsuarioAceptador;
+
+                                        ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest NITAceptador = new ReceptorCambioEstatusRequest.EjecutadoPorRequest.IdentificacionRequest();
+
+                                        NITAceptador.NumeroIdentificacion = sNITAceptador;
+                                        NITAceptador.TipoIdentificacion = sTipoDocumentoAceptador;
+
+                                        #region Consulta Digito Verificacion                   
+
+                                        SAPbobsCOM.Recordset oGetDV = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                        sGetDV = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDV");
+
+                                        sGetDV = sGetDV.Replace("%NIT%", sNITAceptador);
+
+                                        oGetDV.DoQuery(sGetDV);
+
+                                        if (oGetDV.RecordCount > 0)
+                                        {
+                                            sDigitoVerificacionAceptador = Convert.ToString(oGetDV.Fields.Item("DV").Value.ToString());
+                                        }
+
+                                        #endregion
+
+                                        NITAceptador.Dv = sDigitoVerificacionAceptador;
+
+                                        ParametrosCambioEstatus.EjecutadoPor.Identificacion = NITAceptador;
+
+                                        ParametrosCambioEstatus.status = sCodigoEstadoDIAN;
+                                        ParametrosCambioEstatus.codigoRechazo = "02";
+
+                                        #endregion
+
+                                        #region Cambia estado en DIAN                            
+
+                                        Recepcion21WS.ResponseGeneral wsCambiarEstado;
+
+                                        wsCambiarEstado = serviceClienTFHKAReception.CambioEstatus(ParametrosCambioEstatus);
+
+                                        if (wsCambiarEstado.codigo == 200)
+                                        {
+                                            #region Actualiza estado documento en SAP
+
+                                            SAPbobsCOM.Recordset oUpdateStatusDocument = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                            string sUpdateStatusDocument = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "PostUpdateStatusDocument");
+
+                                            sUpdateStatusDocument = sUpdateStatusDocument.Replace("%NumeroFactura%", sNumeroDocumentoFacturaProveedor).Replace("%NumeroIdentificacion%", sIdentificacionEmisor).Replace("%CodigoEventoDIANPT%", sCodigoEstadoDIAN);
+
+                                            oUpdateStatusDocument.DoQuery(sUpdateStatusDocument);
+
+                                            #endregion
+                                        }
+
+
+                                        #endregion
+                                        
+                                        #endregion
+
+                                    }
+                                }
+
+                                DllFunciones.ProgressBar(_oCompany, _sboapp, 3, 1, MessageSystemAddOn("FER10041", _sboapp, null));
+
+                                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, MessageSystemAddOn("FER10042", _sboapp, null));
+                            }
+                        }
+                    }
+
+                    #endregion
+                }
+
+                #endregion                
+            }
+            else
+            {
+                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10035",_sboapp, null));
+            }            
+        }
+
+        private void ExportToExcel_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            try
+            {
+                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Warning, MessageSystemAddOn("FER10043", _sboapp, null));
+
+                string sNombrePlantillaXLS = "InformeFacturasProveedor.xlsx";
+                string sPathXLS = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\BOElectronicReception\\Excel\\" + sNombrePlantillaXLS;
+
+                // 2. Cargar plantilla
+                ExcelHX.Application xlApp = new ExcelHX.Application();
+                ExcelHX.Workbook xlWorkBook = xlApp.Workbooks.Open(sPathXLS);
+                ExcelHX.Worksheet xlSheet = (ExcelHX.Worksheet)xlWorkBook.Sheets[1];
+
+                // 3. Escribir datos a partir de fila 4 (ajusta según tu plantilla)
+                int startRow = 4;
+                int currentRow = startRow;
+
+                SAPbouiCOM.ButtonCombo cbEvMa = (ButtonCombo)_oFormVisorRepcecion.Items.Item("cbEvMa").Specific;
+                SAPbouiCOM.Matrix oMatrixOPCH = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+                SAPbouiCOM.ComboBox cboStado = (ComboBox)_oFormVisorRepcecion.Items.Item("cboStado").Specific;
+
+                for (int i = 1; i <= oMatrixOPCH.RowCount; i++)
+                {
+
+                    xlSheet.Cells[currentRow, 1] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_0").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 2] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_11").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 3] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_29").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 4] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_1").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 5] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_18").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 6] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_10").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 7] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_2").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 8] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_3").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 9] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_6").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 10] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_17").Cells.Item(i).Specific)).Value;
+                    xlSheet.Cells[currentRow, 11] = ((SAPbouiCOM.EditText)(oMatrixOPCH.Columns.Item("Col_8").Cells.Item(i).Specific)).Value;
+                    
+                    currentRow++;
+                }
+
+                // Guardar como nuevo archivo (para no sobrescribir plantilla)
+
+                // 1. Obtener ruta del escritorio
+                string escritorioPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                // 2. Crear el nombre del archivo con la fecha actual
+                string fecha = DateTime.Now.ToString("yyyy-MM-dd"); // o "yyyyMMdd" si prefieres sin guiones
+                string nombreArchivo = $"InformeFacturasProveedor_{fecha}.xlsx";
+
+                // 3. Combinar ruta y nombre
+                string nuevoPath = System.IO.Path.Combine(escritorioPath, nombreArchivo);
+
+                xlWorkBook.SaveAs(nuevoPath);
+                xlWorkBook.Close(false);
+                xlApp.Quit();
+
+                // 5. Liberar recursos
+                Marshal.ReleaseComObject(xlSheet);
+                Marshal.ReleaseComObject(xlWorkBook);
+                Marshal.ReleaseComObject(xlApp);
+
+                string[] arrNombreArchivo = { nombreArchivo };
+
+                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FER10044", _sboapp, arrNombreArchivo));
+
+
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
 
@@ -4070,11 +5583,11 @@ namespace BOElectronicReception
                 if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
                 {
 
-                    return idMessage + "Documentos sicronizados correctamente.";
+                    return idMessage + "- Documentos sincronizados correctamente.";
                 }
                 else
                 {
-                    return idMessage + "Documents synchronized correctly.";
+                    return idMessage + " - Documents synchronized correctly.";
                 }
             }
             else if (idMessage == "FER10025")
@@ -4189,7 +5702,6 @@ namespace BOElectronicReception
             {
                 if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
                 {
-
                     return idMessage + " - Se cambio el estado del documento, esperar de 1 a 5 minutos para ver reflejado el cambio en la DIAN ";
                 }
                 else
@@ -4197,10 +5709,116 @@ namespace BOElectronicReception
                     return idMessage + " - The status of the document was changed, wait 1 to 5 minutes to see the change reflected in the DIAN";
                 }
             }
-
-
-
-            
+            else if (idMessage == "FER10035")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - El usuario en SAP no esta autorizado para generar eventos en las facturas de proveedor ";
+                }
+                else
+                {
+                    return idMessage + " - The SAP is not authorized to generate events on supplier invoices.";
+                }
+            }
+            else if (idMessage == "FER10036")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Consultando documentos, por favor esperar.";
+                }
+                else
+                {
+                    return idMessage + " - Consulting documents, please wait.";
+                }
+            }
+            else if (idMessage == "FER10037")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Validando información, por favor espere...";
+                }
+                else
+                {
+                    return idMessage + " - Validating information, please wait...";
+                }
+            }
+            else if (idMessage == "FER10038")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Por favor seleccione el evento que desea generar para poder continuar.";
+                }
+                else
+                {
+                    return idMessage + " - Please select the event you wish to generate to continue.";
+                }
+            }
+            else if (idMessage == "FER10039")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Por favor seleccione almenos un documento para generar los eventos.";
+                }
+                else
+                {
+                    return idMessage + " - Please select at least one document to generate events.";
+                }
+            }
+            else if (idMessage == "FER10040")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Por favor filtre por un estado DIAN especifico para poder generar eventos masivamente";
+                }
+                else
+                {
+                    return idMessage + " - Please filter by a specific DIAN state to be able to generate events in bulk.";
+                }
+            }
+            else if (idMessage == "FER10041")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Actualizando eventos masivamente, por favor espere...";
+                }
+                else
+                {
+                    return idMessage + " - Updating events in bulk, please wait...";
+                }
+            }
+            else if (idMessage == "FER10042")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Proceso finalizado correctamente.";
+                }
+                else
+                {
+                    return idMessage + " - Process completed successfully.";
+                }
+            }
+            else if (idMessage == "FER10043")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + " - Generando archivo, por favor espere...";
+                }
+                else
+                {
+                    return idMessage + " - Generating file, please wait...";
+                }
+            }
+            else if (idMessage == "FER10044")
+            {
+                if (SboAppFacturacionElectronica.Language == BoLanguages.ln_Spanish_La)
+                {
+                    return idMessage + $" - Se genero el archivo {sComodinMessage[0]} en el escritorio correctamente. ";
+                }
+                else
+                {
+                    return idMessage + $" - The file {sComodinMessage[0]} was successfully generated on the desktop.";
+                }
+            }
             else
             {
                 return "";

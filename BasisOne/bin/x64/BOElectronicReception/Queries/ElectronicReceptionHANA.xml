@@ -20,7 +20,7 @@
 
   <SyncDocsRecep>
 
-    CALL "BOT_InsertDocuments" ('%ProveedorTechnologico%','%ConsecutivoTFHKA%','%CUFE%', '%StatusDIANCodigo%', '%StatusDIANDescripcion%', '%StatusDIANFecha%', '%FechaEmision%', '%FechaRecepcion%', '%HoraEmision%', '%MontoTotal%', '%NumeroFactura%', '%NumeroIdentificacion%', '%RazonSocial%', '%TipoDocumento%', '%TipoEmisor%', '%TipoIdentidad%', '%prmCodEstatusDIAN%', '%PO%', '%PathXML%', '%PathPDF%');
+    CALL "BOT_InsertDocuments" ('%ProveedorTechnologico%','%ConsecutivoTFHKA%','%CUFE%', '%StatusDIANCodigo%', '%StatusDIANDescripcion%', '%StatusDIANFecha%', '%FechaEmision%', '%FechaRecepcion%', '%HoraEmision%', '%MontoTotal%', '%NumeroFactura%', '%NumeroIdentificacion%', '%RazonSocial%', '%TipoDocumento%', '%TipoEmisor%', '%TipoIdentidad%', '%prmCodEstatusDIAN%', '%PO%', '%PathXML%', '%PathPDF%', '%MedioPago%');
 
   </SyncDocsRecep>
 
@@ -47,7 +47,7 @@
                 WHEN "U_BOTSDC" = '11' THEN 'Rechazado (DIAN)'
                 WHEN "U_BOTSDC" = '12' THEN 'Recibo del bien y/o prestación del servicio'
                 WHEN "U_BOTSDC" = '13' THEN 'Precargado'
-                ELSE 'Cargado' 
+                ELSE '' 
                 END AS "Estado",
 
             '' AS "DocEntry",
@@ -60,7 +60,11 @@
             "U_BOTNRS" AS "Nombre_del_Cliente",
             '' AS "Fecha_Documento",
             '' AS "Fecha_vencimiento",
-            '' AS "Condicion_de_Pago",
+            
+            CASE WHEN "U_HXPAYME" = '1' THEN 'Contado' 
+                 WHEN "U_HXPAYME" = '2' THEN 'Credito' 
+            ELSE '' END AS "Condicion_de_Pago",
+            
             "U_BOTMT" AS "Total_Documento",
             "U_BOTCUFE" AS "CUFE",
             "U_BOTFE" AS "Fecha_emision",
@@ -75,17 +79,35 @@
                  END AS "Estado_SAP",
             CASE WHEN "U_BOTPAXML" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaXML",
             CASE WHEN "U_BOTPAPDF" IS NULL THEN '' ELSE ('%PathImages%'||'Download.bmp') END AS "DescargaPDF",
-            ('%PathImages%'||'Aceptar.bmp') as "ImageAceptar",
-            ('%PathImages%'||'Cancelar.bmp') as "ImageCancelar",
+            
+            CASE WHEN "U_HXPAYME" = '1' THEN ''
+                 WHEN "U_HXPAYME" = '2' AND "U_BOTSDC" NOT IN ('11') THEN ('%PathImages%'||'Aceptar.bmp') 
+                 ELSE '' END AS "ImageAceptar",
+                 
+            CASE WHEN "U_HXPAYME" = '1' THEN ''
+                 WHEN "U_HXPAYME" = '2' AND "U_BOTSDC" NOT IN ('02') THEN ('%PathImages%'||'Cancelar.bmp')
+                 ELSE'' END AS "ImageCancelar",
+                 
             "U_BOTPAXML" AS "RutaXML",
             "U_BOTPAPDF" AS "RutaPDF",
-            "U_BOTTI" AS "TipoIdentificacionEmisor"
+            "U_BOTTI" AS "TipoIdentificacionEmisor",
+            
+            CASE WHEN "U_HXPAYME" = '1' THEN ''
+                 WHEN "U_HXPAYME" = '2' AND "U_BOTSDC" NOT IN ('10','02','12') THEN ('%PathImages%'||'Acusar.bmp')
+                 ELSE '' END AS "ImageAcusar",
+            
+            CASE WHEN "U_HXPAYME" = '1' THEN '' 
+                 WHEN "U_HXPAYME" = '2' AND "U_BOTSDC" NOT IN ('12','02') THEN ('%PathImages%'||'Recibir.bmp') 
+                 ELSE '' END AS "ImageRecibir",
+                
+            'N' AS "Chk"
 
         FROM "@BOTREDRPT" A LEFT JOIN ( SELECT DISTINCT CASE WHEN LOCATE(T0."LicTradNum",'-') = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,LOCATE(T0."LicTradNum",'-')-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum"
         WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' 
               AND A."U_BOTTD" = '01' 
               %Estado%
               %NumeroDocumento%
+        ORDER BY "U_BOTFE" DESC
 
   </GetInvoices>
 
@@ -146,98 +168,102 @@
   <BOT_InsertDocuments>
     
         CREATE PROCEDURE "BOT_InsertDocuments"
-    (
-	    prmProveedorTechnologico NVARCHAR(50),
-	    prmConsecutivoTFHKA NVARCHAR(50),
-	    prmCUFE NVARCHAR(250),
-	    prmStatusDIANCodigo NVARCHAR(50),
-	    prmStatusDIANDescripcion NVARCHAR(50),
-	    prmStatusDIANFecha NVARCHAR(50),
-	    prmFechaEmision NVARCHAR(50),
-	    prmFechaRecepcion NVARCHAR(50),
-	    prmHoraEmision NVARCHAR(50),
-	    prmMontoTotal NVARCHAR(50),
-	    prmNumeroFactura NVARCHAR(50),
-	    prmNumeroIdentificacion NVARCHAR(50),
-	    prmRazonSocial NVARCHAR(250),
-	    prmTipoDocumento NVARCHAR(50),
-	    prmTipoEmisor NVARCHAR(50),
-	    prmTipoIdentidad NVARCHAR(50),
-	    prmCodEstatusDIAN NVARCHAR(50),
-		prmPO NVARCHAR(30),
-        prmPathXML NVARCHAR(200),
-        prmPathPDF NVARCHAR(200)
-    )    
+        (
+	        prmProveedorTechnologico NVARCHAR(50),
+	        prmConsecutivoTFHKA NVARCHAR(50),
+	        prmCUFE NVARCHAR(250),
+	        prmStatusDIANCodigo NVARCHAR(50),
+	        prmStatusDIANDescripcion NVARCHAR(50),
+	        prmStatusDIANFecha NVARCHAR(50),
+	        prmFechaEmision NVARCHAR(50),
+	        prmFechaRecepcion NVARCHAR(50),
+	        prmHoraEmision NVARCHAR(50),
+	        prmMontoTotal NVARCHAR(50),
+	        prmNumeroFactura NVARCHAR(50),
+	        prmNumeroIdentificacion NVARCHAR(50),
+	        prmRazonSocial NVARCHAR(250),
+	        prmTipoDocumento NVARCHAR(50),
+	        prmTipoEmisor NVARCHAR(50),
+	        prmTipoIdentidad NVARCHAR(50),
+	        prmCodEstatusDIAN NVARCHAR(50),
+		    prmPO NVARCHAR(30),
+            prmPathXML NVARCHAR(200),
+            prmPathPDF NVARCHAR(200),
+            prmPayMead NVARCHAR(2)
 
-    LANGUAGE SQLSCRIPT AS
-    
-    Validation  INT;
-    Consecutivo NVARCHAR(20); 
+        )    
 
-    BEGIN
+        LANGUAGE SQLSCRIPT AS
     
-	    SELECT COUNT(*) INTO  Validation
-	    FROM "@BOTREDRPT" 
-	    WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;	    
+        Validation  INT;
+        Consecutivo NVARCHAR(20); 
+
+        BEGIN
+    
+	        SELECT COUNT(*) INTO  Validation
+	        FROM "@BOTREDRPT" 
+	        WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;	    
 	    
-	    IF :Validation = 0
-		    THEN 
-	    	    SELECT (CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100))) INTO Consecutivo 
-	    	    FROM "@BOTREDRPT";
+	        IF :Validation = 0
+		        THEN 
+	    	        SELECT (CAST(RIGHT('0000000000' || Ltrim(Rtrim(COUNT("Code")+1)),10) AS NVARCHAR(100))) INTO Consecutivo 
+	    	        FROM "@BOTREDRPT";
 	    	
-	    	    INSERT INTO "@BOTREDRPT" VALUES (
-	    										    :Consecutivo,
-	    										    :Consecutivo,
-	    										    :prmProveedorTechnologico,
-	    										    :prmConsecutivoTFHKA,
-	    										    :prmCUFE,
-	    										    :prmStatusDIANCodigo,
-	    										    :prmStatusDIANDescripcion,
-	    										    :prmStatusDIANFecha,
-	    										    :prmFechaEmision,
-	    										    :prmFechaRecepcion,
-	    										    :prmHoraEmision,
-	    										    :prmMontoTotal,
-	    										    :prmNumeroFactura,
-	    										    :prmNumeroIdentificacion,
-	    										    :prmRazonSocial,
-	    										    :prmTipoDocumento,
-	    										    :prmTipoEmisor,
-	    										    :prmTipoIdentidad,
-	    										    :prmCodEstatusDIAN,
-	    										    NULL,
-	    										    NULL,
-	    										    NULL,
-	    										    :prmPathXML,
-	    										    NULL,
-	    										    :prmPathPDF,
-	    										    NULL,
-													    :prmPO	    									
-	    									    );
-	    ELSE
-	    	IF (SELECT CASE WHEN :prmPathXML = '%PathXML%' THEN '1' ELSE '2' END FROM DUMMY) = '1'
-	    		THEN
+	    	        INSERT INTO "@BOTREDRPT" VALUES (
+	    										        :Consecutivo,
+	    										        :Consecutivo,
+	    										        :prmProveedorTechnologico,
+	    										        :prmConsecutivoTFHKA,
+	    										        :prmCUFE,
+	    										        :prmStatusDIANCodigo,
+	    										        :prmStatusDIANDescripcion,
+	    										        :prmStatusDIANFecha,
+	    										        :prmFechaEmision,
+	    										        :prmFechaRecepcion,
+	    										        :prmHoraEmision,
+	    										        :prmMontoTotal,
+	    										        :prmNumeroFactura,
+	    										        :prmNumeroIdentificacion,
+	    										        :prmRazonSocial,
+	    										        :prmTipoDocumento,
+	    										        :prmTipoEmisor,
+	    										        :prmTipoIdentidad,
+	    										        :prmCodEstatusDIAN,
+	    										        NULL,
+	    										        NULL,
+	    										        NULL,
+	    										        :prmPathXML,
+	    										        NULL,
+	    										        :prmPathPDF,
+	    										        NULL,
+													        :prmPO,
+													        NULL
+	    									        );
+	        ELSE
+	    	    IF (SELECT CASE WHEN :prmPathXML = '%PathXML%' THEN '1' ELSE '2' END FROM DUMMY) = '1'
+	    		    THEN
 	    			    	
-				    UPDATE "@BOTREDRPT" 
-				    SET "U_BOTSDC" = :prmStatusDIANCodigo,
-					    "U_BOTSDD" = :prmStatusDIANDescripcion,
-					    "U_BOTSDF" = :prmStatusDIANFecha
-				    WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;
+				        UPDATE "@BOTREDRPT" 
+				        SET "U_BOTSDC" = :prmStatusDIANCodigo,
+					        "U_BOTSDD" = :prmStatusDIANDescripcion,
+					        "U_BOTSDF" = :prmStatusDIANFecha
+				        WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;
 
-				ELSE
+				    ELSE
 
-					 UPDATE "@BOTREDRPT" 
-				     SET "U_BOTSDC" = :prmStatusDIANCodigo,
-					     "U_BOTSDD" = :prmStatusDIANDescripcion,
-					     "U_BOTSDF" = :prmStatusDIANFecha,
-			             "U_BOTPAXML" = (SELECT CASE WHEN :prmPathXML = '%PathXML%' THEN NULL ELSE :prmPathXML END FROM DUMMY),
-			             "U_BOTPAPDF" = (SELECT CASE WHEN :prmPathPDF = '%PathPDF%' THEN NULL ELSE :prmPathPDF END FROM DUMMY) 
-				     WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;
-			     END IF;
-		    END IF;
-      END;
-
-    
+					     UPDATE "@BOTREDRPT" 
+				         SET "U_BOTSDC" = :prmStatusDIANCodigo,
+					         "U_BOTSDD" = :prmStatusDIANDescripcion,
+					         "U_BOTSDF" = :prmStatusDIANFecha,
+			                 "U_BOTPAXML" = (SELECT CASE WHEN :prmPathXML = '%PathXML%' THEN NULL ELSE :prmPathXML END FROM DUMMY),
+			                 "U_BOTPAPDF" = (SELECT CASE WHEN :prmPathPDF = '%PathPDF%' THEN NULL ELSE :prmPathPDF END FROM DUMMY),
+			                 "U_HXPAYME" = :prmPayMead
+			             
+				         WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;
+			         END IF;
+		        END IF;
+          END;
+          
   </BOT_InsertDocuments>
 
   <BOT_SyncAttachment>

@@ -17533,831 +17533,6 @@ namespace eBilling
             }
         }
 
-        #endregion
-
-        public bool validacionEnviarCorreo(SAPbouiCOM.Application sboapp, SAPbobsCOM.Company _oCompany)
-        {
-            Funciones.Comunes DllFunciones = new Funciones.Comunes();
-
-            #region obtiene formulario correo 
-
-            SAPbouiCOM.Form oFormSM;
-            oFormSM = sboapp.Forms.Item("BO_SM");
-
-            #endregion
-
-            SAPbouiCOM.EditText txtEmail1 = (SAPbouiCOM.EditText)(oFormSM.Items.Item("txtEmail1").Specific);
-
-            if (string.IsNullOrEmpty(txtEmail1.Value.ToString()))
-            {
-                DllFunciones.sendMessageBox(sboapp, MessageSystemAddOn("FEE10008", sboapp, null));
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private bool DescargaXML(SAPbobsCOM.Company _oCompany, string _sPrefijoConDoc, string _tbxTokenEmpresa, string _tbxTokenPassword, string _sRutaXML)
-        {
-            Funciones.Comunes DllFunciones = new Funciones.Comunes();
-
-            try
-            {
-                #region Consulta URL
-
-                string sGetModo = null;
-                string sURLEmision = null;
-                string sURLAdjuntos = null;
-                string sModo = null;
-                string sRutaXML = null;
-                string sProtocoloComunicacion = null;
-
-                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetModoandURL");
-
-                sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
-
-                oConsultarGetModo.DoQuery(sGetModo);
-
-                sURLEmision = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/v1.0/Service.svc?wsdl";
-                sURLAdjuntos = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/adjuntos/Service.svc?wsdl";
-                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
-                sRutaXML = _sRutaXML.Replace(".txt", ".xml");
-                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
-
-
-                DllFunciones.liberarObjetos(oConsultarGetModo);
-
-                #endregion
-
-                #region Instanciacion parametros TFHKA
-
-                //Especifica el puerto (HTTP o HTTPS)
-                if (sProtocoloComunicacion == "HTTP")
-                {
-                    BasicHttpBinding port = new BasicHttpBinding();
-                }
-                else if (sProtocoloComunicacion == "HTTPS")
-                {
-                    BasicHttpsBinding port = new BasicHttpsBinding();
-                }
-
-                port.MaxBufferPoolSize = Int32.MaxValue;
-                port.MaxBufferSize = Int32.MaxValue;
-                port.MaxReceivedMessageSize = Int32.MaxValue;
-                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
-                port.SendTimeout = TimeSpan.FromMinutes(2);
-                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
-
-                if (sProtocoloComunicacion == "HTTPS")
-                {
-                    port.Security.Mode = BasicHttpSecurityMode.Transport;
-                }
-
-                //Especifica la dirección de conexion para Demo y Adjuntos para pruebas
-                EndpointAddress endPointEmision = new EndpointAddress(sURLEmision); //URL DEMO EMISION
-
-                ServicioEmisionFE.ServiceClient serviceClienTFHKA;
-
-                serviceClienTFHKA = new ServicioEmisionFE.ServiceClient(port, endPointEmision);
-
-                #endregion
-
-                DownloadXMLResponse xmlResponse;
-
-                xmlResponse = serviceClient.DescargaXML(_tbxTokenEmpresa, _tbxTokenPassword, _sPrefijoConDoc);
-
-                if (xmlResponse.codigo == 200)
-                {
-                    File.WriteAllBytes(sRutaXML, Convert.FromBase64String(xmlResponse.documento));
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-
-        }
-        
-        public void ActualizarEstadoDocumentos(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company oCompany, SAPbouiCOM.Form oFormVD)
-        {
-
-            Funciones.Comunes DllFunciones = new Funciones.Comunes();
-
-            #region Variables y Objetos
-
-            int ContadorInvoice = 0;
-            int iProcesar = 0;
-
-            SAPbouiCOM.Matrix oMatrixInvoice = (Matrix)oFormVD.Items.Item("MtxOINV").Specific;
-            SAPbouiCOM.Matrix oMatrixCreditMemo = (Matrix)oFormVD.Items.Item("MtxORIN").Specific;
-            SAPbouiCOM.Matrix oMatrixDebitMemo = (Matrix)oFormVD.Items.Item("MtxOINVD").Specific;
-
-            #endregion
-
-            ContadorInvoice = oMatrixInvoice.RowCount + oMatrixCreditMemo.RowCount + oMatrixDebitMemo.RowCount;
-
-            if (ContadorInvoice > 0)
-            {
-                iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se enviara a la DIAN los documentos pendientes, esta seguro ? ");
-
-                if (iProcesar == 1)
-                {
-                    #region Enviando Facturas de Venta
-
-                    for (int i = 1; i <= oMatrixInvoice.RowCount; i++)
-                    {
-                        DllFunciones.ProgressBar(oCompany, _sboapp, ContadorInvoice, 1, "Enviando la factura de venta No. " + ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_1").Cells.Item(i).Specific)).Value);
-
-                        EnviarDocumentosMasivamenteTFHKA(sboapp, oCompany, oFormVD, "FacturaDeClientes", "M", i);
-                    }
-
-                    #endregion
-
-                    #region Enviando Notas Credito de Venta
-
-                    for (int j = 1; j <= oMatrixCreditMemo.RowCount; j++)
-                    {
-                        DllFunciones.ProgressBar(oCompany, _sboapp, ContadorInvoice, 1, "Enviando la Nota Credito de Venta No. " + ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_1").Cells.Item(j).Specific)).Value);
-
-                        EnviarDocumentosMasivamenteTFHKA(sboapp, oCompany, oFormVD, "NotaCreditoClientes", "M", j);
-                    }
-
-                    #endregion
-
-                    #region Enviando Notas Debito de Cliente
-
-                    for (int k = 1; k <= oMatrixDebitMemo.RowCount; k++)
-                    {
-                        DllFunciones.ProgressBar(oCompany, _sboapp, ContadorInvoice, 1, "Enviando la Nota Debito No. " + ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_1").Cells.Item(k).Specific)).Value);
-
-                        EnviarDocumentosMasivamenteTFHKA(sboapp, oCompany, oFormVD, "NotaDebitoClientes", "M", k);
-                    }
-
-                    #endregion
-
-                    DllFunciones.sendMessageBox(_sboapp, "Todos los documentos fueron enviados correctamente");
-                }
-            }
-        }
-
-        public void InsertSendEmail(SAPbobsCOM.Company _oCompany, SAPbobsCOM.Recordset _oCabecera, string _sCountsEmails, string _sDocEntry, string _sObjecType)
-        {
-            Funciones.Comunes DllFunciones = new Funciones.Comunes();
-            try
-            {
-
-                if (Convert.ToString(_oCabecera.Fields.Item("notificar").Value.ToString()) == "SI")
-                {
-                    #region Variables y objetos
-
-                    SAPbobsCOM.Recordset oConsultaDoc = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                    #endregion
-
-                    #region Consulta si ya se guardo el correo en la tablas de correos
-
-                    _sCountsEmails = _sCountsEmails.Replace("%DocEntry%", _sDocEntry).Replace("%ObjecType%", _sObjecType);
-
-                    oConsultaDoc.DoQuery(_sCountsEmails);
-
-                    #endregion
-
-                    if (oConsultaDoc.RecordCount > 0)
-                    {
-
-                    }
-                    else
-                    {
-                        #region Inserta el correo en la tablas de correos
-
-                        #region Variables y objetos
-
-                        string _sSerachNextCode;
-
-                        SAPbobsCOM.Recordset oSerachNextCode = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                        _sSerachNextCode = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "SerachNextCode");
-
-                        oSerachNextCode.DoQuery(_sSerachNextCode);
-
-                        #endregion
-
-                        #region Asignacion de valores
-
-                        SAPbobsCOM.UserTable oUserTable;
-
-                        oUserTable = _oCompany.UserTables.Item("BOEE");
-                        oUserTable.Code = Convert.ToString(oSerachNextCode.Fields.Item("ID").Value.ToString());
-                        oUserTable.Name = Convert.ToString(oSerachNextCode.Fields.Item("ID").Value.ToString());
-                        oUserTable.UserFields.Fields.Item("U_BO_DocEntry").Value = _sDocEntry;
-                        oUserTable.UserFields.Fields.Item("U_BO_ObjecType").Value = _sObjecType;
-
-                        #region Asignacion Correo 1
-
-                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega1").Value.ToString())))
-                        {
-
-                        }
-                        else
-                        {
-                            oUserTable.UserFields.Fields.Item("U_BO_Email1").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega1").Value.ToString());
-                        }
-
-                        #endregion
-
-                        #region Asignacion Correo 2
-
-                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega2").Value.ToString())))
-                        {
-
-                        }
-                        else
-                        {
-                            oUserTable.UserFields.Fields.Item("U_BO_Email2").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega2").Value.ToString());
-                        }
-
-                        #endregion
-
-                        #region Asignacion Correo 3
-
-                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega3").Value.ToString())))
-                        {
-
-                        }
-                        else
-                        {
-                            oUserTable.UserFields.Fields.Item("U_BO_Email3").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega3").Value.ToString());
-                        }
-
-                        #endregion
-
-                        #region Asignacion Correo 4
-
-                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega4").Value.ToString())))
-                        {
-
-                        }
-                        else
-                        {
-                            oUserTable.UserFields.Fields.Item("U_BO_Email4").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega4").Value.ToString());
-                        }
-
-                        #endregion
-
-                        #region Asignacion Correo 5
-
-                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega5").Value.ToString())))
-                        {
-
-                        }
-                        else
-                        {
-                            oUserTable.UserFields.Fields.Item("U_BO_Email5").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega5").Value.ToString());
-                        }
-
-                        #endregion
-
-                        #endregion
-
-                        oUserTable.Add();
-
-                        #endregion
-
-                        DllFunciones.liberarObjetos(oSerachNextCode);
-
-                    }
-
-                    DllFunciones.liberarObjetos(oConsultaDoc);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
-        }
-
-        public Boolean ExportPDF(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string _RutaQR, string _CadenaQR, string _RutaPDFyXML, string _DocEntry, string _RutaCR, string __TipoDocumento, string _sUserDB, string _sPassDB)
-        {
-            Funciones.Comunes DllFunciones = new Funciones.Comunes();
-
-            try
-            {
-                #region Variables  y objetos
-
-                string sGetRPTDoc = null;
-                string sGetRPTBusinessPartnerd = null;
-                string sRutaLayout = null;
-                string _sMotorDB = null;
-                string _sServer = null;
-                string _sNameDB = null;
-                string _sTenanDB = null;
-                string _sTipo = null;
-                string _UserId = null;
-                string _strConnection = null;
-                string _sArquitectura = null;
-                string sFormatoMaster = null;
-                string sRPTisSAPCCC = null;
-
-                if (__TipoDocumento == "FacturaDeClientes")
-                {
-                    _sTipo = "INV2";
-                }
-                else if (__TipoDocumento == "NotaCreditoClientes")
-                {
-                    _sTipo = "RIN2";
-                }
-                else if (__TipoDocumento == "NotaDebitoClientes")
-                {
-                    _sTipo = "IDN2";
-                }
-                else if (__TipoDocumento == "FacturaDeProveedores")
-                {
-                    _sTipo = "PCH2";
-                }
-
-                SAPbobsCOM.Recordset oRGetRPTDoc = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-                SAPbobsCOM.Recordset oRsSearchSAPCCC = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-                //SAPbobsCOM.Recordset oGetRPTBusinessPartnerd = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                #endregion
-
-                #region Consulta si es SAP CLoud Control Center el Crystal Report 
-
-                string sRsSearchSAPCCC = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetParametersSAPCCC");
-
-                oRsSearchSAPCCC.DoQuery(sRsSearchSAPCCC);                
-
-                sRPTisSAPCCC = Convert.ToString(oRsSearchSAPCCC.Fields.Item("IsSAPCCC").Value.ToString());
-
-                #endregion
-
-                #region Consulta del Motor de Base de datos Y Nombre Base de datos y arquitectura
-
-                _sMotorDB = Convert.ToString(_oCompany.DbServerType);
-                _sNameDB = Convert.ToString(_oCompany.CompanyDB);
-                _sServer = Convert.ToString(_oCompany.Server);
-                _sArquitectura = Convert.ToString(System.IntPtr.Size);
-
-                #endregion
-
-                #region Consulta del nombre del Formato RPT y la ruta donde se encuentra ubicado el RPT
-
-                _UserId = Convert.ToString(_oCompany.UserSignature);
-
-                #region RPT por Business Partnerd
-
-                //sGetRPTBusinessPartnerd = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetRPTDocBusinessPartnerd");
-                //sGetRPTBusinessPartnerd = sGetRPTBusinessPartnerd.Replace("%TypeDoc%", _sTipo).Replace("%UserId%", _UserId).Replace("%DocEntry%", _DocEntry);
-
-                //oGetRPTBusinessPartnerd.DoQuery(sGetRPTBusinessPartnerd);
-
-                #endregion
-
-                //if (oGetRPTBusinessPartnerd.RecordCount > 0)
-                //{
-
-                //}
-                //else
-                //{
-                #region RPT por Usuario
-
-                sGetRPTDoc = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetRPTDocUser");
-                sGetRPTDoc = sGetRPTDoc.Replace("%TypeDoc%", _sTipo).Replace("%UserId%", _UserId).Replace("%DocEntry%", _DocEntry);
-
-                oRGetRPTDoc.DoQuery(sGetRPTDoc);
-
-                #endregion
-
-                if (oRGetRPTDoc.RecordCount > 0)
-                {
-
-                }
-                else
-                {
-                    sGetRPTDoc = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetRPTDoc");
-                    sGetRPTDoc = sGetRPTDoc.Replace("%TypeDoc%", _sTipo).Replace("%DocEntry%", _DocEntry);
-
-                    oRGetRPTDoc.DoQuery(sGetRPTDoc);
-                }
-                //}
-
-                sRutaLayout = _RutaCR + "\\" + Convert.ToString(oRGetRPTDoc.Fields.Item("NombreFormato").Value.ToString()) + ".rpt";
-                sFormatoMaster = Convert.ToString(oRGetRPTDoc.Fields.Item("FormatoMaster").Value.ToString());
-
-                #endregion
-
-                #region Generacion del PDF
-
-                if (_sMotorDB == "dst_HANADB")
-                {
-                    //64X
-                    if (_sArquitectura == "8")
-                    {
-                        if (sRPTisSAPCCC == "Y")
-                        {
-                            #region Genera el PDF con cliente SAP a 64X
-
-                            ReportDocument LayoutPDF = new ReportDocument();
-
-                            LayoutPDF.Load(sRutaLayout);
-
-                            LayoutPDF.DataSourceConnections.Clear();
-
-                            _sServer = Convert.ToString(_oCompany.SLDServer);
-                            _sServer = _sServer.Replace(":40000", ":30015");
-
-                            _sTenanDB = Convert.ToString(_oCompany.Server);
-
-                            int indexTenat = _sTenanDB.IndexOf("@");
-
-                            if (indexTenat == -1)
-                            {
-                                _sTenanDB = "NDB";
-                            }
-                            else
-                            {
-                                _sTenanDB = _sTenanDB.Substring(0, indexTenat);
-                            }
-                            
-                            string sCadenaCCR = Convert.ToString(oRsSearchSAPCCC.Fields.Item("CadenaCCR").Value.ToString());
-                            _strConnection = sCadenaCCR;
-
-                            NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
-                            logonProps2.Set("Provider", "B1CRHPROXY");
-                            logonProps2.Set("Server Type", "B1CRHPROXY");
-                            logonProps2.Set("Connection String", _strConnection);
-
-                            LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
-
-                            _sServer = Convert.ToString(_oCompany.SLDServer);
-                            _sServer = _sServer.Replace(":40000", ":30013");
-
-                            string sServidorCCR = Convert.ToString(oRsSearchSAPCCC.Fields.Item("ServidorCCR").Value.ToString());
-
-                            LayoutPDF.DataSourceConnections[0].SetConnection(sServidorCCR, _sNameDB, false);
-
-                            LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
-                            LayoutPDF.SetParameterValue("Schema@", _sNameDB);
-
-                            if (sFormatoMaster == "Y")
-                            {
-
-                                if (_sTipo == "INV2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
-                                }
-                                else if (_sTipo == "RIN2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "14");
-                                }
-                                else if (_sTipo == "IDN2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
-                                }
-                                else if (_sTipo == "PCH2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "18");
-                                }
-                            }
-
-                            LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
-
-                            LayoutPDF.Close();
-
-                            LayoutPDF.Dispose();
-
-                            GC.SuppressFinalize(LayoutPDF);
-
-                            #endregion                            
-                        }
-                        else
-                        {
-                            #region Genera el PDF con cliente SAP a 64X
-
-                            ReportDocument LayoutPDF = new ReportDocument();
-
-                            LayoutPDF.Load(sRutaLayout);
-
-                            LayoutPDF.DataSourceConnections.Clear();
-
-                            _sServer = Convert.ToString(_oCompany.SLDServer);
-                            _sServer = _sServer.Replace(":40000", ":30015");
-
-                            _sTenanDB = Convert.ToString(_oCompany.Server);
-
-                            int indexTenat = _sTenanDB.IndexOf("@");
-
-                            if (indexTenat == -1)
-                            {
-                                _sTenanDB = "NDB";
-                            }
-                            else
-                            {
-                                _sTenanDB = _sTenanDB.Substring(0, indexTenat);
-                            }
-
-                            _strConnection = string.Format("DRIVER={0};SERVERNODE={1};DATABASENAME={2};DATABASE={3};UID={4};PWD={5};", "{B1CRHPROXY}", _sServer, _sTenanDB, _sNameDB, _sUserDB, _sPassDB);
-                            
-                            NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
-                            logonProps2.Set("Provider", "B1CRHPROXY");
-                            logonProps2.Set("Server Type", "B1CRHPROXY");
-                            logonProps2.Set("Connection String", _strConnection);
-
-                            LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
-
-                            _sServer = Convert.ToString(_oCompany.SLDServer);
-                            _sServer = _sServer.Replace(":40000", ":30013");
-
-                            LayoutPDF.DataSourceConnections[0].SetConnection(_sServer, _sNameDB, false);
-
-                            LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
-                            LayoutPDF.SetParameterValue("Schema@", _sNameDB);
-
-                            if (sFormatoMaster == "Y")
-                            {
-                                if (_sTipo == "INV2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
-                                }
-                                else if (_sTipo == "RIN2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "14");
-                                }
-                                else if (_sTipo == "IDN2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
-                                }
-                                else if (_sTipo == "PCH2")
-                                {
-                                    LayoutPDF.SetParameterValue("ObjectId@", "18");
-                                }
-                            }
-
-                            LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
-
-                            LayoutPDF.Close();
-
-                            LayoutPDF.Dispose();
-
-                            GC.SuppressFinalize(LayoutPDF);
-
-                            #endregion
-                                                        
-                        }
-                    }
-                    else if (_sArquitectura == "4")
-                    {
-                        #region Genera el PDF con cliente SAP a 32X
-
-                        ReportDocument LayoutPDF = new ReportDocument();
-
-                        LayoutPDF.Load(sRutaLayout);
-
-                        LayoutPDF.DataSourceConnections.Clear();
-
-                        _sServer = Convert.ToString(_oCompany.SLDServer);
-                        _sServer = _sServer.Replace(":40000", ":30015");
-
-                        _sTenanDB = Convert.ToString(_oCompany.Server);
-
-                        int indexTenat = _sTenanDB.IndexOf("@");
-
-                        if (indexTenat == -1)
-                        {
-                            _sTenanDB = "NDB";
-                        }
-                        else
-                        {
-                            _sTenanDB = _sTenanDB.Substring(0, indexTenat);
-                        }
-
-                        _strConnection = string.Format("DRIVER={0};SERVERNODE={1};DATABASENAME={2};DATABASE={3};UID={4};PWD={5};", "{B1CRHPROXY32}", _sServer, _sTenanDB, _sNameDB, _sUserDB, _sPassDB);
-                        //_strConnection =               "DRIVER={B1CRHPROXY};SERVERNODE=192.168.0.202:30015;DATABASENAME=NDB;DATABASE=ESFERA_COLOR;UID=SYSTEM;PWD=Asdf1234$";                        
-
-
-                        NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
-                        logonProps2.Set("Provider", "B1CRHPROXY32");
-                        logonProps2.Set("Server Type", "B1CRHPROXY32");
-                        logonProps2.Set("Connection String", _strConnection);
-
-                        LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
-
-                        _sServer = Convert.ToString(_oCompany.SLDServer);
-                        _sServer = _sServer.Replace(":40000", ":30013");
-
-                        LayoutPDF.DataSourceConnections[0].SetConnection(_sServer, _sNameDB, false);
-
-                        LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
-                        LayoutPDF.SetParameterValue("Schema@", _sNameDB);
-
-                        if (sFormatoMaster == "Y")
-                        {
-                            if (_sTipo == "INV2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "13");
-                            }
-                            else if (_sTipo == "RIN2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "14");
-                            }
-                            else if (_sTipo == "IDN2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "13");
-                            }
-                            else if (_sTipo == "PCH2")
-                            {
-                                LayoutPDF.SetParameterValue("ObjectId@", "18");
-                            }
-                        }
-
-                        LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
-
-                        LayoutPDF.Close();
-
-                        LayoutPDF.Dispose();
-
-                        GC.SuppressFinalize(LayoutPDF);
-
-                        #endregion
-                    }
-                }
-                else
-                {
-                    #region Genera el PDF con cliente SAP a 32x o 64x
-
-                    ReportDocument LayoutPDF = new ReportDocument();
-
-                    DiskFileDestinationOptions DestinoDocumento = new DiskFileDestinationOptions();
-                    PdfRtfWordFormatOptions OpcionesPDF = new PdfRtfWordFormatOptions();
-
-                    LayoutPDF.Load(sRutaLayout);
-
-                    int Contador = LayoutPDF.DataSourceConnections.Count;
-                    LayoutPDF.DataSourceConnections[0].IntegratedSecurity = false;
-                    LayoutPDF.DataSourceConnections[0].SetLogon(_sUserDB, _sPassDB);
-                    ExportOptions OpExport = LayoutPDF.ExportOptions;
-                    OpExport.ExportDestinationType = ExportDestinationType.DiskFile;
-                    OpExport.ExportFormatType = ExportFormatType.PortableDocFormat;
-                    DestinoDocumento.DiskFileName = _RutaPDFyXML;
-                    OpExport.ExportDestinationOptions = (ExportDestinationOptions)DestinoDocumento;
-                    OpExport.ExportFormatOptions = (ExportFormatOptions)OpcionesPDF;
-
-                    LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
-
-                    LayoutPDF.Export();
-
-                    LayoutPDF.Close();
-
-                    LayoutPDF.Dispose();
-
-                    GC.SuppressFinalize(LayoutPDF);
-
-                    #endregion
-                }
-
-                #endregion
-
-                #region Libreacion de Objetos
-
-                DllFunciones.liberarObjetos(oRGetRPTDoc);
-                //DllFunciones.liberarObjetos(oGetRPTBusinessPartnerd);
-
-                #endregion
-
-            }
-            catch (Exception e)
-            {
-                DllFunciones.sendErrorMessage(_sboapp, e);
-            }
-
-            return true;
-        }
-
-        public void ConsultaTokens(SAPbobsCOM.Company _oCompany, SAPbouiCOM.Application sboapp, SAPbouiCOM.Form _oFormParametros)
-        {
-            Funciones.Comunes DllFunciones = new Funciones.Comunes();
-
-            try
-            {
-                #region Consulta URL
-
-                string sGetModo = null;
-                string sURLEmision = null;
-                string sURLAdjuntos = null;
-                string sModo = null;
-                string sDocEntry = null;
-                string sProtocoloComunicacion = null;
-
-                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-                sDocEntry = ((SAPbouiCOM.EditText)(_oFormParametros.Items.Item("txtCode").Specific)).Value.ToString();
-
-                sDocEntry = sDocEntry.Trim();
-
-                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetModoandURL");
-
-                sGetModo = sGetModo.Replace("%Estado%", " ").Replace("%DocEntry%", "\"DocEntry\" = '" + sDocEntry + "'");
-
-                oConsultarGetModo.DoQuery(sGetModo);
-
-                sURLEmision = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/v1.0/Service.svc?wsdl";
-                sURLAdjuntos = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/adjuntos/Service.svc?wsdl";
-                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
-                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
-
-                DllFunciones.liberarObjetos(oConsultarGetModo);
-
-                #endregion
-
-                #region Instanciacion parametros TFHKA
-
-                //Especifica el puerto (HTTP o HTTPS)
-                if (sProtocoloComunicacion == "HTTP")
-                {
-                    BasicHttpBinding port = new BasicHttpBinding();
-                }
-                else if (sProtocoloComunicacion == "HTTPS")
-                {
-                    BasicHttpsBinding port = new BasicHttpsBinding();
-                }
-
-                port.MaxBufferPoolSize = Int32.MaxValue;
-                port.MaxBufferSize = Int32.MaxValue;
-                port.MaxReceivedMessageSize = Int32.MaxValue;
-                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
-                port.SendTimeout = TimeSpan.FromMinutes(2);
-                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
-
-                if (sProtocoloComunicacion == "HTTPS")
-                {
-                    port.Security.Mode = BasicHttpSecurityMode.Transport;
-                }
-
-                //Especifica la dirección de conexion para Demo y Adjuntos para pruebas
-                EndpointAddress endPointEmision = new EndpointAddress(sURLEmision); //URL DEMO EMISION
-
-                ServicioEmisionFE.ServiceClient serviceClienTFHKA;
-
-                serviceClienTFHKA = new ServicioEmisionFE.ServiceClient(port, endPointEmision);
-
-                #endregion
-
-                #region Variables y Objetos
-
-                SAPbouiCOM.EditText otxtFol;
-                SAPbouiCOM.EditText otxtLlE;
-                SAPbouiCOM.EditText otxtPwdE;
-
-                otxtFol = (EditText)_oFormParametros.Items.Item("txtFol").Specific;
-                otxtLlE = (EditText)_oFormParametros.Items.Item("txtLlE").Specific;
-                otxtPwdE = (EditText)_oFormParametros.Items.Item("txtPwdE").Specific;
-
-                #endregion
-
-                FoliosRemainingResponse Tokens = serviceClienTFHKA.FoliosRestantes(otxtLlE.Value, otxtPwdE.Value);
-
-                if (Tokens.codigo == 200)
-                {
-                    #region Actualiza los campos en el formulario
-
-                    otxtFol.Value = Convert.ToString(Tokens.foliosRestantes);
-                    otxtFol.Item.Enabled = false;
-                    _oFormParametros.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-                    _oFormParametros.Refresh();
-                    DllFunciones.sendMessageBox(sboapp, "Tokens sincronizados con TFHKA correctamente");
-
-                    #endregion
-
-                }
-                else
-                {
-                    DllFunciones.sendMessageBox(sboapp, Tokens.mensaje);
-                }
-
-            }
-            catch (Exception e)
-            {
-
-                DllFunciones.sendMessageBox(sboapp, e.Message);
-
-            }
-        }
-
         private FacturaGeneral oBuillInvoice(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oLineas, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oImpuestosTotales, SAPbobsCOM.Recordset oCargosyDecuentos, SAPbobsCOM.Recordset OCUFEInvoice, string ___TipoDocumento, SAPbobsCOM.Company _oCompany)
         {
             #region Instanciacion
@@ -19411,6 +18586,833 @@ namespace eBilling
             return FacturadeVenta;
 
         }
+
+        #endregion
+
+        public bool validacionEnviarCorreo(SAPbouiCOM.Application sboapp, SAPbobsCOM.Company _oCompany)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            #region obtiene formulario correo 
+
+            SAPbouiCOM.Form oFormSM;
+            oFormSM = sboapp.Forms.Item("BO_SM");
+
+            #endregion
+
+            SAPbouiCOM.EditText txtEmail1 = (SAPbouiCOM.EditText)(oFormSM.Items.Item("txtEmail1").Specific);
+
+            if (string.IsNullOrEmpty(txtEmail1.Value.ToString()))
+            {
+                DllFunciones.sendMessageBox(sboapp, MessageSystemAddOn("FEE10008", sboapp, null));
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private bool DescargaXML(SAPbobsCOM.Company _oCompany, string _sPrefijoConDoc, string _tbxTokenEmpresa, string _tbxTokenPassword, string _sRutaXML)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            try
+            {
+                #region Consulta URL
+
+                string sGetModo = null;
+                string sURLEmision = null;
+                string sURLAdjuntos = null;
+                string sModo = null;
+                string sRutaXML = null;
+                string sProtocoloComunicacion = null;
+
+                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetModoandURL");
+
+                sGetModo = sGetModo.Replace("%Estado%", "\"U_BO_Status\" = 'Y'").Replace("%DocEntry%", " ");
+
+                oConsultarGetModo.DoQuery(sGetModo);
+
+                sURLEmision = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/v1.0/Service.svc?wsdl";
+                sURLAdjuntos = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/adjuntos/Service.svc?wsdl";
+                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+                sRutaXML = _sRutaXML.Replace(".txt", ".xml");
+                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+
+
+                DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                #endregion
+
+                #region Instanciacion parametros TFHKA
+
+                //Especifica el puerto (HTTP o HTTPS)
+                if (sProtocoloComunicacion == "HTTP")
+                {
+                    BasicHttpBinding port = new BasicHttpBinding();
+                }
+                else if (sProtocoloComunicacion == "HTTPS")
+                {
+                    BasicHttpsBinding port = new BasicHttpsBinding();
+                }
+
+                port.MaxBufferPoolSize = Int32.MaxValue;
+                port.MaxBufferSize = Int32.MaxValue;
+                port.MaxReceivedMessageSize = Int32.MaxValue;
+                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                port.SendTimeout = TimeSpan.FromMinutes(2);
+                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                if (sProtocoloComunicacion == "HTTPS")
+                {
+                    port.Security.Mode = BasicHttpSecurityMode.Transport;
+                }
+
+                //Especifica la dirección de conexion para Demo y Adjuntos para pruebas
+                EndpointAddress endPointEmision = new EndpointAddress(sURLEmision); //URL DEMO EMISION
+
+                ServicioEmisionFE.ServiceClient serviceClienTFHKA;
+
+                serviceClienTFHKA = new ServicioEmisionFE.ServiceClient(port, endPointEmision);
+
+                #endregion
+
+                DownloadXMLResponse xmlResponse;
+
+                xmlResponse = serviceClient.DescargaXML(_tbxTokenEmpresa, _tbxTokenPassword, _sPrefijoConDoc);
+
+                if (xmlResponse.codigo == 200)
+                {
+                    File.WriteAllBytes(sRutaXML, Convert.FromBase64String(xmlResponse.documento));
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
+        }
+        
+        public void ActualizarEstadoDocumentos(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company oCompany, SAPbouiCOM.Form oFormVD)
+        {
+
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            #region Variables y Objetos
+
+            int ContadorInvoice = 0;
+            int iProcesar = 0;
+
+            SAPbouiCOM.Matrix oMatrixInvoice = (Matrix)oFormVD.Items.Item("MtxOINV").Specific;
+            SAPbouiCOM.Matrix oMatrixCreditMemo = (Matrix)oFormVD.Items.Item("MtxORIN").Specific;
+            SAPbouiCOM.Matrix oMatrixDebitMemo = (Matrix)oFormVD.Items.Item("MtxOINVD").Specific;
+
+            #endregion
+
+            ContadorInvoice = oMatrixInvoice.RowCount + oMatrixCreditMemo.RowCount + oMatrixDebitMemo.RowCount;
+
+            if (ContadorInvoice > 0)
+            {
+                iProcesar = DllFunciones.sendMessageBoxY_N(_sboapp, "Se enviara a la DIAN los documentos pendientes, esta seguro ? ");
+
+                if (iProcesar == 1)
+                {
+                    #region Enviando Facturas de Venta
+
+                    for (int i = 1; i <= oMatrixInvoice.RowCount; i++)
+                    {
+                        DllFunciones.ProgressBar(oCompany, _sboapp, ContadorInvoice, 1, "Enviando la factura de venta No. " + ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_1").Cells.Item(i).Specific)).Value);
+
+                        EnviarDocumentosMasivamenteTFHKA(sboapp, oCompany, oFormVD, "FacturaDeClientes", "M", i);
+                    }
+
+                    #endregion
+
+                    #region Enviando Notas Credito de Venta
+
+                    for (int j = 1; j <= oMatrixCreditMemo.RowCount; j++)
+                    {
+                        DllFunciones.ProgressBar(oCompany, _sboapp, ContadorInvoice, 1, "Enviando la Nota Credito de Venta No. " + ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_1").Cells.Item(j).Specific)).Value);
+
+                        EnviarDocumentosMasivamenteTFHKA(sboapp, oCompany, oFormVD, "NotaCreditoClientes", "M", j);
+                    }
+
+                    #endregion
+
+                    #region Enviando Notas Debito de Cliente
+
+                    for (int k = 1; k <= oMatrixDebitMemo.RowCount; k++)
+                    {
+                        DllFunciones.ProgressBar(oCompany, _sboapp, ContadorInvoice, 1, "Enviando la Nota Debito No. " + ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_1").Cells.Item(k).Specific)).Value);
+
+                        EnviarDocumentosMasivamenteTFHKA(sboapp, oCompany, oFormVD, "NotaDebitoClientes", "M", k);
+                    }
+
+                    #endregion
+
+                    DllFunciones.sendMessageBox(_sboapp, "Todos los documentos fueron enviados correctamente");
+                }
+            }
+        }
+
+        public void InsertSendEmail(SAPbobsCOM.Company _oCompany, SAPbobsCOM.Recordset _oCabecera, string _sCountsEmails, string _sDocEntry, string _sObjecType)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+            try
+            {
+
+                if (Convert.ToString(_oCabecera.Fields.Item("notificar").Value.ToString()) == "SI")
+                {
+                    #region Variables y objetos
+
+                    SAPbobsCOM.Recordset oConsultaDoc = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    #endregion
+
+                    #region Consulta si ya se guardo el correo en la tablas de correos
+
+                    _sCountsEmails = _sCountsEmails.Replace("%DocEntry%", _sDocEntry).Replace("%ObjecType%", _sObjecType);
+
+                    oConsultaDoc.DoQuery(_sCountsEmails);
+
+                    #endregion
+
+                    if (oConsultaDoc.RecordCount > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        #region Inserta el correo en la tablas de correos
+
+                        #region Variables y objetos
+
+                        string _sSerachNextCode;
+
+                        SAPbobsCOM.Recordset oSerachNextCode = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                        _sSerachNextCode = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "SerachNextCode");
+
+                        oSerachNextCode.DoQuery(_sSerachNextCode);
+
+                        #endregion
+
+                        #region Asignacion de valores
+
+                        SAPbobsCOM.UserTable oUserTable;
+
+                        oUserTable = _oCompany.UserTables.Item("BOEE");
+                        oUserTable.Code = Convert.ToString(oSerachNextCode.Fields.Item("ID").Value.ToString());
+                        oUserTable.Name = Convert.ToString(oSerachNextCode.Fields.Item("ID").Value.ToString());
+                        oUserTable.UserFields.Fields.Item("U_BO_DocEntry").Value = _sDocEntry;
+                        oUserTable.UserFields.Fields.Item("U_BO_ObjecType").Value = _sObjecType;
+
+                        #region Asignacion Correo 1
+
+                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega1").Value.ToString())))
+                        {
+
+                        }
+                        else
+                        {
+                            oUserTable.UserFields.Fields.Item("U_BO_Email1").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega1").Value.ToString());
+                        }
+
+                        #endregion
+
+                        #region Asignacion Correo 2
+
+                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega2").Value.ToString())))
+                        {
+
+                        }
+                        else
+                        {
+                            oUserTable.UserFields.Fields.Item("U_BO_Email2").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega2").Value.ToString());
+                        }
+
+                        #endregion
+
+                        #region Asignacion Correo 3
+
+                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega3").Value.ToString())))
+                        {
+
+                        }
+                        else
+                        {
+                            oUserTable.UserFields.Fields.Item("U_BO_Email3").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega3").Value.ToString());
+                        }
+
+                        #endregion
+
+                        #region Asignacion Correo 4
+
+                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega4").Value.ToString())))
+                        {
+
+                        }
+                        else
+                        {
+                            oUserTable.UserFields.Fields.Item("U_BO_Email4").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega4").Value.ToString());
+                        }
+
+                        #endregion
+
+                        #region Asignacion Correo 5
+
+                        if (string.IsNullOrWhiteSpace(Convert.ToString(_oCabecera.Fields.Item("correoEntrega5").Value.ToString())))
+                        {
+
+                        }
+                        else
+                        {
+                            oUserTable.UserFields.Fields.Item("U_BO_Email5").Value = Convert.ToString(_oCabecera.Fields.Item("correoEntrega5").Value.ToString());
+                        }
+
+                        #endregion
+
+                        #endregion
+
+                        oUserTable.Add();
+
+                        #endregion
+
+                        DllFunciones.liberarObjetos(oSerachNextCode);
+
+                    }
+
+                    DllFunciones.liberarObjetos(oConsultaDoc);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        public Boolean ExportPDF(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string _RutaQR, string _CadenaQR, string _RutaPDFyXML, string _DocEntry, string _RutaCR, string __TipoDocumento, string _sUserDB, string _sPassDB)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            try
+            {
+                #region Variables  y objetos
+
+                string sGetRPTDoc = null;
+                string sGetRPTBusinessPartnerd = null;
+                string sRutaLayout = null;
+                string _sMotorDB = null;
+                string _sServer = null;
+                string _sNameDB = null;
+                string _sTenanDB = null;
+                string _sTipo = null;
+                string _UserId = null;
+                string _strConnection = null;
+                string _sArquitectura = null;
+                string sFormatoMaster = null;
+                string sRPTisSAPCCC = null;
+
+                if (__TipoDocumento == "FacturaDeClientes")
+                {
+                    _sTipo = "INV2";
+                }
+                else if (__TipoDocumento == "NotaCreditoClientes")
+                {
+                    _sTipo = "RIN2";
+                }
+                else if (__TipoDocumento == "NotaDebitoClientes")
+                {
+                    _sTipo = "IDN2";
+                }
+                else if (__TipoDocumento == "FacturaDeProveedores")
+                {
+                    _sTipo = "PCH2";
+                }
+
+                SAPbobsCOM.Recordset oRGetRPTDoc = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                SAPbobsCOM.Recordset oRsSearchSAPCCC = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                //SAPbobsCOM.Recordset oGetRPTBusinessPartnerd = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                #endregion
+
+                #region Consulta si es SAP CLoud Control Center el Crystal Report 
+
+                string sRsSearchSAPCCC = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetParametersSAPCCC");
+
+                oRsSearchSAPCCC.DoQuery(sRsSearchSAPCCC);                
+
+                sRPTisSAPCCC = Convert.ToString(oRsSearchSAPCCC.Fields.Item("IsSAPCCC").Value.ToString());
+
+                #endregion
+
+                #region Consulta del Motor de Base de datos Y Nombre Base de datos y arquitectura
+
+                _sMotorDB = Convert.ToString(_oCompany.DbServerType);
+                _sNameDB = Convert.ToString(_oCompany.CompanyDB);
+                _sServer = Convert.ToString(_oCompany.Server);
+                _sArquitectura = Convert.ToString(System.IntPtr.Size);
+
+                #endregion
+
+                #region Consulta del nombre del Formato RPT y la ruta donde se encuentra ubicado el RPT
+
+                _UserId = Convert.ToString(_oCompany.UserSignature);
+
+                #region RPT por Business Partnerd
+
+                //sGetRPTBusinessPartnerd = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetRPTDocBusinessPartnerd");
+                //sGetRPTBusinessPartnerd = sGetRPTBusinessPartnerd.Replace("%TypeDoc%", _sTipo).Replace("%UserId%", _UserId).Replace("%DocEntry%", _DocEntry);
+
+                //oGetRPTBusinessPartnerd.DoQuery(sGetRPTBusinessPartnerd);
+
+                #endregion
+
+                //if (oGetRPTBusinessPartnerd.RecordCount > 0)
+                //{
+
+                //}
+                //else
+                //{
+                #region RPT por Usuario
+
+                sGetRPTDoc = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetRPTDocUser");
+                sGetRPTDoc = sGetRPTDoc.Replace("%TypeDoc%", _sTipo).Replace("%UserId%", _UserId).Replace("%DocEntry%", _DocEntry);
+
+                oRGetRPTDoc.DoQuery(sGetRPTDoc);
+
+                #endregion
+
+                if (oRGetRPTDoc.RecordCount > 0)
+                {
+
+                }
+                else
+                {
+                    sGetRPTDoc = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetRPTDoc");
+                    sGetRPTDoc = sGetRPTDoc.Replace("%TypeDoc%", _sTipo).Replace("%DocEntry%", _DocEntry);
+
+                    oRGetRPTDoc.DoQuery(sGetRPTDoc);
+                }
+                //}
+
+                sRutaLayout = _RutaCR + "\\" + Convert.ToString(oRGetRPTDoc.Fields.Item("NombreFormato").Value.ToString()) + ".rpt";
+                sFormatoMaster = Convert.ToString(oRGetRPTDoc.Fields.Item("FormatoMaster").Value.ToString());
+
+                #endregion
+
+                #region Generacion del PDF
+
+                if (_sMotorDB == "dst_HANADB")
+                {
+                    //64X
+                    if (_sArquitectura == "8")
+                    {
+                        if (sRPTisSAPCCC == "Y")
+                        {
+                            #region Genera el PDF con cliente SAP a 64X
+
+                            ReportDocument LayoutPDF = new ReportDocument();
+
+                            LayoutPDF.Load(sRutaLayout);
+
+                            LayoutPDF.DataSourceConnections.Clear();
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30015");
+
+                            _sTenanDB = Convert.ToString(_oCompany.Server);
+
+                            int indexTenat = _sTenanDB.IndexOf("@");
+
+                            if (indexTenat == -1)
+                            {
+                                _sTenanDB = "NDB";
+                            }
+                            else
+                            {
+                                _sTenanDB = _sTenanDB.Substring(0, indexTenat);
+                            }
+                            
+                            string sCadenaCCR = Convert.ToString(oRsSearchSAPCCC.Fields.Item("CadenaCCR").Value.ToString());
+                            _strConnection = sCadenaCCR;
+
+                            NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
+                            logonProps2.Set("Provider", "B1CRHPROXY");
+                            logonProps2.Set("Server Type", "B1CRHPROXY");
+                            logonProps2.Set("Connection String", _strConnection);
+
+                            LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30013");
+
+                            string sServidorCCR = Convert.ToString(oRsSearchSAPCCC.Fields.Item("ServidorCCR").Value.ToString());
+
+                            LayoutPDF.DataSourceConnections[0].SetConnection(sServidorCCR, _sNameDB, false);
+
+                            LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
+                            LayoutPDF.SetParameterValue("Schema@", _sNameDB);
+
+                            if (sFormatoMaster == "Y")
+                            {
+
+                                if (_sTipo == "INV2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "RIN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "14");
+                                }
+                                else if (_sTipo == "IDN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "PCH2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "18");
+                                }
+                            }
+
+                            LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
+
+                            LayoutPDF.Close();
+
+                            LayoutPDF.Dispose();
+
+                            GC.SuppressFinalize(LayoutPDF);
+
+                            #endregion                            
+                        }
+                        else
+                        {
+                            #region Genera el PDF con cliente SAP a 64X
+
+                            ReportDocument LayoutPDF = new ReportDocument();
+
+                            LayoutPDF.Load(sRutaLayout);
+
+                            LayoutPDF.DataSourceConnections.Clear();
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30015");
+
+                            _sTenanDB = Convert.ToString(_oCompany.Server);
+
+                            int indexTenat = _sTenanDB.IndexOf("@");
+
+                            if (indexTenat == -1)
+                            {
+                                _sTenanDB = "NDB";
+                            }
+                            else
+                            {
+                                _sTenanDB = _sTenanDB.Substring(0, indexTenat);
+                            }
+
+                            _strConnection = string.Format("DRIVER={0};SERVERNODE={1};DATABASENAME={2};DATABASE={3};UID={4};PWD={5};", "{B1CRHPROXY}", _sServer, _sTenanDB, _sNameDB, _sUserDB, _sPassDB);
+                            
+                            NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
+                            logonProps2.Set("Provider", "B1CRHPROXY");
+                            logonProps2.Set("Server Type", "B1CRHPROXY");
+                            logonProps2.Set("Connection String", _strConnection);
+
+                            LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
+
+                            _sServer = Convert.ToString(_oCompany.SLDServer);
+                            _sServer = _sServer.Replace(":40000", ":30013");
+
+                            LayoutPDF.DataSourceConnections[0].SetConnection(_sServer, _sNameDB, false);
+
+                            LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
+                            LayoutPDF.SetParameterValue("Schema@", _sNameDB);
+
+                            if (sFormatoMaster == "Y")
+                            {
+                                if (_sTipo == "INV2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "RIN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "14");
+                                }
+                                else if (_sTipo == "IDN2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "13");
+                                }
+                                else if (_sTipo == "PCH2")
+                                {
+                                    LayoutPDF.SetParameterValue("ObjectId@", "18");
+                                }
+                            }
+
+                            LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
+
+                            LayoutPDF.Close();
+
+                            LayoutPDF.Dispose();
+
+                            GC.SuppressFinalize(LayoutPDF);
+
+                            #endregion
+                                                        
+                        }
+                    }
+                    else if (_sArquitectura == "4")
+                    {
+                        #region Genera el PDF con cliente SAP a 32X
+
+                        ReportDocument LayoutPDF = new ReportDocument();
+
+                        LayoutPDF.Load(sRutaLayout);
+
+                        LayoutPDF.DataSourceConnections.Clear();
+
+                        _sServer = Convert.ToString(_oCompany.SLDServer);
+                        _sServer = _sServer.Replace(":40000", ":30015");
+
+                        _sTenanDB = Convert.ToString(_oCompany.Server);
+
+                        int indexTenat = _sTenanDB.IndexOf("@");
+
+                        if (indexTenat == -1)
+                        {
+                            _sTenanDB = "NDB";
+                        }
+                        else
+                        {
+                            _sTenanDB = _sTenanDB.Substring(0, indexTenat);
+                        }
+
+                        _strConnection = string.Format("DRIVER={0};SERVERNODE={1};DATABASENAME={2};DATABASE={3};UID={4};PWD={5};", "{B1CRHPROXY32}", _sServer, _sTenanDB, _sNameDB, _sUserDB, _sPassDB);
+                        //_strConnection =               "DRIVER={B1CRHPROXY};SERVERNODE=192.168.0.202:30015;DATABASENAME=NDB;DATABASE=ESFERA_COLOR;UID=SYSTEM;PWD=Asdf1234$";                        
+
+
+                        NameValuePairs2 logonProps2 = LayoutPDF.DataSourceConnections[0].LogonProperties;
+                        logonProps2.Set("Provider", "B1CRHPROXY32");
+                        logonProps2.Set("Server Type", "B1CRHPROXY32");
+                        logonProps2.Set("Connection String", _strConnection);
+
+                        LayoutPDF.DataSourceConnections[0].SetLogonProperties(logonProps2);
+
+                        _sServer = Convert.ToString(_oCompany.SLDServer);
+                        _sServer = _sServer.Replace(":40000", ":30013");
+
+                        LayoutPDF.DataSourceConnections[0].SetConnection(_sServer, _sNameDB, false);
+
+                        LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
+                        LayoutPDF.SetParameterValue("Schema@", _sNameDB);
+
+                        if (sFormatoMaster == "Y")
+                        {
+                            if (_sTipo == "INV2")
+                            {
+                                LayoutPDF.SetParameterValue("ObjectId@", "13");
+                            }
+                            else if (_sTipo == "RIN2")
+                            {
+                                LayoutPDF.SetParameterValue("ObjectId@", "14");
+                            }
+                            else if (_sTipo == "IDN2")
+                            {
+                                LayoutPDF.SetParameterValue("ObjectId@", "13");
+                            }
+                            else if (_sTipo == "PCH2")
+                            {
+                                LayoutPDF.SetParameterValue("ObjectId@", "18");
+                            }
+                        }
+
+                        LayoutPDF.ExportToDisk(ExportFormatType.PortableDocFormat, _RutaPDFyXML);
+
+                        LayoutPDF.Close();
+
+                        LayoutPDF.Dispose();
+
+                        GC.SuppressFinalize(LayoutPDF);
+
+                        #endregion
+                    }
+                }
+                else
+                {
+                    #region Genera el PDF con cliente SAP a 32x o 64x
+
+                    ReportDocument LayoutPDF = new ReportDocument();
+
+                    DiskFileDestinationOptions DestinoDocumento = new DiskFileDestinationOptions();
+                    PdfRtfWordFormatOptions OpcionesPDF = new PdfRtfWordFormatOptions();
+
+                    LayoutPDF.Load(sRutaLayout);
+
+                    int Contador = LayoutPDF.DataSourceConnections.Count;
+                    LayoutPDF.DataSourceConnections[0].IntegratedSecurity = false;
+                    LayoutPDF.DataSourceConnections[0].SetLogon(_sUserDB, _sPassDB);
+                    ExportOptions OpExport = LayoutPDF.ExportOptions;
+                    OpExport.ExportDestinationType = ExportDestinationType.DiskFile;
+                    OpExport.ExportFormatType = ExportFormatType.PortableDocFormat;
+                    DestinoDocumento.DiskFileName = _RutaPDFyXML;
+                    OpExport.ExportDestinationOptions = (ExportDestinationOptions)DestinoDocumento;
+                    OpExport.ExportFormatOptions = (ExportFormatOptions)OpcionesPDF;
+
+                    LayoutPDF.SetParameterValue("DocKey@", _DocEntry);
+
+                    LayoutPDF.Export();
+
+                    LayoutPDF.Close();
+
+                    LayoutPDF.Dispose();
+
+                    GC.SuppressFinalize(LayoutPDF);
+
+                    #endregion
+                }
+
+                #endregion
+
+                #region Libreacion de Objetos
+
+                DllFunciones.liberarObjetos(oRGetRPTDoc);
+                //DllFunciones.liberarObjetos(oGetRPTBusinessPartnerd);
+
+                #endregion
+
+            }
+            catch (Exception e)
+            {
+                DllFunciones.sendErrorMessage(_sboapp, e);
+            }
+
+            return true;
+        }
+
+        public void ConsultaTokens(SAPbobsCOM.Company _oCompany, SAPbouiCOM.Application sboapp, SAPbouiCOM.Form _oFormParametros)
+        {
+            Funciones.Comunes DllFunciones = new Funciones.Comunes();
+
+            try
+            {
+                #region Consulta URL
+
+                string sGetModo = null;
+                string sURLEmision = null;
+                string sURLAdjuntos = null;
+                string sModo = null;
+                string sDocEntry = null;
+                string sProtocoloComunicacion = null;
+
+                SAPbobsCOM.Recordset oConsultarGetModo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                sDocEntry = ((SAPbouiCOM.EditText)(_oFormParametros.Items.Item("txtCode").Specific)).Value.ToString();
+
+                sDocEntry = sDocEntry.Trim();
+
+                sGetModo = DllFunciones.GetStringXMLDocument(_oCompany, "eBilling", "eBilling", "GetModoandURL");
+
+                sGetModo = sGetModo.Replace("%Estado%", " ").Replace("%DocEntry%", "\"DocEntry\" = '" + sDocEntry + "'");
+
+                oConsultarGetModo.DoQuery(sGetModo);
+
+                sURLEmision = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/v1.0/Service.svc?wsdl";
+                sURLAdjuntos = Convert.ToString(oConsultarGetModo.Fields.Item("URLTFHKA").Value.ToString()) + "/ws/adjuntos/Service.svc?wsdl";
+                sModo = Convert.ToString(oConsultarGetModo.Fields.Item("Modo").Value.ToString());
+                sProtocoloComunicacion = Convert.ToString(oConsultarGetModo.Fields.Item("ProtocoloComunicacion").Value.ToString());
+
+                DllFunciones.liberarObjetos(oConsultarGetModo);
+
+                #endregion
+
+                #region Instanciacion parametros TFHKA
+
+                //Especifica el puerto (HTTP o HTTPS)
+                if (sProtocoloComunicacion == "HTTP")
+                {
+                    BasicHttpBinding port = new BasicHttpBinding();
+                }
+                else if (sProtocoloComunicacion == "HTTPS")
+                {
+                    BasicHttpsBinding port = new BasicHttpsBinding();
+                }
+
+                port.MaxBufferPoolSize = Int32.MaxValue;
+                port.MaxBufferSize = Int32.MaxValue;
+                port.MaxReceivedMessageSize = Int32.MaxValue;
+                port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
+                port.SendTimeout = TimeSpan.FromMinutes(2);
+                port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+
+                if (sProtocoloComunicacion == "HTTPS")
+                {
+                    port.Security.Mode = BasicHttpSecurityMode.Transport;
+                }
+
+                //Especifica la dirección de conexion para Demo y Adjuntos para pruebas
+                EndpointAddress endPointEmision = new EndpointAddress(sURLEmision); //URL DEMO EMISION
+
+                ServicioEmisionFE.ServiceClient serviceClienTFHKA;
+
+                serviceClienTFHKA = new ServicioEmisionFE.ServiceClient(port, endPointEmision);
+
+                #endregion
+
+                #region Variables y Objetos
+
+                SAPbouiCOM.EditText otxtFol;
+                SAPbouiCOM.EditText otxtLlE;
+                SAPbouiCOM.EditText otxtPwdE;
+
+                otxtFol = (EditText)_oFormParametros.Items.Item("txtFol").Specific;
+                otxtLlE = (EditText)_oFormParametros.Items.Item("txtLlE").Specific;
+                otxtPwdE = (EditText)_oFormParametros.Items.Item("txtPwdE").Specific;
+
+                #endregion
+
+                FoliosRemainingResponse Tokens = serviceClienTFHKA.FoliosRestantes(otxtLlE.Value, otxtPwdE.Value);
+
+                if (Tokens.codigo == 200)
+                {
+                    #region Actualiza los campos en el formulario
+
+                    otxtFol.Value = Convert.ToString(Tokens.foliosRestantes);
+                    otxtFol.Item.Enabled = false;
+                    _oFormParametros.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+                    _oFormParametros.Refresh();
+                    DllFunciones.sendMessageBox(sboapp, "Tokens sincronizados con TFHKA correctamente");
+
+                    #endregion
+
+                }
+                else
+                {
+                    DllFunciones.sendMessageBox(sboapp, Tokens.mensaje);
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                DllFunciones.sendMessageBox(sboapp, e.Message);
+
+            }
+        }
+
+        
 
         public void EnviarCorreoTFHKA(SAPbobsCOM.Company _oCompany, SAPbouiCOM.Application _sboapp, string sPrefijoDocumentoSM)
         {
