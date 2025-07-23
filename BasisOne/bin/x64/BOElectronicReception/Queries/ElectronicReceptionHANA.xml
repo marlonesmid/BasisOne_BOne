@@ -100,7 +100,9 @@
                  WHEN "U_HXPAYME" = '2' AND "U_BOTSDC" NOT IN ('12','02') THEN ('%PathImages%'||'Recibir.bmp') 
                  ELSE '' END AS "ImageRecibir",
                 
-            'N' AS "Chk"
+            'N' AS "Chk",
+            
+            "U_HXPO" AS "PO"          
 
         FROM "@BOTREDRPT" A LEFT JOIN ( SELECT DISTINCT CASE WHEN LOCATE(T0."LicTradNum",'-') = 0 THEN T0."LicTradNum" ELSE SUBSTRING(T0."LicTradNum",1,LOCATE(T0."LicTradNum",'-')-1) END AS "LicTradNum" FROM "OCRD" T0) B ON A."U_BOTNI"=B."LicTradNum"
         WHERE CAST("U_BOTFE" AS DATE) BETWEEN '%FI%' AND '%FF%' 
@@ -186,7 +188,7 @@
 	        prmTipoEmisor NVARCHAR(50),
 	        prmTipoIdentidad NVARCHAR(50),
 	        prmCodEstatusDIAN NVARCHAR(50),
-		    prmPO NVARCHAR(30),
+		    prmPO NVARCHAR(200),
             prmPathXML NVARCHAR(200),
             prmPathPDF NVARCHAR(200),
             prmPayMead NVARCHAR(2)
@@ -236,7 +238,7 @@
 	    										        NULL,
 	    										        :prmPathPDF,
 	    										        NULL,
-													        :prmPO,
+													        LEFT(:prmPO,30),
 													        NULL
 	    									        );
 	        ELSE

@@ -221,18 +221,18 @@
     <Content Include="Resources\Img\imagePDF.bmp" />
     <Content Include="Resources\Img\imageSincronizar.bmp" />
     <Content Include="Resources\Img\imageXML.bmp" />
-    <None Include="Service References\ServicioCertificadoV4\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServicioCertificadoV4\configuration.svcinfo" />
-    <None Include="Service References\ServicioCertificadoV4\configuration91.svcinfo" />
     <None Include="Service References\ServicioAdjuntosFE\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServicioAdjuntosFE\configuration.svcinfo" />
     <None Include="Service References\ServicioAdjuntosFE\configuration91.svcinfo" />
+    <None Include="Service References\ServicioCertificadoV4\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServicioCertificadoV4\configuration.svcinfo" />
+    <None Include="Service References\ServicioCertificadoV4\configuration91.svcinfo" />
     <None Include="Service References\ServicioEmisionFE\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

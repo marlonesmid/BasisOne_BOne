@@ -52,14 +52,6 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectr
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x86\BOElectronicReception.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x86\SAPBusinessOneSDK.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x86\BOFunciones.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\obj\Debug\BOElectronicReception.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\obj\Debug\BOElectronicReception.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.dll.config
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOFunciones.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\SAPBusinessOneSDK.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOFunciones.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x86\BOFunciones.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne-05-03-2023\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.dll.config
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne-05-03-2023\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.dll
@@ -103,6 +95,14 @@ C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BOElectronicReception\bin\x64\SAPB
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BOElectronicReception\bin\x64\BOFunciones.pdb
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BOElectronicReception\bin\x64\Newtonsoft.Json.xml
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BOElectronicReception\obj\Debug\BOElectronicReception.csproj.CopyComplete
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\Newtonsoft.Json.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\Newtonsoft.Json.xml
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\obj\Debug\BOElectronicReception.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.dll.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOElectronicReception.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\Newtonsoft.Json.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\bin\x64\Newtonsoft.Json.xml
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\obj\Debug\BOElectronicReception.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOElectronicReception\obj\Debug\BOElectronicReception.pdb

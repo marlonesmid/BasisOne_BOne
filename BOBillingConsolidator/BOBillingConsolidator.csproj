@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BOCore">
-      <HintPath>..\BOCore\bin\x64\BOCore.dll</HintPath>
-    </Reference>
     <Reference Include="BOFunciones">
       <HintPath>..\Funciones\bin\x64\BOFunciones.dll</HintPath>
     </Reference>

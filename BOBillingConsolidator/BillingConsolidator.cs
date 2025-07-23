@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Xml;
 using System.IO;
 using Funciones;
-using BOCore;
+//using BOCore;
 
 namespace BOBillingConsolidator
 {
@@ -41,7 +41,7 @@ namespace BOBillingConsolidator
                 #region Instanciacion Dll
 
                 Funciones.Comunes DllFunciones = new Funciones.Comunes();
-                BOCore.Core DllCore = new BOCore.Core();
+               // BOCore.Core DllCore = new BOCore.Core();
 
                 #endregion
 

@@ -922,7 +922,6 @@ namespace BasisOne
                             {
                                 DllFunciones.CloseFormXML(sboapp, "BOVDEB");
                             }
-
                             else if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "btnFind" && pVal.BeforeAction == true)
                             {
                                 DlleBilling.InsertDataInMatrix(sboapp, _company);
@@ -940,7 +939,10 @@ namespace BasisOne
                             {
                                 DlleBilling.OpenFormEvent(_company, sboapp, pVal);
                             }
-
+                            if (pVal.FormUID == "BOVDEB" && pVal.ItemUID == "btnST" && pVal.BeforeAction == true)
+                            {
+                                DlleBilling.SelectVRDmatrixlines(sboapp, _company, pVal, pVal.ItemUID, pVal.ColUID);
+                            }
                             #endregion
 
                             #region Visor eventos DIAN 
@@ -2176,7 +2178,7 @@ namespace BasisOne
 
                 case "smBO_eBil01":
 
-                    #region Eventos en el Menu eBilling 
+                    #region Menu Parametros Iniciales FE
 
                     if (TieneLicenciaeBilling == true)
                     {
@@ -2184,7 +2186,7 @@ namespace BasisOne
 
                         try
                         {
-                            DlleBilling.OpenFormParametrosIniciales(sboapp, _company, sMotor);
+                            DlleBilling.OpenFormParametrosIniciales(sboapp, _company, sMotor, Convert.ToString(_company.UserSignature));
 
                         }
                         catch (Exception e)

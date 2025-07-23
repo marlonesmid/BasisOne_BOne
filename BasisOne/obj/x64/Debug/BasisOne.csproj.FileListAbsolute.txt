@@ -269,30 +269,6 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.Properties.Resources.resources
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\AddOnBasisOne\BasisOne\obj\x64\Debug\BasisOne.csproj.GenerateResource.Cache
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe.config
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.exe
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOCore.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOeBilling.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOElectronicReception.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOFunciones.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOIntercompany.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOPresupuesto.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOProduccion.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\SAPBusinessOneSDK.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\stdole.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOCore.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOeBilling.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOElectronicReception.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOFunciones.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOIntercompany.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOPresupuesto.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOProduccion.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.Properties.Resources.resources
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.csproj.GenerateResource.Cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne-05-03-2023\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe.config
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne-05-03-2023\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.exe
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne-05-03-2023\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.pdb
@@ -404,8 +380,6 @@ C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\
 C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BasisOne\obj\x64\Debug\BasisOne.csproj.CopyComplete
 C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BasisOne\obj\x64\Debug\BasisOne.exe
 C:\Users\UolPASistemas2\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\BasisOne\obj\x64\Debug\BasisOne.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\Newtonsoft.Json.dll
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\Newtonsoft.Json.xml
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe.config
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BasisOne\bin\x64\BasisOne.pdb
@@ -437,5 +411,31 @@ C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.cs
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.csproj.CopyComplete
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.exe
 C:\Users\UolPASistemas2\Desktop\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.csprojResolveAssemblyReference.cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.Properties.Resources.resources
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.csproj.GenerateResource.Cache
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe.config
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BasisOne.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOBillingConsolidator.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOCore.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOeBilling.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOElectronicReception.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOFunciones.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOIntercompany.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOPresupuesto.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOProduccion.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\SAPBusinessOneSDK.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\Newtonsoft.Json.dll
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\stdole.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOBillingConsolidator.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOCore.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOeBilling.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOElectronicReception.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOIntercompany.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOPresupuesto.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\BOProduccion.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\bin\x64\Newtonsoft.Json.xml
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.exe
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BasisOne\obj\x64\Debug\BasisOne.pdb

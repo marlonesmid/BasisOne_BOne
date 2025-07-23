@@ -444,27 +444,44 @@
 
   <GetDocEntryAndParameters>
 
-    SELECT TOP 1 T0."DocEntry",
-    T0."Series",
-    (SELECT TOP 1 "U_BO_L" FROM "@BOEBILLINGP") AS "Localizacion",
-    T0."U_BO_CRWS" AS "CRWS",
-    COALESCE((SELECT TOP 1 "U_BO_FormE" FROM [@BOEBILLINGP]),0) AS "FormaEnvio",
-    COALESCE((SELECT TOP 1 "U_BO_FEDS" FROM [@BOEBILLINGP]),0) AS "FormaEnvioDS",
-    (SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRO' THEN "U_BO_LlE" ELSE "U_BO_LlED" END FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Llave",
-    (SELECT TOP 1 CASE WHEN "U_BO_Mdo" = 'PRO' THEN "U_BO_PwdE" ELSE "U_BO_PwdED" END FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "Password",
-    (SELECT TOP 1 "U_BO_UserDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "UserDB",
-    (SELECT TOP 1 "U_BO_PassDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "PassDB",
-    (SELECT TOP 1 A."U_BO_RutaPDF" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaPDF",
-    (SELECT TOP 1 "U_BO_RutaXML" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "RutaXML",
-    (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaCR",
-    (SELECT TOP 1 A."U_BO_GXP" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "GeneraXMLP",
-    T1."U_BO_PREF" AS "PrefijoDes",
-    (SELECT TOP 1 A."U_BO_PT" FROM "@BOEBILLINGP" A) AS "ProveedorTecnologico",
-    (SELECT TOP 1 A."U_BO_AT" FROM "@BOEBILLINGP" A) AS "VersionAnexoTecnico"
-
-    FROM "%Tabla%" T0 LEFT JOIN "@BOSERNUM" T1 ON T0."Series"=T1."Code"
-    WHERE T0."DocNum" = '%sDocNumInvoice%' AND T0."Series" = '%sSerieNumeracion%' AND T0."DocSubType" = '%DocSubType%'
-
+    SELECT TOP 1 
+        T0."DocEntry",
+        T0."Series",
+        (SELECT TOP 1 "U_BO_L" FROM "@BOEBILLINGP") AS "Localizacion",
+        T0."U_BO_CRWS" AS "CRWS",
+        COALESCE((SELECT TOP 1 "U_BO_FormE" FROM [@BOEBILLINGP]), 0) AS "FormaEnvio",
+        COALESCE((SELECT TOP 1 "U_BO_FEDS" FROM [@BOEBILLINGP]), 0) AS "FormaEnvioDS",
+        (SELECT TOP 1 
+            CASE 
+                WHEN "U_BO_Mdo" = 'PRO' THEN "U_BO_LlE" 
+                ELSE "U_BO_LlED" 
+            END 
+         FROM "@BOEBILLINGP" 
+         WHERE U_BO_Status = 'Y') AS "Llave",
+        (SELECT TOP 1 
+            CASE 
+                WHEN "U_BO_Mdo" = 'PRO' THEN "U_BO_PwdE" 
+                ELSE "U_BO_PwdED" 
+            END 
+         FROM "@BOEBILLINGP" 
+         WHERE U_BO_Status = 'Y') AS "Password",
+        (SELECT TOP 1 "U_BO_UserDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "UserDB",
+        (SELECT TOP 1 "U_BO_PassDB" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "PassDB",
+        (SELECT TOP 1 A."U_BO_RutaPDF" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaPDF",
+        (SELECT TOP 1 "U_BO_RutaXML" FROM "@BOEBILLINGP" WHERE U_BO_Status = 'Y') AS "RutaXML",
+        (SELECT TOP 1 A."U_BO_RutaCRL" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "RutaCR",
+        (SELECT TOP 1 A."U_BO_GXP" FROM "@BOEBILLINGP" A WHERE A.U_BO_Status = 'Y') AS "GeneraXMLP",
+        T1."U_BO_PREF" AS "PrefijoDes",
+        (SELECT TOP 1 A."U_BO_PT" FROM "@BOEBILLINGP" A) AS "ProveedorTecnologico",
+        (SELECT TOP 1 A."U_BO_AT" FROM "@BOEBILLINGP" A) AS "VersionAnexoTecnico",
+        (SELECT TOP 1 ISNULL(A."U_HX_RPDFA",'N') FROM "@BOEBILLINGP" A) AS "RegenerarPDF_Adjuntos"
+    FROM 
+        "%Tabla%" T0 
+        LEFT JOIN "@BOSERNUM" T1 ON T0."Series" = T1."Code"
+    WHERE 
+        T0."DocNum" = '%sDocNumInvoice%' 
+        AND T0."Series" = '%sSerieNumeracion%' 
+        AND T0."DocSubType" = '%DocSubType%'
   </GetDocEntryAndParameters>
 
   <GetDocEntryAndParametersFBE>
@@ -854,5 +871,12 @@
     FROM "UFD1"
     WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = (SELECT TOP 1 "FieldID" FROM "CUFD" WHERE "AliasID" = 'HX_FRE' )
   </GetFormaRecepcion>
+  
+    <SearchUserPermissionAdminFE>
+    SELECT 
+      ISNULL("U_HX_PFE", 'N') AS "U_HX_PFE" 
+    FROM "OUSR" 
+    WHERE "USER_CODE" = '%UserCode%'
+  </SearchUserPermissionAdminFE>
   
 </Queries>

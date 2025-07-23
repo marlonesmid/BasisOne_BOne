@@ -158,6 +158,41 @@
           "releases": {
               "2025": [
                   {
+                      "version": "10.25.28.0",
+                      "link": "Pendiente por liberar",
+                      "date": "Julio 16, 2025",
+					  "improvements": {					  
+						  "Mejoras": {
+							"Parametros Generales ": [
+							  "Ahora para ingresar al modulo de Parametros Generales de Facturacion Electronica, se requiere permiso, si un usuario no tiene autorizacion les mostrara el siguiente mensaje",
+							  "<img src='./Images/10.25.28.0 - Image2.png' alt='10.25.28.0 - Images 2' style='width:100%; max-width:500px; margin-top: 10px;'>",
+							  "para activar el permiso se debe solicitar el permiso al administrador del sistema.",
+							],							
+							"Gestor de addon": [
+							  "Se adiciona mejora donde para que los usuarios puedan descargar un archivo con los principales cambios realizados en el modulo."                      
+							],
+							"Emision de documentos": [
+							  "Se crea una nueva opcion la cual se llama Regenerar PDF, Al activar esta opcion el sistema generara nuevamente los PDF y adjuntos de los documentos al momento de dar Enviar a la DIAN ",
+							  "<img src='./Images/10.25.28.0 - Image1.png' alt='10.25.28.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
+							]
+						  }
+						},
+                      "fixes": {
+                          "Correcciones": {
+                              "No. Orden de compra:": [
+                                  "Se corrige el campo numero de orden de compra, no estaba tomando el campo de la base de datos",
+                                  "<img src='./Images/10.25.19.0 - Images 1.png' alt='10.25.19.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
+                                  "ahora guarda correctamente la informacion y muestra la informacion en el visor de documentos.",
+                              ],
+                              "Tamaño campo Orden de compra": [
+                                  "Al momento de guardar el numero de orden de compra en la base de datos arroja el siguiente error",
+                                  "<img src='./Images/10.25.21.0 - Images 1.png' alt='10.25.21.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
+                                  "Se realizar correccion para que guarde correctamente la informacion en la base de datos.",
+                              ],                              
+                          }
+                      },
+                  },
+                  {
                       "version": "10.25.19.0",
                       "link": "#",
                       "date": "Marzo 17, 2025",

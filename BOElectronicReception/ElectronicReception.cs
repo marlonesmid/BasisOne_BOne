@@ -1209,6 +1209,9 @@ namespace BOElectronicReception
                         oMatrixInvoice.Columns.Item("Col_27").DataBind.Bind("DT_Invoices", "ImageRecibir");
                         oMatrixInvoice.Columns.Item("Col_28").DataBind.Bind("DT_Invoices", "Chk");
                         oMatrixInvoice.Columns.Item("Col_28").Editable = true;
+                        oMatrixInvoice.Columns.Item("Col_29").DataBind.Bind("DT_Invoices", "PO");
+                        oMatrixInvoice.Columns.Item("Col_29").Editable = false;
+
 
                         oMatrixInvoice.LoadFromDataSource();
 
@@ -2337,7 +2340,7 @@ namespace BOElectronicReception
 
                         sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%prmCodEstatusDIAN%'", "NULL");
 
-                        #endregion
+                        #endregion                       
 
                         #region Descarga XML y PDF
 
@@ -2418,8 +2421,6 @@ namespace BOElectronicReception
 
                         oSyncDocsRecep.DoQuery(sSyncDocsRecepCopia);
 
-                        
-                        
                         #endregion
                     }
                     #endregion
