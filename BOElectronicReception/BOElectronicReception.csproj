@@ -68,7 +68,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Excel\InformeFacturasProveedor.xlsx" />
     <None Include="Formularios\VisorDocumentsReceptionElectronic.srf" />
     <None Include="Json\InboundDocumens.json" />
@@ -100,10 +102,10 @@
     <None Include="Service References\Recepcion21WS\BOElectronicReception.Recepcion21WS.ResponseGeneralInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\Recepcion21WS\ReceptorWS.wsdl" />
     <None Include="Service References\Recepcion21WS\ReceptorWS.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\Recepcion21WS\ReceptorWS1.wsdl" />
     <None Include="Service References\Recepcion21WS\ReceptorWS1.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -109,6 +109,7 @@
               AND A."U_BOTTD" = '01' 
               %Estado%
               %NumeroDocumento%
+              --%PT%
         ORDER BY "U_BOTFE" DESC
 
   </GetInvoices>
@@ -248,7 +249,8 @@
 				        UPDATE "@BOTREDRPT" 
 				        SET "U_BOTSDC" = :prmStatusDIANCodigo,
 					        "U_BOTSDD" = :prmStatusDIANDescripcion,
-					        "U_BOTSDF" = :prmStatusDIANFecha
+					        "U_BOTSDF" = :prmStatusDIANFecha,
+                  "U_HXPAYME" = (SELECT CASE WHEN IFNULL(:prmPayMead,'0') = '0' THEN '2' ELSE :prmPayMead END FROM DUMMY)
 				        WHERE "U_BOTNF" = :prmNumeroFactura AND "U_BOTNI" = :prmNumeroIdentificacion;
 
 				    ELSE

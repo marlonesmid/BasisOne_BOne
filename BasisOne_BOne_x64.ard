@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="BOne" SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="BOne10.25.16.0" ExtVersion="10.25.16.0" Contdata="" Partner="BOne" DBType="Both" ClientType="A">
+<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="BOne" SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="BOne10.25.47.1" ExtVersion="10.25.47.1" Contdata="" Partner="BOne" DBType="Both" ClientType="A">
   <Validity>
     <SBOCompatibility>
       <Version From="100.000.00" To="100.999.99" />
@@ -101,6 +101,9 @@
             <File FileName="stdole.dll">
               <Actions />
             </File>
+            <File FileName="BOElectronicReception\Excel\InformeFacturasProveedor.xlsx">
+              <Actions />
+            </File>
             <File FileName="BOElectronicReception\Formularios\RecepcionElectronica_ParametrosIniciales.srf">
               <Actions />
             </File>
@@ -110,10 +113,16 @@
             <File FileName="BOElectronicReception\Images\Aceptar.bmp">
               <Actions />
             </File>
+            <File FileName="BOElectronicReception\Images\Acusar.bmp">
+              <Actions />
+            </File>
             <File FileName="BOElectronicReception\Images\Cancelar.bmp">
               <Actions />
             </File>
             <File FileName="BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Recibir.bmp">
               <Actions />
             </File>
             <File FileName="BOElectronicReception\Json\InboundDocumens.json">
@@ -134,7 +143,31 @@
             <File FileName="Core\Docs\Updates_and_improvements\Images\production_machine.png">
               <Actions />
             </File>
-            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates and improvements.html">
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates_and_improvements_eBillingInvoice.html">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates_and_improvements_eBillingInvoice.html.bak">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.12.0 - Images 1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.19.0 - Images 1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.19.0 - Images 2.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.21.0 - Images 1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.28.0 - Image1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.28.0 - Image2.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.35.3 - Image1.png">
               <Actions />
             </File>
             <File FileName="Core\Formularios\Gestion_AddOn.srf">
@@ -282,6 +315,9 @@
             <File FileName="stdole.dll">
               <Actions />
             </File>
+            <File FileName="BOElectronicReception\Excel\InformeFacturasProveedor.xlsx">
+              <Actions />
+            </File>
             <File FileName="BOElectronicReception\Formularios\RecepcionElectronica_ParametrosIniciales.srf">
               <Actions />
             </File>
@@ -291,10 +327,16 @@
             <File FileName="BOElectronicReception\Images\Aceptar.bmp">
               <Actions />
             </File>
+            <File FileName="BOElectronicReception\Images\Acusar.bmp">
+              <Actions />
+            </File>
             <File FileName="BOElectronicReception\Images\Cancelar.bmp">
               <Actions />
             </File>
             <File FileName="BOElectronicReception\Images\Download.bmp">
+              <Actions />
+            </File>
+            <File FileName="BOElectronicReception\Images\Recibir.bmp">
               <Actions />
             </File>
             <File FileName="BOElectronicReception\Json\InboundDocumens.json">
@@ -315,7 +357,31 @@
             <File FileName="Core\Docs\Updates_and_improvements\Images\production_machine.png">
               <Actions />
             </File>
-            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates and improvements.html">
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates_and_improvements_eBillingInvoice.html">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Updates_and_improvements_eBillingInvoice.html.bak">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.12.0 - Images 1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.19.0 - Images 1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.19.0 - Images 2.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.21.0 - Images 1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.28.0 - Image1.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.28.0 - Image2.png">
+              <Actions />
+            </File>
+            <File FileName="Core\Docs\Updates_and_improvements\Resources\Images\10.25.35.3 - Image1.png">
               <Actions />
             </File>
             <File FileName="Core\Formularios\Gestion_AddOn.srf">

@@ -25,7 +25,7 @@
     <MetadataFile FileName="ReceptorWS.xsd" MetadataType="Schema" ID="e0ce5d27-5dcc-4a58-824d-afe6ddecd1a4" SourceId="1" SourceUrl="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?xsd=xsd0" />
     <MetadataFile FileName="ReceptorWS1.xsd" MetadataType="Schema" ID="03fd8e37-5d73-4457-b0aa-94b489032bda" SourceId="1" SourceUrl="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?xsd=xsd2" />
     <MetadataFile FileName="ReceptorWS2.xsd" MetadataType="Schema" ID="be54e17a-88ba-4b81-92a0-e56cd7cb3789" SourceId="1" SourceUrl="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?xsd=xsd1" />
-    <MetadataFile FileName="ReceptorWS.wsdl" MetadataType="Wsdl" ID="00b1e154-a63b-4ad2-ad3e-9ab60f1cc685" SourceId="1" SourceUrl="https://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?wsdl" />
+    <MetadataFile FileName="ReceptorWS1.wsdl" MetadataType="Wsdl" ID="46012ca1-58b6-40b1-b93d-3190a18ad05a" SourceId="1" SourceUrl="http://recepcion21.thefactoryhka.com.co/ReceptorWS.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

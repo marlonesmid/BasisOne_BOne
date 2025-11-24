@@ -1332,6 +1332,17 @@ namespace Funciones
             }
         }
 
+        public void ProgressBarForceStop()
+        {
+            if (oProgressBar != null)
+            {
+                oProgressBar.Stop();
+                liberarObjetos(oProgressBar);
+                oProgressBar = null;
+                Contador = 0;            
+            }            
+        }
+
         /// <summary>
         /// Método que retorna el código string correspondiente, equivalente a funciones de vb.net 
         /// </summary>

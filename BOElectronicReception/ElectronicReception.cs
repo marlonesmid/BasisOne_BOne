@@ -21,6 +21,7 @@ using System.Diagnostics;
 using ExcelHX = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Globalization;
+using System.Threading;
 
 namespace BOElectronicReception
 {
@@ -408,7 +409,7 @@ namespace BOElectronicReception
                 DLLFunciones.sendErrorMessage(sboapp, e);
 
             }
-        }     
+        }
 
         public void DescargaXML_PDF_TFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormVisorRepcecion)
         {
@@ -469,8 +470,10 @@ namespace BOElectronicReception
                     port.MaxBufferSize = Int32.MaxValue;
                     port.MaxReceivedMessageSize = Int32.MaxValue;
                     port.ReaderQuotas.MaxStringContentLength = Int32.MaxValue;
-                    port.SendTimeout = TimeSpan.FromMinutes(2);
-                    port.ReceiveTimeout = TimeSpan.FromMinutes(2);
+                    port.SendTimeout = TimeSpan.FromMinutes(3);
+                    port.ReceiveTimeout = TimeSpan.FromMinutes(3);
+
+                    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
                     if (sProtocoloComunicacion == "HTTPS")
                     {
@@ -500,25 +503,19 @@ namespace BOElectronicReception
 
                     sGetDocumentsDownload = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "sGetDocumentsDownload");
                     sSyncAttachmentOrigin = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "SyncAttachment");
-                    
+
                     oRsDocumentsDownload.DoQuery(sGetDocumentsDownload);
-
-
 
                     #endregion
 
                     #region Descarga Documentos                     
 
                     if (oRsDocumentsDownload.RecordCount > 0)
-                    {
-                        Recepcion21WS.FileDownloadResponse DownloadXML;
-                        Recepcion21WS.FileDownloadResponse DownloadPDF;
+                    {                        
+                                                
+                        DllFunciones.StatusBar(_sboapp,BoStatusBarMessageType.smt_Warning, "Sincronizacion Adjuntos de los documentos, por favor espere...");
 
-                        DllFunciones.ProgressBar(_oCompany, _sboapp, oRsDocumentsDownload.RecordCount + 1, 1, "Sincronizacion Adjuntos de los documentos, por favor espere...");
-
-                        #region Descarga documentos
-
-                        oRsDocumentsDownload.MoveFirst();
+                        #region Descarga documentos                        
 
                         do
                         {
@@ -532,9 +529,18 @@ namespace BOElectronicReception
 
                             #region Descarga XML
 
-                            DownloadXML = serviceClienTFHKAReception.DescargarXML(ParametrosDownload);
+                            Thread.Sleep(10000);
+
+                            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+                            
+                            // Activar Expect: 100-Continue
+                            System.Net.ServicePointManager.Expect100Continue = true;
+
+                            Recepcion21WS.FileDownloadResponse DownloadXML = serviceClienTFHKAReception.DescargarXML(ParametrosDownload);
 
                             string sRutaArchivoXML = sRutaXML + "\\" + Convert.ToString(oRsDocumentsDownload.Fields.Item("U_BOTNI").Value.ToString()) + "_" + Convert.ToString(oRsDocumentsDownload.Fields.Item("U_BOTNF").Value.ToString()) + ".xml";
+
+                            DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Warning, $"Sincronizacion Adjunto XML {ParametrosDownload.numeroDocumento}, por favor espere...");
 
                             if (DownloadXML.codigo == 200)
                             {
@@ -557,9 +563,18 @@ namespace BOElectronicReception
 
                             #region Descarga PDF
 
-                            DownloadPDF = serviceClienTFHKAReception.DescargarRepGrafica(ParametrosDownload);
+                            Thread.Sleep(10000);
+
+                            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+
+                            // Activar Expect: 100-Continue
+                            System.Net.ServicePointManager.Expect100Continue = true;
+
+                            Recepcion21WS.FileDownloadResponse DownloadPDF = serviceClienTFHKAReception.DescargarRepGrafica(ParametrosDownload);
 
                             string sRutaArchivoPDF = sRutaPDF + "\\" + Convert.ToString(oRsDocumentsDownload.Fields.Item("U_BOTNI").Value.ToString()) + "_" + Convert.ToString(oRsDocumentsDownload.Fields.Item("U_BOTNF").Value.ToString()) + ".pdf";
+
+                            DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Warning, $"Sincronizacion Adjunto PDF {ParametrosDownload.numeroDocumento}, por favor espere...");
 
                             if (DownloadPDF.codigo == 200)
                             {
@@ -581,7 +596,7 @@ namespace BOElectronicReception
 
                             oRsDocumentsDownload.MoveNext();
 
-                            DllFunciones.ProgressBar(_oCompany, _sboapp, oRsDocumentsDownload.RecordCount + 1, 1, "Sincronizando Adjuntos de los documentos, por favor espere...");
+                            //DllFunciones.ProgressBar(_oCompany, _sboapp, oRsDocumentsDownload.RecordCount + 1, 1, "Sincronizando Adjuntos de los documentos, por favor espere...");
 
                         } while (oRsDocumentsDownload.EoF == false);
 
@@ -594,204 +609,204 @@ namespace BOElectronicReception
 
                     #region Carga Infortmacion en la Matrix
 
-                    #region Variabl1es y Objetos
+                    //#region Variabl1es y Objetos
 
-                    string sPath;
-                    string sInvoices = null;
-                    string sCreditMemo = null;
-                    string sDebitMemo = null;
-                    int CantidadRegistos = 0;
+                    //string sPath;
+                    //string sInvoices = null;
+                    //string sCreditMemo = null;
+                    //string sDebitMemo = null;
+                    //int CantidadRegistos = 0;
 
-                    string sPathImages = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\BOElectronicReception\\Images\\";
+                    //string sPathImages = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\BOElectronicReception\\Images\\";
 
-                    #endregion
+                    //#endregion
 
-                    sPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    //sPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-                    SAPbouiCOM.EditText oFI = (SAPbouiCOM.EditText)_oFormVisorRepcecion.Items.Item("txtFI").Specific;
-                    SAPbouiCOM.EditText oFF = (SAPbouiCOM.EditText)_oFormVisorRepcecion.Items.Item("txtFF").Specific;
-                    SAPbouiCOM.ComboBox oEstado = (SAPbouiCOM.ComboBox)_oFormVisorRepcecion.Items.Item("cboStado").Specific;
+                    //SAPbouiCOM.EditText oFI = (SAPbouiCOM.EditText)_oFormVisorRepcecion.Items.Item("txtFI").Specific;
+                    //SAPbouiCOM.EditText oFF = (SAPbouiCOM.EditText)_oFormVisorRepcecion.Items.Item("txtFF").Specific;
+                    //SAPbouiCOM.ComboBox oEstado = (SAPbouiCOM.ComboBox)_oFormVisorRepcecion.Items.Item("cboStado").Specific;
 
-                    #region Consulta de documentos facturas, notas debito y notas credito a mostrar en matrix
+                    //#region Consulta de documentos facturas, notas debito y notas credito a mostrar en matrix
 
-                    SAPbouiCOM.Matrix oMatrixInvoice = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
-                    SAPbouiCOM.Matrix oMatrixCreditMemo = (Matrix)_oFormVisorRepcecion.Items.Item("MtxORPC").Specific;
-                    SAPbouiCOM.Matrix oMatrixDebitMemo = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCHD").Specific;
+                    //SAPbouiCOM.Matrix oMatrixInvoice = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCH").Specific;
+                    //SAPbouiCOM.Matrix oMatrixCreditMemo = (Matrix)_oFormVisorRepcecion.Items.Item("MtxORPC").Specific;
+                    //SAPbouiCOM.Matrix oMatrixDebitMemo = (Matrix)_oFormVisorRepcecion.Items.Item("MtxOPCHD").Specific;
 
-                    SAPbobsCOM.Recordset oRecorsetInvoices = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-                    SAPbobsCOM.Recordset oRecorsetCreditMemo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-                    SAPbobsCOM.Recordset oRecorsetDebitMemo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                    //SAPbobsCOM.Recordset oRecorsetInvoices = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                    //SAPbobsCOM.Recordset oRecorsetCreditMemo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                    //SAPbobsCOM.Recordset oRecorsetDebitMemo = (SAPbobsCOM.Recordset)_oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-                    SAPbouiCOM.DataTable oTableInvoices = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_Invoices");
-                    SAPbouiCOM.DataTable oTableCreditMemo = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_CreditMemo");
-                    SAPbouiCOM.DataTable oTableDebitMemo = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_DebitMemo");
+                    //SAPbouiCOM.DataTable oTableInvoices = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_Invoices");
+                    //SAPbouiCOM.DataTable oTableCreditMemo = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_CreditMemo");
+                    //SAPbouiCOM.DataTable oTableDebitMemo = _oFormVisorRepcecion.DataSources.DataTables.Item("DT_DebitMemo");
 
-                    sInvoices = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetInvoices");
-                    sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
+                    //sInvoices = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetInvoices");
+                    //sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
 
-                    sCreditMemo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetCreditMemo");
-                    sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
+                    //sCreditMemo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetCreditMemo");
+                    //sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
 
-                    sDebitMemo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDebitMemo");
-                    sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
-
-
-                    if (string.IsNullOrEmpty(oFI.Value))
-                    {
-                        sInvoices = sInvoices.Replace("%FI%", "20190101");
-                    }
-                    else
-                    {
-                        sInvoices = sInvoices.Replace("%FI%", oFI.Value);
-                    }
+                    //sDebitMemo = DllFunciones.GetStringXMLDocument(_oCompany, "BOElectronicReception", "ElectronicReception", "GetDebitMemo");
+                    //sInvoices = sInvoices.Replace("%PathImages%", sPathImages);
 
 
-                    if (string.IsNullOrEmpty(oFF.Value))
-                    {
-                        sInvoices = sInvoices.Replace("%FF%", "20301231");
-                    }
-                    else
-                    {
-                        sInvoices = sInvoices.Replace("%FF%", oFF.Value);
-                    }
-
-                    if (oEstado.Value == "-")
-                    {
-                        sInvoices = sInvoices.Replace("%Estado%", "");
-                    }
-                    else
-                    {
-                        sInvoices = sInvoices.Replace("%Estado%", "AND \"U_BOTSDC\" = '"+oEstado.Value+"' " );
-                    }
+                    //if (string.IsNullOrEmpty(oFI.Value))
+                    //{
+                    //    sInvoices = sInvoices.Replace("%FI%", "20190101");
+                    //}
+                    //else
+                    //{
+                    //    sInvoices = sInvoices.Replace("%FI%", oFI.Value);
+                    //}
 
 
-                    oRecorsetInvoices.DoQuery(sInvoices);
-                    oRecorsetCreditMemo.DoQuery(sCreditMemo);
-                    oRecorsetDebitMemo.DoQuery(sDebitMemo);
-                    
-                    oTableInvoices.ExecuteQuery(sInvoices);
-                    oTableCreditMemo.ExecuteQuery(sCreditMemo);
-                    oTableDebitMemo.ExecuteQuery(sDebitMemo);
+                    //if (string.IsNullOrEmpty(oFF.Value))
+                    //{
+                    //    sInvoices = sInvoices.Replace("%FF%", "20301231");
+                    //}
+                    //else
+                    //{
+                    //    sInvoices = sInvoices.Replace("%FF%", oFF.Value);
+                    //}
 
-                    #endregion
-
-                    CantidadRegistos = oRecorsetInvoices.RecordCount + oRecorsetCreditMemo.RecordCount + oRecorsetDebitMemo.RecordCount;
-
-                    if (CantidadRegistos != 0)
-                    {
-                        #region Carga datos Matrix Facturas
-
-                        if (oRecorsetInvoices.RecordCount > 0)
-                        {
-                            oMatrixInvoice.Clear();
-
-                            oMatrixInvoice.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
-                            oMatrixInvoice.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
-                            oMatrixInvoice.Columns.Item("Col_11").DataBind.Bind("DT_Invoices", "Estado_SAP");
-                            oMatrixInvoice.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
-                            oMatrixInvoice.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
-                            oMatrixInvoice.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
-                            oMatrixInvoice.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
-                            oMatrixInvoice.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
-                            oMatrixInvoice.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
-                            oMatrixInvoice.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
-                            oMatrixInvoice.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_de_Pago");
-                            oMatrixInvoice.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
-                            oMatrixInvoice.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
-                            oMatrixInvoice.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
-                            oMatrixInvoice.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
-                            oMatrixInvoice.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
-                            oMatrixInvoice.Columns.Item("Col_19").Visible = false;
-                            oMatrixInvoice.Columns.Item("Col_23").Visible = false;
-                            oMatrixInvoice.Columns.Item("Col_20").DataBind.Bind("DT_Invoices", "DescargaXML");
-                            oMatrixInvoice.Columns.Item("Col_12").DataBind.Bind("DT_Invoices", "RutaXML");
-                            oMatrixInvoice.Columns.Item("Col_12").Visible = false;
-                            oMatrixInvoice.Columns.Item("Col_21").DataBind.Bind("DT_Invoices", "DescargaPDF");
-                            oMatrixInvoice.Columns.Item("Col_13").DataBind.Bind("DT_Invoices", "RutaPDF");
-                            oMatrixInvoice.Columns.Item("Col_13").Visible = false;
-                            oMatrixInvoice.Columns.Item("Col_22").DataBind.Bind("DT_Invoices", "ImageAceptar");
-                            oMatrixInvoice.Columns.Item("Col_7").DataBind.Bind("DT_Invoices", "ImageCancelar");
-                            oMatrixInvoice.Columns.Item("Col_14").DataBind.Bind("DT_Invoices", "TipoIdentificacionEmisor");
-                            oMatrixInvoice.Columns.Item("Col_14").Visible = false;
+                    //if (oEstado.Value == "-")
+                    //{
+                    //    sInvoices = sInvoices.Replace("%Estado%", "");
+                    //}
+                    //else
+                    //{
+                    //    sInvoices = sInvoices.Replace("%Estado%", "AND \"U_BOTSDC\" = '" + oEstado.Value + "' ");
+                    //}
 
 
-                            oMatrixInvoice.LoadFromDataSource();
+                    //oRecorsetInvoices.DoQuery(sInvoices);
+                    //oRecorsetCreditMemo.DoQuery(sCreditMemo);
+                    //oRecorsetDebitMemo.DoQuery(sDebitMemo);
 
-                            oMatrixInvoice.AutoResizeColumns();
+                    //oTableInvoices.ExecuteQuery(sInvoices);
+                    //oTableCreditMemo.ExecuteQuery(sCreditMemo);
+                    //oTableDebitMemo.ExecuteQuery(sDebitMemo);
 
-                        }
+                    //#endregion
 
-                        #endregion
+                    //CantidadRegistos = oRecorsetInvoices.RecordCount + oRecorsetCreditMemo.RecordCount + oRecorsetDebitMemo.RecordCount;
 
-                        #region Carga datos Matrix Notas credito
+                    //if (CantidadRegistos != 0)
+                    //{
+                    //    #region Carga datos Matrix Facturas
 
-                        if (oRecorsetCreditMemo.RecordCount > 0)
-                        {
-                            oMatrixCreditMemo.Clear();
+                    //    if (oRecorsetInvoices.RecordCount > 0)
+                    //    {
+                    //        oMatrixInvoice.Clear();
 
-                            oMatrixCreditMemo.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
-                            oMatrixCreditMemo.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
-                            oMatrixCreditMemo.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
-                            oMatrixCreditMemo.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
-                            //oMatrixCreditMemo.Columns.Item("Col_25").DataBind.Bind("DT_Invoices", "Num_Fac_Preeli");
-                            //oMatrixCreditMemo.Columns.Item("Col_26").DataBind.Bind("DT_Invoices", "Num_Fac_SAP");
-                            oMatrixCreditMemo.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
-                            oMatrixCreditMemo.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
-                            oMatrixCreditMemo.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
-                            oMatrixCreditMemo.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
-                            oMatrixCreditMemo.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
-                            oMatrixCreditMemo.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_Pago");
-                            oMatrixCreditMemo.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
-                            oMatrixCreditMemo.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
-                            oMatrixCreditMemo.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
-                            oMatrixCreditMemo.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
-                            oMatrixCreditMemo.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
+                    //        oMatrixInvoice.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
+                    //        oMatrixInvoice.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
+                    //        oMatrixInvoice.Columns.Item("Col_11").DataBind.Bind("DT_Invoices", "Estado_SAP");
+                    //        oMatrixInvoice.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
+                    //        oMatrixInvoice.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
+                    //        oMatrixInvoice.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
+                    //        oMatrixInvoice.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
+                    //        oMatrixInvoice.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
+                    //        oMatrixInvoice.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
+                    //        oMatrixInvoice.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
+                    //        oMatrixInvoice.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_de_Pago");
+                    //        oMatrixInvoice.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
+                    //        oMatrixInvoice.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
+                    //        oMatrixInvoice.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
+                    //        oMatrixInvoice.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
+                    //        oMatrixInvoice.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
+                    //        oMatrixInvoice.Columns.Item("Col_19").Visible = false;
+                    //        oMatrixInvoice.Columns.Item("Col_23").Visible = false;
+                    //        oMatrixInvoice.Columns.Item("Col_20").DataBind.Bind("DT_Invoices", "DescargaXML");
+                    //        oMatrixInvoice.Columns.Item("Col_12").DataBind.Bind("DT_Invoices", "RutaXML");
+                    //        oMatrixInvoice.Columns.Item("Col_12").Visible = false;
+                    //        oMatrixInvoice.Columns.Item("Col_21").DataBind.Bind("DT_Invoices", "DescargaPDF");
+                    //        oMatrixInvoice.Columns.Item("Col_13").DataBind.Bind("DT_Invoices", "RutaPDF");
+                    //        oMatrixInvoice.Columns.Item("Col_13").Visible = false;
+                    //        oMatrixInvoice.Columns.Item("Col_22").DataBind.Bind("DT_Invoices", "ImageAceptar");
+                    //        oMatrixInvoice.Columns.Item("Col_7").DataBind.Bind("DT_Invoices", "ImageCancelar");
+                    //        oMatrixInvoice.Columns.Item("Col_14").DataBind.Bind("DT_Invoices", "TipoIdentificacionEmisor");
+                    //        oMatrixInvoice.Columns.Item("Col_14").Visible = false;
 
-                            oMatrixCreditMemo.LoadFromDataSource();
 
-                            oMatrixCreditMemo.AutoResizeColumns();
+                    //        oMatrixInvoice.LoadFromDataSource();
 
-                        }
-                        #endregion
+                    //        oMatrixInvoice.AutoResizeColumns();
 
-                        #region Carga datos Matrix Notas Debito
+                    //    }
 
-                        if (oRecorsetDebitMemo.RecordCount > 0)
-                        {
-                            oMatrixDebitMemo.Clear();
+                    //    #endregion
 
-                            oMatrixDebitMemo.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
-                            oMatrixDebitMemo.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
-                            oMatrixDebitMemo.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
-                            oMatrixDebitMemo.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
-                            //oMatrixDebitMemo.Columns.Item("Col_25").DataBind.Bind("DT_Invoices", "Num_Fac_Preeli");
-                            //oMatrixDebitMemo.Columns.Item("Col_26").DataBind.Bind("DT_Invoices", "Num_Fac_SAP");
-                            oMatrixDebitMemo.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
-                            oMatrixDebitMemo.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
-                            oMatrixDebitMemo.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
-                            oMatrixDebitMemo.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
-                            oMatrixDebitMemo.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
-                            oMatrixDebitMemo.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_Pago");
-                            oMatrixDebitMemo.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
-                            oMatrixDebitMemo.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
-                            oMatrixDebitMemo.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
-                            oMatrixDebitMemo.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
-                            oMatrixDebitMemo.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
+                    //    #region Carga datos Matrix Notas credito
 
-                            oMatrixDebitMemo.LoadFromDataSource();
+                    //    if (oRecorsetCreditMemo.RecordCount > 0)
+                    //    {
+                    //        oMatrixCreditMemo.Clear();
 
-                            oMatrixDebitMemo.AutoResizeColumns();
+                    //        oMatrixCreditMemo.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
+                    //        oMatrixCreditMemo.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
+                    //        oMatrixCreditMemo.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
+                    //        oMatrixCreditMemo.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
+                    //        //oMatrixCreditMemo.Columns.Item("Col_25").DataBind.Bind("DT_Invoices", "Num_Fac_Preeli");
+                    //        //oMatrixCreditMemo.Columns.Item("Col_26").DataBind.Bind("DT_Invoices", "Num_Fac_SAP");
+                    //        oMatrixCreditMemo.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
+                    //        oMatrixCreditMemo.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
+                    //        oMatrixCreditMemo.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
+                    //        oMatrixCreditMemo.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
+                    //        oMatrixCreditMemo.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
+                    //        oMatrixCreditMemo.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_Pago");
+                    //        oMatrixCreditMemo.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
+                    //        oMatrixCreditMemo.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
+                    //        oMatrixCreditMemo.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
+                    //        oMatrixCreditMemo.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
+                    //        oMatrixCreditMemo.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
 
-                        }
-                        #endregion
+                    //        oMatrixCreditMemo.LoadFromDataSource();
 
-                    }
-                    else
-                    {
-                        DllFunciones.sendMessageBox(_sboapp, "No se encontraron documentos");
-                    }
+                    //        oMatrixCreditMemo.AutoResizeColumns();
 
-                    DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Documentos sicronizados correctamente.");
+                    //    }
+                    //    #endregion
+
+                    //    #region Carga datos Matrix Notas Debito
+
+                    //    if (oRecorsetDebitMemo.RecordCount > 0)
+                    //    {
+                    //        oMatrixDebitMemo.Clear();
+
+                    //        oMatrixDebitMemo.Columns.Item("#").DataBind.Bind("DT_Invoices", "#");
+                    //        oMatrixDebitMemo.Columns.Item("Col_0").DataBind.Bind("DT_Invoices", "Estado");
+                    //        oMatrixDebitMemo.Columns.Item("Col_9").DataBind.Bind("DT_Invoices", "DocEntry");
+                    //        oMatrixDebitMemo.Columns.Item("Col_1").DataBind.Bind("DT_Invoices", "Num_Fac_Pro");
+                    //        //oMatrixDebitMemo.Columns.Item("Col_25").DataBind.Bind("DT_Invoices", "Num_Fac_Preeli");
+                    //        //oMatrixDebitMemo.Columns.Item("Col_26").DataBind.Bind("DT_Invoices", "Num_Fac_SAP");
+                    //        oMatrixDebitMemo.Columns.Item("Col_16").DataBind.Bind("DT_Invoices", "Serie_Numeracion");
+                    //        oMatrixDebitMemo.Columns.Item("Col_2").DataBind.Bind("DT_Invoices", "Codigo_cliente");
+                    //        oMatrixDebitMemo.Columns.Item("Col_3").DataBind.Bind("DT_Invoices", "Nombre_del_Cliente");
+                    //        oMatrixDebitMemo.Columns.Item("Col_4").DataBind.Bind("DT_Invoices", "Fecha_Documento");
+                    //        oMatrixDebitMemo.Columns.Item("Col_5").DataBind.Bind("DT_Invoices", "Fecha_vencimiento");
+                    //        oMatrixDebitMemo.Columns.Item("Col_24").DataBind.Bind("DT_Invoices", "Condicion_Pago");
+                    //        oMatrixDebitMemo.Columns.Item("Col_6").DataBind.Bind("DT_Invoices", "Total_documento");
+                    //        oMatrixDebitMemo.Columns.Item("Col_17").DataBind.Bind("DT_Invoices", "CUFE");
+                    //        oMatrixDebitMemo.Columns.Item("Col_18").DataBind.Bind("DT_Invoices", "Fecha_emision");
+                    //        oMatrixDebitMemo.Columns.Item("Col_10").DataBind.Bind("DT_Invoices", "Hora_emision");
+                    //        oMatrixDebitMemo.Columns.Item("Col_8").DataBind.Bind("DT_Invoices", "Fecha_recepcion");
+
+                    //        oMatrixDebitMemo.LoadFromDataSource();
+
+                    //        oMatrixDebitMemo.AutoResizeColumns();
+
+                    //    }
+                    //    #endregion
+
+                    //}
+                    //else
+                    //{
+                    //    DllFunciones.sendMessageBox(_sboapp, "No se encontraron documentos");
+                    //}
+
+                    //DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Documentos sicronizados correctamente.");
 
                     #endregion
 
@@ -805,12 +820,13 @@ namespace BOElectronicReception
             }
             catch (Exception)
             {
+                //throw;
 
-                throw;
+                DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Documentos sicronizados correctamente.");
             }
 
         }
-
+        
         public string GetElementXML_DIAN(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, string Elemento_XML_DIAN, string sRutaXML, string U_BOTNI, string U_BOTNF )
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
@@ -1653,7 +1669,7 @@ namespace BOElectronicReception
             catch (Exception)
             {
 
-                throw;
+                //throw;
             }
 
 
@@ -1841,7 +1857,7 @@ namespace BOElectronicReception
 
                     #region Instanciacion parametros TFHKA
 
-                    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;                    
+                    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
                     if (sProtocoloComunicacion == "HTTP")
                     {
@@ -2035,11 +2051,44 @@ namespace BOElectronicReception
                             oMatrixInvoice.Columns.Item("Col_7").DataBind.Bind("DT_Invoices", "ImageCancelar");
                             oMatrixInvoice.Columns.Item("Col_14").DataBind.Bind("DT_Invoices", "TipoIdentificacionEmisor");
                             oMatrixInvoice.Columns.Item("Col_14").Visible = false;
+                            oMatrixInvoice.Columns.Item("Col_15").DataBind.Bind("DT_Invoices", "ImageAcusar");
+                            oMatrixInvoice.Columns.Item("Col_27").DataBind.Bind("DT_Invoices", "ImageRecibir");
+                            oMatrixInvoice.Columns.Item("Col_28").DataBind.Bind("DT_Invoices", "Chk");
+                            oMatrixInvoice.Columns.Item("Col_28").Editable = true;
+                            oMatrixInvoice.Columns.Item("Col_29").DataBind.Bind("DT_Invoices", "PO");
+                            oMatrixInvoice.Columns.Item("Col_29").Editable = false;
+
 
                             oMatrixInvoice.LoadFromDataSource();
 
                             oMatrixInvoice.AutoResizeColumns();
 
+
+                            #region Valida si se activa el campo "Seleccionar"
+
+                            //int rowCount = oMatrixInvoice.RowCount;
+
+                            //for (int i = 1; i <= rowCount; i++)
+                            //{
+                            //    // Obtener el valor de la columna de control (por ejemplo, "ColYN")
+                            //    //string habilitado = oMatrixInvoice.Columns.Item("Col_24").Cells.Item(i).Specific.Value;
+                            //    string sMedioPagoDIAN = ((SAPbouiCOM.EditText)(oMatrixInvoice.Columns.Item("Col_24").Cells.Item(i).Specific)).Value;
+
+                            //    // Obtener la celda a habilitar/deshabilitar (por ejemplo, columna "ColCheck")
+                            //    SAPbouiCOM.CheckBox txtSeleccionar = (SAPbouiCOM.CheckBox)oMatrixInvoice.Columns.Item("Col_28").Cells.Item(i).Specific;
+
+                            //    if (sMedioPagoDIAN == "Contado")
+                            //    {
+                            //        txtSeleccionar.Item.Enabled = false;  // habilita la celda
+                            //        oMatrixInvoice.CommonSetting.SetCellEditable(i, 1, false);
+                            //    }
+                            //    else
+                            //    {
+                            //        txtSeleccionar.Item.Enabled = true; // deshabilita la celda
+                            //    }
+                            //}
+
+                            #endregion
                         }
 
                         #endregion
@@ -2120,8 +2169,8 @@ namespace BOElectronicReception
             }
             catch (Exception ex)
             {
-
-                //throw;
+                DllFunciones.ProgressBarForceStop();
+                throw;
             }
         }
 
@@ -2137,7 +2186,7 @@ namespace BOElectronicReception
                 string sRutaXML = null;
                 string sRutaPDF = null;
 
-                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
                 var ResponsiveDocumentsReceptor = _serviceClienTFHKAReception.Reporte(ParametrosConsultaTodosDocumentosRecepcion);
 
@@ -2369,44 +2418,49 @@ namespace BOElectronicReception
 
                             if (sFormaRecepcion == "B")
                             {
-                                DescargaXML_PDF_WS_TFHKA(sboapp, _oCompany, sFormaRecepcion, ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].tipoidentidad.ToString());
+                                sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathXML%'", "NULL");
 
-                                string sRutaArchivoXML = sRutaXML + "\\" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString() + "_" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString() + ".xml";
+                                //DescargaXML_PDF_WS_TFHKA(sboapp, _oCompany, sFormaRecepcion, ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].tipoidentidad.ToString());
 
-                                if (File.Exists(sRutaArchivoXML))
-                                {
-                                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%PathXML%", sRutaArchivoXML);
-                                }
-                                else
-                                {
-                                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathXML%'", sRutaArchivoXML);
-                                }
+                                //string sRutaArchivoXML = sRutaXML + "\\" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString() + "_" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString() + ".xml";
+
+                                //if (File.Exists(sRutaArchivoXML))
+                                //{
+                                //    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%PathXML%", sRutaArchivoXML);
+                                //}
+                                //else
+                                //{
+                                //    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathXML%'", sRutaArchivoXML);
+                                //}
 
                             }
                             else if (sFormaRecepcion == "C")
                             {
-                                DescargaXML_PDF_WS_TFHKA(sboapp, _oCompany, sFormaRecepcion, ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].tipoidentidad.ToString());
+                                sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathXML%'", "NULL");
+                                sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathPDF%'", "NULL");
 
-                                string sRutaArchivoXML = sRutaXML + "\\" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString() + "_" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString() + ".xml";
-                                string sRutaArchivoPDF = sRutaPDF + "\\" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString() + "_" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString() + ".pdf";
+                                //DescargaXML_PDF_WS_TFHKA(sboapp, _oCompany, sFormaRecepcion, ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString(), ResponsiveDocumentsReceptor.documentoselectronicos[i].tipoidentidad.ToString());
 
-                                if (File.Exists(sRutaArchivoXML))
-                                {
-                                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%PathXML%", sRutaArchivoXML);
-                                }
-                                else
-                                {
-                                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathXML%'", "NULL");
-                                }
+                                //string sRutaArchivoXML = sRutaXML + "\\" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString() + "_" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString() + ".xml";
+                                //string sRutaArchivoPDF = sRutaPDF + "\\" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numeroidentificacion.ToString() + "_" + ResponsiveDocumentsReceptor.documentoselectronicos[i].numerodocumento.ToString() + ".pdf";
 
-                                if (File.Exists(sRutaArchivoPDF))
-                                {
-                                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%PathPDF%", sRutaArchivoPDF);
-                                }
-                                else
-                                {
-                                    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathPDF%'", "NULL");
-                                }
+                                //if (File.Exists(sRutaArchivoXML))
+                                //{
+                                //    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%PathXML%", sRutaArchivoXML);
+                                //}
+                                //else
+                                //{
+                                //    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathXML%'", "NULL");
+                                //}
+
+                                //if (File.Exists(sRutaArchivoPDF))
+                                //{
+                                //    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%PathPDF%", sRutaArchivoPDF);
+                                //}
+                                //else
+                                //{
+                                //    sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%PathPDF%'", "NULL");
+                                //}
 
                             }
 
@@ -2433,7 +2487,7 @@ namespace BOElectronicReception
 
                             if (string.IsNullOrEmpty(sResponsePaymentMeans_ID))
                             {
-                                sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%MedioPago%'", "NULL");
+                                sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%MedioPago%", "2");
                             }
                             else
                             {
@@ -2700,6 +2754,7 @@ namespace BOElectronicReception
                 
                 ParametrosConsultaDocumentosRecepcion.status_code = sCodigoStatusDIAN;
 
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
                 var ResponsiveReportReception00 = _serviceClienTFHKAReception.ReporteStatus(ParametrosConsultaDocumentosRecepcion);
 
                 if (ResponsiveReportReception00.codigo == 200)
@@ -2900,7 +2955,7 @@ namespace BOElectronicReception
 
                         #region Medio Pago
 
-                        sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("'%MedioPago%'", "NULL");
+                        sSyncDocsRecepCopia = sSyncDocsRecepCopia.Replace("%MedioPago%", "2");
 
                         #endregion
 
@@ -2971,7 +3026,7 @@ namespace BOElectronicReception
                 {
                     #region Instanciacion parametros TFHKA
 
-                    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
+                    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
                     if (sProtocoloComunicacion == "HTTP")
                     {
@@ -3020,8 +3075,8 @@ namespace BOElectronicReception
 
                     #region Descarga Documentos                     
 
-                    Recepcion21WS.FileDownloadResponse DownloadXML;
-                    Recepcion21WS.FileDownloadResponse DownloadPDF;
+                    //Recepcion21WS.FileDownloadResponse DownloadXML;
+                    
 
                     #region Parametros Complementarios Reporte
 
@@ -3035,6 +3090,9 @@ namespace BOElectronicReception
                     {
                         #region Descarga XML
 
+                        Thread.Sleep(5000);
+
+                        Recepcion21WS.FileDownloadResponse DownloadXML;
                         DownloadXML = serviceClienTFHKAReception.DescargarXML(ParametrosDownload);
 
                         if (DownloadXML.codigo == 200)
@@ -3056,6 +3114,9 @@ namespace BOElectronicReception
                     {
                         #region Descarga XML
 
+                        Thread.Sleep(2000);
+                        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+                        Recepcion21WS.FileDownloadResponse DownloadXML;
                         DownloadXML = serviceClienTFHKAReception.DescargarXML(ParametrosDownload);
 
                         if (DownloadXML.codigo == 200)
@@ -3076,6 +3137,9 @@ namespace BOElectronicReception
 
                         #region Descarga PDF
 
+                        Thread.Sleep(2000);
+                        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+                        Recepcion21WS.FileDownloadResponse DownloadPDF;
                         DownloadPDF = serviceClienTFHKAReception.DescargarRepGrafica(ParametrosDownload);
 
                         if (DownloadPDF.codigo == 200)

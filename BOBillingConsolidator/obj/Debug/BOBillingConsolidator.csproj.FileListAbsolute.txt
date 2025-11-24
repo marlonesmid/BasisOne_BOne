@@ -5,4 +5,3 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOBillin
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOBillingConsolidator\bin\x64\BOFunciones.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOBillingConsolidator\obj\Debug\BOBillingConsolidator.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOBillingConsolidator\obj\Debug\BOBillingConsolidator.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\BOBillingConsolidator\obj\Debug\BOBillingConsolidator.csprojResolveAssemblyReference.cache

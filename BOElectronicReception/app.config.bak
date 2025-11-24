@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <!-- ÚNICO BINDING configurado para HTTPS -->
+        <binding name="BasicHttpsBinding"
+                 maxReceivedMessageSize="2147483647"
+                 maxBufferSize="2147483647"
+                 maxBufferPoolSize="2147483647">
+          <security mode="Transport">
+            <!-- clientCredentialType puede ser None, Windows, Certificate o Basic (según lo que requiera el servicio) -->
+            <transport clientCredentialType="None" />
+          </security>
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647"
+                        maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="2147483647" />
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+
+    <client>
+      <endpoint 
+        address="https://emision21.thefactoryhka.com.co/ws/v1.0/Service.svc"
+        binding="basicHttpBinding"
+        bindingConfiguration="BasicHttpsBinding"
+        contract="ServicioEmisionFE.IService"
+        name="ServicioEmision" />
+
+      <endpoint 
+        address="https://emision21.thefactoryhka.com.co/ws/adjuntos/Service.svc"
+        binding="basicHttpBinding"
+        bindingConfiguration="BasicHttpsBinding"
+        contract="ServicioAdjuntosFE.IService"
+        name="ServicioAdjuntos" />
+
+      <endpoint 
+        address="https://recepcion21.thefactoryhka.com.co/ReceptorWS.svc"
+        binding="basicHttpBinding"
+        bindingConfiguration="BasicHttpsBinding"
+        contract="Recepcion21WS.IReceptorWS"
+        name="ReceptorWS" />
+    </client>
+  </system.serviceModel>
+
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/>
+  </startup>
+</configuration>

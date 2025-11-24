@@ -10967,15 +10967,13 @@ namespace eBilling
 
         #endregion
 
-        private string GenerateXMLFBE(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oObservacionesAdicionales, SAPbobsCOM.Recordset oNumeracionDIAN, SAPbobsCOM.Recordset oNotificacion, SAPbobsCOM.Recordset oEmisor, SAPbobsCOM.Recordset oEmisor_Obligaciones, SAPbobsCOM.Recordset oEmisor_Tributo, SAPbobsCOM.Recordset oEmisor_direccion, SAPbobsCOM.Recordset oCliente, SAPbobsCOM.Recordset oCliente_direccion, SAPbobsCOM.Recordset oCliente_ObligacionesCliente, SAPbobsCOM.Recordset oCliente_DireccionFiscal, SAPbobsCOM.Recordset oCliente_TributoCliente, SAPbobsCOM.Recordset oMediosDePago,SAPbobsCOM.Recordset oAnticipos, SAPbobsCOM.Recordset oDescuentosoCargos, SAPbobsCOM.Recordset oTasaDeCambio, SAPbobsCOM.Recordset oTasaDeCambioAlterna, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oRetenciones, SAPbobsCOM.Recordset oTotales, SAPbobsCOM.Recordset oLineas,SAPbobsCOM.Recordset oCamposAdicionales, SAPbobsCOM.Recordset oCUFEInvoice,string sRutaXML, SAPbobsCOM.Recordset oPeriodoFacturado, SAPbobsCOM.Recordset oMotivosNota, SAPbobsCOM.Recordset oSoporteAdquisicionesRelacionados)
+        private string GenerateXMLFBE(SAPbobsCOM.Recordset oCabecera, SAPbobsCOM.Recordset oObservacionesAdicionales, SAPbobsCOM.Recordset oNumeracionDIAN, SAPbobsCOM.Recordset oNotificacion, SAPbobsCOM.Recordset oEmisor, SAPbobsCOM.Recordset oEmisor_Obligaciones, SAPbobsCOM.Recordset oEmisor_Tributo, SAPbobsCOM.Recordset oEmisor_direccion, SAPbobsCOM.Recordset oCliente, SAPbobsCOM.Recordset oCliente_direccion, SAPbobsCOM.Recordset oCliente_ObligacionesCliente, SAPbobsCOM.Recordset oCliente_DireccionFiscal, SAPbobsCOM.Recordset oCliente_TributoCliente, SAPbobsCOM.Recordset oMediosDePago, SAPbobsCOM.Recordset oAnticipos, SAPbobsCOM.Recordset oDescuentosoCargos, SAPbobsCOM.Recordset oTasaDeCambio, SAPbobsCOM.Recordset oTasaDeCambioAlterna, SAPbobsCOM.Recordset oImpuestos, SAPbobsCOM.Recordset oRetenciones, SAPbobsCOM.Recordset oTotales, SAPbobsCOM.Recordset oLineas, SAPbobsCOM.Recordset oCamposAdicionales, SAPbobsCOM.Recordset oCUFEInvoice, string sRutaXML, SAPbobsCOM.Recordset oPeriodoFacturado, SAPbobsCOM.Recordset oMotivosNota, SAPbobsCOM.Recordset oSoporteAdquisicionesRelacionados)
         {
 
             #region Variables y objetos 
 
-            SAPbobsCOM.Recordset oLineasUSD = oLineas;
-
             #endregion
-            
+
             #region Crea elementos generales  
 
             #region Creacion ElementoXML Notificacion
@@ -11002,24 +11000,27 @@ namespace eBilling
 
             #endregion
 
-            #endregion
-
             #region Valores en Dolares 
 
-            string sForeignCurrency_ExchangueRate = oCamposAdicionales.Fields.Item("DocRate").Value.ToString();
-            string sForeignCurrency_Codigo = oLineasUSD.Fields.Item("Codigo").Value.ToString();
-            string sForeignCurrency_CampoAdicional_PrecioUnitarioLineaUSD = oLineasUSD.Fields.Item("CampoAdicional_PrecioUnitarioLineaUSD").Value.ToString();
-            string sForeignCurrency_CampoAdicional_SubTotalLineaUSD = oLineasUSD.Fields.Item("CampoAdicional_SubTotalLineaUSD").Value.ToString();
-            string sForeignCurrency_CampoAdicional_ValorTotalItemUSD = oLineasUSD.Fields.Item("CampoAdicional_ValorTotalItemUSD").Value.ToString();
+            string sForeignCurrency_ExchangueRate = "";
+            string sForeignCurrency_Codigo = "";
+            string sForeignCurrency_CampoAdicional_PrecioUnitarioLineaUSD = "";
+            string sForeignCurrency_CampoAdicional_SubTotalLineaUSD = "";
+            string sForeignCurrency_CampoAdicional_ValorTotalItemUSD = "";
 
-
-
-
-
-
+            if (oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString() == "Factura")
+            {
+                sForeignCurrency_ExchangueRate = oCamposAdicionales.Fields.Item("DocRate").Value.ToString();
+                sForeignCurrency_Codigo = oLineas.Fields.Item("Codigo").Value.ToString();
+                sForeignCurrency_CampoAdicional_PrecioUnitarioLineaUSD = oLineas.Fields.Item("CampoAdicional_PrecioUnitarioLineaUSD").Value.ToString();
+                sForeignCurrency_CampoAdicional_SubTotalLineaUSD = oLineas.Fields.Item("CampoAdicional_SubTotalLineaUSD").Value.ToString();
+                sForeignCurrency_CampoAdicional_ValorTotalItemUSD = oLineas.Fields.Item("CampoAdicional_ValorTotalItemUSD").Value.ToString();
+            }
 
             #endregion
 
+            #endregion
+            
             if (oCabecera.Fields.Item("TipoTransaccionFBE").Value.ToString() == "Factura")
             {
                 #region Genera XML Factura de venta
