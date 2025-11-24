@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfRecepcionSOAP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="ReceptorRequestGeneral">
     <xs:sequence>
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
@@ -137,6 +138,7 @@
   <xs:complexType name="ReceptorCambioEstatusRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="EjecutadoPor" nillable="true" type="tns:ReceptorCambioEstatusRequest.EjecutadoPorRequest" />
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="codigoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
@@ -187,10 +189,11 @@
   <xs:element name="FileDownloadResponse" nillable="true" type="tns:FileDownloadResponse" />
   <xs:complexType name="ReceptorRequestApplicationResponse">
     <xs:sequence>
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="nombreFileApplicationResponse" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="tipoDescarga" type="xs:int" />
+      <xs:element minOccurs="0" name="tipoDescarga" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="tipoIdentificacionemisor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="tokenEmpresa" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="tokenPassword" nillable="true" type="xs:string" />
@@ -199,6 +202,7 @@
   <xs:element name="ReceptorRequestApplicationResponse" nillable="true" type="tns:ReceptorRequestApplicationResponse" />
   <xs:complexType name="ReceptorRequestAnexo">
     <xs:sequence>
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="identificadorInternoAnexo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
@@ -300,6 +304,7 @@
   <xs:element name="ResponseGeneralInfo" nillable="true" type="tns:ResponseGeneralInfo" />
   <xs:complexType name="EnviarArchivoReceptorRequest">
     <xs:sequence>
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="archivo" nillable="true" type="xs:base64Binary" />
       <xs:element minOccurs="0" name="extension" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
@@ -314,6 +319,7 @@
   <xs:element name="EnviarArchivoReceptorRequest" nillable="true" type="tns:EnviarArchivoReceptorRequest" />
   <xs:complexType name="EnviarMetadataReceptorRequest">
     <xs:sequence>
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="identificadorEmisor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="metadata" nillable="true" type="tns:ListMetadata" />
       <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />

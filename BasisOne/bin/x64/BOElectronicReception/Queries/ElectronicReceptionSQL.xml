@@ -302,6 +302,7 @@
            "U_BO_MI" AS "ModoIntegracion",
            "U_BO_PC" AS "ProtocoloComunicacion",
            "U_BO_xWHOFBE" AS "xWho",
+           "U_HX_xWHORFBE" AS "xWhoRecepcion",
            "U_BO_UserFBE" AS "UserFBE",
            "U_BO_PassFBE" AS "PassFBE",
            "U_BO_xTenantIdFBE" AS "TenatIdFBE"

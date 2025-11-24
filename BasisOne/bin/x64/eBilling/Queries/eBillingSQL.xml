@@ -878,5 +878,11 @@
     FROM "OUSR" 
     WHERE "USER_CODE" = '%UserCode%'
   </SearchUserPermissionAdminFE>
+
+  <GetIntegrationMode>
+
+    SELECT TOP 1 "U_BO_MI" AS "ModoIntegracion" FROM "@BOEBILLINGP" WHERE "U_BO_Status" = 'Y'
+
+  </GetIntegrationMode>
   
 </Queries>

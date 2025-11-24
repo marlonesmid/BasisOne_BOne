@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\IT Manager\\Desktop\\Projects\\Projects\\BasisOne_BOne\\",
+  "WorkspaceRootPath": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2DF3343D-EC97-40D9-B9B7-13DB9F550B68}|BOElectronicReception\\BOElectronicReception.csproj|c:\\users\\it manager\\desktop\\projects\\projects\\basisone_bone\\boelectronicreception\\electronicreception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DF3343D-EC97-40D9-B9B7-13DB9F550B68}|BOElectronicReception\\BOElectronicReception.csproj|solutionrelative:boelectronicreception\\electronicreception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|c:\\github\\basisone\\basisone_bone\\ebilling\\ebillingbo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBAC888E-78F3-45A0-9051-A2C412B94AE6}|eBilling\\BOeBilling.csproj|solutionrelative:ebilling\\ebillingbo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03C9C423-F34D-401F-91D5-74EDB2CC87CC}|BasisOne\\BasisOne.csproj|C:\\Users\\IT Manager\\Desktop\\Projects\\Projects\\BasisOne_BOne\\basisone\\sapmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{03C9C423-F34D-401F-91D5-74EDB2CC87CC}|BasisOne\\BasisOne.csproj|C:\\GitHub\\BasisOne\\BasisOne_BOne\\basisone\\sapmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{03C9C423-F34D-401F-91D5-74EDB2CC87CC}|BasisOne\\BasisOne.csproj|solutionrelative:basisone\\sapmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -39,27 +39,28 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ElectronicReception.cs",
-              "DocumentMoniker": "C:\\Users\\IT Manager\\Desktop\\Projects\\Projects\\BasisOne_BOne\\BOElectronicReception\\ElectronicReception.cs",
-              "RelativeDocumentMoniker": "BOElectronicReception\\ElectronicReception.cs",
-              "ToolTip": "C:\\Users\\IT Manager\\Desktop\\Projects\\Projects\\BasisOne_BOne\\BOElectronicReception\\ElectronicReception.cs",
-              "RelativeToolTip": "BOElectronicReception\\ElectronicReception.cs",
-              "ViewState": "AgIAAJcGAAAAAAAAAAAgwKoGAAAVAAAAAAAAAA==",
+              "Title": "eBillingBO.cs",
+              "DocumentMoniker": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\eBillingBO.cs",
+              "RelativeDocumentMoniker": "eBilling\\eBillingBO.cs",
+              "ToolTip": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\eBilling\\eBillingBO.cs",
+              "RelativeToolTip": "eBilling\\eBillingBO.cs",
+              "ViewState": "AgIAADo1AAAAAAAAAAAlwFs1AAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T18:04:39.54Z",
+              "WhenOpened": "2025-11-11T11:44:31.562Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "SAPMain.cs",
-              "DocumentMoniker": "C:\\Users\\IT Manager\\Desktop\\Projects\\Projects\\BasisOne_BOne\\BasisOne\\SAPMain.cs",
+              "DocumentMoniker": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\BasisOne\\SAPMain.cs",
               "RelativeDocumentMoniker": "BasisOne\\SAPMain.cs",
-              "ToolTip": "C:\\Users\\IT Manager\\Desktop\\Projects\\Projects\\BasisOne_BOne\\BasisOne\\SAPMain.cs",
+              "ToolTip": "C:\\GitHub\\BasisOne\\BasisOne_BOne\\BasisOne\\SAPMain.cs",
               "RelativeToolTip": "BasisOne\\SAPMain.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAmwD8AAAAMAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T18:04:39.9Z"
+              "WhenOpened": "2025-09-04T23:18:30.661Z",
+              "EditorCaption": ""
             }
           ]
         }

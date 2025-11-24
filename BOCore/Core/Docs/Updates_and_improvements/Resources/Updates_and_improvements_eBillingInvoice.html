@@ -1,245 +1,267 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Liberaciones AddOn Facturacion Electronica</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #0f172a;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liberaciones AddOn Facturacion Electronica</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
 
-    .sidebar {
-      width: 260px;
-      background-color: #1e293b;
-      padding: 1rem;
-      border-right: 1px solid #334155;
-      overflow-y: auto;
-    }
+        .sidebar {
+            width: 260px;
+            background-color: #1e293b;
+            padding: 1rem;
+            border-right: 1px solid #334155;
+            overflow-y: auto;
+        }
 
-    .sidebar h3 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
+            .sidebar h3 {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
 
-    .toggle-header {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      color: #94a3b8;
-      font-weight: bold;
-      margin-top: 1rem;
-      user-select: none;
-    }
+        .toggle-header {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+            font-weight: bold;
+            margin-top: 1rem;
+            user-select: none;
+        }
 
-    .toggle-icon {
-      margin-right: 6px;
-      transition: transform 0.3s ease;
-    }
+        .toggle-icon {
+            margin-right: 6px;
+            transition: transform 0.3s ease;
+        }
 
-    .toggle-icon.rotated {
-      transform: rotate(90deg);
-    }
+            .toggle-icon.rotated {
+                transform: rotate(90deg);
+            }
 
-    .release-list {
-      list-style: none;
-      padding-left: 1rem;
-      margin: 0.5rem 0;
-      display: none;
-    }
+        .release-list {
+            list-style: none;
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+            display: none;
+        }
 
-    .release-list li {
-      margin: 4px 0;
-    }
+            .release-list li {
+                margin: 4px 0;
+            }
 
-    .sidebar a {
-      text-decoration: none;
-      color: #cbd5e1;
-      font-size: 0.95rem;
-    }
+        .sidebar a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
 
-    .sidebar a:hover {
-      color: #38bdf8;
-    }
+            .sidebar a:hover {
+                color: #38bdf8;
+            }
 
-    .content {
-      flex: 1;
-      padding: 2rem;
-    }
+        .content {
+            flex: 1;
+            padding: 2rem;
+        }
 
-    h1, h2 {
-      color: #f8fafc;
-    }
+        h1, h2 {
+            color: #f8fafc;
+        }
 
-    .date {
-      color: #cbd5e1;
-    }
+        .date {
+            color: #cbd5e1;
+        }
 
-    .section-title {
-      font-size: 1.25rem;
-      margin-top: 1.5rem;
-      border-left: 4px solid #38bdf8;
-      padding-left: 0.5rem;
-      margin-left: 1rem;
-    }
+        .section-title {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #38bdf8;
+            padding-left: 0.5rem;
+            margin-left: 1rem;
+        }
 
-    /* Estilo específico para la sección de correcciones */
-    .section-title:has(+ div h4) {
-      border-left-color: #f87171;
-    }
+            /* Estilo específico para la sección de correcciones */
+            .section-title:has(+ div h4) {
+                border-left-color: #f87171;
+            }
 
-    /* Color rojo para el contenido de correcciones */
-    .fixes {
-      color: #f87171 !important;
-    }
+        /* Color rojo para el contenido de correcciones */
+        .fixes {
+            color: #f87171 !important;
+        }
 
-    .fixes li.indented-text {
-      color: #f87171 !important;
-    }
+            .fixes li.indented-text {
+                color: #f87171 !important;
+            }
 
-    h4 {
-      margin-top: 1rem;
-      margin-left: 2rem;
-      font-weight: bold;
-      color: #94a3b8;
-    }
+        h4 {
+            margin-top: 1rem;
+            margin-left: 2rem;
+            font-weight: bold;
+            color: #94a3b8;
+        }
 
-    ul.release-notes {
-      list-style-type: none !important; /* Asegurarse de eliminar los puntos por defecto */
-      padding-left: 3rem;
-      margin: 0.5rem 0;
-      text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
-    }
+        ul.release-notes {
+            list-style-type: none !important; /* Asegurarse de eliminar los puntos por defecto */
+            padding-left: 3rem;
+            margin: 0.5rem 0;
+            text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
+        }
 
-    ul.release-notes li {
-      padding-left: 0 !important; /* Ajustar el padding del item */
-      margin-bottom: 0.5rem;
-      text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
-    }
+            ul.release-notes li {
+                padding-left: 0 !important; /* Ajustar el padding del item */
+                margin-bottom: 0.5rem;
+                text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
+            }
 
-    .indented-text {
-      padding-left: 3rem !important;
-      text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
-    }
+        .indented-text {
+            padding-left: 3rem !important;
+            text-indent: 0 !important; /* Asegurarse de eliminar la indentación de texto */
+        }
 
-    .indented-image {
-      padding-left: 3rem !important;
-    }
+        .indented-image {
+            padding-left: 3rem !important;
+        }
 
-    ul.release-notes li::before {
-      display: none !important; /* Asegurarse de ocultar los puntos personalizados */
-    }
+        ul.release-notes li::before {
+            display: none !important; /* Asegurarse de ocultar los puntos personalizados */
+        }
 
-    .fixes li::before {
-      display: none !important; /* Asegurarse de ocultar los puntos personalizados */
-    }
+        .fixes li::before {
+            display: none !important; /* Asegurarse de ocultar los puntos personalizados */
+        }
 
-    .fixes li {
-      color: #f87171 !important; /* Color rojo para el texto de correcciones */
-    }
-  </style>
+        .fixes li {
+            color: #f87171 !important; /* Color rojo para el texto de correcciones */
+        }
+    </style>
 </head>
 <body>
-  <aside class="sidebar" id="sidebar">
-    <h3>📄 Notas de Liberaciones</h3>
-  </aside>
-  <main class="content">
-    <h1>Liberaciones AddOn Facturacion Electronica</h1>
-    <div id="release-content"></div>
-  </main>
+    <aside class="sidebar" id="sidebar">
+        <h3>📄 Notas de Liberaciones</h3>
+    </aside>
+    <main class="content">
+        <h1>Liberaciones AddOn Facturacion Electronica</h1>
+        <div id="release-content"></div>
+    </main>
 
-  <script>
+    <script>
       const releasesData = {
           "releases": {
               "2025": [
-                  {
-                      "version": "10.25.28.0",
-                      "link": "Pendiente por liberar",
-                      "date": "Julio 16, 2025",
-					  "improvements": {					  
-						  "Mejoras": {
-							"Parametros Generales ": [
-							  "Ahora para ingresar al modulo de Parametros Generales de Facturacion Electronica, se requiere permiso, si un usuario no tiene autorizacion les mostrara el siguiente mensaje",
-							  "<img src='./Images/10.25.28.0 - Image2.png' alt='10.25.28.0 - Images 2' style='width:100%; max-width:500px; margin-top: 10px;'>",
-							  "para activar el permiso se debe solicitar el permiso al administrador del sistema.",
-							],							
-							"Gestor de addon": [
-							  "Se adiciona mejora donde para que los usuarios puedan descargar un archivo con los principales cambios realizados en el modulo."                      
-							],
-							"Emision de documentos": [
-							  "Se crea una nueva opcion la cual se llama Regenerar PDF, Al activar esta opcion el sistema generara nuevamente los PDF y adjuntos de los documentos al momento de dar Enviar a la DIAN ",
-							  "<img src='./Images/10.25.28.0 - Image1.png' alt='10.25.28.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
-							]
-						  }
-						},
-                      "fixes": {
-                          "Correcciones": {
-                              "No. Orden de compra:": [
-                                  "Se corrige el campo numero de orden de compra, no estaba tomando el campo de la base de datos",
-                                  "<img src='./Images/10.25.19.0 - Images 1.png' alt='10.25.19.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
-                                  "ahora guarda correctamente la informacion y muestra la informacion en el visor de documentos.",
-                              ],
-                              "Tamaño campo Orden de compra": [
-                                  "Al momento de guardar el numero de orden de compra en la base de datos arroja el siguiente error",
-                                  "<img src='./Images/10.25.21.0 - Images 1.png' alt='10.25.21.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
-                                  "Se realizar correccion para que guarde correctamente la informacion en la base de datos.",
-                              ],                              
-                          }
-                      },
-                  },
-                  {
-                      "version": "10.25.19.0",
-                      "link": "#",
-                      "date": "Marzo 17, 2025",
-                      "improvements": {
-                          "Recepción Electronica": {
-                              "No. Orden de compra:": [
-                                  "Se adicionara el campo \"Orden de compra\" en visor de documentos electronicos, el numero de orden de compra proviene del Tag \"cac:OrderReference/cbc:ID\" del XML enviado por el proveedor",
-                                  "<img src='./Images/10.25.19.0 - Images 1.png' alt='10.25.19.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>"
-                              ],
-                              "Aceptacion Masiva": [
-                                  "Se genera nueva funcionalidad para generar eventos masivos en los documentos electronicos, a continuacion encontrara un video explicativo",
-                                  "<iframe width='50%' height='315' src='https://www.youtube.com/embed/kc_FgF8S5lU' title='Mejoras - Recepción Electrónica | Generación Masiva de Eventos XML' frameborder='0' allowfullscreen style='margin-top: 10px;'></iframe>"
-                              ],
-                              "Exportar a Excel": [
-                                  "Se adiciona nuevo boton que permite exportal a Excel el informe que esta en pantalla de los documentos electronicos",
-                                  "<img src='./Images/10.25.19.0 - Images 2.png' alt='10.25.19.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>"
-                              ],
-                          }
-                      },
-                  },
-                  {
-                      "version": "10.25.12.0",
-                      "link": "#",
-                      "date": "Marzo 17, 2025",
-                      "improvements": {
-                          "Mejoras": {
-                              "Factura de venta, nota debito, nota credito y documento soporte ": [
-                                  "Al momento de enviar el documento electronico a la DIAN, se valida que el socio de negocios tenga diligenciado el regimen fiscal y la responsabilidad fiscal.",
-                                  "<img src='./Images/10.25.12.0 - Images 1.png' alt='10.25.12.0 - Images 1.png' style='width:100%; max-width:500px; margin-top: 10px;'>"
-                              ],
-                          }
-                      },
-                  },
-                  {
+                            {
+                "version": "10.25.35.3",
+                "link": "#",
+                "date": "Agosto 30, 2025",
+                "improvements": {
+                  "Mejoras": {
+                    "Parametros Generales": [
+                    "Ahora para emitir facturas que fueron creadas en dias pasados y se nesecita enviar con fecha Actual se crea parametro el cual se llama \"Generar Factura con fecha actual\", al habilitar este parametro se podra enviar la factura con la fecha actual, IMPORTANTE: El uso de este campo se realiza bajo responsabilidad de la compañia",
+                    "<img src='./Images/10.25.35.3 - Image1.png' alt='10.25.28.0 - Images 2' style='width:100%; max-width:500px; margin-top: 10px;'>",
+                  ],
+                }
+              },
+              "fixes": {
+                "Correcciones": {
+                    "Parametros Generales - Emision Offline": [
+                      "Se realiza correccion para que el sistema permita emitir Facturas OffLine, esto solo para clientes con el proveedor TFHKA",
+                    ],
+                  }
+                },
+              },
+              {
+                "version": "10.25.28.0",
+                "link": "Pendiente por liberar",
+                "date": "Julio 16, 2025",
+                "improvements": {
+                  "Mejoras": {
+                    "Parametros Generales ": [
+                    "Ahora para ingresar al modulo de Parametros Generales de Facturacion Electronica, se requiere permiso, si un usuario no tiene autorizacion les mostrara el siguiente mensaje",
+                    "<img src='./Images/10.25.28.0 - Image2.png' alt='10.25.28.0 - Images 2' style='width:100%; max-width:500px; margin-top: 10px;'>",
+                    "para activar el permiso se debe solicitar el permiso al administrador del sistema.",
+                  ],
+                  "Gestor de addon":
+                  [
+                    "Se adiciona mejora donde para que los usuarios puedan descargar un archivo con los principales cambios realizados en el modulo."
+                    ],
+                    "Emision de documentos": [
+                      "Se crea una nueva opcion la cual se llama Regenerar PDF, Al activar esta opcion el sistema generara nuevamente los PDF y adjuntos de los documentos al momento de dar Enviar a la DIAN ",
+                      "<img src='./Images/10.25.28.0 - Image1.png' alt='10.25.28.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
+                    ]
+                  }
+                },
+                "fixes": {
+                  "Correcciones": {
+                    "No. Orden de compra:": [
+                      "Se corrige el campo numero de orden de compra, no estaba tomando el campo de la base de datos",
+                      "<img src='./Images/10.25.19.0 - Images 1.png' alt='10.25.19.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
+                      "ahora guarda correctamente la informacion y muestra la informacion en el visor de documentos.",
+                    ],
+                    "Tamaño campo Orden de compra": [
+                      "Al momento de guardar el numero de orden de compra en la base de datos arroja el siguiente error",
+                      "<img src='./Images/10.25.21.0 - Images 1.png' alt='10.25.21.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>",
+                      "Se realizar correccion para que guarde correctamente la informacion en la base de datos.",
+                    ],
+                  }
+                },
+              },
+              {
+                "version": "10.25.19.0",
+                "link": "#",
+                "date": "Marzo 17, 2025",
+                "improvements": {
+                  "Recepción Electronica": {
+                    "No. Orden de compra:": [
+                    "Se adicionara el campo \"Orden de compra\" en visor de documentos electronicos, el numero de orden de compra proviene del Tag \"cac:OrderReference/cbc:ID\" del XML enviado por el proveedor",
+                    "<img src='./Images/10.25.19.0 - Images 1.png' alt='10.25.19.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>"
+                  ],
+                  "Aceptacion Masiva": [
+                  "Se genera nueva funcionalidad para generar eventos masivos en los documentos electronicos, a continuacion encontrara un video explicativo",
+                  "<iframe width='50%' height='315' src='https://www.youtube.com/embed/kc_FgF8S5lU' title='Mejoras - Recepción Electrónica | Generación Masiva de Eventos XML' frameborder='0' allowfullscreen style='margin-top: 10px;'></iframe>"
+                ],
+                "Exportar a Excel": [
+                "Se adiciona nuevo boton que permite exportal a Excel el informe que esta en pantalla de los documentos electronicos",
+                "<img src='./Images/10.25.19.0 - Images 2.png' alt='10.25.19.0 - Images 1' style='width:100%; max-width:500px; margin-top: 10px;'>"
+
+              ],
+            }
+            },
+          },
+          {
+            "version": "10.25.12.0",
+            "link": "#",
+            "date": "Marzo 17, 2025",
+            "improvements": {
+              "Mejoras": {
+                "Factura de venta, nota debito, nota credito y documento soporte ": [
+                  "Al momento de enviar el documento electronico a la DIAN, se valida que el socio de negocios tenga diligenciado el regimen fiscal y la responsabilidad fiscal.",
+                  "<img src='./Images/10.25.12.0 - Images 1.png' alt='10.25.12.0 - Images 1.png' style='width:100%; max-width:500px; margin-top: 10px;'>"
+                ],
+              }
+            },
+          },
+          {
                       "version": "10.25.4.1",
             "link": "#",
             "date": "Enero 01, 2025",
             "improvements": {
               "Emisión": {
                 "Socios de Negocios ": [
-                  "Al momento de crear socios de negocio exigia los campos Correo Electronico, Regimen Fiscal y Responsabilidad Fiscal, por lo cual creamos mejora para que solo solo solicite a socios de negocios tipo clientes y proveedores, cualquier otro tipo de socio de negocio no requerira esta informacion "                  
+                  "Al momento de crear socios de negocio exigia los campos Correo Electronico, Regimen Fiscal y Responsabilidad Fiscal, por lo cual creamos mejora para que solo solo solicite a socios de negocios tipo clientes y proveedores, cualquier otro tipo de socio de negocio no requerira esta informacion "
                 ],
                 "Emisión de correos": [
                   "Se realiza mejora al momento de enviar los correos electronicos, se actualiza la consulta que se encarga de generar la informacion del documento electronico para que tome correctamente la información"
                 ]
               }
-            },           
+            },
           },
           {
             "version": "10.25.1.9",
@@ -264,8 +286,8 @@
             "improvements": {
               "Mejoras": {
                 "Gestor de addon": [
-                  "Se adiciona funcionalidad para validar el estado del contrato directamente en el sistema de Hexagrama Consulting, por lo cual el sistema indicara el estado del contrato, Fecha de finalizacion y numero de contrato "                  
-                ]                
+                  "Se adiciona funcionalidad para validar el estado del contrato directamente en el sistema de Hexagrama Consulting, por lo cual el sistema indicara el estado del contrato, Fecha de finalizacion y numero de contrato "
+                ]
               }
             },
           },
@@ -278,11 +300,11 @@
             "improvements": {
               "Correcciones": {
                 "Gestor de addon": [
-                  "Al momento se crear las busquedas formateadas el sistema arroja error, ya que no encontraba el grupo 'Facturacion Electronica BO', por lo cual se corrige el error"                  
-                ],                
+                  "Al momento se crear las busquedas formateadas el sistema arroja error, ya que no encontraba el grupo 'Facturacion Electronica BO', por lo cual se corrige el error"
+                ],
               }
             },
-          },          
+          },
         {
             "version": "10.23.46.1",
             "link": "#",
@@ -310,10 +332,10 @@
                 ],
                 "Visor de documentos ": [
                   "Se realizar mejora para para que se muestre correctamente el 'Row Number' en los matrices de Facturas de venta, notas credito, notas debito, documento soporte y nota de ajsute documento soporte.",
-                  "Se adiciona la pestaña 'Nota de ajuste documento soporte', donde se mostraran todas las notas credito de compra."                  
+                  "Se adiciona la pestaña 'Nota de ajuste documento soporte', donde se mostraran todas las notas credito de compra."
                 ],
                 "Gestor de addon": [
-                  "Se adiciona mejora donde para que los usuarios puedan descargar un archivo con los principales cambios realizados en el modulo."                      
+                  "Se adiciona mejora donde para que los usuarios puedan descargar un archivo con los principales cambios realizados en el modulo."
                 ]
               }
             },
@@ -341,7 +363,7 @@
                   "Se realiza corrección para que cargue correctamente los ComboBox de los campos Estado del documento, Enviado por, Enviar por correo"
                 ],
                 "Nota credito proveedor ": [
-                  "Se realiza corrección para que cargue correctamente los ComboBox de los campos Estado del documento, Enviado por, Enviar por correo"                  
+                  "Se realiza corrección para que cargue correctamente los ComboBox de los campos Estado del documento, Enviado por, Enviar por correo"
                 ],
                 "Gestor de AddOns ": [
                   "Se adiciona corrección para que cargue correctamente el logo en el formulario Gestor AddOn."
@@ -438,6 +460,6 @@
     const latestYear = Object.keys(releasesData.releases).sort((a, b) => b - a)[0];
     const latestVersion = releasesData.releases[latestYear][0].version;
     renderRelease(latestYear, latestVersion);
-  </script>
+    </script>
 </body>
 </html>

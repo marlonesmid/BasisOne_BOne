@@ -23,6 +23,9 @@ namespace BOElectronicReception.Recepcion21WS {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string identificadorEmisorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -44,6 +47,19 @@ namespace BOElectronicReception.Recepcion21WS {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDocumento {
+            get {
+                return this.TipoDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDocumentoField, value) != true)) {
+                    this.TipoDocumentoField = value;
+                    this.RaisePropertyChanged("TipoDocumento");
+                }
             }
         }
         
@@ -1423,6 +1439,9 @@ namespace BOElectronicReception.Recepcion21WS {
         private BOElectronicReception.Recepcion21WS.ReceptorCambioEstatusRequest.EjecutadoPorRequest EjecutadoPorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string codigoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1462,6 +1481,19 @@ namespace BOElectronicReception.Recepcion21WS {
                 if ((object.ReferenceEquals(this.EjecutadoPorField, value) != true)) {
                     this.EjecutadoPorField = value;
                     this.RaisePropertyChanged("EjecutadoPor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDocumento {
+            get {
+                return this.TipoDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDocumentoField, value) != true)) {
+                    this.TipoDocumentoField = value;
+                    this.RaisePropertyChanged("TipoDocumento");
                 }
             }
         }
@@ -1979,6 +2011,9 @@ namespace BOElectronicReception.Recepcion21WS {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string identificadorEmisorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1988,7 +2023,7 @@ namespace BOElectronicReception.Recepcion21WS {
         private string numeroDocumentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int tipoDescargaField;
+        private string tipoDescargaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string tipoIdentificacionemisorField;
@@ -2006,6 +2041,19 @@ namespace BOElectronicReception.Recepcion21WS {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDocumento {
+            get {
+                return this.TipoDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDocumentoField, value) != true)) {
+                    this.TipoDocumentoField = value;
+                    this.RaisePropertyChanged("TipoDocumento");
+                }
             }
         }
         
@@ -2049,12 +2097,12 @@ namespace BOElectronicReception.Recepcion21WS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int tipoDescarga {
+        public string tipoDescarga {
             get {
                 return this.tipoDescargaField;
             }
             set {
-                if ((this.tipoDescargaField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.tipoDescargaField, value) != true)) {
                     this.tipoDescargaField = value;
                     this.RaisePropertyChanged("tipoDescarga");
                 }
@@ -2120,6 +2168,9 @@ namespace BOElectronicReception.Recepcion21WS {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string identificadorEmisorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2144,6 +2195,19 @@ namespace BOElectronicReception.Recepcion21WS {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDocumento {
+            get {
+                return this.TipoDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDocumentoField, value) != true)) {
+                    this.TipoDocumentoField = value;
+                    this.RaisePropertyChanged("TipoDocumento");
+                }
             }
         }
         
@@ -3136,6 +3200,9 @@ namespace BOElectronicReception.Recepcion21WS {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private byte[] archivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3169,6 +3236,19 @@ namespace BOElectronicReception.Recepcion21WS {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDocumento {
+            get {
+                return this.TipoDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDocumentoField, value) != true)) {
+                    this.TipoDocumentoField = value;
+                    this.RaisePropertyChanged("TipoDocumento");
+                }
             }
         }
         
@@ -3309,6 +3389,9 @@ namespace BOElectronicReception.Recepcion21WS {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string identificadorEmisorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3333,6 +3416,19 @@ namespace BOElectronicReception.Recepcion21WS {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDocumento {
+            get {
+                return this.TipoDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDocumentoField, value) != true)) {
+                    this.TipoDocumentoField = value;
+                    this.RaisePropertyChanged("TipoDocumento");
+                }
             }
         }
         
