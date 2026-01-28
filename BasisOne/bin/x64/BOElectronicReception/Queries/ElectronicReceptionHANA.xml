@@ -445,6 +445,12 @@
     WHERE "U_BOTNF" = '%NumeroFactura%' AND "U_BOTNI" = '%NumeroIdentificacion%'
   </PostUpdateStatusDocument>
 
+  <PostUpdateStatusDocumentFBE>
+    UPDATE "@BOTREDRPT"
+    SET "U_BOTSDC" = '%CodigoEventoDIANPT%'
+    WHERE "U_BOTNF" = '%NumeroFactura%' 
+  </PostUpdateStatusDocumentFBE>
+
   <GetDV>
     CALL BOTDIGVER ('%NIT%')
   </GetDV>
@@ -471,6 +477,13 @@
     WHERE %Estado% %DocEntry%
   </GetModoandURLFBE>
 
+
+  <GetIDFactureDocument>
+    SELECT TOP 1 "U_BOTSDD" FROM "%sNameDB%"."@BOTREDRPT" WHERE "U_BOTNF" = '%IDFactureDocument%'
+  </GetIDFactureDocument>
+  
+  
+  
   <GetTiposOperacion>
     SELECT "FldValue" AS "Valor", "Descr" AS "Descripcion" FROM "%sNameDB%"."UFD1"
     WHERE "TableID" = '@BOEBILLINGP' AND "FieldID" = '14'

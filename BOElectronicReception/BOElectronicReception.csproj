@@ -73,6 +73,8 @@
     </None>
     <None Include="Excel\InformeFacturasProveedor.xlsx" />
     <None Include="Formularios\VisorDocumentsReceptionElectronic.srf" />
+    <None Include="Json\Acknowledgement_Acceptance.json" />
+    <None Include="Json\Acknowledgement_Rejection.json" />
     <None Include="Json\InboundDocumens.json" />
     <None Include="packages.config" />
     <None Include="Service References\Recepcion21WS\BOElectronicReception.Recepcion21WS.ArchivoDocumentoResponse.datasource">
