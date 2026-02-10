@@ -74,6 +74,7 @@
     <None Include="Excel\InformeFacturasProveedor.xlsx" />
     <None Include="Formularios\VisorDocumentsReceptionElectronic.srf" />
     <None Include="Json\Acknowledgement_Acceptance.json" />
+    <None Include="Json\Acknowledgement_Acuse.json" />
     <None Include="Json\Acknowledgement_Rejection.json" />
     <None Include="Json\InboundDocumens.json" />
     <None Include="packages.config" />
