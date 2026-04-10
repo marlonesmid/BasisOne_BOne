@@ -973,7 +973,7 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent", null);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent", null, "BtnEnvi");
                                 
                                 #endregion
                             }
@@ -1023,7 +1023,7 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent", null);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent", null, "BtnEnvi");
 
                                 #endregion
 
@@ -1060,7 +1060,7 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null, "BtnEnvi");
 
                                 #endregion
                             }
@@ -1096,7 +1096,7 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent", null);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent", null, "BtnEnvi");
 
                                 #endregion
                             }
@@ -1120,7 +1120,7 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null, "BtnEnvi");
 
                                 #endregion
                             }
@@ -1171,7 +1171,7 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null, "BtnEnvi");
                                 
                                 #endregion
 
@@ -1205,7 +1205,7 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, pVal.FormType, "ItemEvent",null, "BtnEnvi");
 
                                 #endregion
 
@@ -2650,7 +2650,7 @@ namespace BasisOne
 
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 133, "DataEvent", ByRef) ;
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 133, "DataEvent", ByRef, "DataEvent") ;
 
                                 #endregion
 
@@ -2667,7 +2667,7 @@ namespace BasisOne
 
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 60090, "ItemEvent", ByRef);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 60090, "ItemEvent", ByRef, "DataEvent");
 
                                 #endregion
 
@@ -2683,13 +2683,45 @@ namespace BasisOne
                             {
                                 #region Boton enviar a la DIAN
 
-                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 60091, "DataEvent", ByRef);
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 60091, "DataEvent", ByRef, "DataEvent");
 
                                 #endregion
 
                             }
 
                             #endregion
+
+                            #region Nota credito de clientes
+
+                            else if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "179")
+                            {
+                                #region Boton enviar a la DIAN
+
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 179, "DataEvent", ByRef, "DataEvent");
+
+                                #endregion
+
+                            }
+
+                            #endregion
+
+                            #region Factura de proveedor
+
+                            if (ByRef.ActionSuccess == true && ByRef.FormTypeEx == "141")
+                            {
+                                SAPbouiCOM.Form frm = sboapp.Forms.Item(ByRef.FormUID);
+
+                                #region Boton enviar a la DIAN
+
+                                DlleBilling.EnviarDocumentoDIAN(sboapp, _company, 141, "DataEvent", ByRef, "DataEvent");
+
+                                #endregion
+
+                                DlleBilling.ItemsLabelStatusDIAN(frm, ByRef.FormTypeEx.ToString(), "DataEvent");
+                            }
+
+                            #endregion
+
 
                         }
 

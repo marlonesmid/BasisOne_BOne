@@ -2862,7 +2862,7 @@ namespace eBilling
             }
         }
                 
-        public void EnviarDocumentoDIAN(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, int FormType, string OrigenEvento, BusinessObjectInfo ByRef)
+        public void EnviarDocumentoDIAN(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, int FormType, string OrigenEvento, BusinessObjectInfo ByRef, string sIntegrationMode_Origin)
         {            
             try
             {
@@ -2873,8 +2873,7 @@ namespace eBilling
                 string sProveedorTecnologico;
                 string sIntegrationMode = null;
                 string sQueryIntegrationMode = null;
-
-
+                
                 oFormDocument = _sboapp.Forms.ActiveForm;
 
                 #region Consulta proveedor tecnologico
@@ -2943,7 +2942,7 @@ namespace eBilling
                 {
                     if (Convert.ToString(oGetTechnologyProvide.Fields.Item("ProveedorTecnologico").Value.ToString())== "TFHKA")
                     {                        
-                        EnviarDocumentoTFHKA(_sboapp, _oCompany, oFormDocument, ByRef,  sTipoDocumento, sIntegrationMode, OrigenEvento); 
+                        EnviarDocumentoTFHKA(_sboapp, _oCompany, oFormDocument, ByRef,  sTipoDocumento, sIntegrationMode, OrigenEvento, sIntegrationMode_Origin); 
                     }
                     else if (Convert.ToString(oGetTechnologyProvide.Fields.Item("ProveedorTecnologico").Value.ToString()) == "FBE")
                     {
@@ -13482,7 +13481,7 @@ namespace eBilling
             }
         }
 
-        private void EnviarDocumentoTFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormInvoices, SAPbouiCOM.BusinessObjectInfo ByRef, string _TipoDocumento, string TipoIntegracion, string TipodeEvento)
+        private void EnviarDocumentoTFHKA(SAPbouiCOM.Application _sboapp, SAPbobsCOM.Company _oCompany, SAPbouiCOM.Form _oFormInvoices, SAPbouiCOM.BusinessObjectInfo ByRef, string _TipoDocumento, string TipoIntegracion, string TipodeEvento, string TipoIntegracion_Origen)
         {
             Funciones.Comunes DllFunciones = new Funciones.Comunes();
 
@@ -13544,13 +13543,13 @@ namespace eBilling
                 }
 
                 if (TipodeEvento == "ItemEvent")
-                {                    
+                {
                     if (TipoIntegracion == "Off")
                     {
                         if (_oFormInvoices.Mode == BoFormMode.fm_OK_MODE)
                         {
                             #region Valida el documento en Fecha y tipo de documento 
-                                                        
+
                             if (_TipoDocumento == "FacturaDeProveedores")
                             {
                                 ValidateDate = true;
@@ -13569,9 +13568,37 @@ namespace eBilling
                         else
                         {
                             DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FEE10044", _sboapp, null));
-                        }                        
+                        }
+                    }
+                    
+                    if (TipoIntegracion == "On" && TipoIntegracion_Origen == "BtnEnvi")
+                    {
+                        if (_oFormInvoices.Mode == BoFormMode.fm_OK_MODE)
+                        {
+                            #region Valida el documento en Fecha y tipo de documento 
+
+                            if (_TipoDocumento == "FacturaDeProveedores")
+                            {
+                                ValidateDate = true;
+                            }
+                            else if (_TipoDocumento == "NotaCreditoDeProveedores")
+                            {
+                                ValidateDate = true;
+                            }
+                            else
+                            {
+                                ValidateDate = ValidacionFecha(_oFormInvoices, _sboapp, DateTime.MinValue);
+                            }
+
+                            #endregion
+                        }
+                        else
+                        {
+                            DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FEE10044", _sboapp, null));
+                        }
                     }
                 }
+                
                 
                 if (ValidateDate)
                 {
@@ -14120,13 +14147,15 @@ namespace eBilling
                                         _sboapp.ActivateMenuItem("1304");
 
                                         #endregion
-
-
+                                        
                                         DllFunciones.sendMessageBox(_sboapp, "El documento fue enviado existosamente a la DIAN");
 
                                         DllFunciones.StatusBar(_sboapp, BoStatusBarMessageType.smt_Success, "Paso 9: Proceso de emision Finalizado ...");
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }                                        
 
                                         #endregion
                                     }
@@ -14197,7 +14226,10 @@ namespace eBilling
                                             #endregion
                                         }
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }                                        
 
                                         #endregion
                                     }
@@ -14224,9 +14256,13 @@ namespace eBilling
 
                                         DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString());
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
+
                                     }
                                     else if (RespuestaDoc.codigo == 103)
                                     {
@@ -14261,9 +14297,11 @@ namespace eBilling
                                         {
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString());
                                         }
-
-
-                                        _sboapp.ActivateMenuItem("1304");
+                                        
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
                                     }
@@ -14290,11 +14328,13 @@ namespace eBilling
 
                                         DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.reglasValidacionDIAN.GetValue(0));
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
                                     }
-
                                     else if (RespuestaDoc.codigo == 109)
                                     {
                                         #region Procesa la respuesta
@@ -14355,7 +14395,10 @@ namespace eBilling
                                             DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString() + " " + RespuestaDoc.mensajesValidacion.GetValue(0));
                                         }
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
                                     }
@@ -14382,7 +14425,10 @@ namespace eBilling
 
                                         DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString() + ", Total de Factura es diferente de la suma de Total valor bruto + Tributos - Total Tributo Retenidos - Anticipos ");
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
                                     }
@@ -14409,7 +14455,10 @@ namespace eBilling
 
                                         DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString());
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
 
@@ -14438,7 +14487,10 @@ namespace eBilling
 
                                         DllFunciones.sendMessageBox(_sboapp, "Codigo de error No. " + RespuestaDoc.codigo.ToString() + ", " + RespuestaDoc.mensaje.ToString());
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
                                     }
@@ -14785,7 +14837,10 @@ namespace eBilling
 
                                         DllFunciones.sendMessageBox(_sboapp, "Codigo de mensaje No. " + RespuestaDoc.codigo.ToString() + ", " + "Documentos autorizado por la DIAN");
 
-                                        _sboapp.ActivateMenuItem("1304");
+                                        if (TipoIntegracion != "On")
+                                        {
+                                            _sboapp.ActivateMenuItem("1304");
+                                        }
 
                                         #endregion
                                     }
@@ -17710,6 +17765,7 @@ namespace eBilling
             }
             else
             {
+                DllFunciones.sendMessageBox(_sboapp, MessageSystemAddOn("FEE10012", _sboapp, null));
                 return false;
             }
 

@@ -121,11 +121,11 @@ C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\Inte
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\Intercompany\obj\Debug\BOIntercompany.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne_FBS\Intercompany\obj\Debug\BOIntercompany.pdb
-C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOIntercompany.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOIntercompany.pdb
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOFunciones.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\SAPBusinessOneSDK.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\bin\x64\BOFunciones.pdb
+C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\obj\Debug\Intercompany.csprojResolveAssemblyReference.cache
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\obj\Debug\BOIntercompany.dll
 C:\Users\tecnicosap\Documents\Visual Studio 2015\Projects\BasisOne_BOne\Intercompany\obj\Debug\BOIntercompany.pdb

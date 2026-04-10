@@ -192,13 +192,13 @@
             ELSE CAST(A."DocNum" AS NVARCHAR(20))
         END AS "consecutivoDocumento"
 
-    FROM "%sNameDB%"."OINV" A 
+    FROM "%sNameDB%"."ORIN" A 
         LEFT JOIN "%sNameDB%"."@BOEE" B 
             ON A."DocEntry" = B."U_BO_DocEntry" 
-            AND B."U_BO_ObjecType" = '13'
+            AND B."U_BO_ObjecType" = '14'
         LEFT JOIN "%sNameDB%"."NNM1" C 
             ON A."Series" = C."Series" 
-            AND C."ObjectCode" = '13'
+            AND C."ObjectCode" = '14'
         LEFT JOIN "%sNameDB%"."OCTG" D 
             ON A."GroupNum" = D."GroupNum"
 
@@ -208,7 +208,7 @@
         AND A."Series" IN (
             SELECT "U_BO_SN" 
             FROM "%sNameDB%"."@BOSERNUM" 
-            WHERE "U_BO_TD" = 'FVC'
+            WHERE "U_BO_TD" = 'NCC'
         )
         AND A."DocSubType" = '--'
         ***SN***
@@ -316,7 +316,7 @@
         AND A."Series" IN (
             SELECT "U_BO_SN" 
             FROM "%sNameDB%"."@BOSERNUM" 
-            WHERE "U_BO_TD" = 'FVC'
+            WHERE "U_BO_TD" = 'NDC'
         )
         AND A."DocSubType" = '--'
         ***SN***

@@ -1,0 +1,17 @@
+﻿{
+    "motive": "Otro",
+    "observation": "Recibido ERP",
+    "comments": "Recibido ERP",
+    "sourceDelivery": "INBOX",
+    "canal": "ERP",
+    "medio": "900614404@factureinbox.co",
+    "receiverDocumentType": "CC",
+    "receiverDocumentNumber": "1128055078",
+    "receiverVerificationDigit": "",
+    "receiverName": "Cristian",
+    "receiverLastName": "Cordero",
+    "receiverJobTitle": null,
+    "receiverOrganizationDepartment": null,
+    "receiverObservation": null,
+    "receiveDateTime": "2026-02-02T08:09:23-05:00"
+}
